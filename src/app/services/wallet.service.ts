@@ -1,3 +1,4 @@
+import * as blake from 'blakejs'
 import { Injectable } from '@angular/core';
 import {UtilService} from "./util.service";
 import {ApiService} from "./api.service";
@@ -35,6 +36,7 @@ export interface FullWallet {
   type: WalletType;
   seedBytes: any;
   seed: string|null;
+  seedChecksum: string|null;
   balance: BigNumber;
   pending: BigNumber;
   balanceRaw: BigNumber;
@@ -82,6 +84,7 @@ export class WalletService {
     type: WalletType.Normal,
     seedBytes: null,
     seed: '',
+    seedChecksum: null,
     balance: new BigNumber(0),
     pending: new BigNumber(0),
     balanceRaw: new BigNumber(0),
@@ -144,6 +147,17 @@ export class WalletService {
     })
   }
 
+  setSeed(seed: string|null, recalculateChecksum: boolean) {
+    this.wallet.seed = seed;
+    if (recalculateChecksum) {
+      this.wallet.seedChecksum = this.calculateSeedChecksum();
+    }
+  }
+
+  calculateSeedChecksum(seed?: string) {
+    return this.util.uint8.toHex(blake.blake2b(seed || this.wallet.seed, null, 2));
+  }
+
   getWalletAccount(accountID) {
     return this.wallet.accounts.find(a => a.id == accountID);
   }
@@ -156,7 +170,7 @@ export class WalletService {
 
     const walletJson = JSON.parse(walletData);
     this.wallet.type = walletJson.type;
-    this.wallet.seed = walletJson.seed;
+    this.setSeed(walletJson.seed, true);
     this.wallet.seedBytes = this.util.hex.toUint8(walletJson.seed);
     this.wallet.locked = walletJson.locked;
     this.wallet.password = walletJson.password || null;
@@ -185,7 +199,7 @@ export class WalletService {
   async loadImportedWallet(seed, password, accountsIndex = 1) {
     this.resetWallet();
 
-    this.wallet.seed = seed;
+    this.setSeed(seed, true);
     this.wallet.seedBytes = this.util.hex.toUint8(seed);
     this.wallet.accountsIndex = accountsIndex;
     this.wallet.password = password;
@@ -213,8 +227,9 @@ export class WalletService {
 
   generateExportData() {
     const exportData: any = {
-      accountsIndex: this.wallet.accountsIndex,
-      type: this.wallet.type
+      idx: this.wallet.accountsIndex,
+      type: this.wallet.type,
+      cs: this.wallet.seedChecksum
     };
     if (this.wallet.locked) {
       exportData.seed = this.wallet.seed;
@@ -246,10 +261,10 @@ export class WalletService {
         const encryptedSeed = CryptoJS.AES.encrypt(this.wallet.seed, this.wallet.password);
 
         // Update the seed
-        this.wallet.seed = encryptedSeed.toString();
+        this.setSeed(encryptedSeed.toString(), false);
         break;
       case WalletType.Warp:
-        this.wallet.seed = '';
+        this.setSeed(null, false);
         break;
     }
     this.wallet.seedBytes = null;
@@ -288,7 +303,7 @@ export class WalletService {
       }
       if (!decryptedSeed || decryptedSeed.length !== 64) return false;
 
-      this.wallet.seed = decryptedSeed;
+      this.setSeed(decryptedSeed, true);
       this.wallet.seedBytes = this.util.hex.toUint8(this.wallet.seed);
       this.wallet.accounts.forEach(a => {
         a.secret = this.util.account.generateAccountSecretKeyBytes(this.wallet.seedBytes, a.index);
@@ -324,7 +339,7 @@ export class WalletService {
   createWalletFromSeed(seed: string) {
     this.resetWallet();
 
-    this.wallet.seed = seed;
+    this.setSeed(seed, true);
     this.wallet.seedBytes = this.util.hex.toUint8(seed);
 
     this.addWalletAccount();
@@ -342,7 +357,7 @@ export class WalletService {
       progress_hook
     };
     const warpRes = await warpPromise(params);
-    this.wallet.seed = warpRes.seed;
+    this.setSeed(warpRes.seed, true);
     this.wallet.seedBytes = this.util.hex.toUint8(warpRes.seed);
 
     this.addWalletAccount();
@@ -355,7 +370,7 @@ export class WalletService {
 
     const seedBytes = this.util.account.generateSeedBytes();
     this.wallet.seedBytes = seedBytes;
-    this.wallet.seed = this.util.hex.fromUint8(seedBytes);
+    this.setSeed(this.util.hex.fromUint8(seedBytes), true);
 
     this.addWalletAccount();
 
@@ -374,6 +389,7 @@ export class WalletService {
     this.wallet.salt = null;
     this.wallet.locked = false;
     this.wallet.seed = '';
+    this.wallet.seedChecksum = null;
     this.wallet.seedBytes = null;
     this.wallet.accounts = [];
     this.wallet.accountsIndex = 0;
