@@ -1,7 +1,7 @@
 <h2>Configure Wallet</h2>
 <p>Use the options below to import an existing wallet or create a new one.</p>
 
-<div *ngIf="wallet.seed && (activePanel != 3 && activePanel != 4 && activePanel != 5)" class="uk-alert uk-alert-danger">
+<div *ngIf="wallet.seed && activePanel < 3" class="uk-alert uk-alert-danger">
   <b>You already have a wallet configured</b><br>
   Before going any further, be 100% certain you have backed up the seed to your current wallet!<br>
   Without it, <b>any funds you have will become completely unrecoverable!</b>
@@ -13,6 +13,7 @@
       <!--<button (click)="setPanel(0)" class="uk-button uk-width-1-3" [ngClass]="{ 'uk-button-primary': activePanel == 0, 'uk-button-secondary': activePanel != 0 }">Use Configured Wallet</button>-->
       <button (click)="setPanel(0)" class="uk-button uk-width-1-2" [ngClass]="{ 'uk-button-primary': activePanel == 0, 'uk-button-secondary': activePanel != 0 }">Create New Wallet</button>
       <button (click)="setPanel(1)" class="uk-button uk-width-1-2" [ngClass]="{ 'uk-button-primary': activePanel == 1, 'uk-button-secondary': activePanel != 1 }">Import Existing Wallet</button>
+      <button (click)="setPanel(2)" class="uk-button uk-width-1-2" [ngClass]="{ 'uk-button-primary': activePanel == 2, 'uk-button-secondary': activePanel != 2 }">Use WarpWallet</button>
     </div>
   </div>
 </div>
@@ -60,6 +61,63 @@
   </div>
 </div>
 
+<div class="uk-card uk-card-default" *ngIf="activePanel == 2">
+  <div class="uk-card-body">
+    <p>
+      NanoWarpWallet is a deterministic Nano wallet generator. What this means is that <b>you never have to save or store your wallet seed or account private key directly anywhere.</b> Instead, you pick a good passphrase - <a href="https://termhn.github.io/nanowarpwallet/">see the section of the site dedicated to this here</a> - and never use it for anything else. Then, whenever you want to access your actual wallet seed or private key, you put your password back into NanoWarpWallet and it will generate the same wallet seed and account as before as long as the same password and salt was used as input. This has a number of benefits, but also a number of possible weaknesses.
+      <br>
+    </p>
+    <button *ngIf="!showMoreWarp" class="uk-button uk-button-default" (click)="toggleShowMoreWarp()">Tell Me More</button>
+    <button *ngIf="showMoreWarp" class="uk-button uk-button-primary" (click)="toggleShowMoreWarp()">Show Less</button>
+    <div *ngIf="showMoreWarp" class="uk-margin">
+      <p>
+        "Brainwallets" are often frowned upon in the cryptocurrency community because the safety of a brainwallet is entirely based on how strong of a passphrase you choose to protect it with, and most times the chosen passphrases are not good. NanoWarpWallet takes steps to minimize this by using large iterations of scrypt and pbkdf2 as well as a salt in order to make brute-forcing much more difficult. The original WarpWallet still has an unclaimed 20 BTC bounty for anyone who can break a wallet with only an 8 character password and a known salt.
+      </p>
+      <p>
+        The benefits of a brain wallet done properly are that, in theory, you don't have to store your password anywhere but in your own brain. You can use a method like a mnemonic peg to memorize a password very thoroughly. However, even if you do store your password, you'll be guarded against the most common malware that tries to specifically steal crypto wallets since your password will not be in the form that they are looking for. This allows you to disguise your Nano password in ways that make it look quite innocuous unless someone is targeting you specifically, which is quite unlikely unless you have a ridiculous sum that you regularly advertise online.
+      </p>
+      <p>
+        The weaknesses are that, if you choose a bad password, an attacker could very easily take your coins, since the only thing they need to be able to generate your secret key (and therefore take control of your wallet) is your password. WarpWallet adds two improvements over the traditional brainwallet to try to mitigate these weaknesses:
+      </p>
+        <ol>
+          <li>
+            WarpWallet uses scrypt to make address generation both memory and time-intensive. This means that it takes a matter of several seconds to run a password through the algorithm and get the resulting private and public key, rather than a matter of a fraction of a millisecond like with a traditional brainwallet generator.
+          </li>
+          <li>
+            You can "salt" your passphrase with your email address. Though salting is optional, we recommend it. Any attacker of WarpWallet addresses would have to target you individually, rather than netting you in a wider, generic attack, since they would need to add your email address together with your password. And your email is trivial to remember, so why not?
+          </li>
+        </ol>
+    </div>
+    <div class="uk-alert-primary" uk-alert>
+      <p>
+        Even with the safegaurds WarpWallet takes, it's not infallible. If you use a bad password, even with a salt, your coins are still easily stolen especially to a targeted attack. This is why I have a whole section on the tool dedicated to how to choose a good password. Use it!
+      </p>
+    </div>
+    <div class="uk-alert-secondary" uk-alert>
+      <p>
+        I also recommend writing down your password and your seed at least for the first several months of using WarpWallet. Creating a memory that will last a long time takes consistent practice.
+      </p>
+    </div>
+    <div uk-grid>
+      <div class="uk-width-1-1">
+        <div class="uk-margin">
+          <input type="text" class="uk-input" [(ngModel)]="warpPassword" placeholder="Warp Password">
+        </div>
+        <div class="uk-margin">
+          <input type="text" class="uk-input" [(ngModel)]="warpSalt" placeholder="Your Email Address (Used as a Salt)">
+        </div>
+        <div *ngIf="warpInProgress" class="uk-margin">
+          <label class="uk-label">Warp Progress: </label>
+          <progress class="uk-progress" value="{{warpProgress.total}}" max="100"></progress>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="uk-card-footer uk-text-right">
+    <button class="uk-button uk-button-primary" (click)="importWarpWallet()">Warp!</button>
+  </div>
+</div>
+
 
 
 <div class="uk-card uk-card-default" *ngIf="activePanel == 3">
@@ -104,6 +162,28 @@
 </div>
 
 <div class="uk-card uk-card-default" *ngIf="activePanel == 5">
+  <div class="uk-card-body">
+    <p>
+      Your WarpWallet has been imported!  Your raw seed is below; if you are new to using WarpWallet, make sure to write it down, as well as your Warp password. Save it, and never share it with anyone! 
+    </p>
+    <div class="uk-alert-primary" uk-alert>
+      <p>
+        Tip: You can import this seed into any other Nano compatible wallet to transfer or recover your funds!
+      </p>
+    </div>
+    <div uk-grid>
+      <div class="uk-width-1-4">Raw Wallet Seed:</div>
+      <div class="uk-width-3-4 uk-text-truncate">
+        {{ newWalletSeed }}
+      </div>
+    </div>
+  </div>
+  <div class="uk-card-footer">
+    <button class="uk-button uk-button-primary" (click)="confirmWarpSeed()">Alright, I Saved My Seed!</button>
+  </div>
+</div>
+
+<div class="uk-card uk-card-default" *ngIf="activePanel == 6">
   <div class="uk-card-body">
     <p>
       Your wallet has been configured and you are ready to send and receive Nano!

@@ -11,13 +11,26 @@ import {ActivatedRoute, Router} from "@angular/router";
 export class ConfigureWalletComponent implements OnInit {
   wallet = this.walletService.wallet;
   activePanel = 0;
+  showMoreWarp = false;
 
   newWalletSeed = '';
   importSeedModel = '';
   walletPasswordModel = '';
   walletPasswordConfirmModel = '';
+  warpPassword = '';
+  warpSalt = '';
+  warpInProgress = false;
+  warpProgress = {
+    total: 0,
+    scrypt: 0,
+    pbkdf2: 0
+  };
 
   constructor(private router: ActivatedRoute, private walletService: WalletService, private notifications: NotificationService, private route: Router) { }
+
+  toggleShowMoreWarp() {
+    this.showMoreWarp = !this.showMoreWarp;
+  }
 
   async ngOnInit() {
     // Allow a seed import via URL.  (Insecure, not recommended)
@@ -31,8 +44,12 @@ export class ConfigureWalletComponent implements OnInit {
     }
 
     const toggleImport = this.router.snapshot.queryParams.import;
+    const toggleWarp = this.router.snapshot.queryParams.warp;
     if (toggleImport) {
       this.activePanel = 1;
+    }
+    if (toggleWarp) {
+      this.activePanel = 2;
     }
   }
 
@@ -44,6 +61,27 @@ export class ConfigureWalletComponent implements OnInit {
     this.activePanel = 4;
 
     this.notifications.sendSuccess(`Successfully imported existing wallet!`);
+  }
+
+  async importWarpWallet() {
+    this.notifications.sendInfo(`Starting WarpWallet import...`)
+    this.warpInProgress = true;
+    this.newWalletSeed = await this.walletService.createWalletFromWarp(this.warpPassword.trim(), this.warpSalt.trim(), this.updateWarpProgress.bind(this));
+    this.activePanel = 5;
+
+    this.notifications.sendSuccess(`Successfully imported WarpWallet!`);
+  }
+
+  updateWarpProgress(progress: {what: string, i: number, total: number}) {
+    switch (progress.what) {
+      case 'scrypt':
+        this.warpProgress.scrypt = progress.i / progress.total;
+        break;
+      case 'pbkdf2':
+        this.warpProgress.pbkdf2 = progress.i / progress.total;
+        break;
+    }
+    this.warpProgress.total = this.warpProgress.scrypt * 80 + this.warpProgress.pbkdf2 * 20;
   }
 
   async createNewWallet() {
@@ -58,6 +96,17 @@ export class ConfigureWalletComponent implements OnInit {
     this.newWalletSeed = '';
 
     this.activePanel = 4;
+  }
+
+  confirmWarpSeed() {
+    this.newWalletSeed = '';
+    this.walletService.saveWalletExport();
+    this.warpPassword = '';
+    this.warpSalt = '';
+    this.warpInProgress = false;
+    this.warpProgress = null;
+
+    this.activePanel = 6;
   }
 
   saveWalletPassword() {
@@ -75,7 +124,7 @@ export class ConfigureWalletComponent implements OnInit {
     this.walletPasswordModel = '';
     this.walletPasswordConfirmModel = '';
 
-    this.activePanel = 5;
+    this.activePanel = 6;
     this.notifications.sendSuccess(`Successfully set wallet password!`);
   }
 

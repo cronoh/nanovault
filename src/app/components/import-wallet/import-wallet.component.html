@@ -19,7 +19,8 @@
         <p>Almost finished - just enter your wallet password to decrypt your wallet!</p>
         <div uk-grid>
           <div class="uk-width-1-1">
-            <input class="uk-input" [(ngModel)]="walletPassword" placeholder="Wallet Password" type="password">
+            <input class="uk-input" [(ngModel)]="walletPassword" (keyup.enter)="unlockWallet()" placeholder="Wallet Password" type="password">
+            <input *ngIf="isWarpWallet" type="password" [(ngModel)]="unlockSalt" (keyup.enter)="unlockWallet()" class="uk-input" placeholder="Wallet salt (usually your email address)">
           </div>
         </div>
       </div>

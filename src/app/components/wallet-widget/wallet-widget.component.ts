@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import {WalletService} from "../../services/wallet.service";
+import {WalletService, WalletType} from "../../services/wallet.service";
 import {NotificationService} from "../../services/notification.service";
 
 @Component({
@@ -9,8 +9,10 @@ import {NotificationService} from "../../services/notification.service";
 })
 export class WalletWidgetComponent implements OnInit {
   wallet = this.walletService.wallet;
+  isWarpWallet = this.wallet.type === WalletType.Warp;
 
   unlockPassword = '';
+  unlockSalt = '';
 
   modal: any = null;
 
@@ -32,8 +34,9 @@ export class WalletWidgetComponent implements OnInit {
   }
 
   async unlockWallet() {
-    const unlocked = await this.walletService.unlockWallet(this.unlockPassword);
+    const unlocked = await this.walletService.unlockWallet(this.unlockPassword, this.unlockSalt);
     this.unlockPassword = '';
+    this.unlockSalt = '';
 
     if (unlocked) {
       this.notificationService.sendSuccess(`Wallet unlocked`);
@@ -43,6 +46,6 @@ export class WalletWidgetComponent implements OnInit {
     }
 
     this.unlockPassword = '';
+    this.unlockSalt = '';
   }
-
 }

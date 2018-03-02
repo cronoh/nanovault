@@ -6319,7 +6319,7 @@ trim-right@^1.0.1:
   version "1.0.1"
   resolved "https://registry.yarnpkg.com/trim-right/-/trim-right-1.0.1.tgz#cb2e1203067e0c8de1f614094b9fe45704ea6003"
 
-"triplesec@github:keybase/triplesec#header_v3":
+triplesec@keybase/triplesec#header_v3:
   version "1.3.0"
   resolved "https://codeload.github.com/keybase/triplesec/tar.gz/cea95ec82c7412008ecee65a5fd782c44bc3bf51"
   dependencies:
@@ -6413,11 +6413,7 @@ tweetnacl@^0.14.3, tweetnacl@~0.14.0:
   version "0.14.5"
   resolved "https://registry.yarnpkg.com/tweetnacl/-/tweetnacl-0.14.5.tgz#5ae68177f192d4456269d108afa93ff8743f4f64"
 
-tweetnacl@^1.0.0:
-  version "1.0.0"
-  resolved "https://registry.yarnpkg.com/tweetnacl/-/tweetnacl-1.0.0.tgz#713d8b818da42068740bf68386d0479e66fc8a7b"
-
-"tweetnacl@git+https://github.com/jaimehgb/tweetnacl-js.git#ef9ea5fd95c3ca98128877c58e40ef1a711421ef":
+tweetnacl@^1.0.0, "tweetnacl@git+https://github.com/jaimehgb/tweetnacl-js.git#ef9ea5fd95c3ca98128877c58e40ef1a711421ef":
   version "1.0.0"
   resolved "git+https://github.com/jaimehgb/tweetnacl-js.git#ef9ea5fd95c3ca98128877c58e40ef1a711421ef"
   dependencies:

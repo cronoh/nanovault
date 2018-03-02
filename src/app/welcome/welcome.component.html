@@ -10,11 +10,14 @@
           <div class="uk-width-1-1" style="margin-top: 60px;">
             <span class="uk-text-small">To get started, choose an option below to configure your wallet</span>
           </div>
-          <div class="uk-width-1-2@m">
+          <div class="uk-width-1-3@m">
             <button routerLink="/configure-wallet" class="uk-button uk-button-primary uk-button-large">Create A New Wallet</button>
           </div>
-          <div class="uk-width-1-2@m">
-            <button routerLink="/configure-wallet" [queryParams]="{ import: 1}" class="uk-button uk-button-primary uk-button-large">Import Existing Wallet</button>
+          <div class="uk-width-1-3@m">
+            <button routerLink="/configure-wallet" [queryParams]="{ import: 1 }" class="uk-button uk-button-primary uk-button-large">Import Existing Wallet</button>
+          </div>
+          <div class="uk-width-1-3@m">
+            <button routerLink="/configure-wallet" [queryParams]="{ warp: 1 }" class="uk-button uk-button-primary uk-button-large">Use WarpWallet</button>
           </div>
         </div>
       </div>

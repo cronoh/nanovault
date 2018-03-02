@@ -10,7 +10,7 @@ import {NanoBlockService} from "./nano-block.service";
 import {NotificationService} from "./notification.service";
 import {AppSettingsService} from "./app-settings.service";
 import {PriceService} from "./price.service";
-import warp, {WarpParams, WarpResponse, ProgressInfo} from 'nanowarpwallet';
+import warp = require('nanowarpwallet');
 
 
 export interface WalletAccount {
@@ -46,6 +46,31 @@ export interface FullWallet {
   locked: boolean;
   password: string;
   salt: string|null;
+}
+
+export interface WarpResponse {
+  seed: string,
+  publicKey: string,
+  privateKey: string,
+  address: string
+}
+
+export interface WarpParams {
+  passphrase: string,
+  salt: string,
+  progress_hook?: (progress: {
+    what: string,
+    i: number,
+    total: number
+  }) => any
+}
+
+export function warpPromise(params: WarpParams) {
+  return new Promise<WarpResponse>((resolve, reject) => {
+    warp(params, (response: WarpResponse) => {
+      resolve(response)
+    })
+  })
 }
 
 @Injectable()
@@ -257,7 +282,7 @@ export class WalletService {
             salt,
             progress_hook: null
           };
-          const warpRes = await this.warpPromise(params);
+          const warpRes = await warpPromise(params);
           decryptedSeed = warpRes.seed;
           break;
       }
@@ -307,15 +332,8 @@ export class WalletService {
     return this.wallet.seed;
   }
 
-  warpPromise(params: WarpParams) {
-    return new Promise<WarpResponse>((resolve, reject) => {
-      warp(params, (res: WarpResponse) => {
-        resolve(res)
-      })
-    })
-  }
 
-  async createWalletFromWarp(passphrase: string, salt: string, progress_hook: (progress: ProgressInfo) => any) {
+  async createWalletFromWarp(passphrase: string, salt: string, progress_hook?: (progress: {what: string, i: number}) => any) {
     this.resetWallet();
     this.wallet.type = WalletType.Warp;
     const params = {
@@ -323,7 +341,7 @@ export class WalletService {
       salt,
       progress_hook
     };
-    const warpRes = await this.warpPromise(params);
+    const warpRes = await warpPromise(params);
     this.wallet.seed = warpRes.seed;
     this.wallet.seedBytes = this.util.hex.toUint8(warpRes.seed);
 
