@@ -1,4 +1,6 @@
 const { app, BrowserWindow, shell, Menu } = require('electron');
+const url = require('url');
+const path = require('path');
 
 let mainWindow;
 
@@ -6,7 +8,12 @@ function createWindow () {
   // Create the browser window.
   mainWindow = new BrowserWindow({width: 1000, height: 600});
   const options = { extraHeaders: "pragma: no-cache\n" };
-  mainWindow.loadURL('https://nanovault.io', options);
+  mainWindow.loadURL(url.format({
+    pathname: path.join(__dirname, 'dist/index.html'),
+    protocol: 'file:',
+    slashes: true
+  }));
+  // mainWindow.loadURL('https://nanovault.io', options);
   // mainWindow.loadURL('http://localhost:4200/');
   // TODO: Use environment to load config which holds the actual url to load for the app
 
