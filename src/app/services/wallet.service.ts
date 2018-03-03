@@ -33,6 +33,7 @@ export enum WalletType {
   Warp
 }
 export interface FullWallet {
+  exists: boolean;
   type: WalletType;
   seedBytes: any;
   seed: string|null;
@@ -81,6 +82,7 @@ export class WalletService {
   storeKey = `nanovault-wallet`;
 
   wallet: FullWallet = {
+    exists: false,
     type: WalletType.Normal,
     seedBytes: null,
     seed: '',
@@ -168,10 +170,14 @@ export class WalletService {
     const walletData = localStorage.getItem(this.storeKey);
     if (!walletData) return this.wallet;
 
+    this.setWalletExists();
     const walletJson = JSON.parse(walletData);
     this.wallet.type = walletJson.type;
-    this.setSeed(walletJson.seed, true);
-    this.wallet.seedBytes = this.util.hex.toUint8(walletJson.seed);
+    if (this.wallet.type === WalletType.Normal) {
+      this.setSeed(walletJson.seed, true);
+      this.wallet.seedBytes = this.util.hex.toUint8(walletJson.seed);
+    }
+    this.wallet.seedChecksum = walletJson.seedChecksum;
     this.wallet.locked = walletJson.locked;
     this.wallet.password = walletJson.password || null;
     this.wallet.salt = walletJson.salt;
@@ -198,6 +204,7 @@ export class WalletService {
 
   async loadImportedWallet(seed, password, accountsIndex = 1) {
     this.resetWallet();
+    this.setWalletExists();
 
     this.setSeed(seed, true);
     this.wallet.seedBytes = this.util.hex.toUint8(seed);
@@ -255,7 +262,7 @@ export class WalletService {
   }
 
   lockWallet() {
-    if (!this.wallet.seed) return; // Nothing to lock
+    if (this.wallet.locked || (!this.wallet.seed && this.wallet.type === WalletType.Normal)) return; // Nothing to lock
     switch (this.wallet.type) {
       case WalletType.Normal:
         const encryptedSeed = CryptoJS.AES.encrypt(this.wallet.seed, this.wallet.password);
@@ -283,7 +290,7 @@ export class WalletService {
 
     return true;
   }
-  async unlockWallet(password: string, salt: string|null) {
+  async unlockWallet(password: string, salt: string|null, progress_hook?: WarpParams['progress_hook']) {
     try {
       let decryptedSeed: string;
       switch (this.wallet.type) {
@@ -295,13 +302,17 @@ export class WalletService {
           const params = {
             passphrase: password,
             salt,
-            progress_hook: null
+            progress_hook
           };
           const warpRes = await warpPromise(params);
           decryptedSeed = warpRes.seed;
           break;
       }
       if (!decryptedSeed || decryptedSeed.length !== 64) return false;
+      const newSeedChecksum = this.calculateSeedChecksum(decryptedSeed);
+      if (newSeedChecksum !== this.wallet.seedChecksum) {
+        return false;
+      }
 
       this.setSeed(decryptedSeed, true);
       this.wallet.seedBytes = this.util.hex.toUint8(this.wallet.seed);
@@ -338,6 +349,7 @@ export class WalletService {
 
   createWalletFromSeed(seed: string) {
     this.resetWallet();
+    this.setWalletExists();
 
     this.setSeed(seed, true);
     this.wallet.seedBytes = this.util.hex.toUint8(seed);
@@ -347,10 +359,14 @@ export class WalletService {
     return this.wallet.seed;
   }
 
+  setWalletExists() {
+    this.wallet.exists = true;
+  }
 
-  async createWalletFromWarp(passphrase: string, salt: string, progress_hook?: (progress: {what: string, i: number}) => any) {
+  async createWalletFromWarp(passphrase: string, salt: string, progress_hook?: WarpParams['progress_hook']) {
     this.resetWallet();
     this.wallet.type = WalletType.Warp;
+    this.setWalletExists();
     const params = {
       passphrase,
       salt,
@@ -367,6 +383,7 @@ export class WalletService {
 
   createNewWallet() {
     this.resetWallet();
+    this.setWalletExists();
 
     const seedBytes = this.util.account.generateSeedBytes();
     this.wallet.seedBytes = seedBytes;
@@ -384,6 +401,7 @@ export class WalletService {
     if (this.wallet.accounts.length) {
       this.websocket.unsubscribeAccounts(this.wallet.accounts.map(a => a.id)); // Unsubscribe from old accounts
     }
+    this.wallet.exists = false;
     this.wallet.type = WalletType.Normal;
     this.wallet.password = '';
     this.wallet.salt = null;
@@ -662,6 +680,7 @@ export class WalletService {
       locked: this.wallet.locked,
       password: this.wallet.password,
       seed: this.wallet.seed,
+      seedChecksum: this.wallet.seedChecksum,
       accounts: this.wallet.accounts.map(a => ({ id: a.id, index: a.index })),
       accountsIndex: this.wallet.accountsIndex,
     };

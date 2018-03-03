@@ -9,10 +9,16 @@ import {NotificationService} from "../../services/notification.service";
 })
 export class WalletWidgetComponent implements OnInit {
   wallet = this.walletService.wallet;
-  isWarpWallet = this.wallet.type === WalletType.Warp;
+  WalletType = WalletType;
 
   unlockPassword = '';
   unlockSalt = '';
+  warpInProgress = false;
+  warpProgress = {
+    total: 0,
+    scrypt: 0,
+    pbkdf2: 0
+  };
 
   modal: any = null;
 
@@ -33,8 +39,23 @@ export class WalletWidgetComponent implements OnInit {
     }
   }
 
+  updateWarpProgress(progress: {what: string, i: number, total: number}) {
+    switch (progress.what) {
+      case 'scrypt':
+        this.warpProgress.scrypt = progress.i / progress.total;
+        break;
+      case 'pbkdf2':
+        this.warpProgress.pbkdf2 = progress.i / progress.total;
+        break;
+    }
+    this.warpProgress.total = this.warpProgress.scrypt * 80 + this.warpProgress.pbkdf2 * 20;
+  }
+
   async unlockWallet() {
-    const unlocked = await this.walletService.unlockWallet(this.unlockPassword, this.unlockSalt);
+    if (this.wallet.type === WalletType.Warp) {
+      this.warpInProgress = true;
+    }
+    const unlocked = await this.walletService.unlockWallet(this.unlockPassword, this.unlockSalt, this.updateWarpProgress.bind(this));
     this.unlockPassword = '';
     this.unlockSalt = '';
 
@@ -47,5 +68,6 @@ export class WalletWidgetComponent implements OnInit {
 
     this.unlockPassword = '';
     this.unlockSalt = '';
+    this.warpInProgress = false;
   }
 }

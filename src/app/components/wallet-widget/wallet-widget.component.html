@@ -2,7 +2,7 @@
   <div class="uk-margin-left" style="padding-top: 6px; padding-bottom: 6px; color: #FFF;">
     <div uk-grid>
       <div class="uk-width-1-1">
-        <div *ngIf="wallet.seed">
+        <div *ngIf="wallet.exists">
           <div *ngIf="wallet.locked" class="uk-text-bottom">
             <span style="cursor: pointer;" (click)="modal.show()">
               <span uk-icon="icon: lock" class="uk-text-top"></span> <span class="uk-text-bottom">Wallet Locked</span>
@@ -15,7 +15,7 @@
           </div>
         </div>
 
-        <div *ngIf="!wallet.seed">
+        <div *ngIf="!wallet.exists">
           <a routerLink="/configure-wallet" class="uk-text-warning">
             <span uk-icon="icon: warning" class="uk-text-top"></span> <span class="uk-text-bottom">Configure Wallet</span>
           </a>
@@ -32,8 +32,16 @@
       <h2 class="uk-modal-title">Unlock Wallet</h2>
     </div>
     <div class="uk-modal-body">
-      <input autofocus type="password" [(ngModel)]="unlockPassword" (keyup.enter)="unlockWallet()" class="uk-input" placeholder="Enter wallet password">
-      <input *ngIf="isWarpWallet" type="password" [(ngModel)]="unlockSalt" (keyup.enter)="unlockWallet()" class="uk-input" placeholder="Enter wallet salt (usually your email address)">
+      <div class="uk-margin">
+        <input autofocus type="password" [(ngModel)]="unlockPassword" (keyup.enter)="unlockWallet()" class="uk-input" placeholder="Enter wallet password">
+      </div>
+      <div *ngIf="wallet.type === WalletType.Warp" class="uk-margin">
+        <input type="password" [(ngModel)]="unlockSalt" (keyup.enter)="unlockWallet()" class="uk-input" placeholder="Enter wallet salt (usually your email address)">
+      </div>
+      <div *ngIf="warpInProgress" class="uk-margin">
+        <label class="uk-label">Warp Progress: </label>
+        <progress class="uk-progress" value="{{warpProgress.total}}" max="100"></progress>
+      </div>
     </div>
     <div class="uk-modal-footer uk-text-right">
       <button class="uk-button uk-button-default uk-modal-close" type="button">Cancel</button>
