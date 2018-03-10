@@ -20,16 +20,6 @@ export class ConfigureWalletComponent implements OnInit {
   constructor(private router: ActivatedRoute, private walletService: WalletService, private notifications: NotificationService, private route: Router) { }
 
   async ngOnInit() {
-    // Allow a seed import via URL.  (Insecure, not recommended)
-    const importSeed = this.router.snapshot.fragment;
-    if (importSeed && importSeed.length > 1) {
-      if (importSeed.length !== 64) return this.notifications.sendError(`Import seed is invalid, double check it!`);
-
-      this.walletService.createWalletFromSeed(importSeed);
-      this.activePanel = 4;
-      this.notifications.sendSuccess(`Successfully imported wallet seed!`);
-    }
-
     const toggleImport = this.router.snapshot.queryParams.import;
     if (toggleImport) {
       this.activePanel = 1;
@@ -40,10 +30,13 @@ export class ConfigureWalletComponent implements OnInit {
     const existingSeed = this.importSeedModel.trim();
     if (existingSeed.length !== 64) return this.notifications.sendError(`Seed is invalid, double check it!`);
 
-    this.walletService.createWalletFromSeed(existingSeed);
-    this.activePanel = 4;
+    this.notifications.sendInfo(`Importing existing accounts...`, { identifier: 'importing-loading' });
+    await this.walletService.createWalletFromSeed(existingSeed);
 
-    this.notifications.sendSuccess(`Successfully imported existing wallet!`);
+    this.notifications.removeNotification('importing-loading');
+
+    this.activePanel = 4;
+    this.notifications.sendSuccess(`Successfully imported wallet!`);
   }
 
   async createNewWallet() {
@@ -96,7 +89,7 @@ export class ConfigureWalletComponent implements OnInit {
       const fileData = event.target['result'];
       try {
         const importData = JSON.parse(fileData);
-        if (!importData.seed || !importData.accountsIndex) {
+        if (!importData.seed || !importData.hasOwnProperty('accountsIndex')) {
           return this.notifications.sendError(`Bad import data `)
         }
 
@@ -109,9 +102,5 @@ export class ConfigureWalletComponent implements OnInit {
 
     reader.readAsText(file);
   }
-
-
-
-
 
 }

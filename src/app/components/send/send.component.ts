@@ -74,7 +74,14 @@ export class SendComponent implements OnInit {
     }
 
     this.addressBookService.loadAddressBook();
-    this.fromAccountID = this.accounts[0].id;
+    // Look for the first account that has a balance
+    const accountIDWithBalance = this.accounts.reduce((previous, current) => {
+      if (previous) return previous;
+      if (current.balance.gt(0)) return current.id;
+      return null;
+    }, null);
+
+    this.fromAccountID = accountIDWithBalance || this.accounts.length ? this.accounts[0].id : '';
   }
 
   searchAddressBook() {
@@ -143,6 +150,9 @@ export class SendComponent implements OnInit {
     if (this.amount < 0 || rawAmount.lessThan(0)) return this.notificationService.sendWarning(`Amount is invalid`);
     if (nanoAmount.lessThan(1)) return this.notificationService.sendWarning(`Transactions for less than 1 nano will be ignored by the node.  Send raw amounts with at least 1 nano.`);
     if (from.balanceBN.minus(rawAmount).lessThan(0)) return this.notificationService.sendError(`From account does not have enough XRB`);
+
+    // Determine a proper raw amount to show in the UI, if a decimal was entered
+    this.amountRaw = this.rawAmount.mod(this.nano);
 
     // Determine fiat value of the amount
     this.amountFiat = this.util.nano.rawToMnano(rawAmount).times(this.price.price.lastPrice).toNumber();

@@ -131,7 +131,7 @@ export class WalletService {
         // With the wallet locked, we load a simpler version of the accounts which does not have the keypairs, and uses the ID as input
         walletJson.accounts.forEach(account => this.loadWalletAccount(account.index, account.id));
       } else {
-        await Promise.all(walletJson.accounts.map(async (account) => this.addWalletAccount(account.index, false)));
+        await Promise.all(walletJson.accounts.map(async (account) => await this.addWalletAccount(account.index, false)));
       }
     } else {
       // Loading from accounts index
@@ -195,7 +195,7 @@ export class WalletService {
   }
 
   lockWallet() {
-    if (!this.wallet.seed) return; // Nothing to lock
+    if (!this.wallet.seed || !this.wallet.password) return; // Nothing to lock, password not set
     const encryptedSeed = CryptoJS.AES.encrypt(this.wallet.seed, this.wallet.password);
 
     // Update the seed
@@ -253,13 +253,61 @@ export class WalletService {
     return this.wallet.locked;
   }
 
-  createWalletFromSeed(seed: string) {
+  async createWalletFromSeed(seed: string, emptyAccountBuffer: number = 10) {
     this.resetWallet();
 
     this.wallet.seed = seed;
     this.wallet.seedBytes = this.util.hex.toUint8(seed);
 
-    this.addWalletAccount();
+    let emptyTicker = 0;
+    let usedIndices = [];
+    let greatestUsedIndex = 0;
+    const batchSize = emptyAccountBuffer + 1;
+    for (let batch = 0; emptyTicker < emptyAccountBuffer; batch++) {
+      let batchAccounts = {};
+      let batchAccountsArray = [];
+      for (let i = 0; i < batchSize; i++) {
+        const index = batch * batchSize + i;
+        const accountBytes = this.util.account.generateAccountSecretKeyBytes(this.wallet.seedBytes, index);
+        const accountKeyPair = this.util.account.generateAccountKeyPair(accountBytes);
+        const accountAddress = this.util.account.getPublicAccountID(accountKeyPair.publicKey);
+        batchAccounts[accountAddress] = {
+          index: index,
+          publicKey: this.util.uint8.toHex(accountKeyPair.publicKey).toUpperCase(),
+          used: false
+        };
+        batchAccountsArray.push(accountAddress);
+      }
+      let batchResponse = await this.api.accountsFrontiers(batchAccountsArray);
+      for (let accountID in batchResponse.frontiers) {
+        const frontier = batchResponse.frontiers[accountID];
+        if (frontier !== batchAccounts[accountID].publicKey) {
+          batchAccounts[accountID].used = true;
+        }
+      }
+      for (let accountID in batchAccounts) {
+        let account = batchAccounts[accountID];
+        if (account.used) {
+          usedIndices.push(account.index)
+          if (account.index > greatestUsedIndex) {
+            greatestUsedIndex = account.index
+            emptyTicker = 0;
+          }
+        } else {
+          if (account.index > greatestUsedIndex) {
+            emptyTicker ++;
+          }
+        }
+      }
+    }
+    if (usedIndices.length > 0) {
+      for (let i = 0; i < usedIndices.length - 1; i++) {
+        this.addWalletAccount(usedIndices[i], false);
+      }
+      this.addWalletAccount(usedIndices.length - 1, true);
+    } else{
+      this.addWalletAccount();
+    }
 
     return this.wallet.seed;
   }
@@ -488,25 +536,6 @@ export class WalletService {
     }
   }
 
-  promiseSleep(timeout = 1000): Promise<void> {
-    return new Promise((resolve, reject) => {
-      setTimeout(resolve, timeout);
-    });
-  }
-
-  // updateAccountBalance(walletAccount, amount) {
-  //   console.log(`Updating account  balance...? `, amount);
-  //   walletAccount.balance = walletAccount.balance.plus(amount);
-  //   walletAccount.pending = walletAccount.balance.minus(amount);
-  //   walletAccount.balanceRaw = walletAccount.balance.mod(this.nano);
-  //   walletAccount.pendingRaw = walletAccount.pending.mod(this.nano);
-  //
-  //   // this.wallet.balance = this.wallet.balance.plus(amount);
-  //   // this.wallet.pending = this.wallet.balance.minus(amount);
-  //   // this.wallet.balanceRaw = this.wallet.balance.mod(this.nano);
-  //   // this.wallet.pendingRaw = this.wallet.balance.mod(this.nano);
-  // }
-
   async processPendingBlocks() {
     if (this.processingPending || this.wallet.locked || !this.pendingBlocks.length) return;
 
@@ -543,13 +572,17 @@ export class WalletService {
 
     switch (this.appSettings.settings.walletStore) {
       case 'none':
-        localStorage.removeItem(this.storeKey);
+        this.removeWalletData();
         break;
       default:
       case 'localStorage':
         localStorage.setItem(this.storeKey, JSON.stringify(exportData));
         break;
     }
+  }
+
+  removeWalletData() {
+    localStorage.removeItem(this.storeKey);
   }
 
   generateWalletExport() {
