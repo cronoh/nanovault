@@ -18,7 +18,7 @@ export class RaiPipe implements PipeTransform {
 
     switch (denomination.toLowerCase()) {
       default:
-      case 'xrb': return `${(value / this.ban).toFixed(6)}${!hideText ? ' BANANO': ''}`;
+      case 'ban': return `${(value / this.ban).toFixed(6)}${!hideText ? ' BANANO': ''}`;
       case 'ban':
         const hasRawValue = (value / this.rai) % 1;
         if (hasRawValue) {
