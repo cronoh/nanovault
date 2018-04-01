@@ -32,9 +32,8 @@ export class SendComponent implements OnInit {
   addressBookMatch = '';
 
   amounts = [
-    { name: 'BANANO (1 Ban)', shortName: 'BANANO', value: 'ban' },
-    { name: 'banoshi (0.001 Ban)', shortName: 'banoshi', value: 'banoshi' },
-    { name: 'nano (0.000001 Ban)', shortName: 'nano', value: 'nano' },
+    { name: 'BANANO, shortName: 'BANANO', value: 'ban' },
+    { name: 'banoshi (0.01 Banano)', shortName: 'banoshi', value: 'banoshi' },
   ];
   selectedAmount = this.amounts[0];
 
