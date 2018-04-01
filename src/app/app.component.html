@@ -2,15 +2,15 @@
 
   <!-- Mobile Offcanvas Nav -->
   <div id="mobile-nav" uk-offcanvas="mode: reveal; overlay: false;">
-    <div class="uk-offcanvas-bar" style="padding: 0; background: #2C3E50;">
+    <div class="uk-offcanvas-bar" style="padding: 0; background: #4b4a4a;">
 
       <div class="title-block">
         <div class="uk-margin-left" style="padding-bottom: 15px; color: #666;">
-          <span class="title">NanoVault</span>
+          <span class="title">BananoVault</span>
 
           <div style="display: inline-block; text-align: right;" class="uk-text-truncate">
             <span class="balance-text" style="display: inline-block; text-align: left; float: left; margin-top: 5px;">Balance </span>
-            <span class="" style="margin-left: 11px; color: #62a25b; display: inline-block; font-size: 12px;" uk-tooltip title="Last Price: {{ price.price.lastPrice | fiat: settings.settings.displayCurrency }} / NANO">{{ wallet.balanceFiat | fiat: settings.settings.displayCurrency }}</span>
+            <span class="" style="margin-left: 11px; color: #62a25b; display: inline-block; font-size: 12px;" uk-tooltip title="Last Price: {{ price.price.lastPrice | fiat: settings.settings.displayCurrency }} / BANANO">{{ wallet.balanceFiat | fiat: settings.settings.displayCurrency }}</span>
             <span class="balance" style="clear: left; text-align: left;">{{ wallet.balance | rai: settings.settings.displayDenomination }}</span>
           </div>
 
@@ -52,9 +52,9 @@
       <div class="footer" uk-grid>
         <div class="uk-width-1-1 uk-text-center" style="padding-top: 15px;">
           <a routerLink="/" uk-icon="icon: home" uk-tooltip title="Return to Homepage" class="footer-link"></a>
-          <a href="https://github.com/cronoh/nanovault" uk-icon="icon: github-alt" uk-tooltip title="View our GitHub" class="footer-link" target="_blank"></a>
-          <a href="https://twitter.com/NanoVault" uk-icon="icon: twitter" uk-tooltip title="Chat with us on Twitter" class="footer-link" target="_blank"></a>
-          <a href="https://discord.gg/kCeAuJM" uk-icon="icon: users" uk-tooltip title="Join our community on Discord" class="footer-link" target="_blank"></a>
+          <a href="https://github.com/bananocoin/bananovault" uk-icon="icon: github-alt" uk-tooltip title="View our GitHub" class="footer-link" target="_blank"></a>
+          <a href="https://twitter.com/BananoCoin" uk-icon="icon: twitter" uk-tooltip title="Chat with us on Twitter" class="footer-link" target="_blank"></a>
+          <a href="https://discord.gg/SBPaSBS" uk-icon="icon: users" uk-tooltip title="Join our community on Discord" class="footer-link" target="_blank"></a>
         </div>
       </div>
 
@@ -70,7 +70,7 @@
       <div class="uk-width-1-2">
         <div class="uk-margin-small-top uk-margin-small-bottom uk-margin-small-left uk-text-middle" uk-toggle="target: #mobile-nav;" style="cursor: pointer;">
           <span uk-icon="icon: menu;" style=" margin-right: 10px; vertical-align: text-bottom;"></span>
-          <span style="font-size: 22px;" >NanoVault</span>
+          <span style="font-size: 22px;" >BananoVault</span>
         </div>
       </div>
       <div class="uk-width-1-2 " style="text-align: right;">
@@ -79,14 +79,14 @@
 
     <!-- Main content container-->
     <div uk-grid uk-height-viewport="expand: false" style="margin-top: 0;">
-      <div class="uk-width-1-4 uk-visible@s" style="background: #2C3E50">
+      <div class="uk-width-1-4 uk-visible@s" style="background: #4b4a4a">
         <div class="title-block">
           <div class="uk-margin-left" style="padding-bottom: 15px;">
-            <a routerLink="/" class="title">NanoVault</a>
+            <a routerLink="/" class="title">BananoVault</a>
             <div style="display: inline-block; text-align: right;" class="uk-text-truncate">
 
               <span class="balance-text" style="display: inline-block; text-align: left; float: left; margin-top: 5px;">Balance </span>
-              <span class="" style="margin-left: 11px; color: #62a25b; display: inline-block; font-size: 12px;" uk-tooltip title="Last Price: {{ price.price.lastPrice | fiat: settings.settings.displayCurrency }} / NANO">{{ wallet.balanceFiat | fiat: settings.settings.displayCurrency }}</span>
+              <span class="" style="margin-left: 11px; color: #62a25b; display: inline-block; font-size: 12px;" uk-tooltip title="Last Price: {{ price.price.lastPrice | fiat: settings.settings.displayCurrency }} / BANANO">{{ wallet.balanceFiat | fiat: settings.settings.displayCurrency }}</span>
               <span class="balance" style="clear: left; text-align: left;">{{ wallet.balance | rai: settings.settings.displayDenomination }}</span>
             </div>
 
@@ -132,9 +132,9 @@
         <div class="footer" uk-grid>
           <div class="uk-width-1-1 uk-text-center" style="padding-top: 15px;">
             <a routerLink="/" uk-icon="icon: home" uk-tooltip title="Return to Homepage" class="footer-link"></a>
-            <a href="https://github.com/cronoh/nanovault" uk-icon="icon: github-alt" uk-tooltip title="View our GitHub" class="footer-link" target="_blank"></a>
-            <a href="https://twitter.com/NanoVault" uk-icon="icon: twitter" uk-tooltip title="Chat with us on Twitter" class="footer-link" target="_blank"></a>
-            <a href="https://discord.gg/kCeAuJM" uk-icon="icon: users" uk-tooltip title="Join our community on Discord" class="footer-link" target="_blank"></a>
+            <a href="https://github.com/bananocoin/bananovault" uk-icon="icon: github-alt" uk-tooltip title="View our GitHub" class="footer-link" target="_blank"></a>
+            <a href="https://twitter.com/BananoCoin" uk-icon="icon: twitter" uk-tooltip title="Chat with us on Twitter" class="footer-link" target="_blank"></a>
+            <a href="https://discord.gg/SBPaSBS" uk-icon="icon: users" uk-tooltip title="Join our community on Discord" class="footer-link" target="_blank"></a>
           </div>
         </div>
 
@@ -149,6 +149,3 @@
 </div>
 
 <app-notifications></app-notifications>
-
-
-

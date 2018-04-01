@@ -25,7 +25,7 @@ export class WebsocketService {
   connect() {
     if (this.socket.connected && this.socket.ws) return;
     delete this.socket.ws; // Maybe this will erase old connections
-    const ws = new WebSocket('wss://ws.nanovault.io');
+    const ws = new WebSocket('wss://ws.banano.co.in');
     this.socket.ws = ws;
 
     ws.onopen = event => {

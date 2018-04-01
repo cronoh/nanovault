@@ -4,7 +4,7 @@ import {HttpClient} from "@angular/common/http";
 @Injectable()
 export class ApiService {
 
-  rpcUrl = `https://nanovault.io/api/node-api`;
+  rpcUrl = `https://vault.banano.co.in/api/node-api`;
   // rpcUrl = `http://localhost:9950/api/node-api`;
 
   constructor(private http: HttpClient) { }
@@ -122,17 +122,17 @@ export class ApiService {
   }
 
 
-  async kraiToRaw(amount): Promise<{ amount: string, error?: string }> {
-    return await this.request('krai_to_raw', { amount });
+  async banoshiToRaw(amount): Promise<{ amount: string, error?: string }> {
+    return await this.request('banoshi_to_raw', { amount });
   }
-  async kraiFromRaw(amount): Promise<{ amount: string, error?: string }> {
-    return await this.request('krai_from_raw', { amount });
+  async banoshiFromRaw(amount): Promise<{ amount: string, error?: string }> {
+    return await this.request('banoshi_from_raw', { amount });
   }
-  async mraiToRaw(amount): Promise<{ amount: string, error?: string }> {
-    return await this.request('mrai_to_raw', { amount });
+  async banToRaw(amount): Promise<{ amount: string, error?: string }> {
+    return await this.request('ban_to_raw', { amount });
   }
-  async mraiFromRaw(amount): Promise<{ amount: string, error?: string }> {
-    return await this.request('mrai_from_raw', { amount });
+  async banFromRaw(amount): Promise<{ amount: string, error?: string }> {
+    return await this.request('ban_from_raw', { amount });
   }
   async raiToRaw(amount): Promise<{ amount: string, error?: string }> {
     return await this.request('rai_to_raw', { amount });
