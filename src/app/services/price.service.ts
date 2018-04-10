@@ -8,7 +8,7 @@ export class PriceService {
 
   price = {
     lastPrice: 0.01,
-    lastPriceBTC: 0.00001,
+    lastPriceBTC: 0.0,
   };
   lastPrice$ = new BehaviorSubject(1);
 
