@@ -90,6 +90,12 @@ export class ConfigureAppComponent implements OnInit {
   ];
   selectedPoWOption = this.powOptions[0].value;
 
+  blockOptions = [
+    { name: 'Legacy Blocks', value: false },
+    { name: 'State Blocks', value: true },
+  ];
+  selectedBlockOption = this.blockOptions[0].value;
+
   constructor(
     private walletService: WalletService,
     private notifications: NotificationService,
@@ -123,6 +129,8 @@ export class ConfigureAppComponent implements OnInit {
 
     const matchingPowOption = this.powOptions.find(d => d.value === settings.powSource);
     this.selectedPoWOption = matchingPowOption ? matchingPowOption.value : this.powOptions[0].value;
+
+    this.selectedBlockOption = settings.useStateBlocks;
   }
 
   async updateDisplaySettings() {
@@ -162,6 +170,7 @@ export class ConfigureAppComponent implements OnInit {
       lockOnClose: new Number(this.selectedLockOption),
       lockInactivityMinutes: new Number(this.selectedInactivityMinutes),
       powSource: newPoW,
+      useStateBlocks: this.selectedBlockOption,
     };
 
     this.appSettings.setAppSettings(newSettings);

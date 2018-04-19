@@ -5,7 +5,7 @@ import {AppSettingsService} from "../services/app-settings.service";
   name: 'rai'
 })
 export class RaiPipe implements PipeTransform {
-  precision = 6;
+  precision = 2;
 
   ban = 100000000000000000000000000000;
   banoshi = 1000000000000000000000000000;
@@ -18,14 +18,14 @@ export class RaiPipe implements PipeTransform {
 
     switch (denomination.toLowerCase()) {
       default:
-      case 'ban': return `${(value / this.ban).toFixed(6)}${!hideText ? ' BANANO': ''}`;
+      case 'ban': return `${(value / this.ban).toFixed(2)}${!hideText ? ' BANANO': ''}`;
       case 'ban':
         const hasRawValue = (value / this.rai) % 1;
         if (hasRawValue) {
           const newVal = value / this.ban < 0.000001 ? 0 : value / this.ban; // New more precise toFixed function, but bugs on huge raw numbers
           return `${this.toFixed(newVal, this.precision)}${!hideText ? ' BANANO': ''}`;
         } else {
-          return `${(value / this.ban).toFixed(6)}${!hideText ? ' BANANO': ''}`;
+          return `${(value / this.ban).toFixed(2)}${!hideText ? ' BANANO': ''}`;
         }
       case 'banoshi': return `${(value / this.banoshi).toFixed(3)}${!hideText ? ' banoshi': ''}`;
       case 'nano': return `${(value / this.rai).toFixed(0)}${!hideText ? ' nano': ''}`;
