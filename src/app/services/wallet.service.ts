@@ -6,7 +6,7 @@ import {AddressBookService} from "./address-book.service";
 import * as CryptoJS from 'crypto-js';
 import {WorkPoolService} from "./work-pool.service";
 import {WebsocketService} from "./websocket.service";
-import {NanoBlockService} from "./nano-block.service";
+import {BananoBlockService} from "./nano-block.service";
 import {NotificationService} from "./notification.service";
 import {AppSettingsService} from "./app-settings.service";
 import {PriceService} from "./price.service";
@@ -43,7 +43,7 @@ export interface FullWallet {
 
 @Injectable()
 export class WalletService {
-  nano = 1000000000000000000000000;
+  banoshi = 1000000000000000000000000000;
   storeKey = `nanovault-wallet`;
 
   wallet: FullWallet = {
@@ -73,7 +73,7 @@ export class WalletService {
     private price: PriceService,
     private workPool: WorkPoolService,
     private websocket: WebsocketService,
-    private nanoBlock: NanoBlockService,
+    private bananoBlock: BananoBlockService,
     private notifications: NotificationService)
   {
     this.websocket.newTransactions$.subscribe(async (transaction) => {
@@ -93,7 +93,7 @@ export class WalletService {
           await this.processPendingBlocks();
         }
       } else if (transaction.block.type == 'state') {
-+        await this.processStateBlock(transaction);
+        await this.processStateBlock(transaction);
       }
 
       // TODO: We don't really need to call to update balances, we should be able to balance on our own from here
@@ -120,7 +120,7 @@ export class WalletService {
       const walletAccount = this.wallet.accounts.find(a => a.id === transaction.block.link_as_account);
       if (!walletAccount) return; // Not for our wallet?
 
-     walletAccount.useStateBlocks = true; // Should already be set?
+      walletAccount.useStateBlocks = true; // Should already be set?
     }
   }
 
@@ -368,12 +368,12 @@ export class WalletService {
     const fiatPrice = this.price.price.lastPrice;
 
     this.wallet.accounts.forEach(account => {
-      account.balanceFiat = this.util.nano.rawToBan(account.balance).times(fiatPrice).toNumber();
-      account.pendingFiat = this.util.nano.rawToBan(account.pending).times(fiatPrice).toNumber();
+      account.balanceFiat = this.util.banano.rawToBan(account.balance).times(fiatPrice).toNumber();
+      account.pendingFiat = this.util.banano.rawToBan(account.pending).times(fiatPrice).toNumber();
     });
 
-    this.wallet.balanceFiat = this.util.nano.rawToBan(this.wallet.balance).times(fiatPrice).toNumber();
-    this.wallet.pendingFiat = this.util.nano.rawToBan(this.wallet.pending).times(fiatPrice).toNumber();
+    this.wallet.balanceFiat = this.util.banano.rawToBan(this.wallet.balance).times(fiatPrice).toNumber();
+    this.wallet.pendingFiat = this.util.banano.rawToBan(this.wallet.pending).times(fiatPrice).toNumber();
   }
 
   async reloadBalances(reloadPending = true) {
@@ -404,11 +404,11 @@ export class WalletService {
       walletAccount.balance = new BigNumber(accounts.balances[accountID].balance);
       walletAccount.pending = new BigNumber(accounts.balances[accountID].pending);
 
-      walletAccount.balanceRaw = new BigNumber(walletAccount.balance).mod(this.nano);
-      walletAccount.pendingRaw = new BigNumber(walletAccount.pending).mod(this.nano);
+      walletAccount.balanceRaw = new BigNumber(walletAccount.balance).mod(this.banoshi);
+      walletAccount.pendingRaw = new BigNumber(walletAccount.pending).mod(this.banoshi);
 
-      walletAccount.balanceFiat = this.util.nano.rawToBan(walletAccount.balance).times(fiatPrice).toNumber();
-      walletAccount.pendingFiat = this.util.nano.rawToBan(walletAccount.pending).times(fiatPrice).toNumber();
+      walletAccount.balanceFiat = this.util.banano.rawToBan(walletAccount.balance).times(fiatPrice).toNumber();
+      walletAccount.pendingFiat = this.util.banano.rawToBan(walletAccount.pending).times(fiatPrice).toNumber();
 
       walletAccount.frontier = frontiers.frontiers[accountID] || null;
 
@@ -433,11 +433,11 @@ export class WalletService {
     this.wallet.balance = walletBalance;
     this.wallet.pending = walletPending;
 
-    this.wallet.balanceRaw = new BigNumber(walletBalance).mod(this.nano);
-    this.wallet.pendingRaw = new BigNumber(walletPending).mod(this.nano);
+    this.wallet.balanceRaw = new BigNumber(walletBalance).mod(this.banoshi);
+    this.wallet.pendingRaw = new BigNumber(walletPending).mod(this.banoshi);
 
-    this.wallet.balanceFiat = this.util.nano.rawToBan(walletBalance).times(fiatPrice).toNumber();
-    this.wallet.pendingFiat = this.util.nano.rawToBan(walletPending).times(fiatPrice).toNumber();
+    this.wallet.balanceFiat = this.util.banano.rawToBan(walletBalance).times(fiatPrice).toNumber();
+    this.wallet.pendingFiat = this.util.banano.rawToBan(walletPending).times(fiatPrice).toNumber();
 
     // If there is a pending balance, search for the actual pending transactions
     if (reloadPending && walletPending.gt(0)) {
@@ -585,13 +585,13 @@ export class WalletService {
     const walletAccount = this.getWalletAccount(nextBlock.account);
     if (!walletAccount) return; // Dispose of the block, no matching account
 
-    const newHash = await this.nanoBlock.generateReceive(walletAccount, nextBlock.hash);
+    const newHash = await this.bananoBlock.generateReceive(walletAccount, nextBlock.hash);
     if (newHash) {
       if (this.successfulBlocks.length >= 15) this.successfulBlocks.shift();
       this.successfulBlocks.push(nextBlock.hash);
 
-      const receiveAmount = this.util.nano.rawToBan(nextBlock.amount);
-      this.notifications.sendSuccess(`Successfully received ${receiveAmount.isZero() ? '' : receiveAmount.toFixed(2)} BANANO!`);
+      const receiveAmount = this.util.banano.rawToBan(nextBlock.amount);
+      this.notifications.sendSuccess(`Successfully received ${receiveAmount.isZero() ? '' : receiveAmount.toFixed(2)} Banano!`);
 
       // await this.promiseSleep(500); // Give the node a chance to make sure its ready to reload all?
       await this.reloadBalances();

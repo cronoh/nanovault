@@ -4,12 +4,14 @@ import {AddressBookService} from "../../services/address-book.service";
 import {ApiService} from "../../services/api.service";
 import {NotificationService} from "../../services/notification.service";
 import {WalletService} from "../../services/wallet.service";
-import {NanoBlockService} from "../../services/nano-block.service";
+import {BananoBlockService} from "../../services/nano-block.service";
 import {AppSettingsService} from "../../services/app-settings.service";
 import {PriceService} from "../../services/price.service";
 import {UtilService} from "../../services/util.service";
 import * as QRCode from 'qrcode';
 import BigNumber from "bignumber.js";
+import {RepresentativeService} from "../../services/representative.service";
+import {BehaviorSubject} from "rxjs/BehaviorSubject";
 
 @Component({
   selector: 'app-account-details',
@@ -17,13 +19,14 @@ import BigNumber from "bignumber.js";
   styleUrls: ['./account-details.component.css']
 })
 export class AccountDetailsComponent implements OnInit, OnDestroy {
-  nano = 1000000000000000000000000;
+  banoshi = 1000000000000000000000000000;
 
   accountHistory: any[] = [];
   pendingBlocks = [];
   pageSize = 25;
   maxPageSize = 200;
 
+  repLabel: any = '';
   addressBookEntry: any = null;
   account: any = {};
   accountID: string = '';
@@ -34,6 +37,9 @@ export class AccountDetailsComponent implements OnInit, OnDestroy {
   addressBookModel = '';
   showEditRepresentative = false;
   representativeModel = '';
+  representativeResults$ = new BehaviorSubject([]);
+  showRepresentatives = false;
+  representativeListMatch = '';
 
   qrCodeImage = null;
 
@@ -46,11 +52,12 @@ export class AccountDetailsComponent implements OnInit, OnDestroy {
     private addressBook: AddressBookService,
     private api: ApiService,
     private price: PriceService,
+    private repService: RepresentativeService,
     private notifications: NotificationService,
     private wallet: WalletService,
     private util: UtilService,
     public settings: AppSettingsService,
-    private nanoBlock: NanoBlockService) { }
+    private bananoBlock: BananoBlockService) { }
 
   async ngOnInit() {
     this.routerSub = this.route.events.subscribe(event => {
@@ -59,8 +66,8 @@ export class AccountDetailsComponent implements OnInit, OnDestroy {
       }
     });
     this.priceSub = this.price.lastPrice$.subscribe(event => {
-      this.account.balanceFiat = this.util.nano.rawToBan(this.account.balance || 0).times(this.price.price.lastPrice).toNumber();
-      this.account.pendingFiat = this.util.nano.rawToBan(this.account.pending || 0).times(this.price.price.lastPrice).toNumber();
+      this.account.balanceFiat = this.util.banano.rawToBan(this.account.balance || 0).times(this.price.price.lastPrice).toNumber();
+      this.account.pendingFiat = this.util.banano.rawToBan(this.account.pending || 0).times(this.price.price.lastPrice).toNumber();
     });
 
     await this.loadAccountDetails();
@@ -73,6 +80,9 @@ export class AccountDetailsComponent implements OnInit, OnDestroy {
     this.addressBookModel = this.addressBookEntry || '';
     this.walletAccount = this.wallet.getWalletAccount(this.accountID);
     this.account = await this.api.accountInfo(this.accountID);
+
+    const knownRepresentative = this.repService.getRepresentative(this.account.representative);
+    this.repLabel = knownRepresentative ? knownRepresentative.name : null;
 
     // If there is a pending balance, or the account is not opened yet, load pending transactions
     if ((!this.account.error && this.account.pending > 0) || this.account.error) {
@@ -97,10 +107,10 @@ export class AccountDetailsComponent implements OnInit, OnDestroy {
     }
 
     // Set fiat values?
-    this.account.balanceRaw = new BigNumber(this.account.balance || 0).mod(this.nano);
-    this.account.pendingRaw = new BigNumber(this.account.pending || 0).mod(this.nano);
-    this.account.balanceFiat = this.util.nano.rawToBan(this.account.balance || 0).times(this.price.price.lastPrice).toNumber();
-    this.account.pendingFiat = this.util.nano.rawToBan(this.account.pending || 0).times(this.price.price.lastPrice).toNumber();
+    this.account.balanceRaw = new BigNumber(this.account.balance || 0).mod(this.banoshi);
+    this.account.pendingRaw = new BigNumber(this.account.pending || 0).mod(this.banoshi);
+    this.account.balanceFiat = this.util.banano.rawToBan(this.account.balance || 0).times(this.price.price.lastPrice).toNumber();
+    this.account.pendingFiat = this.util.banano.rawToBan(this.account.pending || 0).times(this.price.price.lastPrice).toNumber();
     await this.getAccountHistory(this.accountID);
 
 
@@ -123,6 +133,7 @@ export class AccountDetailsComponent implements OnInit, OnDestroy {
     }
     const history = await this.api.accountHistory(account, this.pageSize, true);
     let additionalBlocksInfo = [];
+
     if (history && history.history && Array.isArray(history.history)) {
       this.accountHistory = history.history.map(h => {
         if (h.type === 'state') {
@@ -180,7 +191,7 @@ export class AccountDetailsComponent implements OnInit, OnDestroy {
     if (!valid || valid.valid !== '1') return this.notifications.sendWarning(`Account ID is not a valid account`);
 
     try {
-      const changed = await this.nanoBlock.generateChange(this.walletAccount, repAccount);
+      const changed = await this.bananoBlock.generateChange(this.walletAccount, repAccount);
       if (!changed) {
         this.notifications.sendError(`Error changing representative, please try again`);
         return;
@@ -196,6 +207,8 @@ export class AccountDetailsComponent implements OnInit, OnDestroy {
 
     const accountInfo = await this.api.accountInfo(this.accountID);
     this.account = accountInfo;
+    const newRep = this.repService.getRepresentative(repAccount);
+    this.repLabel = newRep ? newRep.name : '';
 
     this.notifications.sendSuccess(`Successfully changed representative`);
   }
@@ -225,6 +238,37 @@ export class AccountDetailsComponent implements OnInit, OnDestroy {
 
     this.addressBookEntry = addressBookName;
     this.showEditAddressBook = false;
+  }
+
+  searchRepresentatives() {
+    this.showRepresentatives = true;
+    const search = this.representativeModel || '';
+    const representatives = this.repService.getSortedRepresentatives();
+
+    const matches = representatives
+      .filter(a => a.name.toLowerCase().indexOf(search.toLowerCase()) !== -1)
+      .slice(0, 5);
+
+    this.representativeResults$.next(matches);
+  }
+
+  selectRepresentative(rep) {
+    this.showRepresentatives = false;
+    this.representativeModel = rep;
+    this.searchRepresentatives();
+    this.validateRepresentative();
+  }
+
+  validateRepresentative() {
+    setTimeout(() => this.showRepresentatives = false, 400);
+    this.representativeModel = this.representativeModel.replace(/ /g, '');
+    const rep = this.repService.getRepresentative(this.representativeModel);
+
+    if (rep) {
+      this.representativeListMatch = rep.name;
+    } else {
+      this.representativeListMatch = '';
+    }
   }
 
   copied() {

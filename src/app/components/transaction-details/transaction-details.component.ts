@@ -11,7 +11,7 @@ import {AddressBookService} from "../../services/address-book.service";
   styleUrls: ['./transaction-details.component.css']
 })
 export class TransactionDetailsComponent implements OnInit {
-  nano = 1000000000000000000000000;
+  banoshi = 1000000000000000000000000000;
 
   routerSub = null;
   transaction: any = {};
@@ -48,6 +48,7 @@ export class TransactionDetailsComponent implements OnInit {
     this.fromAccountID = '';
     this.toAddressBook = '';
     this.fromAddressBook = '';
+    let legacyFromAccount = '';
     this.amountRaw = new BigNumber(0);
     const hash = this.route.snapshot.params.transaction;
     this.hashID = hash;
@@ -59,7 +60,6 @@ export class TransactionDetailsComponent implements OnInit {
     const hashData = blockData.blocks[hash];
     const hashContents = JSON.parse(hashData.contents);
     hashData.contents = hashContents;
-    console.log(hashData);
 
     this.blockType = hashData.contents.type;
     if (this.blockType === 'state') {
@@ -70,23 +70,28 @@ export class TransactionDetailsComponent implements OnInit {
         const prevRes = await this.api.blocksInfo([hashData.contents.previous]);
         const prevData = prevRes.blocks[hashData.contents.previous];
         prevData.contents = JSON.parse(prevData.contents);
-        console.log(prevData);
-        const prevBalance = new BigNumber(prevData.contents.balance);
-        const curBalance = new BigNumber(hashData.contents.balance);
-        const balDifference = curBalance.minus(prevBalance);
-        if (balDifference.isNegative()) {
-          this.blockType = 'send';
-        } else if (balDifference.isZero()) {
-          this.blockType = 'change';
+        if (!prevData.contents.balance) {
+          // Previous block is not a state block.
+          this.blockType = prevData.contents.type;
+          legacyFromAccount = prevData.source_account;
         } else {
-          this.blockType = 'receive';
+          const prevBalance = new BigNumber(prevData.contents.balance);
+          const curBalance = new BigNumber(hashData.contents.balance);
+          const balDifference = curBalance.minus(prevBalance);
+          if (balDifference.isNegative()) {
+            this.blockType = 'send';
+          } else if (balDifference.isZero()) {
+            this.blockType = 'change';
+          } else {
+            this.blockType = 'receive';
+          }
         }
       }
     } else {
       this.isStateBlock = false;
     }
     if (hashData.amount) {
-      this.amountRaw = new BigNumber(hashData.amount).mod(this.nano);
+      this.amountRaw = new BigNumber(hashData.amount).mod(this.banoshi);
     }
 
     this.transaction = hashData;
@@ -108,6 +113,11 @@ export class TransactionDetailsComponent implements OnInit {
         toAccount = this.transaction.contents.representative;
         break;
     }
+
+    if (legacyFromAccount) {
+      fromAccount = legacyFromAccount;
+    }
+
     this.toAccountID = toAccount;
     this.fromAccountID = fromAccount;
 

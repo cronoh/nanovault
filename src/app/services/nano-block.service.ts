@@ -11,7 +11,7 @@ const nacl = window['nacl'];
 const STATE_BLOCK_PREAMBLE = '0000000000000000000000000000000000000000000000000000000000000006';
 
 @Injectable()
-export class NanoBlockService {
+export class BananoBlockService {
   representativeAccount = 'ban_1bananobh5rat99qfgt1ptpieie5swmoth87thi74qgbfrij7dcgjiij94xr'; // BananoVault Representative
   // shouldGenStateBlocks = true; // Generate state blocks instead of legacy blocks
 
@@ -100,11 +100,12 @@ export class NanoBlockService {
 
     let blockData;
     if (this.settings.settings.useStateBlocks || walletAccount.useStateBlocks) {
+      const representative = fromAccount.representative || this.representativeAccount;
       const context = blake.blake2bInit(32, null);
       blake.blake2bUpdate(context, this.util.hex.toUint8(STATE_BLOCK_PREAMBLE));
       blake.blake2bUpdate(context, this.util.hex.toUint8(this.util.account.getAccountPublicKey(walletAccount.id)));
       blake.blake2bUpdate(context, this.util.hex.toUint8(fromAccount.frontier));
-      blake.blake2bUpdate(context, this.util.hex.toUint8(this.util.account.getAccountPublicKey(this.representativeAccount)));
+      blake.blake2bUpdate(context, this.util.hex.toUint8(this.util.account.getAccountPublicKey(representative)));
       blake.blake2bUpdate(context, this.util.hex.toUint8(remainingPadded));
       blake.blake2bUpdate(context, this.util.hex.toUint8(this.util.account.getAccountPublicKey(toAccountID)));
       const hashBytes = blake.blake2bFinal(context);
@@ -121,7 +122,7 @@ export class NanoBlockService {
         type: 'state',
         account: walletAccount.id,
         previous: fromAccount.frontier,
-        representative: this.representativeAccount,
+        representative: representative,
         balance: remainingDecimal,
         link: this.util.account.getAccountPublicKey(toAccountID),
         work: await this.workPool.getWork(fromAccount.frontier),
@@ -171,6 +172,7 @@ export class NanoBlockService {
 
     if (this.settings.settings.useStateBlocks || walletAccount.useStateBlocks) {
       const previousBlock = toAcct.frontier || "0000000000000000000000000000000000000000000000000000000000000000";
+      const representative = toAcct.representative || this.representativeAccount;
 
       const srcBlockInfo = await this.api.blocksInfo([sourceBlock]);
       const srcAmount = new BigNumber(srcBlockInfo.blocks[sourceBlock].amount);
@@ -183,7 +185,7 @@ export class NanoBlockService {
       blake.blake2bUpdate(context, this.util.hex.toUint8(STATE_BLOCK_PREAMBLE));
       blake.blake2bUpdate(context, this.util.hex.toUint8(this.util.account.getAccountPublicKey(walletAccount.id)));
       blake.blake2bUpdate(context, this.util.hex.toUint8(previousBlock));
-      blake.blake2bUpdate(context, this.util.hex.toUint8(this.util.account.getAccountPublicKey(this.representativeAccount)));
+      blake.blake2bUpdate(context, this.util.hex.toUint8(this.util.account.getAccountPublicKey(representative)));
       blake.blake2bUpdate(context, this.util.hex.toUint8(newBalancePadded));
       blake.blake2bUpdate(context, this.util.hex.toUint8(sourceBlock));
       const hashBytes = blake.blake2bFinal(context);
@@ -197,7 +199,7 @@ export class NanoBlockService {
         type: 'state',
         account: walletAccount.id,
         previous: previousBlock,
-        representative: this.representativeAccount,
+        representative: representative,
         balance: newBalanceDecimal,
         link: sourceBlock,
         signature: signature,

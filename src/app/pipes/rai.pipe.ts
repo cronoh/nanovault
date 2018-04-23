@@ -7,39 +7,39 @@ import {AppSettingsService} from "../services/app-settings.service";
 export class RaiPipe implements PipeTransform {
   precision = 2;
 
-  ban = 100000000000000000000000000000;
+  banano = 100000000000000000000000000000;
   banoshi = 1000000000000000000000000000;
-  rai  = 1000000000000000000000000;
+  raw = 1;
 
   transform(value: any, args?: any): any {
     const opts = args.split(',');
-    let denomination = opts[0] || 'ban';
+    let denomination = opts[0] || 'banano';
     const hideText = opts[1] || false;
 
     switch (denomination.toLowerCase()) {
       default:
-      case 'ban': return `${(value / this.ban).toFixed(2)}${!hideText ? ' BANANO': ''}`;
-      case 'ban':
-        const hasRawValue = (value / this.rai) % 1;
+      
+      case 'banano':
+        const hasRawValue = (value / this.banoshi) % 1;
         if (hasRawValue) {
-          const newVal = value / this.ban < 0.000001 ? 0 : value / this.ban; // New more precise toFixed function, but bugs on huge raw numbers
+          const newVal = value / this.banano < 0.01 ? 0 : value / this.banano; // New more precise toFixed function, but bugs on huge raw numbers
           return `${this.toFixed(newVal, this.precision)}${!hideText ? ' BANANO': ''}`;
         } else {
-          return `${(value / this.ban).toFixed(2)}${!hideText ? ' BANANO': ''}`;
+          return `${(value / this.banano).toFixed(2)}${!hideText ? ' BANANO': ''}`;
         }
-      case 'banoshi': return `${(value / this.banoshi).toFixed(3)}${!hideText ? ' banoshi': ''}`;
-      case 'nano': return `${(value / this.rai).toFixed(0)}${!hideText ? ' nano': ''}`;
+      case 'banoshi': return `${(value / this.banoshi).toFixed(0)}${!hideText ? ' banoshi': ''}`;
+      
       case 'raw': return `${value}${!hideText ? ' raw': ''}`;
       case 'dynamic':
-        const rai = (value / this.rai);
+        const rai = (value / this.raw);
         if (rai >= 1000000) {
-          return `${(value / this.ban).toFixed(this.precision)}${!hideText ? ' BANANO': ''}`;
+          return `${(value / this.banano).toFixed(this.precision)}${!hideText ? ' mRai': ''}`;
         } else if (rai >= 1000) {
-          return `${(value / this.banoshi).toFixed(this.precision)}${!hideText ? ' banoshi': ''}`;
+          return `${(value / this.banoshi).toFixed(this.precision)}${!hideText ? ' kRai': ''}`;
         } else if (rai >= 0.00001) {
-          return `${(value / this.rai).toFixed(this.precision)}${!hideText ? ' Rai': ''}`;
+          return `${(value / this.raw).toFixed(this.precision)}${!hideText ? ' Rai': ''}`;
         } else if (rai === 0) {
-          return `${value}${!hideText ? ' BANANO': ''}`;
+          return `${value}${!hideText ? ' mRai': ''}`;
         } else {
           return `${value}${!hideText ? ' raw': ''}`;
         }

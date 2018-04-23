@@ -3,7 +3,7 @@ const autoUpdater = require('electron-updater').autoUpdater;
 const url = require('url');
 const path = require('path');
 
-app.setAsDefaultProtocolClient('ban'); // Register handler for xrb: links
+app.setAsDefaultProtocolClient('banano'); // Register handler for xrb: links
 
 let mainWindow;
 

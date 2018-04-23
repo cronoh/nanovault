@@ -13,8 +13,10 @@ import {AccountDetailsComponent} from "./components/account-details/account-deta
 import {TransactionDetailsComponent} from "./components/transaction-details/transaction-details.component";
 import {ImportWalletComponent} from "./components/import-wallet/import-wallet.component";
 import { ImportAddressBookComponent } from './components/import-address-book/import-address-book.component';
+import {RepresentativesComponent} from "./components/representatives/representatives.component";
 
 import { environment } from '../environments/environment';
+import {ManageRepresentativesComponent} from "./components/manage-representatives/manage-representatives.component";
 
 const routes: Routes = [
   { path: '', component: WelcomeComponent },
@@ -28,6 +30,8 @@ const routes: Routes = [
   { path: 'manage-wallet', component: ManageWalletComponent },
   { path: 'send', component: SendComponent },
   { path: 'receive', component: ReceiveComponent },
+  { path: 'representatives', component: RepresentativesComponent },
+  { path: 'manage-representatives', component: ManageRepresentativesComponent },
   { path: 'transaction/:transaction', component: TransactionDetailsComponent },
 ];
 

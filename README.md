@@ -1,6 +1,6 @@
 # BananoVault
 
-BananoVault is a fully client-side signing wallet for sending and receiving [Banano](https://github.com/bananocoin/banano)
+BananoVault is a fully client-side signing wallet for sending and receiving [Banano](https://github.com/bananocoin/banano) 
 on your [desktop](https://github.com/bananocoin/bananovault/releases) or [in your browser](https://vault.banano.co.in)
 
 ![BananoVault Screenshot](https://i.imgur.com/DWlPQdM.png)
@@ -52,7 +52,7 @@ The application is broken into a few separate pieces:
 #### Clone repository and install dependencies
 ```bash
 git clone https://github.com/bananocoin/bananovault
-cd nanovault
+cd bananovault
 npm install
 ```
 
@@ -101,10 +101,10 @@ Run `ng e2e` to execute the end-to-end tests via [Protractor](http://www.protrac
 
 # Acknowledgements
 Special thanks to the following!
-- [cronoh/nanovault](https://github.com/cronoh/nanovault) - Creator of NanoVault
+- [cronoh/nanovault](https://github.com/cronoh/nanovault) - Creator of nanovault
 - [numtel/nano-webgl-pow](https://github.com/numtel/nano-webgl-pow) - WebGL PoW Implementation
 - [jaimehgb/RaiBlocksWebAssemblyPoW](https://github.com/jaimehgb/RaiBlocksWebAssemblyPoW) - CPU PoW Implementation
 - [dcposch/blakejs](https://github.com/dcposch/blakejs) - Blake2b Implementation
 - [dchest/tweetnacl-js](https://github.com/dchest/tweetnacl-js) - Cryptography Implementation
 
-If you have found BananoVault useful and are feeling generous, you can donate to the creator at `xrb_318syypnqcgdouy3p3ekckwmnmmyk5z3dpyq48phzndrmmspyqdqjymoo8hj`
+ If you have found BananoVault useful and are feeling generous, you can donate to the original author's nano address: `xrb_318syypnqcgdouy3p3ekckwmnmmyk5z3dpyq48phzndrmmspyqdqjymoo8hj`  

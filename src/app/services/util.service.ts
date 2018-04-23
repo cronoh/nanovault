@@ -37,13 +37,13 @@ export class UtilService {
     generateSeedBytes: generateSeedBytes,
     getAccountPublicKey: getAccountPublicKey,
   };
-  nano = {
+  banano = {
     banToRaw: banToRaw,
     banoshiToRaw: banoshiToRaw,
-    nanoToRaw: nanoToRaw,
+    rawToRaw: rawToRaw,
     rawToBan: rawToBan,
     rawToBanoshi: rawToBanoshi,
-    rawToNano: rawToNano,
+
   };
 
 }
@@ -233,26 +233,26 @@ function getAccountPublicKey(account) {
 /**
  * Conversion functions
  */
-const ban = 100000000000000000000000000000;
+const banano = 100000000000000000000000000000;
 const banoshi = 1000000000000000000000000000;
-const nano  = 1000000000000000000000000;
+const raw  = 1000000000000000000000000;
 function banToRaw(value) {
-  return new BigNumber(value).times(ban);
+  return new BigNumber(value).times(banano);
 }
 function banoshiToRaw(value) {
   return new BigNumber(value).times(banoshi);
 }
-function nanoToRaw(value) {
-  return new BigNumber(value).times(nano);
+function rawToRaw(value) {
+  return new BigNumber(value).times(raw);
 }
 function rawToBan(value) {
-  return new BigNumber(value).div(ban);
+  return new BigNumber(value).div(banano);
 }
 function rawToBanoshi(value) {
   return new BigNumber(value).div(banoshi);
 }
-function rawToNano(value) {
-  return new BigNumber(value).div(nano);
+function unusedfunction(value) {
+  return new BigNumber(value).div(raw);
 }
 
 
@@ -306,12 +306,12 @@ const util = {
     generateSeedBytes: generateSeedBytes,
     getAccountPublicKey: getAccountPublicKey,
   },
-  nano: {
+  banano: {
     banToRaw: banToRaw,
     banoshiToRaw: banoshiToRaw,
-    nanoToRaw: nanoToRaw,
+    rawToRaw: rawToRaw,
     rawToBan: rawToBan,
     rawToBanoshi: rawToBanoshi,
-    rawToNano: rawToNano,
+
   }
 };

@@ -1,8 +1,8 @@
 {
-  "name": "NanoVault",
-  "version": "1.0.3",
+  "name": "BananoVault",
+  "version": "1.0.4",
   "license": "MIT",
-  "description": "Wallet for interacting with Nano",
+  "description": "Wallet for interacting with Banano",
   "author": "Andrew Steele",
   "main": "main.js",
   "scripts": {
@@ -78,9 +78,9 @@
     "uikit": "^3.0.0-beta.40"
   },
   "build": {
-    "appId": "com.electron.nanovault",
-    "buildVersion": "1.0.3",
-    "productName": "NanoVault",
+    "appId": "com.electron.bananovault",
+    "buildVersion": "1.0.4",
+    "productName": "BananoVault",
     "copyright": "Copyright © 2018 Andrew Steele",
     "directories": {
       "output": "dist-desktop",
@@ -91,9 +91,9 @@
       "extendInfo": {
         "CFBundleURLTypes": [
           {
-            "CFBundleURLName": "xrb",
+            "CFBundleURLName": "banano",
             "CFBundleURLSchemes": [
-              "xrb"
+              "banano"
             ]
           }
         ]
@@ -106,13 +106,13 @@
       {
         "provider": "github",
         "owner": "cronoh",
-        "repo": "nanovault"
+        "repo": "bananovault"
       }
     ],
     "protocols": {
-      "name": "xrb",
+      "name": "banano",
       "schemes": [
-        "xrb"
+        "banano"
       ],
       "role": "Viewer"
     }

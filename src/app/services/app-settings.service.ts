@@ -19,11 +19,11 @@ export class AppSettingsService {
   storeKey = `nanovault-appsettings`;
 
   settings: AppSettings = {
-    displayDenomination: 'ban',
+    displayDenomination: 'banano',
     walletStore: 'localStorage',
-    displayCurrency: 'USD',
-    lockOnClose: 1,
-    lockInactivityMinutes: 30,
+    displayCurrency: '',
+    lockOnClose: 0,
+    lockInactivityMinutes: 120,
     powSource: 'best',
     useStateBlocks: true,
   };
@@ -66,11 +66,11 @@ export class AppSettingsService {
   clearAppSettings() {
     localStorage.removeItem(this.storeKey);
     this.settings = {
-      displayDenomination: 'ban',
+      displayDenomination: 'banano',
       walletStore: 'localStorage',
-      displayCurrency: 'USD',
-      lockOnClose: 1,
-      lockInactivityMinutes: 30,
+      displayCurrency: '',
+      lockOnClose: 0,
+      lockInactivityMinutes: 120,
       powSource: 'best',
       useStateBlocks: true,
     };

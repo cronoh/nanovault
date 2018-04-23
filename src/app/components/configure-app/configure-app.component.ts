@@ -16,8 +16,8 @@ export class ConfigureAppComponent implements OnInit {
   wallet = this.walletService.wallet;
 
   denominations = [
-    { name: 'BANANO', value: 'ban' },
-    { name: 'banoshi (0.01 Banano)', value: 'banoshi' },
+    { name: 'BANANO', value: 'BANANO' },
+    { name: 'banoshi (0.01 BANANO)', value: 'banoshi' },
   ];
   selectedDenomination = this.denominations[0].value;
 
@@ -85,7 +85,7 @@ export class ConfigureAppComponent implements OnInit {
   powOptions = [
     { name: 'Best Option Available', value: 'best' },
     { name: 'Client Side - WebGL (Chrome/Firefox)', value: 'clientWebGL' },
-    { name: 'Client Side - CPU', value: 'clientCPU' },
+
     { name: 'Server - BananoVault Server', value: 'server' },
   ];
   selectedPoWOption = this.powOptions[0].value;

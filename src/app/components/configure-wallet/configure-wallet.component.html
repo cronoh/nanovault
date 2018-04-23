@@ -71,12 +71,21 @@
         <input type="text" class="uk-input" (keyup.enter)="importExistingWallet()" [(ngModel)]="importSeedModel" placeholder="Your Banano Backup Seed">
       </div>
     </div>
+    <div uk-grid *ngIf="selectedImportOption === 'mnemonic'" class="uk-margin-top">
+      <div class="uk-width-1-1">
+        <p>
+          Enter your wallet mnemonic phrase generated from any Banano wallet to import it below.
+        </p>
+        <textarea class="uk-textarea" rows="3" (keyup.enter)="importExistingWallet()" [(ngModel)]="importSeedMnemonicModel" placeholder="Your Banano Backup Mnemonic Phrase"></textarea>
+      </div>
+    </div>
   </div>
   <div class="uk-card-footer uk-text-right">
     <div *ngIf="selectedImportOption === 'file'" class="js-upload" uk-form-custom style="display: inline-block;">
       <input type="file" id="import-from-file" (change)="importFromFile($event.target.files)" multiple>
       <button class="uk-button uk-button-primary" type="button" tabindex="-1">Import From File</button>
     </div>
+    <button *ngIf="selectedImportOption === 'mnemonic'" class="uk-button uk-button-primary" (click)="importExistingWallet()">Import From Mnemonic Phrase</button>
     <button *ngIf="selectedImportOption === 'seed'" class="uk-button uk-button-primary" (click)="importExistingWallet()">Import From Seed</button>
   </div>
 </div>
@@ -89,11 +98,18 @@
   </div>
   <div class="uk-card-body">
     <p>
-      Your new Banano wallet has been created!  Below is the seed for your wallet.
+      Your new Banano wallet has been created!  Below is the mnemonic phrase and seed for your wallet, you can use whichever you prefer.
     </p>
     <div class="uk-alert uk-alert-primary">
-      Make sure to write down your seed or save it somewhere safe, and <strong>never share it with anyone!</strong><br>
+      Make sure to write down your mnemonic phrase/seed or save it somewhere safe, and <strong>never share it with anyone!</strong><br>
       It is the master key to all of your accounts, and the only way to recover your funds in an emergency.
+    </div>
+    <div uk-grid>
+      <div class="uk-width-1-4">Wallet Mnemonic Phrase</div>
+      <div class="uk-width-3-4">
+        {{ newWalletMnemonic }}<br>
+        <a title="Copy Mnemonic To Clipboard" ngxClipboard [cbContent]="newWalletMnemonic" (cbOnSuccess)="copied()" uk-tooltip>Copy mnemonic to clipboard</a>
+      </div>
     </div>
     <div uk-grid>
       <div class="uk-width-1-4">Wallet Seed</div>
@@ -104,7 +120,7 @@
     </div>
   </div>
   <div class="uk-card-footer">
-    <button class="uk-button uk-button-danger" (click)="confirmNewSeed()">I've Saved My Seed</button>
+    <button class="uk-button uk-button-danger" (click)="confirmNewSeed()">I've Saved My Seed/Mnemonic</button>
   </div>
 </div>
 
