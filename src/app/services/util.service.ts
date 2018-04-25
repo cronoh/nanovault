@@ -235,7 +235,7 @@ function getAccountPublicKey(account) {
  */
 const banano = 100000000000000000000000000000;
 const banoshi = 1000000000000000000000000000;
-const raw  = 1000000000000000000000000;
+const raw  = 1;
 function banToRaw(value) {
   return new BigNumber(value).times(banano);
 }
