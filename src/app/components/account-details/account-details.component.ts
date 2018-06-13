@@ -40,6 +40,7 @@ export class AccountDetailsComponent implements OnInit, OnDestroy {
   representativeResults$ = new BehaviorSubject([]);
   showRepresentatives = false;
   representativeListMatch = '';
+  isNaN = isNaN;
 
   qrCodeImage = null;
 
@@ -151,7 +152,7 @@ export class AccountDetailsComponent implements OnInit, OnDestroy {
       });
 
       // Remove change blocks now that we are using the raw output
-      this.accountHistory = this.accountHistory.filter(h => h.type !== 'change');
+      this.accountHistory = this.accountHistory.filter(h => h.type !== 'change' && h.subtype !== 'change');
 
       if (additionalBlocksInfo.length) {
         const blocksInfo = await this.api.blocksInfo(additionalBlocksInfo.map(b => b.link));
@@ -191,7 +192,7 @@ export class AccountDetailsComponent implements OnInit, OnDestroy {
     if (!valid || valid.valid !== '1') return this.notifications.sendWarning(`Account ID is not a valid account`);
 
     try {
-      const changed = await this.bananoBlock.generateChange(this.walletAccount, repAccount);
+      const changed = await this.bananoBlock.generateChange(this.walletAccount, repAccount, this.wallet.isLedgerWallet());
       if (!changed) {
         this.notifications.sendError(`Error changing representative, please try again`);
         return;

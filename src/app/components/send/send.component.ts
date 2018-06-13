@@ -202,7 +202,7 @@ export class SendComponent implements OnInit {
     this.confirmingTransaction = true;
 
     try {
-      const newHash = await this.bananoBlock.generateSend(walletAccount, this.toAccountID, this.rawAmount);
+      const newHash = await this.bananoBlock.generateSend(walletAccount, this.toAccountID, this.rawAmount, this.walletService.isLedgerWallet());
       if (newHash) {
         this.notificationService.sendSuccess(`Successfully sent ${this.amount} ${this.selectedAmount.shortName}!`);
         this.activePanel = 'send';
@@ -215,7 +215,9 @@ export class SendComponent implements OnInit {
         this.toAddressBook = '';
         this.addressBookMatch = '';
       } else {
-        this.notificationService.sendError(`There was an error sending your transaction, please try again.`)
+        if (!this.walletService.isLedgerWallet()) {
+          this.notificationService.sendError(`There was an error sending your transaction, please try again.`)
+        }
       }
     } catch (err) {
       this.notificationService.sendError(`There was an error sending your transaction: ${err.message}`)

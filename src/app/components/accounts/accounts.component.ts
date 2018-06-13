@@ -18,13 +18,16 @@ export class AccountsComponent implements OnInit {
   }
 
   async createAccount() {
-    if (this.walletService.walletIsLocked()) {
+    if (this.walletService.isLocked()) {
       return this.notificationService.sendError(`Wallet is locked.`);
     }
-    if (!this.walletService.wallet.seed) return this.notificationService.sendError(`Wallet is not configured`);
-    if (this.walletService.wallet.accounts.length >= 15) return this.notificationService.sendWarning(`You can only track up to 15 accounts at a time.`);
-    const newAccount = await this.walletService.addWalletAccount();
-    this.notificationService.sendSuccess(`Successfully created new account ${newAccount.id}`);
+    if (!this.walletService.isConfigured()) return this.notificationService.sendError(`Wallet is not configured`);
+    if (this.walletService.wallet.accounts.length >= 20) return this.notificationService.sendWarning(`You can only track up to 20 accounts at a time.`);
+    try {
+      const newAccount = await this.walletService.addWalletAccount();
+      this.notificationService.sendSuccess(`Successfully created new account ${newAccount.id}`);
+    } catch (err) {
+    }
   }
 
   copied() {
