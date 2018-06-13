@@ -56,9 +56,14 @@ cd bananovault
 npm install
 ```
 
-#### Run the wallet in dev mode
+#### Run the wallet in dev mode (use http://localhost:4200)
 ```bash
 npm run wallet:dev
+```
+
+#### Run the wallet in dev mode with ledger support (use https://localhost:4200, and ignore the ssl cert error)
+```bash
+npm run wallet:dev-ssl
 ```
 
 ## Build Wallet (For Production)
