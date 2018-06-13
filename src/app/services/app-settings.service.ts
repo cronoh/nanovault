@@ -25,7 +25,11 @@ export class AppSettingsService {
     lockOnClose: 0,
     lockInactivityMinutes: 120,
     powSource: 'best',
+<<<<<<< HEAD
     useStateBlocks: true,
+=======
+    useStateBlocks: false,
+>>>>>>> 338597e99ae8ca659e49a2ed96fa7c6f1e4baf38
   };
 
   constructor() { }
@@ -72,7 +76,11 @@ export class AppSettingsService {
       lockOnClose: 0,
       lockInactivityMinutes: 120,
       powSource: 'best',
+<<<<<<< HEAD
       useStateBlocks: true,
+=======
+      useStateBlocks: false,
+>>>>>>> 338597e99ae8ca659e49a2ed96fa7c6f1e4baf38
     };
   }
 

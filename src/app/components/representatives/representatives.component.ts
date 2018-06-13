@@ -7,7 +7,11 @@ import {RepresentativeService} from "../../services/representative.service";
 import {AppSettingsService} from "../../services/app-settings.service";
 import {BehaviorSubject} from "rxjs/BehaviorSubject";
 import {NotificationService} from "../../services/notification.service";
+<<<<<<< HEAD
 import {BananoBlockService} from "../../services/nano-block.service";
+=======
+import {NanoBlockService} from "../../services/nano-block.service";
+>>>>>>> 338597e99ae8ca659e49a2ed96fa7c6f1e4baf38
 
 @Component({
   selector: 'app-representatives',
@@ -35,7 +39,11 @@ export class RepresentativesComponent implements OnInit {
     public wallet: WalletService,
     private api: ApiService,
     private notifications: NotificationService,
+<<<<<<< HEAD
     private bananoBlock: BananoBlockService,
+=======
+    private nanoBlock: NanoBlockService,
+>>>>>>> 338597e99ae8ca659e49a2ed96fa7c6f1e4baf38
     private util: UtilService,
     private representativeService: RepresentativeService,
     public settings: AppSettingsService) { }
@@ -59,15 +67,24 @@ export class RepresentativesComponent implements OnInit {
     const representativesDetails = await this.getRepresentativesDetails(uniqueRepresentatives);
 
     // Build up the overview object for each representative
+<<<<<<< HEAD
     const totalSupply = new BigNumber(3402823669);
+=======
+    const totalSupply = new BigNumber(133248289);
+>>>>>>> 338597e99ae8ca659e49a2ed96fa7c6f1e4baf38
     let representativesOverview = [];
 
     for (const representative of representativesDetails) {
       const repOnline = onlineReps.indexOf(representative.account) !== -1;
       const knownRep = this.representativeService.getRepresentative(representative.account);
 
+<<<<<<< HEAD
       const bananoWeight = this.util.banano.rawToBan(representative.weight || 0);
       const percent = bananoWeight.div(totalSupply).times(100);
+=======
+      const nanoWeight = this.util.nano.rawToMnano(representative.weight || 0);
+      const percent = nanoWeight.div(totalSupply).times(100);
+>>>>>>> 338597e99ae8ca659e49a2ed96fa7c6f1e4baf38
 
       // Determine the status based on some factors
       let status = 'none';
@@ -85,7 +102,11 @@ export class RepresentativesComponent implements OnInit {
 
       const repOverview = {
         id: representative.account,
+<<<<<<< HEAD
         weight: bananoWeight,
+=======
+        weight: nanoWeight,
+>>>>>>> 338597e99ae8ca659e49a2ed96fa7c6f1e4baf38
         delegatedWeight: representative.delegatedWeight,
         percent: percent,
         status: status,
@@ -287,7 +308,11 @@ export class RepresentativesComponent implements OnInit {
       if (!walletAccount) continue; // Unable to find account in the wallet? wat?
 
       try {
+<<<<<<< HEAD
         const changed = await this.bananoBlock.generateChange(walletAccount, newRep);
+=======
+        const changed = await this.nanoBlock.generateChange(walletAccount, newRep, this.wallet.isLedgerWallet());
+>>>>>>> 338597e99ae8ca659e49a2ed96fa7c6f1e4baf38
         if (!changed) {
           this.notifications.sendError(`Error changing representative for ${account.id}, please try again`);
         }

@@ -24,6 +24,9 @@ export class TransactionDetailsComponent implements OnInit {
   toAddressBook = '';
   fromAddressBook = '';
 
+  transactionJSON = '';
+  showBlockData = false;
+
   amountRaw = new BigNumber(0);
 
   constructor(private route: ActivatedRoute,
@@ -48,6 +51,11 @@ export class TransactionDetailsComponent implements OnInit {
     this.fromAccountID = '';
     this.toAddressBook = '';
     this.fromAddressBook = '';
+<<<<<<< HEAD
+=======
+    this.transactionJSON = '';
+    this.showBlockData = false;
+>>>>>>> 338597e99ae8ca659e49a2ed96fa7c6f1e4baf38
     let legacyFromAccount = '';
     this.amountRaw = new BigNumber(0);
     const hash = this.route.snapshot.params.transaction;
@@ -60,6 +68,8 @@ export class TransactionDetailsComponent implements OnInit {
     const hashData = blockData.blocks[hash];
     const hashContents = JSON.parse(hashData.contents);
     hashData.contents = hashContents;
+
+    this.transactionJSON = JSON.stringify(hashData.contents, null ,4);
 
     this.blockType = hashData.contents.type;
     if (this.blockType === 'state') {

@@ -1,5 +1,9 @@
 {
+<<<<<<< HEAD
   "name": "BananoVault",
+=======
+  "name": "NanoVault",
+>>>>>>> 338597e99ae8ca659e49a2ed96fa7c6f1e4baf38
   "version": "1.0.4",
   "license": "MIT",
   "description": "Wallet for interacting with Banano",
@@ -18,6 +22,7 @@
     "dist-full": "electron-builder -wml --x64",
     "publish": "build -wml --x64 -p always",
     "wallet:dev": "ng serve --open",
+    "wallet:dev-ssl": "ng serve --open --ssl 1 --ssl-key \"assets/dev-cert/key.pem\" --ssl-cert \"assets/dev-cert/cert.pem\"",
     "wallet:build": "ng build --prod",
     "wallet:build-desktop": "ng build --env=desktop --prod --base-href ",
     "desktop:dev": "electron main.js",
@@ -37,6 +42,7 @@
     "@angular/platform-browser": "^5.0.0",
     "@angular/platform-browser-dynamic": "^5.0.0",
     "@angular/router": "^5.0.0",
+    "@ledgerhq/hw-transport-u2f": "^4.7.3",
     "@types/crypto-js": "^3.1.38",
     "bignumber.js": "^5.0.0",
     "bip39": "^2.5.0",
@@ -45,6 +51,7 @@
     "crypto": "^1.0.1",
     "crypto-js": "^3.1.9-1",
     "electron-updater": "^2.21.0",
+    "hw-app-nano": "^1.0.0",
     "ngx-clipboard": "^9.1.2",
     "qrcode": "^1.2.0",
     "rxjs": "^5.5.2",
@@ -78,9 +85,15 @@
     "uikit": "^3.0.0-beta.40"
   },
   "build": {
+<<<<<<< HEAD
     "appId": "com.electron.bananovault",
     "buildVersion": "1.0.4",
     "productName": "BananoVault",
+=======
+    "appId": "com.electron.nanovault",
+    "buildVersion": "1.0.4",
+    "productName": "NanoVault",
+>>>>>>> 338597e99ae8ca659e49a2ed96fa7c6f1e4baf38
     "copyright": "Copyright © 2018 Andrew Steele",
     "directories": {
       "output": "dist-desktop",
