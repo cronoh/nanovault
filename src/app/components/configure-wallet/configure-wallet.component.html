@@ -19,8 +19,8 @@
 <div class="uk-card uk-card-default" *ngIf="activePanel == 0">
   <div class="uk-card-body">
     <p>
-      When you create a new wallet, a new Nano seed will be generated which can be used to create brand new accounts
-      on the Nano network.  Your Nano seed is the master key to all of your accounts and any money inside of them!
+      When you create a new wallet, a new Banano seed will be generated which can be used to create brand new accounts
+      on the Banano network.  Your Banano seed is the master key to all of your accounts and any money inside of them!
     </p>
     <div class="uk-alert-primary" uk-alert>
       <p>Make sure you back up your seed, write it down, and keep it incredibly safe!  There is NO way to recover it after
@@ -35,7 +35,7 @@
 <div class="uk-card uk-card-default" *ngIf="activePanel == 1">
   <div class="uk-card-body">
     <p>
-      If you already have a Nano wallet, you can import it below.  When you import a wallet, none of your existing
+      If you already have a Banano wallet, you can import it below.  When you import a wallet, none of your existing
       wallets or accounts are affected, and your seed is not stored anywhere besides in your local client.  Use the drop
       down below to select which type of import you want to use.
     </p>
@@ -66,17 +66,17 @@
     <div uk-grid *ngIf="selectedImportOption === 'seed'" class="uk-margin-top">
       <div class="uk-width-1-1">
         <p>
-          Enter your 64 character seed from any Nano wallet to import it below.
+          Enter your 64 character seed from any Banano wallet to import it below.
         </p>
-        <input type="text" class="uk-input" (keyup.enter)="importExistingWallet()" [(ngModel)]="importSeedModel" placeholder="Your Nano Backup Seed">
+        <input type="text" class="uk-input" (keyup.enter)="importExistingWallet()" [(ngModel)]="importSeedModel" placeholder="Your Banano Backup Seed">
       </div>
     </div>
     <div uk-grid *ngIf="selectedImportOption === 'mnemonic'" class="uk-margin-top">
       <div class="uk-width-1-1">
         <p>
-          Enter your wallet mnemonic phrase generated from any Nano wallet to import it below.
+          Enter your wallet mnemonic phrase generated from any Banano wallet to import it below.
         </p>
-        <textarea class="uk-textarea" rows="3" (keyup.enter)="importExistingWallet()" [(ngModel)]="importSeedMnemonicModel" placeholder="Your Nano Backup Mnemonic Phrase"></textarea>
+        <textarea class="uk-textarea" rows="3" (keyup.enter)="importExistingWallet()" [(ngModel)]="importSeedMnemonicModel" placeholder="Your Banano Backup Mnemonic Phrase"></textarea>
       </div>
     </div>
     <div uk-grid *ngIf="selectedImportOption === 'ledger'" class="uk-margin-top">
@@ -119,7 +119,7 @@
   </div>
   <div class="uk-card-body">
     <p>
-      Your new Nano wallet has been created!  Below is the mnemonic phrase and seed for your wallet, you can use whichever you prefer.
+      Your new Banano wallet has been created!  Below is the mnemonic phrase and seed for your wallet, you can use whichever you prefer.
     </p>
     <div class="uk-alert uk-alert-primary">
       Make sure to write down your mnemonic phrase/seed or save it somewhere safe, and <strong>never share it with anyone!</strong><br>
@@ -178,7 +178,7 @@
   </div>
   <div class="uk-card-body">
     <p>
-      Your wallet has been configured and you are ready to send and receive Nano!
+      Your wallet has been configured and you are ready to send and receive Banano!
     </p>
   </div>
   <div class="uk-card-footer uk-text-right">

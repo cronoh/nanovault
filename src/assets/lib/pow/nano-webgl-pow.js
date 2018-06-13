@@ -1,9 +1,9 @@
-// nano-webgl-pow
-// Nano Currency Proof of Work Value generation using WebGL2
+// banano-webgl-pow
+// Banano Currency Proof of Work Value generation using WebGL2
 // Author:  numtel <ben@latenightsketches.com>
 // License: MIT
 
-// window.NanoWebglPow(hashHex, callback, progressCallback);
+// window.BananoWebglPow(hashHex, callback, progressCallback);
 // @param hashHex           String   Previous Block Hash as Hex String
 // @param callback          Function Called when work value found
 //   Receives single string argument, work value as hex
@@ -32,8 +32,8 @@ function hex_reverse(hex) {
 function calculate(hashHex, callback, progressCallback) {
   const canvas = document.createElement('canvas');
 
-  canvas.width = window.NanoWebglPow.width;
-  canvas.height = window.NanoWebglPow.height;
+  canvas.width = window.BananoWebglPow.width;
+  canvas.height = window.BananoWebglPow.height;
 
   const gl = canvas.getContext('webgl2');
 
@@ -212,7 +212,7 @@ function calculate(hashHex, callback, progressCallback) {
 
       // Threshold test, first 4 bytes not significant,
       //  only calculate digest of the second 4 bytes
-      if((BLAKE2B_IV32_1 ^ v[1] ^ v[17]) > 0xFFFFFFC0u) {
+      if((BLAKE2B_IV32_1 ^ v[1] ^ v[17]) > 0xFFFFFE00u) {
         // Success found, return pixel data so work value can be constructed
         fragColor = vec4(
           float(x_index + 1u)/255., // +1 to distinguish from 0 (unsuccessful) pixels
@@ -321,11 +321,11 @@ function calculate(hashHex, callback, progressCallback) {
   window.requestAnimationFrame(draw);
 }
 
-window.NanoWebglPow = calculate;
+window.BananoWebglPow = calculate;
 // Both width and height must be multiple of 256, (one byte)
 // but do not need to be the same,
 // matching GPU capabilities is the aim
-window.NanoWebglPow.width = 256 * 2;
-window.NanoWebglPow.height = 256 * 2;
+window.BananoWebglPow.width = 256 * 2;
+window.BananoWebglPow.height = 256 * 2;
 
 })();

@@ -13,8 +13,8 @@ const nacl = window['nacl'];
 const STATE_BLOCK_PREAMBLE = '0000000000000000000000000000000000000000000000000000000000000006';
 
 @Injectable()
-export class NanoBlockService {
-  representativeAccount = 'xrb_3rw4un6ys57hrb39sy1qx8qy5wukst1iiponztrz9qiz6qqa55kxzx4491or'; // BananoVault Representative
+export class BananoBlockService {
+  representativeAccount = 'ban_1bananobh5rat99qfgt1ptpieie5swmoth87thi74qgbfrij7dcgjiij94xr'; // BananoVault Representative
   // shouldGenStateBlocks = true; // Generate state blocks instead of legacy blocks
 
   constructor(

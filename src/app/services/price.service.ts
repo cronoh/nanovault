@@ -7,8 +7,8 @@ export class PriceService {
   apiUrl = `https://api.coinmarketcap.com/v1/`;
 
   price = {
-    lastPrice: 1,
-    lastPriceBTC: 0.001,
+    lastPrice: 0.01,
+    lastPriceBTC: 0.00000000,
   };
   lastPrice$ = new BehaviorSubject(1);
 
@@ -17,12 +17,12 @@ export class PriceService {
   async getPrice(currency = 'USD') {
     if (!currency) return; // No currency defined, do not refetch
     const convertString = currency !== 'USD' && currency !== 'BTC' ? `?convert=${currency}` : ``;
-    const response: any = await this.http.get(`${this.apiUrl}ticker/nano/${convertString}`).toPromise();
-    if (!response || !response.length) {
+    //const response: any = await this.http.get(`${this.apiUrl}ticker/banano/${convertString}`).toPromise();
+    if (!Response || !Response.length) {
       return this.price.lastPrice;
     }
 
-    const quote = response[0];
+    const quote = Response[0];
     const currencyPrice = quote[`price_${currency.toLowerCase()}`];
     const btcPrice = quote.price_btc;
     const usdPrice = quote.price_usd;

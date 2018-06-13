@@ -11,7 +11,7 @@ import {AddressBookService} from "../../services/address-book.service";
   styleUrls: ['./transaction-details.component.css']
 })
 export class TransactionDetailsComponent implements OnInit {
-  nano = 1000000000000000000000000;
+  banoshi = 1000000000000000000000000000;
 
   routerSub = null;
   transaction: any = {};
@@ -98,7 +98,7 @@ export class TransactionDetailsComponent implements OnInit {
       this.isStateBlock = false;
     }
     if (hashData.amount) {
-      this.amountRaw = new BigNumber(hashData.amount).mod(this.nano);
+      this.amountRaw = new BigNumber(hashData.amount).mod(this.banoshi);
     }
 
     this.transaction = hashData;
