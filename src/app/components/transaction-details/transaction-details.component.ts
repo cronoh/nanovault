@@ -51,11 +51,8 @@ export class TransactionDetailsComponent implements OnInit {
     this.fromAccountID = '';
     this.toAddressBook = '';
     this.fromAddressBook = '';
-<<<<<<< HEAD
-=======
     this.transactionJSON = '';
     this.showBlockData = false;
->>>>>>> 338597e99ae8ca659e49a2ed96fa7c6f1e4baf38
     let legacyFromAccount = '';
     this.amountRaw = new BigNumber(0);
     const hash = this.route.snapshot.params.transaction;

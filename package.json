@@ -1,9 +1,5 @@
 {
-<<<<<<< HEAD
   "name": "BananoVault",
-=======
-  "name": "NanoVault",
->>>>>>> 338597e99ae8ca659e49a2ed96fa7c6f1e4baf38
   "version": "1.0.4",
   "license": "MIT",
   "description": "Wallet for interacting with Banano",
@@ -85,15 +81,9 @@
     "uikit": "^3.0.0-beta.40"
   },
   "build": {
-<<<<<<< HEAD
     "appId": "com.electron.bananovault",
     "buildVersion": "1.0.4",
     "productName": "BananoVault",
-=======
-    "appId": "com.electron.nanovault",
-    "buildVersion": "1.0.4",
-    "productName": "NanoVault",
->>>>>>> 338597e99ae8ca659e49a2ed96fa7c6f1e4baf38
     "copyright": "Copyright © 2018 Andrew Steele",
     "directories": {
       "output": "dist-desktop",

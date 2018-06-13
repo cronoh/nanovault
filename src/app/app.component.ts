@@ -10,11 +10,8 @@ import {WorkPoolService} from "./services/work-pool.service";
 import {Router} from "@angular/router";
 import {RepresentativeService} from "./services/representative.service";
 import {NodeService} from "./services/node.service";
-<<<<<<< HEAD
-=======
 import Nano from "hw-app-nano";
 import TransportU2F from "@ledgerhq/hw-transport-u2f";
->>>>>>> 338597e99ae8ca659e49a2ed96fa7c6f1e4baf38
 
 @Component({
   selector: 'app-root',
@@ -27,11 +24,7 @@ export class AppComponent implements OnInit {
   };
   wallet = this.walletService.wallet;
   node = this.nodeService.node;
-<<<<<<< HEAD
   bananoPrice = this.price.price;
-=======
-  nanoPrice = this.price.price;
->>>>>>> 338597e99ae8ca659e49a2ed96fa7c6f1e4baf38
   fiatTimeout = 5 * 60 * 1000; // Update fiat prices every 5 minutes
   inactiveSeconds = 0;
   windowHeight = 1000;

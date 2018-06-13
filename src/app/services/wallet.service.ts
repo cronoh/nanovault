@@ -78,12 +78,8 @@ export class WalletService {
     private price: PriceService,
     private workPool: WorkPoolService,
     private websocket: WebsocketService,
-<<<<<<< HEAD
     private bananoBlock: BananoBlockService,
-=======
-    private nanoBlock: NanoBlockService,
     private ledgerService: LedgerService,
->>>>>>> 338597e99ae8ca659e49a2ed96fa7c6f1e4baf38
     private notifications: NotificationService)
   {
     this.websocket.newTransactions$.subscribe(async (transaction) => {
@@ -593,28 +589,6 @@ export class WalletService {
       this.wallet.accountsIndex = nextIndex;
     }
 
-<<<<<<< HEAD
-    const accountBytes = this.util.account.generateAccountSecretKeyBytes(this.wallet.seedBytes, index);
-    const accountKeyPair = this.util.account.generateAccountKeyPair(accountBytes);
-    const accountName = this.util.account.getPublicAccountID(accountKeyPair.publicKey);
-    const addressBookName = this.addressBook.getAccountName(accountName);
-
-    const newAccount: WalletAccount = {
-      id: accountName,
-      frontier: null,
-      secret: accountBytes,
-      keyPair: accountKeyPair,
-      balance: new BigNumber(0),
-      pending: new BigNumber(0),
-      balanceRaw: new BigNumber(0),
-      pendingRaw: new BigNumber(0),
-      balanceFiat: 0,
-      pendingFiat: 0,
-      index: index,
-      addressBookName,
-      useStateBlocks: true,
-    };
-=======
     let newAccount: WalletAccount|null;
 
     if (this.wallet.type === 'privateKey') {
@@ -628,7 +602,6 @@ export class WalletService {
         this.notifications.sendWarning(`Unable to load account from ledger.  Make sure it is connected`);
         throw err;
       }
->>>>>>> 338597e99ae8ca659e49a2ed96fa7c6f1e4baf38
 
     }
 
@@ -706,22 +679,13 @@ export class WalletService {
     const walletAccount = this.getWalletAccount(nextBlock.account);
     if (!walletAccount) return; // Dispose of the block, no matching account
 
-<<<<<<< HEAD
-    const newHash = await this.bananoBlock.generateReceive(walletAccount, nextBlock.hash);
-=======
-    const newHash = await this.nanoBlock.generateReceive(walletAccount, nextBlock.hash, this.isLedgerWallet());
->>>>>>> 338597e99ae8ca659e49a2ed96fa7c6f1e4baf38
+    const newHash = await this.bananoBlock.generateReceive(walletAccount, nextBlock.hash, this.isLedgerWallet());
     if (newHash) {
       if (this.successfulBlocks.length >= 15) this.successfulBlocks.shift();
       this.successfulBlocks.push(nextBlock.hash);
 
-<<<<<<< HEAD
       const receiveAmount = this.util.banano.rawToBan(nextBlock.amount);
       this.notifications.sendSuccess(`Successfully received ${receiveAmount.isZero() ? '' : receiveAmount.toFixed(2)} Banano!`);
-=======
-      const receiveAmount = this.util.nano.rawToMnano(nextBlock.amount);
-      this.notifications.sendSuccess(`Successfully received ${receiveAmount.isZero() ? '' : receiveAmount.toFixed(6)} Nano!`);
->>>>>>> 338597e99ae8ca659e49a2ed96fa7c6f1e4baf38
 
       // await this.promiseSleep(500); // Give the node a chance to make sure its ready to reload all?
       await this.reloadBalances();

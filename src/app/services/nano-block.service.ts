@@ -6,25 +6,15 @@ import {WorkPoolService} from "./work-pool.service";
 import BigNumber from "bignumber.js";
 import {NotificationService} from "./notification.service";
 import {AppSettingsService} from "./app-settings.service";
-<<<<<<< HEAD
-=======
 import {WalletService} from "./wallet.service";
 import {LedgerService} from "../ledger.service";
->>>>>>> 338597e99ae8ca659e49a2ed96fa7c6f1e4baf38
 const nacl = window['nacl'];
 
 const STATE_BLOCK_PREAMBLE = '0000000000000000000000000000000000000000000000000000000000000006';
 
 @Injectable()
-<<<<<<< HEAD
 export class BananoBlockService {
   representativeAccount = 'ban_1bananobh5rat99qfgt1ptpieie5swmoth87thi74qgbfrij7dcgjiij94xr'; // BananoVault Representative
-  // shouldGenStateBlocks = true; // Generate state blocks instead of legacy blocks
-
-  constructor(private api: ApiService, private util: UtilService, private workPool: WorkPoolService, private notifications: NotificationService, public settings: AppSettingsService) { }
-=======
-export class NanoBlockService {
-  representativeAccount = 'xrb_3rw4un6ys57hrb39sy1qx8qy5wukst1iiponztrz9qiz6qqa55kxzx4491or'; // NanoVault Representative
   // shouldGenStateBlocks = true; // Generate state blocks instead of legacy blocks
 
   constructor(
@@ -34,7 +24,6 @@ export class NanoBlockService {
     private notifications: NotificationService,
     private ledgerService: LedgerService,
     public settings: AppSettingsService) { }
->>>>>>> 338597e99ae8ca659e49a2ed96fa7c6f1e4baf38
 
   async generateChange(walletAccount, representativeAccount, ledger = false) {
     const toAcct = await this.api.accountInfo(walletAccount.id);
@@ -47,20 +36,6 @@ export class NanoBlockService {
       let balancePadded = balance.toString(16);
       while (balancePadded.length < 32) balancePadded = '0' + balancePadded; // Left pad with 0's
       let link = '0000000000000000000000000000000000000000000000000000000000000000';
-<<<<<<< HEAD
-      let context = blake.blake2bInit(32, null);
-      blake.blake2bUpdate(context, this.util.hex.toUint8(STATE_BLOCK_PREAMBLE));
-      blake.blake2bUpdate(context, this.util.hex.toUint8(this.util.account.getAccountPublicKey(walletAccount.id)));
-      blake.blake2bUpdate(context, this.util.hex.toUint8(toAcct.frontier));
-      blake.blake2bUpdate(context, this.util.hex.toUint8(this.util.account.getAccountPublicKey(representativeAccount)));
-      blake.blake2bUpdate(context, this.util.hex.toUint8(balancePadded));
-      blake.blake2bUpdate(context, this.util.hex.toUint8(link));
-      const hashBytes = blake.blake2bFinal(context);
-
-      const privKey = walletAccount.keyPair.secretKey;
-      const signed = nacl.sign.detached(hashBytes, privKey);
-      const signature = this.util.hex.fromUint8(signed);
-=======
 
       let signature = null;
       if (ledger) {
@@ -83,7 +58,6 @@ export class NanoBlockService {
       } else {
         signature = this.signChangeBlock(walletAccount, toAcct, representativeAccount, balancePadded, link);
       }
->>>>>>> 338597e99ae8ca659e49a2ed96fa7c6f1e4baf38
 
       if (!this.workPool.workExists(toAcct.frontier)) {
         this.notifications.sendInfo(`Generating Proof of Work...`);
@@ -145,20 +119,6 @@ export class NanoBlockService {
     let blockData;
     if (this.settings.settings.useStateBlocks || walletAccount.useStateBlocks) {
       const representative = fromAccount.representative || this.representativeAccount;
-<<<<<<< HEAD
-      const context = blake.blake2bInit(32, null);
-      blake.blake2bUpdate(context, this.util.hex.toUint8(STATE_BLOCK_PREAMBLE));
-      blake.blake2bUpdate(context, this.util.hex.toUint8(this.util.account.getAccountPublicKey(walletAccount.id)));
-      blake.blake2bUpdate(context, this.util.hex.toUint8(fromAccount.frontier));
-      blake.blake2bUpdate(context, this.util.hex.toUint8(this.util.account.getAccountPublicKey(representative)));
-      blake.blake2bUpdate(context, this.util.hex.toUint8(remainingPadded));
-      blake.blake2bUpdate(context, this.util.hex.toUint8(this.util.account.getAccountPublicKey(toAccountID)));
-      const hashBytes = blake.blake2bFinal(context);
-
-      // Sign the hash bytes with the account priv key bytes
-      const signed = nacl.sign.detached(hashBytes, walletAccount.keyPair.secretKey);
-      const signature = this.util.hex.fromUint8(signed);
-=======
 
       let signature = null;
       if (ledger) {
@@ -182,7 +142,6 @@ export class NanoBlockService {
       } else {
         signature = this.signSendBlock(walletAccount, fromAccount, representative, remainingPadded, toAccountID);
       }
->>>>>>> 338597e99ae8ca659e49a2ed96fa7c6f1e4baf38
 
       if (!this.workPool.workExists(fromAccount.frontier)) {
         this.notifications.sendInfo(`Generating Proof of Work...`);
@@ -250,17 +209,6 @@ export class NanoBlockService {
       const newBalanceDecimal = newBalance.toString(10);
       let newBalancePadded = newBalance.toString(16);
       while (newBalancePadded.length < 32) newBalancePadded = '0' + newBalancePadded; // Left pad with 0's
-<<<<<<< HEAD
-
-      const context = blake.blake2bInit(32, null);
-      blake.blake2bUpdate(context, this.util.hex.toUint8(STATE_BLOCK_PREAMBLE));
-      blake.blake2bUpdate(context, this.util.hex.toUint8(this.util.account.getAccountPublicKey(walletAccount.id)));
-      blake.blake2bUpdate(context, this.util.hex.toUint8(previousBlock));
-      blake.blake2bUpdate(context, this.util.hex.toUint8(this.util.account.getAccountPublicKey(representative)));
-      blake.blake2bUpdate(context, this.util.hex.toUint8(newBalancePadded));
-      blake.blake2bUpdate(context, this.util.hex.toUint8(sourceBlock));
-      const hashBytes = blake.blake2bFinal(context);
-=======
 
       // We have everything we need, we need to obtain a signature
       let signature = null;
@@ -310,41 +258,12 @@ export class NanoBlockService {
         blake.blake2bUpdate(context, this.util.hex.toUint8(this.util.account.getAccountPublicKey(this.representativeAccount)));
         blake.blake2bUpdate(context, this.util.hex.toUint8(this.util.account.getAccountPublicKey(walletAccount.id)));
         const hashBytes = blake.blake2bFinal(context);
->>>>>>> 338597e99ae8ca659e49a2ed96fa7c6f1e4baf38
 
         const privKey = walletAccount.keyPair.secretKey;
         const signed = nacl.sign.detached(hashBytes, privKey);
         const signature = this.util.hex.fromUint8(signed);
         const PK = this.util.account.getAccountPublicKey(walletAccount.id);
 
-<<<<<<< HEAD
-      workBlock = openEquiv ? this.util.account.getAccountPublicKey(walletAccount.id) : previousBlock;
-      blockData = {
-        type: 'state',
-        account: walletAccount.id,
-        previous: previousBlock,
-        representative: representative,
-        balance: newBalanceDecimal,
-        link: sourceBlock,
-        signature: signature,
-        work: null
-      };
-    } else {
-      if (openEquiv) {
-        // This is an open block!
-        const context = blake.blake2bInit(32, null);
-        blake.blake2bUpdate(context, this.util.hex.toUint8(sourceBlock));
-        blake.blake2bUpdate(context, this.util.hex.toUint8(this.util.account.getAccountPublicKey(this.representativeAccount)));
-        blake.blake2bUpdate(context, this.util.hex.toUint8(this.util.account.getAccountPublicKey(walletAccount.id)));
-        const hashBytes = blake.blake2bFinal(context);
-
-        const privKey = walletAccount.keyPair.secretKey;
-        const signed = nacl.sign.detached(hashBytes, privKey);
-        const signature = this.util.hex.fromUint8(signed);
-        const PK = this.util.account.getAccountPublicKey(walletAccount.id);
-
-=======
->>>>>>> 338597e99ae8ca659e49a2ed96fa7c6f1e4baf38
         workBlock = PK;
         blockData = {
           type: 'open',

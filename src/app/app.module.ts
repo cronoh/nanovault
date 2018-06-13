@@ -42,10 +42,7 @@ import { RepresentativesComponent } from './components/representatives/represent
 import {RepresentativeService} from "./services/representative.service";
 import {ManageRepresentativesComponent} from "./components/manage-representatives/manage-representatives.component";
 import {NodeService} from "./services/node.service";
-<<<<<<< HEAD
-=======
 import {LedgerService} from "./ledger.service";
->>>>>>> 338597e99ae8ca659e49a2ed96fa7c6f1e4baf38
 
 
 @NgModule({
@@ -96,10 +93,7 @@ import {LedgerService} from "./ledger.service";
     PowService,
     RepresentativeService,
     NodeService,
-<<<<<<< HEAD
-=======
     LedgerService,
->>>>>>> 338597e99ae8ca659e49a2ed96fa7c6f1e4baf38
   ],
   bootstrap: [AppComponent]
 })
