@@ -1,20 +1,20 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { NanoAccountIdComponent } from './nano-account-id.component';
+import { RepresentativesComponent } from './representatives.component';
 
-describe('NanoAccountIdComponent', () => {
-  let component: NanoAccountIdComponent;
-  let fixture: ComponentFixture<NanoAccountIdComponent>;
+describe('RepresentativesComponent', () => {
+  let component: RepresentativesComponent;
+  let fixture: ComponentFixture<RepresentativesComponent>;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ NanoAccountIdComponent ]
+      declarations: [ RepresentativesComponent ]
     })
     .compileComponents();
   }));
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(NanoAccountIdComponent);
+    fixture = TestBed.createComponent(RepresentativesComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

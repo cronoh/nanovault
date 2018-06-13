@@ -24,7 +24,7 @@ export class AppComponent implements OnInit {
   };
   wallet = this.walletService.wallet;
   node = this.nodeService.node;
-  nanoPrice = this.price.price;
+  bananoPrice = this.price.price;
   fiatTimeout = 5 * 60 * 1000; // Update fiat prices every 5 minutes
   inactiveSeconds = 0;
   windowHeight = 1000;
@@ -115,7 +115,7 @@ export class AppComponent implements OnInit {
     } else if (searchData.length === 64) {
       this.router.navigate(['transaction', searchData]);
     } else {
-      this.notifications.sendWarning(`Invalid Nano account or transaction hash!`)
+      this.notifications.sendWarning(`Invalid Banano account or transaction hash!`)
     }
     this.searchData = '';
   }

@@ -19,13 +19,13 @@ export class AppSettingsService {
   storeKey = `bananovault-appsettings`;
 
   settings: AppSettings = {
-    displayDenomination: 'mnano',
+    displayDenomination: 'banano',
     walletStore: 'localStorage',
-    displayCurrency: 'USD',
-    lockOnClose: 1,
-    lockInactivityMinutes: 30,
+    displayCurrency: '',
+    lockOnClose: 0,
+    lockInactivityMinutes: 120,
     powSource: 'best',
-    useStateBlocks: false,
+    useStateBlocks: true,
   };
 
   constructor() { }
@@ -66,13 +66,13 @@ export class AppSettingsService {
   clearAppSettings() {
     localStorage.removeItem(this.storeKey);
     this.settings = {
-      displayDenomination: 'mnano',
+      displayDenomination: 'banano',
       walletStore: 'localStorage',
-      displayCurrency: 'USD',
-      lockOnClose: 1,
-      lockInactivityMinutes: 30,
+      displayCurrency: '',
+      lockOnClose: 0,
+      lockInactivityMinutes: 120,
       powSource: 'best',
-      useStateBlocks: false,
+      useStateBlocks: true,
     };
   }
 

@@ -1,6 +1,6 @@
 <div uk-grid>
   <div class="uk-width-1-1">
-    <h2>Send Nano</h2>
+    <h2>Send Banano</h2>
 
     <!-- Send Panel -->
     <div uk-grid *ngIf="activePanel == 'send'" class="uk-animation-slide-left-small">
@@ -64,7 +64,7 @@
                           <button class="uk-button uk-button-secondary uk-width-1-1" type="button" style="text-transform: none;">{{ selectedAmount.shortName }}</button>
                           <div uk-dropdown>
                             <ul class="uk-nav uk-dropdown-nav">
-                              <li class="uk-active" *ngFor="let amount of amounts" [class]="{ 'uk-active': selectedAmount.value == amount.value }"><a href="#" (click)="selectedAmount = amount; syncNanoPrice();">{{ amount.name }}</a></li>
+                              <li class="uk-active" *ngFor="let amount of amounts" [class]="{ 'uk-active': selectedAmount.value == amount.value }"><a href="#" (click)="selectedAmount = amount; syncBananoPrice();">{{ amount.name }}</a></li>
                             </ul>
                           </div>
                         </div>
@@ -76,8 +76,8 @@
 
                       <div class="uk-width-1-1 uk-width-3-5@s" style="margin-top: 10px;" *ngIf="settings.settings.displayCurrency">
                         <div class="uk-width-1-1 uk-inline">
-                          <a class="uk-form-icon uk-link-reset uk-link-muted" style="padding-left: 7px;" uk-tooltip title="Last Price: {{ price.price.lastPrice | fiat: settings.settings.displayCurrency }} / NANO">{{ settings.settings.displayCurrency | currencySymbol }}</a>
-                          <input [(ngModel)]="amountFiat" (keyup)="syncNanoPrice()" (change)="syncNanoPrice()" style="padding-left: 50px; border: 0; border-bottom: 1px solid #e5e5e5;" class="uk-input" id="form-horizontal-text-fiat" type="text" placeholder="Amount of {{ settings.settings.displayCurrency }} to send">
+                          <a class="uk-form-icon uk-link-reset uk-link-muted" style="padding-left: 7px;" uk-tooltip title="Last Price: {{ price.price.lastPrice | fiat: settings.settings.displayCurrency }} / BANANO">{{ settings.settings.displayCurrency | currencySymbol }}</a>
+                          <input [(ngModel)]="amountFiat" (keyup)="syncBananoPrice()" (change)="syncBananoPrice()" style="padding-left: 50px; border: 0; border-bottom: 1px solid #e5e5e5;" class="uk-input" id="form-horizontal-text-fiat" type="text" placeholder="Amount of {{ settings.settings.displayCurrency }} to send">
                         </div>
                       </div>
 
@@ -90,7 +90,7 @@
             </div>
           </div>
           <div class="uk-card-footer">
-            <button class="uk-button uk-button-primary uk-width-1-1" type="button" (click)="sendTransaction()">Send Nano</button>
+            <button class="uk-button uk-button-primary uk-width-1-1" type="button" (click)="sendTransaction()">Send Banano</button>
           </div>
         </div>
       </div>
@@ -102,9 +102,9 @@
       <div class="uk-width-1-1">
         <div class="uk-card uk-card-default uk-width-1-1 uk-text-center">
           <span style="display: block; padding-top: 8px;">You are about to send</span>
-          <span style="display:block; font-size: 32px;">{{ rawAmount | rai: 'mnano' }}</span>
+          <span style="display:block; font-size: 32px;">{{ rawAmount | rai: 'banano' }}</span>
           <span style="display:block; font-size: 12px;" *ngIf="amountRaw.gt(0)">+{{ amountRaw.toString(10) }} raw</span>
-          <span style="display:block; font-size: 16px; padding-bottom: 5px;" *ngIf="settings.settings.displayCurrency">{{ amountFiat | fiat: settings.settings.displayCurrency }} @ {{ price.price.lastPrice | fiat: settings.settings.displayCurrency }} / NANO</span>
+          <span style="display:block; font-size: 16px; padding-bottom: 5px;" *ngIf="settings.settings.displayCurrency">{{ amountFiat | fiat: settings.settings.displayCurrency }} @ {{ price.price.lastPrice | fiat: settings.settings.displayCurrency }} / BANANO</span>
         </div>
         <br>
         <div uk-grid *ngIf="fromAccount && toAccount">
@@ -128,11 +128,11 @@
               <div class="uk-card-body" style="padding: 20px 20px;">
                 <div uk-grid>
                   <div class="uk-width-1-2 uk-text-muted">
-                    <span class="confirm-currency">{{ fromAccount.balance || 0 | rai: 'mnano'}}</span>
+                    <span class="confirm-currency">{{ fromAccount.balance || 0 | rai: 'banano'}}</span>
                     <span class="confirm-subtitle">Current Balance</span>
                   </div>
                   <div class="uk-width-1-2 uk-text-right">
-                    <span class="confirm-currency uk-text-danger">-{{ rawAmount | rai: 'mnano' }}</span>
+                    <span class="confirm-currency uk-text-danger">-{{ rawAmount | rai: 'banano' }}</span>
                   </div>
                 </div>
               </div>
@@ -159,11 +159,11 @@
               <div class="uk-card-body" style="padding: 20px 20px;">
                 <div uk-grid>
                   <div class="uk-width-1-2 uk-text-muted">
-                    <span class="confirm-currency">{{ toAccount.balance || 0 | rai: 'mnano'}}</span>
+                    <span class="confirm-currency">{{ toAccount.balance || 0 | rai: 'banano'}}</span>
                     <span class="confirm-subtitle">Current Balance</span>
                   </div>
                   <div class="uk-width-1-2 uk-text-right">
-                    <span class="confirm-currency uk-text-success">+{{ rawAmount | rai: 'mnano' }}</span>
+                    <span class="confirm-currency uk-text-success">+{{ rawAmount | rai: 'banano' }}</span>
                   </div>
                 </div>
               </div>
@@ -186,5 +186,3 @@
 
   </div>
 </div>
-
-

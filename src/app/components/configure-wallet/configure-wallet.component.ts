@@ -23,8 +23,8 @@ export class ConfigureWalletComponent implements OnInit {
 
   selectedImportOption = 'seed';
   importOptions = [
-    { name: 'Nano Seed', value: 'seed' },
-    { name: 'Nano Mnemonic Phrase', value: 'mnemonic' },
+    { name: 'Banano Seed', value: 'seed' },
+    { name: 'Banano Mnemonic Phrase', value: 'mnemonic' },
     { name: 'BananoVault Wallet File', value: 'file' },
     { name: 'Ledger Nano S', value: 'ledger' },
   ];

@@ -2,7 +2,7 @@
   "name": "BananoVault",
   "version": "1.0.4",
   "license": "MIT",
-  "description": "Wallet for interacting with Nano",
+  "description": "Wallet for interacting with Banano",
   "author": "Andrew Steele",
   "main": "main.js",
   "scripts": {
@@ -38,7 +38,7 @@
     "@angular/platform-browser": "^5.0.0",
     "@angular/platform-browser-dynamic": "^5.0.0",
     "@angular/router": "^5.0.0",
-    "@ledgerhq/hw-transport-u2f": "^4.7.3",
+    "@ledgerhq/hw-transport-u2f": "^4.13.0",
     "@types/crypto-js": "^3.1.38",
     "bignumber.js": "^5.0.0",
     "bip39": "^2.5.0",
@@ -94,9 +94,9 @@
       "extendInfo": {
         "CFBundleURLTypes": [
           {
-            "CFBundleURLName": "ban",
+            "CFBundleURLName": "banano",
             "CFBundleURLSchemes": [
-              "ban"
+              "banano"
             ]
           }
         ]
@@ -108,14 +108,14 @@
     "publish": [
       {
         "provider": "github",
-        "owner": "coranos",
+        "owner": "banano",
         "repo": "bananovault"
       }
     ],
     "protocols": {
-      "name": "ban",
+      "name": "banano",
       "schemes": [
-        "ban"
+        "banano"
       ],
       "role": "Viewer"
     }

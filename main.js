@@ -3,7 +3,7 @@ const autoUpdater = require('electron-updater').autoUpdater;
 const url = require('url');
 const path = require('path');
 
-app.setAsDefaultProtocolClient('xrb'); // Register handler for xrb: links
+app.setAsDefaultProtocolClient('banano'); // Register handler for xrb: links
 
 let mainWindow;
 
@@ -11,7 +11,7 @@ function createWindow () {
   // Create the browser window.
   mainWindow = new BrowserWindow({width: 1000, height: 600, webPreferences: { webSecurity: false } });
   // const options = { extraHeaders: "pragma: no-cache\n" };
-  // mainWindow.loadURL('https://bananovault.io', options);
+  // mainWindow.loadURL('https://vault.banano.co.in', options);
   // mainWindow.loadURL('http://localhost:4200/');
   mainWindow.loadURL(url.format({
     pathname: path.join(__dirname, 'dist/index.html'),
@@ -126,11 +126,11 @@ function getApplicationMenu() {
       submenu: [
         {
           label: 'View GitHub',
-          click () { loadExternal('https://github.com/cronoh/bananovault') }
+          click () { loadExternal('https://github.com/bananocoin/bananovault') }
         },
         {
           label: 'Submit Issue',
-          click () { loadExternal('https://github.com/cronoh/bananovault/issues/new') }
+          click () { loadExternal('https://github.com/bananocoin/bananovault/issues/new') }
         },
         {type: 'separator'},
         {
@@ -139,7 +139,7 @@ function getApplicationMenu() {
         },
         {
           label: 'View Latest Updates',
-          click () { loadExternal('https://github.com/cronoh/bananovault/releases') }
+          click () { loadExternal('https://github.com/bananocoin/bananovault/releases') }
         },
         {type: 'separator'},
         {

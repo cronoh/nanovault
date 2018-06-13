@@ -1,7 +1,7 @@
 {
   "$schema": "./node_modules/@angular/cli/lib/config/schema.json",
   "project": {
-    "name": "raivault"
+    "name": "bananovault"
   },
   "apps": [
     {
@@ -18,9 +18,6 @@
       "tsconfig": "tsconfig.app.json",
       "testTsconfig": "tsconfig.spec.json",
       "prefix": "app",
-      "styles": [
-        "styles.css"
-      ],
       "scripts": [],
       "environmentSource": "environments/environment.ts",
       "environments": {

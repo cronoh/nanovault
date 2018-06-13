@@ -195,7 +195,7 @@ export class PowService {
 
     const start = Date.now();
     try {
-      window['NanoWebglPow'](hash, (work, n) => {
+      window['BananoWebglPow'](hash, (work, n) => {
           console.log(`WebGL Worker: Found work (${work}) for ${hash} after ${(Date.now() - start) / 1000} seconds [${n} iterations]`);
           response.resolve(work);
         },

@@ -8,7 +8,7 @@ import BigNumber from "bignumber.js";
 import {UtilService} from "../../services/util.service";
 import {WorkPoolService} from "../../services/work-pool.service";
 import {AppSettingsService} from "../../services/app-settings.service";
-import {NanoBlockService} from "../../services/nano-block.service";
+import {BananoBlockService} from "../../services/nano-block.service";
 const nacl = window['nacl'];
 
 @Component({
@@ -29,7 +29,7 @@ export class ReceiveComponent implements OnInit {
     private api: ApiService,
     private workPool: WorkPoolService,
     public settings: AppSettingsService,
-    private nanoBlock: NanoBlockService,
+    private bananoBlock: BananoBlockService,
     private util: UtilService) { }
 
   async ngOnInit() {
@@ -105,10 +105,10 @@ export class ReceiveComponent implements OnInit {
     if (this.walletService.walletIsLocked()) return this.notificationService.sendWarning(`Wallet must be unlocked`);
     pendingBlock.loading = true;
 
-    const newBlock = await this.nanoBlock.generateReceive(walletAccount, sourceBlock, this.walletService.isLedgerWallet());
+    const newBlock = await this.bananoBlock.generateReceive(walletAccount, sourceBlock, this.walletService.isLedgerWallet());
 
     if (newBlock) {
-      this.notificationService.sendSuccess(`Successfully received Nano!`);
+      this.notificationService.sendSuccess(`Successfully received BANANO!`);
     } else {
       if (!this.walletService.isLedgerWallet()) {
         this.notificationService.sendError(`There was an error receiving the transaction`)
