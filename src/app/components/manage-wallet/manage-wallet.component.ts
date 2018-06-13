@@ -71,7 +71,7 @@ export class ManageWalletComponent implements OnInit {
       return this.notifications.sendError(`Address books with 25 or more entries need to use the file export method.`);
     }
     const base64Data = btoa(JSON.stringify(exportData));
-    const exportUrl = `https://nanovault.io/import-address-book#${base64Data}`;
+    const exportUrl = `https://bananovault.io/import-address-book#${base64Data}`;
 
     this.addressBookQRExportUrl = exportUrl;
     this.addressBookQRExportImg = await QRCode.toDataURL(exportUrl);
@@ -80,7 +80,7 @@ export class ManageWalletComponent implements OnInit {
 
   exportAddressBookToFile() {
     if (this.walletService.walletIsLocked()) return this.notifications.sendWarning(`Wallet must be unlocked`);
-    const fileName = `NanoVault-AddressBook.json`;
+    const fileName = `BananoVault-AddressBook.json`;
 
     const exportData = this.addressBookService.addressBook;
     this.triggerFileDownload(fileName, exportData);
@@ -117,7 +117,7 @@ export class ManageWalletComponent implements OnInit {
   exportToFile() {
     if (this.walletService.walletIsLocked()) return this.notifications.sendWarning(`Wallet must be unlocked`);
 
-    const fileName = `NanoVault-Wallet.json`;
+    const fileName = `BananoVault-Wallet.json`;
     const exportData = this.walletService.generateExportData();
     this.triggerFileDownload(fileName, exportData);
 
@@ -134,7 +134,7 @@ export class ManageWalletComponent implements OnInit {
       try {
         const importData = JSON.parse(fileData);
         if (!importData.length || !importData[0].account) {
-          return this.notifications.sendError(`Bad import data, make sure you selected a NanoVault Address Book export`)
+          return this.notifications.sendError(`Bad import data, make sure you selected a BananoVault Address Book export`)
         }
 
         const walletEncrypted = btoa(JSON.stringify(importData));

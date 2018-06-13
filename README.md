@@ -1,13 +1,13 @@
-# NanoVault
+# BananoVault
 
-NanoVault is a fully client-side signing wallet for sending and receiving [Nano](https://github.com/nanocurrency/raiblocks) 
-on your [desktop](https://github.com/cronoh/nanovault/releases) or [in your browser](https://nanovault.io)
+BananoVault is a fully client-side signing wallet for sending and receiving [Nano](https://github.com/nanocurrency/raiblocks) 
+on your [desktop](https://github.com/cronoh/bananovault/releases) or [in your browser](https://bananovault.io)
 
-![NanoVault Screenshot](https://s3-us-west-2.amazonaws.com/nanovault.io/NanoVault-Preview.png)
+![BananoVault Screenshot](https://s3-us-west-2.amazonaws.com/bananovault.io/BananoVault-Preview.png)
 ___
 
 # Table of Contents
-* [Install](#install-nanovault)
+* [Install](#install-bananovault)
 * [Bugs/Feedback](#bugsfeedback)
 * [Application Structure](#application-structure)
 * [Development Prerequisites](#development-prerequisites)
@@ -15,22 +15,22 @@ ___
 * [Acknowledgements](#acknowledgements)
 
 
-# Install NanoVault
-NanoVault is available on your desktop (Windows/Mac/Linux) - just head over to the [releases section](https://github.com/cronoh/nanovault/releases) and download the latest version for your OS.
+# Install BananoVault
+BananoVault is available on your desktop (Windows/Mac/Linux) - just head over to the [releases section](https://github.com/cronoh/bananovault/releases) and download the latest version for your OS.
 
-You can also use NanoVault from any device on the web at [nanovault.io](https://nanovault.io)
+You can also use BananoVault from any device on the web at [bananovault.io](https://bananovault.io)
 
 
 # Bugs/Feedback
-If you run into any issues, please use the [GitHub Issue Tracker](https://github.com/cronoh/nanovault/issues) or head over to our [Discord Server](https://discord.gg/kCeAuJM)!  
+If you run into any issues, please use the [GitHub Issue Tracker](https://github.com/cronoh/bananovault/issues) or head over to our [Discord Server](https://discord.gg/kCeAuJM)!  
 We are continually improving and adding new features based on the feedback you provide, so please let your opinions be known!
 
-To get an idea of some of the things that are planned for the near future, check out the [Road Map](https://github.com/cronoh/nanovault/wiki/Road-Map).
+To get an idea of some of the things that are planned for the near future, check out the [Road Map](https://github.com/cronoh/bananovault/wiki/Road-Map).
 
 ___
 
-#### Everything below is only for contributing to the development of NanoVault
-#### To download NanoVault go to the [releases section](https://github.com/cronoh/nanovault/releases), or use the web wallet at [nanovault.io](https://nanovault.io)
+#### Everything below is only for contributing to the development of BananoVault
+#### To download BananoVault go to the [releases section](https://github.com/cronoh/bananovault/releases), or use the web wallet at [bananovault.io](https://bananovault.io)
 
 ___
 
@@ -38,9 +38,9 @@ ___
 
 The application is broken into a few separate pieces:
 
-- [NanoVault](https://github.com/cronoh/nanovault) - The main wallet application (UI + Seed Generation/Block Signing/Etc).
-- [NanoVault-Server](https://github.com/cronoh/nanovault-server) - Serves the Wallet UI and brokers public communication between the wallet and the Nano Node.
-- [NanoVault-WS](https://github.com/cronoh/nanovault-ws) - Websocket server that receives new blocks from the Nano node and sends them in real time to the wallet ui.
+- [BananoVault](https://github.com/cronoh/bananovault) - The main wallet application (UI + Seed Generation/Block Signing/Etc).
+- [BananoVault-Server](https://github.com/cronoh/bananovault-server) - Serves the Wallet UI and brokers public communication between the wallet and the Nano Node.
+- [BananoVault-WS](https://github.com/cronoh/bananovault-ws) - Websocket server that receives new blocks from the Nano node and sends them in real time to the wallet ui.
 
 
 # Development Prerequisites
@@ -51,8 +51,8 @@ The application is broken into a few separate pieces:
 # Development Guide
 #### Clone repository and install dependencies
 ```bash
-git clone https://github.com/cronoh/nanovault
-cd nanovault
+git clone https://github.com/cronoh/bananovault
+cd bananovault
 npm install
 ```
 
@@ -106,4 +106,4 @@ Special thanks to the following!
 - [dcposch/blakejs](https://github.com/dcposch/blakejs) - Blake2b Implementation
 - [dchest/tweetnacl-js](https://github.com/dchest/tweetnacl-js) - Cryptography Implementation
 
-If you have found NanoVault useful and are feeling generous, you can donate at `xrb_318syypnqcgdouy3p3ekckwmnmmyk5z3dpyq48phzndrmmspyqdqjymoo8hj`
+If you have found BananoVault useful and are feeling generous, you can donate at `xrb_318syypnqcgdouy3p3ekckwmnmmyk5z3dpyq48phzndrmmspyqdqjymoo8hj`

@@ -25,7 +25,7 @@ export class ConfigureWalletComponent implements OnInit {
   importOptions = [
     { name: 'Nano Seed', value: 'seed' },
     { name: 'Nano Mnemonic Phrase', value: 'mnemonic' },
-    { name: 'NanoVault Wallet File', value: 'file' },
+    { name: 'BananoVault Wallet File', value: 'file' },
     { name: 'Ledger Nano S', value: 'ledger' },
   ];
 

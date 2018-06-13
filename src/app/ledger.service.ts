@@ -41,7 +41,7 @@ export interface LedgerData {
 
 @Injectable()
 export class LedgerService {
-  walletPrefix = `44'/165'/`;
+  walletPrefix = `44'/198'/`;
 
   waitTimeout = 300000;
   normalTimeout = 5000;

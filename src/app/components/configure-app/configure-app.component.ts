@@ -90,7 +90,7 @@ export class ConfigureAppComponent implements OnInit {
     { name: 'Best Option Available', value: 'best' },
     { name: 'Client Side - WebGL (Chrome/Firefox)', value: 'clientWebGL' },
     { name: 'Client Side - CPU', value: 'clientCPU' },
-    { name: 'Server - NanoVault Server', value: 'server' },
+    { name: 'Server - BananoVault Server', value: 'server' },
   ];
   selectedPoWOption = this.powOptions[0].value;
 
@@ -199,7 +199,7 @@ export class ConfigureAppComponent implements OnInit {
   async clearWalletData() {
     const UIkit = window['UIkit'];
     try {
-      await UIkit.modal.confirm('<p style="text-align: center;">You are about to delete all of your wallet data stored in NanoVault!<br><b>Make sure you have your seed backed up!!</b><br><br><b>Are you sure?</b></p>');
+      await UIkit.modal.confirm('<p style="text-align: center;">You are about to delete all of your wallet data stored in BananoVault!<br><b>Make sure you have your seed backed up!!</b><br><br><b>Are you sure?</b></p>');
       this.walletService.resetWallet();
       this.walletService.removeWalletData();
 
@@ -210,7 +210,7 @@ export class ConfigureAppComponent implements OnInit {
   async clearAllData() {
     const UIkit = window['UIkit'];
     try {
-      await UIkit.modal.confirm('<p style="text-align: center;">You are about to delete ALL of your data stored in NanoVault.<br>This includes all of your wallet data, your address book, and your application settings!<br><br><b>Make sure you have your seed backed up!!</b><br><br><b>Are you sure?</b></p>');
+      await UIkit.modal.confirm('<p style="text-align: center;">You are about to delete ALL of your data stored in BananoVault.<br>This includes all of your wallet data, your address book, and your application settings!<br><br><b>Make sure you have your seed backed up!!</b><br><br><b>Are you sure?</b></p>');
       this.walletService.resetWallet();
       this.walletService.removeWalletData();
 

@@ -16,7 +16,7 @@ interface AppSettings {
 
 @Injectable()
 export class AppSettingsService {
-  storeKey = `nanovault-appsettings`;
+  storeKey = `bananovault-appsettings`;
 
   settings: AppSettings = {
     displayDenomination: 'mnano',

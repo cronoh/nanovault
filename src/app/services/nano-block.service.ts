@@ -14,7 +14,7 @@ const STATE_BLOCK_PREAMBLE = '00000000000000000000000000000000000000000000000000
 
 @Injectable()
 export class NanoBlockService {
-  representativeAccount = 'xrb_3rw4un6ys57hrb39sy1qx8qy5wukst1iiponztrz9qiz6qqa55kxzx4491or'; // NanoVault Representative
+  representativeAccount = 'xrb_3rw4un6ys57hrb39sy1qx8qy5wukst1iiponztrz9qiz6qqa55kxzx4491or'; // BananoVault Representative
   // shouldGenStateBlocks = true; // Generate state blocks instead of legacy blocks
 
   constructor(
