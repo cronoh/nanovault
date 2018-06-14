@@ -87,7 +87,7 @@ export class ConfigureWalletComponent implements OnInit {
     }
 
     if (this.ledger.status === LedgerStatus.LOCKED) {
-      return this.notifications.sendWarning(`Unlock your ledger device and open the Nano app to continue`);
+      return this.notifications.sendWarning(`Unlock your ledger device and open the Banano app to continue`);
     }
 
     const newWallet = await this.walletService.createLedgerWallet();
