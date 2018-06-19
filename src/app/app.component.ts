@@ -10,7 +10,7 @@ import {WorkPoolService} from "./services/work-pool.service";
 import {Router} from "@angular/router";
 import {RepresentativeService} from "./services/representative.service";
 import {NodeService} from "./services/node.service";
-import Nano from "hw-app-nano";
+import Banano from "hw-app-banano";
 import TransportU2F from "@ledgerhq/hw-transport-u2f";
 
 @Component({
@@ -75,10 +75,10 @@ export class AppComponent implements OnInit {
       }
     });
 
-    // Listen for an xrb: protocol link, triggered by the desktop application
+    // Listen for an ban: protocol link, triggered by the desktop application
     window.addEventListener('protocol-load', (e: CustomEvent) => {
       const protocolText = e.detail;
-      const stripped = protocolText.split('').splice(4).join(''); // Remove xrb:
+      const stripped = protocolText.split('').splice(4).join(''); // Remove ban:
       if (stripped.startsWith('ban_')) {
         this.router.navigate(['account', stripped]);
       }

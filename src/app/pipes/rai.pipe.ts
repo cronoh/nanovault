@@ -18,7 +18,7 @@ export class RaiPipe implements PipeTransform {
 
     switch (denomination.toLowerCase()) {
       default:
-      
+
       case 'banano':
         const hasRawValue = (value / this.banoshi) % 1;
         if (hasRawValue) {
@@ -28,7 +28,7 @@ export class RaiPipe implements PipeTransform {
           return `${(value / this.banano).toFixed(2)}${!hideText ? ' BANANO': ''}`;
         }
       case 'banoshi': return `${(value / this.banoshi).toFixed(0)}${!hideText ? ' banoshi': ''}`;
-      
+
       case 'raw': return `${value}${!hideText ? ' raw': ''}`;
       case 'dynamic':
         const rai = (value / this.raw);

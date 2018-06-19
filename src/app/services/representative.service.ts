@@ -3,7 +3,7 @@ import {BehaviorSubject} from "rxjs";
 
 @Injectable()
 export class RepresentativeService {
-  storeKey = `nanovault-representatives`;
+  storeKey = `bananovault-representatives`;
 
   representatives$ = new BehaviorSubject([]);
   representatives = [];

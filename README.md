@@ -1,6 +1,6 @@
 # BananoVault
 
-BananoVault is a fully client-side signing wallet for sending and receiving [Banano](https://github.com/bananocoin/banano) 
+BananoVault is a fully client-side signing wallet for sending and receiving [Banano](https://github.com/bananocoin/banano)
 on your [desktop](https://github.com/bananocoin/bananovault/releases) or [in your browser](https://vault.banano.co.in)
 
 ![BananoVault Screenshot](https://i.imgur.com/DWlPQdM.png)
@@ -22,7 +22,7 @@ You can also use BananoVault from any device on the web at [vault.banano.co.in](
 
 
 # Bugs/Feedback
-If you run into any issues, please use the [GitHub Issue Tracker](https://github.com/bananocoin/bananovault/issues) or head over to our [Discord Server](https://discord.gg/SBPaSBS)!  
+If you run into any issues, please use the [GitHub Issue Tracker](https://github.com/bananocoin/bananovault/issues) or head over to our [Discord Server](https://discord.gg/SBPaSBS)!
 We are continually improving and adding new features based on the feedback you provide, so please let your opinions be known!
 
 To get an idea of some of the things that are planned for the near future, check out the [Road Map](https://github.com/bananocoin/bananovault/wiki/Road-Map).
@@ -56,9 +56,14 @@ cd bananovault
 npm install
 ```
 
-#### Run the wallet in dev mode
+#### Run the wallet in dev mode (use http://localhost:4200)
 ```bash
 npm run wallet:dev
+```
+
+#### Run the wallet in dev mode with ledger support (use https://localhost:4200, and ignore the ssl cert error)
+```bash
+npm run wallet:dev-ssl
 ```
 
 ## Build Wallet (For Production)
@@ -107,4 +112,4 @@ Special thanks to the following!
 - [dcposch/blakejs](https://github.com/dcposch/blakejs) - Blake2b Implementation
 - [dchest/tweetnacl-js](https://github.com/dchest/tweetnacl-js) - Cryptography Implementation
 
- If you have found BananoVault useful and are feeling generous, you can donate to the original author's nano address: `xrb_318syypnqcgdouy3p3ekckwmnmmyk5z3dpyq48phzndrmmspyqdqjymoo8hj`  
+ If you have found BananoVault useful and are feeling generous, you can donate to the original author's nano address: `xrb_318syypnqcgdouy3p3ekckwmnmmyk5z3dpyq48phzndrmmspyqdqjymoo8hj`
