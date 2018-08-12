@@ -41,8 +41,12 @@ export class AccountDetailsComponent implements OnInit, OnDestroy {
   showRepresentatives = false;
   representativeListMatch = '';
   isNaN = isNaN;
+  monKeyImageEndpoint = "http://bananomonkeys.herokuapp.com/image?address=";
+
 
   qrCodeImage = null;
+  monKeyImage = null;
+
 
   routerSub = null;
   priceSub = null;
@@ -117,6 +121,9 @@ export class AccountDetailsComponent implements OnInit, OnDestroy {
 
     const qrCode = await QRCode.toDataURL(`${this.accountID}`);
     this.qrCodeImage = qrCode;
+    
+    this.monKeyImage = this.monKeyImageEndpoint + this.accountID;
+
   }
 
   ngOnDestroy() {
