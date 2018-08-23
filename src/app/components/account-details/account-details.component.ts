@@ -79,8 +79,10 @@ export class AccountDetailsComponent implements OnInit, OnDestroy {
   }
 
   async loadAccountDetails() {
+    this.monKeyImage = '';
     this.pendingBlocks = [];
     this.accountID = this.router.snapshot.params.account;
+    this.monKeyImage = this.monKeyImageEndpoint + this.accountID;
     this.addressBookEntry = this.addressBook.getAccountName(this.accountID);
     this.addressBookModel = this.addressBookEntry || '';
     this.walletAccount = this.wallet.getWalletAccount(this.accountID);
@@ -121,9 +123,6 @@ export class AccountDetailsComponent implements OnInit, OnDestroy {
 
     const qrCode = await QRCode.toDataURL(`${this.accountID}`);
     this.qrCodeImage = qrCode;
-    
-    this.monKeyImage = this.monKeyImageEndpoint + this.accountID;
-
   }
 
   ngOnDestroy() {
