@@ -4,12 +4,12 @@
 
 .app {
   font-family: 'Lato', sans-serif;
-  background: #f0f1f1;
+  background: #212124;
   /*height: 100%;*/
 }
 
 .title-block {
-  background: #fff;
+  background: #39393D;
 }
 
 .title-block .title {
@@ -17,7 +17,7 @@
   display: block;
   padding-top: 10px;
   padding-bottom: 10px;
-  color: #666;
+  color: #3aac4a;
 }
 .title-block .title:hover {
   text-decoration: none;
@@ -42,7 +42,7 @@
 }
 
 .left-nav a {
-  color: #FFF;
+  color: #cbcbcb;
 }
 
 .left-nav a:hover {
