@@ -41,7 +41,7 @@ export class AccountDetailsComponent implements OnInit, OnDestroy {
   showRepresentatives = false;
   representativeListMatch = '';
   isNaN = isNaN;
-  monKeyImageEndpoint = "http://bananomonkeys.herokuapp.com/image?address=";
+  monKeyImageEndpoint = "https://bananomonkeys.herokuapp.com/image?address=";
 
 
   qrCodeImage = null;
