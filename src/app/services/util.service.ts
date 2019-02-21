@@ -233,9 +233,9 @@ function getAccountPublicKey(account) {
 /**
  * Conversion functions
  */
-const mnano = 1000000000000000000000000000000;
-const knano = 1000000000000000000000000000;
-const nano  = 1000000000000000000000000;
+const mnano = 10000000000;
+const knano = 10000000;
+const nano  = 10000;
 function mnanoToRaw(value) {
   return new BigNumber(value).times(mnano);
 }
