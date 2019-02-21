@@ -211,7 +211,7 @@ function getPublicAccountID(accountPublicKeyBytes) {
   const checksum = util.uint5.toString(util.uint4.toUint5(util.uint8.toUint4(blake.blake2b(keyBytes, null, 5).reverse())));
   const account = util.uint5.toString(util.uint4.toUint5(util.hex.toUint4(`0${accountHex}`)));
 
-  return `xrb_${account}${checksum}`;
+  return `mik_${account}${checksum}`;
 }
 
 function getAccountPublicKey(account) {
