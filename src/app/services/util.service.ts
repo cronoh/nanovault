@@ -215,7 +215,7 @@ function getPublicAccountID(accountPublicKeyBytes) {
 }
 
 function getAccountPublicKey(account) {
-  if ((!account.startsWith('xrb_1') && !account.startsWith('xrb_3')) || account.length !== 64) throw new Error(`Invalid NANO Account`);
+  if ((!account.startsWith('mik_1') && !account.startsWith('mik_3')) || account.length !== 64) throw new Error(`Invalid NANO Account`);
   const account_crop = account.substring(4,64);
   const isValid = /^[13456789abcdefghijkmnopqrstuwxyz]+$/.test(account_crop);
   if (!isValid) throw new Error(`Invalid NANO account`);
