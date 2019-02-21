@@ -16,7 +16,7 @@
 
           <div style="display: inline-block; text-align: right;" class="uk-text-truncate">
             <span class="balance-text" style="display: inline-block; text-align: left; float: left; margin-top: 5px;">Balance </span>
-            <span class="" style="margin-left: 11px; color: #62a25b; display: inline-block; font-size: 12px;" uk-tooltip title="Last Price: {{ price.price.lastPrice | fiat: settings.settings.displayCurrency }} / NANO">{{ wallet.balanceFiat | fiat: settings.settings.displayCurrency }}</span>
+            <span class="" style="margin-left: 11px; color: #62a25b; display: inline-block; font-size: 12px;" uk-tooltip title="Last Price: {{ price.price.lastPrice | fiat: settings.settings.displayCurrency }} / MIK">{{ wallet.balanceFiat | fiat: settings.settings.displayCurrency }}</span>
             <span class="balance" style="clear: left; text-align: left;" [ngClass]="{ 'uk-text-danger': node.status === false, 'uk-text-muted': node.status === null && wallet.seed }">{{ wallet.balance | rai: settings.settings.displayDenomination }}</span>
           </div>
 
@@ -108,7 +108,7 @@
 
             <div style="display: inline-block; text-align: right;" class="uk-text-truncate">
               <span class="balance-text" style="display: inline-block; text-align: left; float: left; margin-top: 5px;">Balance </span>
-              <span class="" style="margin-left: 11px; color: #62a25b; display: inline-block; font-size: 12px;" uk-tooltip title="Last Price: {{ price.price.lastPrice | fiat: settings.settings.displayCurrency }} / NANO">{{ wallet.balanceFiat | fiat: settings.settings.displayCurrency }}</span>
+              <span class="" style="margin-left: 11px; color: #62a25b; display: inline-block; font-size: 12px;" uk-tooltip title="Last Price: {{ price.price.lastPrice | fiat: settings.settings.displayCurrency }} / MIK">{{ wallet.balanceFiat | fiat: settings.settings.displayCurrency }}</span>
               <span class="balance" [ngClass]="{ 'uk-text-danger': node.status === false, 'uk-text-muted': node.status === null && wallet.seed }" style="clear: left; text-align: left;">{{ wallet.balance | rai: settings.settings.displayDenomination }}</span>
             </div>
 
