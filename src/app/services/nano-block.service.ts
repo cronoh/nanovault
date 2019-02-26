@@ -10,7 +10,8 @@ import {WalletService} from "./wallet.service";
 import {LedgerService} from "./ledger.service";
 const nacl = window['nacl'];
 
-const STATE_BLOCK_PREAMBLE = '0000000000000000000000000000000000000000000000000000000000000006';
+const STATE_BLOCK_PREAMBLE = '0000000000000000000000000000000000000000000000000000000000000006';  // state block type
+const EPOCH_0 = 1535760000; // Epoch 0, origin for block times, Sept 1 2018
 
 @Injectable()
 export class NanoBlockService {
@@ -24,15 +25,22 @@ export class NanoBlockService {
     private ledgerService: LedgerService,
     public settings: AppSettingsService) { }
 
+  // Return the current time as a creation time for a new block (as decimal int)
+  getCreationTimeNow() {
+    const nowMs = new Date().getTime();
+    return Math.floor(nowMs/1000 - EPOCH_0);
+  }
+
   async generateChange(walletAccount, representativeAccount, ledger = false) {
     const toAcct = await this.api.accountInfo(walletAccount.id);
     if (!toAcct) throw new Error(`Account must have an open block first`);
 
+    const creationTimeDec = this.getCreationTimeNow();
+    let creationTimeHex = this.padStringLeft(creationTimeDec.toString(16), 8, '0');
     let blockData;
     const balance = new BigNumber(toAcct.balance);
     const balanceDecimal = balance.toString(10);
-    let balancePadded = balance.toString(16);
-    while (balancePadded.length < 32) balancePadded = '0' + balancePadded; // Left pad with 0's
+    let balancePadded = this.padStringLeft(balance.toString(16), 16, '0');
     let link = '0000000000000000000000000000000000000000000000000000000000000000';
 
     let signature = null;
@@ -54,7 +62,7 @@ export class NanoBlockService {
         return;
       }
     } else {
-      signature = this.signChangeBlock(walletAccount, toAcct, representativeAccount, balancePadded, link);
+      signature = this.signChangeBlock(walletAccount, creationTimeHex, toAcct, representativeAccount, balancePadded, link);
     }
 
     if (!this.workPool.workExists(toAcct.frontier)) {
@@ -64,6 +72,7 @@ export class NanoBlockService {
     blockData = {
       type: 'state',
       account: walletAccount.id,
+      creation_time: creationTimeDec,
       previous: toAcct.frontier,
       representative: representativeAccount,
       balance: balanceDecimal,
@@ -87,10 +96,11 @@ export class NanoBlockService {
     const fromAccount = await this.api.accountInfo(walletAccount.id);
     if (!fromAccount) throw new Error(`Unable to get account information for ${walletAccount.id}`);
 
+    const creationTimeDec = this.getCreationTimeNow();
+    let creationTimeHex = this.padStringLeft(creationTimeDec.toString(16), 8, '0');
     const remaining = new BigNumber(fromAccount.balance).minus(rawAmount);
     const remainingDecimal = remaining.toString(10);
-    let remainingPadded = remaining.toString(16);
-    while (remainingPadded.length < 32) remainingPadded = '0' + remainingPadded; // Left pad with 0's
+    let remainingPadded = this.padStringLeft(remaining.toString(16), 16, '0');
 
     let blockData;
     const representative = fromAccount.representative || this.representativeAccount;
@@ -115,7 +125,7 @@ export class NanoBlockService {
         return;
       }
     } else {
-      signature = this.signSendBlock(walletAccount, fromAccount, representative, remainingPadded, toAccountID);
+      signature = this.signSendBlock(walletAccount, creationTimeHex, fromAccount, representative, remainingPadded, toAccountID);
     }
 
     if (!this.workPool.workExists(fromAccount.frontier)) {
@@ -125,6 +135,7 @@ export class NanoBlockService {
     blockData = {
       type: 'state',
       account: walletAccount.id,
+      creation_time: creationTimeDec,
       previous: fromAccount.frontier,
       representative: representative,
       balance: remainingDecimal,
@@ -144,6 +155,8 @@ export class NanoBlockService {
   }
 
   async generateReceive(walletAccount, sourceBlock, ledger = false) {
+    const creationTimeDec = this.getCreationTimeNow();
+    let creationTimeHex = this.padStringLeft(creationTimeDec.toString(16), 8, '0');
     const toAcct = await this.api.accountInfo(walletAccount.id);
     let blockData: any = {};
     let workBlock = null;
@@ -157,8 +170,7 @@ export class NanoBlockService {
     const srcAmount = new BigNumber(srcBlockInfo.blocks[sourceBlock].amount);
     const newBalance = openEquiv ? srcAmount : new BigNumber(toAcct.balance).plus(srcAmount);
     const newBalanceDecimal = newBalance.toString(10);
-    let newBalancePadded = newBalance.toString(16);
-    while (newBalancePadded.length < 32) newBalancePadded = '0' + newBalancePadded; // Left pad with 0's
+    let newBalancePadded = this.padStringLeft(newBalance.toString(16), 16, '0');
 
     // We have everything we need, we need to obtain a signature
     let signature = null;
@@ -186,13 +198,14 @@ export class NanoBlockService {
         return;
       }
     } else {
-      signature = this.signOpenBlock(walletAccount, previousBlock, sourceBlock, newBalancePadded, representative);
+      signature = this.signOpenBlock(walletAccount, creationTimeHex, previousBlock, sourceBlock, newBalancePadded, representative);
     }
 
     workBlock = openEquiv ? this.util.account.getAccountPublicKey(walletAccount.id) : previousBlock;
     blockData = {
       type: 'state',
       account: walletAccount.id,
+      creation_time: creationTimeDec,
       previous: previousBlock,
       representative: representative,
       balance: newBalanceDecimal,
@@ -217,10 +230,11 @@ export class NanoBlockService {
     }
   }
 
-  signOpenBlock(walletAccount, previousBlock, sourceBlock, newBalancePadded, representative) {
+  signOpenBlock(walletAccount, creationTime, previousBlock, sourceBlock, newBalancePadded, representative) {
     const context = blake.blake2bInit(32, null);
     blake.blake2bUpdate(context, this.util.hex.toUint8(STATE_BLOCK_PREAMBLE));
     blake.blake2bUpdate(context, this.util.hex.toUint8(this.util.account.getAccountPublicKey(walletAccount.id)));
+    blake.blake2bUpdate(context, this.util.hex.toUint8(creationTime));
     blake.blake2bUpdate(context, this.util.hex.toUint8(previousBlock));
     blake.blake2bUpdate(context, this.util.hex.toUint8(this.util.account.getAccountPublicKey(representative)));
     blake.blake2bUpdate(context, this.util.hex.toUint8(newBalancePadded));
@@ -234,10 +248,11 @@ export class NanoBlockService {
     return signature;
   }
 
-  signSendBlock(walletAccount, fromAccount, representative, remainingPadded, toAccountID) {
+  signSendBlock(walletAccount, creationTime, fromAccount, representative, remainingPadded, toAccountID) {
     const context = blake.blake2bInit(32, null);
     blake.blake2bUpdate(context, this.util.hex.toUint8(STATE_BLOCK_PREAMBLE));
     blake.blake2bUpdate(context, this.util.hex.toUint8(this.util.account.getAccountPublicKey(walletAccount.id)));
+    blake.blake2bUpdate(context, this.util.hex.toUint8(creationTime));
     blake.blake2bUpdate(context, this.util.hex.toUint8(fromAccount.frontier));
     blake.blake2bUpdate(context, this.util.hex.toUint8(this.util.account.getAccountPublicKey(representative)));
     blake.blake2bUpdate(context, this.util.hex.toUint8(remainingPadded));
@@ -251,10 +266,11 @@ export class NanoBlockService {
     return signature;
   }
 
-  signChangeBlock(walletAccount, toAcct, representativeAccount, balancePadded, link) {
+  signChangeBlock(walletAccount, creationTime, toAcct, representativeAccount, balancePadded, link) {
     let context = blake.blake2bInit(32, null);
     blake.blake2bUpdate(context, this.util.hex.toUint8(STATE_BLOCK_PREAMBLE));
     blake.blake2bUpdate(context, this.util.hex.toUint8(this.util.account.getAccountPublicKey(walletAccount.id)));
+    blake.blake2bUpdate(context, this.util.hex.toUint8(creationTime));
     blake.blake2bUpdate(context, this.util.hex.toUint8(toAcct.frontier));
     blake.blake2bUpdate(context, this.util.hex.toUint8(this.util.account.getAccountPublicKey(representativeAccount)));
     blake.blake2bUpdate(context, this.util.hex.toUint8(balancePadded));
@@ -278,4 +294,10 @@ export class NanoBlockService {
     this.notifications.removeNotification('ledger-sign');
   }
 
+  // Left-pad string
+  padStringLeft(string, len, padChar) {
+    let padded = string;
+    while (padded.length < len) padded = padChar + padded;
+    return padded;
+  }
 }
