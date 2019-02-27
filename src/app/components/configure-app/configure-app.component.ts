@@ -90,8 +90,22 @@ export class ConfigureAppComponent implements OnInit {
   selectedPoWOption = this.powOptions[0].value;
 
   serverOptions = [
-    { name: 'NanoVault Default', value: 'nanovault' },
-    { name: 'Custom', value: 'custom' },
+    {
+      name: 'NanoVault Default',
+      value: 'server-nanovault',
+      isCustom: false,
+      serverAPI: 'https://nanovault.io/api/node-api',
+      serverNode: '',
+      serverWS: 'wss://ws.nanovault.io/'
+    },
+    {
+      name: 'Custom',
+      value: 'server-custom',
+      isCustom: true,
+      serverAPI: 'https://nanovault.io/api/node-api',
+      serverNode: 'http://localhost:7043',
+      serverWS: 'wss://ws.nanovault.io/'
+    },
   ];
   selectedServer = this.serverOptions[0].value;
 
@@ -99,7 +113,7 @@ export class ConfigureAppComponent implements OnInit {
   serverNode = null;
   serverWS = null;
 
-  showServerConfigs = () => this.selectedServer === 'custom';
+  showServerConfigs = () => this.selectedServer === 'server-custom';
 
   constructor(
     private walletService: WalletService,
@@ -135,12 +149,36 @@ export class ConfigureAppComponent implements OnInit {
     const matchingPowOption = this.powOptions.find(d => d.value === settings.powSource);
     this.selectedPoWOption = matchingPowOption ? matchingPowOption.value : this.powOptions[0].value;
 
-    const matchingServerOption = this.serverOptions.find(d => d.value === settings.serverName);
-    this.selectedServer = matchingServerOption ? matchingServerOption.value : this.serverOptions[0].value;
+    this.selectedServer = settings.serverName;
+    this.loadServerSettingFromSettings();
+  }
 
-    this.serverAPI = settings.serverAPI;
-    this.serverNode = settings.serverNode;
-    this.serverWS = settings.serverWS;
+  loadServerSettingFromSettings() {
+    const matchingServerOptionAny = this.serverOptions.find(d => d.value === this.selectedServer);
+    const matchingServerOption = matchingServerOptionAny ? matchingServerOptionAny : this.serverOptions[0];
+    this.selectedServer = matchingServerOption.value;
+    if (!matchingServerOption.isCustom) {
+      this.serverAPI = matchingServerOption.serverAPI;
+      this.serverNode = matchingServerOption.serverNode;
+      this.serverWS = matchingServerOption.serverWS;
+    } else {
+      this.serverAPI = this.appSettings.settings.serverAPI;
+      this.serverNode = this.appSettings.settings.serverNode;
+      this.serverWS = this.appSettings.settings.serverWS;
+    }
+  }
+  
+  async selectedServerChanged() {
+    const matchingServerOptionAny = this.serverOptions.find(d => d.value === this.selectedServer);
+    const matchingServerOption = matchingServerOptionAny ? matchingServerOptionAny : this.serverOptions[0];
+    this.selectedServer = matchingServerOption.value;
+    if (!matchingServerOption.isCustom) {
+      this.serverAPI = matchingServerOption.serverAPI;
+      this.serverNode = matchingServerOption.serverNode;
+      this.serverWS = matchingServerOption.serverWS;
+    } else {
+      // custom, leave it
+    }
   }
 
   async updateDisplaySettings() {
@@ -190,17 +228,20 @@ export class ConfigureAppComponent implements OnInit {
   }
 
   async updateServerSettings() {
-    if (this.selectedServer === 'nanovault') {
+    let matchingServerOption = this.serverOptions.find(d => d.value === this.selectedServer);
+    matchingServerOption = matchingServerOption ? matchingServerOption : this.serverOptions[0];
+    if (!matchingServerOption.isCustom) {
       const newSettings = {
-        serverName: 'nanovault',
-        serverAPI: null,
-        serverNode: null,
-        serverWS: null,
+        serverName: matchingServerOption.value,
+        serverAPI: matchingServerOption.serverAPI,
+        serverNode: matchingServerOption.serverNode,
+        serverWS: matchingServerOption.serverWS,
       };
       this.appSettings.setAppSettings(newSettings);
     } else {
+      // custom setting
       const newSettings = {
-        serverName: 'custom',
+        serverName: matchingServerOption.value,
         serverAPI: null,
         serverNode: null,
         serverWS: null,
