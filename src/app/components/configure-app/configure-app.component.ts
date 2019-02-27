@@ -91,19 +91,27 @@ export class ConfigureAppComponent implements OnInit {
 
   serverOptions = [
     {
-      name: 'NanoVault Default',
-      value: 'server-nanovault',
+      name: 'Mikron Default',
+      value: 'server-mikron',
       isCustom: false,
-      serverAPI: 'https://nanovault.io/api/node-api',
+      serverAPI: 'https://wallet.mikron.io/api/node-api',
       serverNode: '',
       serverWS: 'wss://ws.nanovault.io/',
+    },
+    {
+      name: 'MikLivTest1',
+      value: 'server-test1',
+      isCustom: false,
+      serverAPI: 'http://server3.mikron.io:9950/api/node-api',
+      serverNode: '',
+      serverWS: 'ws://server3.mikron.io:3333/',
     },
     {
       name: 'Custom',
       value: 'server-custom',
       isCustom: true,
-      serverAPI: 'https://nanovault.io/api/node-api',
-      serverNode: 'http://localhost:7076',
+      serverAPI: 'https://wallet.mikron.io/api/node-api',
+      serverNode: 'http://localhost:7043',
       serverWS: 'wss://ws.nanovault.io/',
     },
   ];
@@ -252,7 +260,7 @@ export class ConfigureAppComponent implements OnInit {
         if (this.serverAPI.startsWith('https://') || this.serverAPI.startsWith('http://')) {
           newSettings.serverAPI = this.serverAPI;
         } else {
-          return this.notifications.sendWarning(`Custom API Server has an invalid address.  Make sure to use the full address ie: https://nanovault.io/api/node-api`);
+          return this.notifications.sendWarning(`Custom API Server has an invalid address.  Make sure to use the full address ie: https://wallet.mikron.io/api/node-api`);
         }
       }
 
