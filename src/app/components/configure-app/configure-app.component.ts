@@ -96,15 +96,15 @@ export class ConfigureAppComponent implements OnInit {
       isCustom: false,
       serverAPI: 'https://nanovault.io/api/node-api',
       serverNode: '',
-      serverWS: 'wss://ws.nanovault.io/'
+      serverWS: 'wss://ws.nanovault.io/',
     },
     {
       name: 'Custom',
       value: 'server-custom',
       isCustom: true,
       serverAPI: 'https://nanovault.io/api/node-api',
-      serverNode: 'http://localhost:7043',
-      serverWS: 'wss://ws.nanovault.io/'
+      serverNode: 'http://localhost:7076',
+      serverWS: 'wss://ws.nanovault.io/',
     },
   ];
   selectedServer = this.serverOptions[0].value;
