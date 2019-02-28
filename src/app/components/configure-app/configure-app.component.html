@@ -28,7 +28,7 @@
             <div class="uk-form-horizontal">
 
               <div class="uk-margin">
-                <label class="uk-form-label">Display Denomination <span uk-icon="icon: info;" uk-tooltip title="Change the default denomination used throughout the application when displaying Nano balances"></span></label>
+                <label class="uk-form-label">Display Denomination <span uk-icon="icon: info;" uk-tooltip title="Change the default denomination used throughout the application when displaying Mikron balances"></span></label>
                 <div class="uk-form-controls">
 
                   <div class="uk-inline uk-width-1-1">
@@ -126,7 +126,7 @@
             <div class="uk-form-horizontal">
 
               <div class="uk-margin">
-                <label class="uk-form-label" for="form-horizontal-select">Server Configuration <span uk-icon="icon: info;" uk-tooltip title="Change which server is used to communicate with the Nano network"></span></label>
+                <label class="uk-form-label" for="form-horizontal-select">Server Configuration <span uk-icon="icon: info;" uk-tooltip title="Change which server is used to communicate with the Mikron network"></span></label>
                 <div class="uk-form-controls">
                   <select class="uk-select" [(ngModel)]="selectedServer" id="form-horizontal-select" (change)="selectedServerChanged()">
                     <option *ngFor="let server of serverOptions" [value]="server.value">{{ server.name }}</option>
@@ -140,7 +140,7 @@
           <div class="uk-width-1-1">
             <div class="uk-form-horizontal">
               <div class="">
-                <label class="uk-form-label uk-text-right">API Server <span uk-icon="icon: info;" uk-tooltip title="This server is used to load, cache, and enhance results from the Nano node"></span></label>
+                <label class="uk-form-label uk-text-right">API Server <span uk-icon="icon: info;" uk-tooltip title="This server is used to load, cache, and enhance results from the Mikron node"></span></label>
                 <div class="uk-form-controls">
 
                   <div class="uk-inline uk-width-1-1" *ngIf="!showServerConfigs()">
@@ -161,7 +161,7 @@
           <div class="uk-width-1-1">
             <div class="uk-form-horizontal">
               <div class="">
-                <label class="uk-form-label uk-text-right">Override Nano Node <span uk-icon="icon: info;" uk-tooltip title="Override which node is used by the API Server to communicate with the Nano network"></span></label>
+                <label class="uk-form-label uk-text-right">Override Mikron Node <span uk-icon="icon: info;" uk-tooltip title="Override which node is used by the API Server to communicate with the Mikron network"></span></label>
                 <div class="uk-form-controls">
 
                   <div class="uk-inline uk-width-1-1">
@@ -172,7 +172,7 @@
                     <div class="uk-inline uk-width-1-1" *ngIf="showServerConfigs()">
                       <input [(ngModel)]="serverNode" class="uk-input uk-margin-small-bottom" type="text" placeholder="http://125.32.211.54:7076">
                       <span class="uk-text-meta">
-                        This server must be exposing the <a href="https://developers.nano.org/docs/rpc/" target="_blank">Nano RPC</a> to the API server used above.<br>
+                        This server must be exposing the <a href="https://developers.nano.org/docs/rpc/" target="_blank">Mikron RPC</a> to the API server used above.<br>
                         Requests will still be sent to the API server, but this node will be used to communicate with the network.
                       </span>
                     </div>

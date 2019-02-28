@@ -9,8 +9,8 @@
           <div uk-grid>
             <div class="uk-width-expand"><a routerLink="/" class="title">NanoVault</a></div>
             <div class="uk-width-1-6 uk-padding-remove-left" style="padding-top: 15px;" *ngIf="wallet.seed">
-              <span class="uk-text-danger" uk-icon="icon: warning; ratio: 1.2;" *ngIf="node.status === false" uk-tooltip title="Unable to connect to Nano node.  Your balances may be wrong!"></span>
-              <div uk-spinner="ratio: 0.6;" *ngIf="node.status === null" uk-tooltip title="Attempting to connect to Nano node"></div>
+              <span class="uk-text-danger" uk-icon="icon: warning; ratio: 1.2;" *ngIf="node.status === false" uk-tooltip title="Unable to connect to Mikron node.  Your balances may be wrong!"></span>
+              <div uk-spinner="ratio: 0.6;" *ngIf="node.status === null" uk-tooltip title="Attempting to connect to Mikron node"></div>
             </div>
           </div>
 
@@ -69,7 +69,7 @@
         <div class="uk-width-1-1" style="padding-left: 60px; padding-right: 20px;">
           <form class="uk-search uk-search-default uk-width-1-1">
             <a href="javascript:void(0)" (click)="performSearch()" class="uk-search-icon-flip" uk-search-icon></a>
-            <input class="uk-search-input uk-width-1-1" id="search-input-mobile" type="search" placeholder="Nano account or transaction hash" [(ngModel)]="searchData" style="border: 0;" name="searchData" (keyup.enter)="performSearch()">
+            <input class="uk-search-input uk-width-1-1" id="search-input-mobile" type="search" placeholder="Mikron account or transaction hash" [(ngModel)]="searchData" style="border: 0;" name="searchData" (keyup.enter)="performSearch()">
           </form>
         </div>
       </div>
@@ -101,8 +101,8 @@
             <div uk-grid>
               <div class="uk-width-expand"><a routerLink="/" class="title">NanoVault</a></div>
               <div class="uk-width-1-6 uk-padding-remove-left" style="padding-top: 15px;" *ngIf="wallet.seed">
-                <span class="uk-text-danger" uk-icon="icon: warning; ratio: 1.2;" *ngIf="node.status === false" uk-tooltip title="Unable to connect to Nano node.  Your balances may be wrong!"></span>
-                <div uk-spinner="ratio: 0.6;" *ngIf="node.status === null" uk-tooltip title="Attempting to connect to Nano node"></div>
+                <span class="uk-text-danger" uk-icon="icon: warning; ratio: 1.2;" *ngIf="node.status === false" uk-tooltip title="Unable to connect to Mikron node.  Your balances may be wrong!"></span>
+                <div uk-spinner="ratio: 0.6;" *ngIf="node.status === null" uk-tooltip title="Attempting to connect to Mikron node"></div>
               </div>
             </div>
 
@@ -167,7 +167,7 @@
           <div class="uk-width-1-1" style="padding-left: 60px; padding-right: 20px;">
             <form class="uk-search uk-search-default uk-width-1-1">
               <a href="javascript:void(0)" (click)="performSearch()" class="uk-search-icon-flip" uk-search-icon></a>
-              <input class="uk-search-input uk-width-1-1" id="search-input" type="search" placeholder="Nano account or transaction hash" [(ngModel)]="searchData" style="border: 0;" name="searchData" (keyup.enter)="performSearch()">
+              <input class="uk-search-input uk-width-1-1" id="search-input" type="search" placeholder="Mikron account or transaction hash" [(ngModel)]="searchData" style="border: 0;" name="searchData" (keyup.enter)="performSearch()">
             </form>
           </div>
         </div>
