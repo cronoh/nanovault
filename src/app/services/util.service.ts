@@ -37,6 +37,9 @@ export class UtilService {
     generateSeedBytes: generateSeedBytes,
     getAccountPublicKey: getAccountPublicKey,
   };
+  date = {
+    shortDateToUnixTime: shortDateToUnixTime,
+  };
   nano = {
     mnanoToRaw: mnanoToRaw,
     knanoToRaw: knanoToRaw,
@@ -255,8 +258,14 @@ function rawToNano(value) {
   return new BigNumber(value).div(nano);
 }
 
-
-
+/**
+ * Date functions
+ */
+const shortTimestampEpoch : number = 1535760000; // Sept 1 2018
+// Convert block.creation_time short time to unix time (add epoch 0)
+function shortDateToUnixTime(value : number) {
+  return +shortTimestampEpoch + +value;  // extra + is needed to avoid type coersion
+}
 
 function array_crop (array) {
   var length = array.length - 1;
@@ -305,6 +314,9 @@ const util = {
     getPublicAccountID: getPublicAccountID,
     generateSeedBytes: generateSeedBytes,
     getAccountPublicKey: getAccountPublicKey,
+  },
+  date: {
+    shortDateToUnixTime: shortDateToUnixTime,
   },
   nano: {
     mnanoToRaw: mnanoToRaw,

@@ -170,6 +170,7 @@ export class NanoBlockService {
     const srcAmount = new BigNumber(srcBlockInfo.blocks[sourceBlock].amount);
     const newBalance = openEquiv ? srcAmount : new BigNumber(toAcct.balance).plus(srcAmount);
     const newBalanceDecimal = newBalance.toString(10);
+    //console.log('generateReceive ' + newBalanceDecimal);
     let newBalancePadded = this.padStringLeft(newBalance.toString(16), 16, '0');
 
     // We have everything we need, we need to obtain a signature

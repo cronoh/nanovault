@@ -4,6 +4,7 @@ import {ApiService} from "../../services/api.service";
 import {AppSettingsService} from "../../services/app-settings.service";
 import BigNumber from "bignumber.js";
 import {AddressBookService} from "../../services/address-book.service";
+import {UtilService} from "../../services/util.service";
 
 @Component({
   selector: 'app-transaction-details',
@@ -18,6 +19,7 @@ export class TransactionDetailsComponent implements OnInit {
   hashID = '';
   blockType = 'send';
   isStateBlock = true;
+  date : number = 0;
 
   toAccountID = '';
   fromAccountID = '';
@@ -33,7 +35,8 @@ export class TransactionDetailsComponent implements OnInit {
               private router: Router,
               private addressBook: AddressBookService,
               private api: ApiService,
-              public settings: AppSettingsService
+              public settings: AppSettingsService,
+              private util: UtilService
   ) { }
 
   async ngOnInit() {
@@ -66,6 +69,7 @@ export class TransactionDetailsComponent implements OnInit {
     const hashContents = JSON.parse(hashData.contents);
     hashData.contents = hashContents;
 
+    this.date = 1000 * this.util.date.shortDateToUnixTime(hashData.contents.creation_time);
     this.transactionJSON = JSON.stringify(hashData.contents, null ,4);
 
     this.blockType = hashData.contents.type;
