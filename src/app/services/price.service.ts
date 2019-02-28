@@ -5,6 +5,7 @@ import {BehaviorSubject} from "rxjs/BehaviorSubject";
 @Injectable()
 export class PriceService {
   apiUrl = `https://api.coinmarketcap.com/v1/`;
+  targetTicker = 'nano';
 
   price = {
     lastPrice: 1,
@@ -15,9 +16,11 @@ export class PriceService {
   constructor(private http: HttpClient) { }
 
   async getPrice(currency = 'USD') {
+    /*
+    // Fiat currency conversion not supported currently
     if (!currency) return; // No currency defined, do not refetch
     const convertString = currency !== 'USD' && currency !== 'BTC' ? `?convert=${currency}` : ``;
-    const response: any = await this.http.get(`${this.apiUrl}ticker/nano/${convertString}`).toPromise();
+    const response: any = await this.http.get(`${this.apiUrl}ticker/${this.targetTicker}/${convertString}`).toPromise();
     if (!response || !response.length) {
       return this.price.lastPrice;
     }
@@ -33,6 +36,7 @@ export class PriceService {
     this.lastPrice$.next(currencyPrice);
 
     return this.price.lastPrice;
+    */
   }
 
 }

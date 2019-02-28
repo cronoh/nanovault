@@ -190,7 +190,12 @@ export class ConfigureAppComponent implements OnInit {
   }
 
   async updateDisplaySettings() {
-    const newCurrency = this.selectedCurrency;
+    let newCurrency = this.selectedCurrency;
+    if (newCurrency !== '') {
+      // Currency not supported currently
+      newCurrency = '';
+      this.notifications.sendWarning('Fiat currency conversion is not supported currently!');
+    }
     const reloadFiat = this.appSettings.settings.displayCurrency !== newCurrency;
     this.appSettings.setAppSetting('displayDenomination', this.selectedDenomination);
     this.notifications.sendSuccess(`App display settings successfully updated!`);
