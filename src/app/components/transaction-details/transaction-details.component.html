@@ -74,6 +74,13 @@
             <span *ngIf="!date" class="uk-text-muted">N/A</span>
           </div>
         </div>
+        <div class="uk-margin" *ngIf="transaction?.amount">
+          <label class="uk-form-label">Amount:</label>
+          <div class="uk-form-controls uk-text-truncate">
+            {{ getBalanceFromDec(transaction?.amount) | rai: settings.settings.displayDenomination }}<br>
+            <span class="uk-text-small">{{ transaction?.amount }}</span>
+          </div>
+        </div>
         <div class="uk-margin" *ngIf="transaction?.contents?.balance">
           <label class="uk-form-label">Balance:</label>
           <div class="uk-form-controls uk-text-truncate">
