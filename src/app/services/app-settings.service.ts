@@ -21,10 +21,11 @@ interface AppSettings {
 export class AppSettingsService {
   storeKey = `nanovault-appsettings`;
 
+  // Default settings
   settings: AppSettings = {
     displayDenomination: 'mnano',
     walletStore: 'localStorage',
-    displayCurrency: 'USD',
+    displayCurrency: '',
     lockOnClose: 1,
     lockInactivityMinutes: 30,
     powSource: 'best',
