@@ -10,7 +10,7 @@
       <div class="uk-card uk-card-default uk-width-1-1 uk-text-center" *ngIf="blockType !== 'change'">
         <span style="display: block; padding-top: 8px;">
           <span *ngIf="blockType == 'send'">Send</span>
-          <span *ngIf="blockType == 'open'">Receive</span>
+          <span *ngIf="blockType == 'open'">Open Receive</span>
           <span *ngIf="blockType == 'receive'">Receive</span>
         </span>
         <span style="display:block; font-size: 32px;">{{ transaction?.amount | rai: settings.settings.displayDenomination }}</span>
@@ -76,9 +76,8 @@
         </div>
         <div class="uk-margin" *ngIf="transaction?.amount">
           <label class="uk-form-label">Amount:</label>
-          <div class="uk-form-controls uk-text-truncate">
-            {{ getBalanceFromDec(transaction?.amount) | rai: settings.settings.displayDenomination }}<br>
-            <span class="uk-text-small">{{ transaction?.amount }}</span>
+          <div class="uk-form-controls uk-text-truncate" [ngClass]="{ 'uk-text-success': amountSigned >= 0, 'uk-text-danger': amountSigned < 0 }">
+            {{ getBalanceFromDec(amountSigned) | rai: settings.settings.displayDenomination }}<br>
           </div>
         </div>
         <div class="uk-margin" *ngIf="transaction?.contents?.balance">

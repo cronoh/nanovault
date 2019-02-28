@@ -30,6 +30,7 @@ export class TransactionDetailsComponent implements OnInit {
   showBlockData = false;
 
   amountRaw = new BigNumber(0);
+  amountSigned : number = 0;
 
   constructor(private route: ActivatedRoute,
               private router: Router,
@@ -50,6 +51,7 @@ export class TransactionDetailsComponent implements OnInit {
   }
 
   async loadTransaction() {
+    this.date = 0;
     this.toAccountID = '';
     this.fromAccountID = '';
     this.toAddressBook = '';
@@ -58,6 +60,7 @@ export class TransactionDetailsComponent implements OnInit {
     this.showBlockData = false;
     let legacyFromAccount = '';
     this.amountRaw = new BigNumber(0);
+    this.amountSigned = 0;
     const hash = this.route.snapshot.params.transaction;
     this.hashID = hash;
     const blockData = await this.api.blocksInfo([hash]);
@@ -78,24 +81,13 @@ export class TransactionDetailsComponent implements OnInit {
       if (isOpen) {
         this.blockType = 'open'
       } else {
-        const prevRes = await this.api.blocksInfo([hashData.contents.previous]);
-        const prevData = prevRes.blocks[hashData.contents.previous];
-        prevData.contents = JSON.parse(prevData.contents);
-        if (!prevData.contents.balance) {
-          // Previous block is not a state block.
-          this.blockType = prevData.contents.type;
-          legacyFromAccount = prevData.source_account;
+        if (hashData.amount_sign < 0) {
+          this.blockType = 'send';
+        } else if (hashData.amount_sign > 0) {
+          this.blockType = 'receive';
         } else {
-          const prevBalance = new BigNumber(prevData.contents.balance);
-          const curBalance = new BigNumber(hashData.contents.balance);
-          const balDifference = curBalance.minus(prevBalance);
-          if (balDifference.isNegative()) {
-            this.blockType = 'send';
-          } else if (balDifference.isZero()) {
-            this.blockType = 'change';
-          } else {
-            this.blockType = 'receive';
-          }
+          // no change
+          this.blockType = 'change';
         }
       }
     } else {
@@ -103,6 +95,10 @@ export class TransactionDetailsComponent implements OnInit {
     }
     if (hashData.amount) {
       this.amountRaw = new BigNumber(hashData.amount).mod(this.nano);
+      this.amountSigned = hashData.amount;
+      if (hashData.amount_sign) {
+        this.amountSigned = hashData.amount * hashData.amount_sign;
+      }
     }
 
     this.transaction = hashData;
