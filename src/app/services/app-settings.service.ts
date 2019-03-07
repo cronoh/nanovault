@@ -22,18 +22,20 @@ export class AppSettingsService {
   storeKey = `nanovault-appsettings`;
 
   // Default settings
-  settings: AppSettings = {
+  defaultSettings: AppSettings = {
     displayDenomination: 'mnano',
     walletStore: 'localStorage',
     displayCurrency: '',
     lockOnClose: 1,
     lockInactivityMinutes: 30,
     powSource: 'best',
-    serverName: 'server-mikron',
+    serverName: 'server-test1', // 'server-mikron',
     serverAPI: null,
     serverNode: null,
     serverWS: null,
   };
+
+  settings: AppSettings = this.defaultSettings;
 
   constructor() { }
 
@@ -72,18 +74,7 @@ export class AppSettingsService {
 
   clearAppSettings() {
     localStorage.removeItem(this.storeKey);
-    this.settings = {
-      displayDenomination: 'mnano',
-      walletStore: 'localStorage',
-      displayCurrency: 'USD',
-      lockOnClose: 1,
-      lockInactivityMinutes: 30,
-      powSource: 'best',
-      serverName: 'server-mikron',
-      serverNode: null,
-      serverAPI: null,
-      serverWS: null,
-    };
+    this.settings = this.defaultSettings;
   }
 
 }

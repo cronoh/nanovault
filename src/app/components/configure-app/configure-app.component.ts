@@ -99,7 +99,7 @@ export class ConfigureAppComponent implements OnInit {
       serverWS: 'wss://ws.nanovault.io/',
     },
     {
-      name: 'MikLivTest1',
+      name: 'MikronLiveTest1',
       value: 'server-test1',
       isCustom: false,
       serverAPI: 'http://server3.mikron.io:9950/api/node-api',
