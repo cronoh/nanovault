@@ -37,6 +37,9 @@ export class UtilService {
     generateSeedBytes: generateSeedBytes,
     getAccountPublicKey: getAccountPublicKey,
   };
+  date = {
+    shortDateToUnixTime: shortDateToUnixTime,
+  };
   nano = {
     mnanoToRaw: mnanoToRaw,
     knanoToRaw: knanoToRaw,
@@ -211,24 +214,20 @@ function getPublicAccountID(accountPublicKeyBytes) {
   const checksum = util.uint5.toString(util.uint4.toUint5(util.uint8.toUint4(blake.blake2b(keyBytes, null, 5).reverse())));
   const account = util.uint5.toString(util.uint4.toUint5(util.hex.toUint4(`0${accountHex}`)));
 
-  return `xrb_${account}${checksum}`;
+  return `mik_${account}${checksum}`;
 }
 
 function getAccountPublicKey(account) {
-  if (account.length == 64) {
-    if(!account.startsWith('xrb_1') && !account.startsWith('xrb_3')) {
-      throw new Error(`Invalid NANO Account`);
-    }
-  } else if (account.length == 65) {
-    if(!account.startsWith('nano_1') && !account.startsWith('nano_3')) {
-      throw new Error(`Invalid NANO Account`);
-    }
-  } else {
-    throw new Error(`Invalid NANO Account`);
+  if (account.length !== 64) {
+    throw new Error(`Invalid Mikron Account`);
   }
-  const account_crop = account.length == 64 ? account.substring(4,64) : account.substring(5,65);
+  if (!account.startsWith('mik_1') && !account.startsWith('mik_3'))
+  {
+    throw new Error(`Invalid Mikron Account`);
+  }
+  const account_crop = account.substring(4,64);
   const isValid = /^[13456789abcdefghijkmnopqrstuwxyz]+$/.test(account_crop);
-  if (!isValid) throw new Error(`Invalid NANO account`);
+  if (!isValid) throw new Error(`Invalid Mikron account`);
 
   const key_uint4 = array_crop(uint5ToUint4(stringToUint5(account_crop.substring(0, 52))));
   const hash_uint4 = uint5ToUint4(stringToUint5(account_crop.substring(52, 60)));
@@ -243,9 +242,9 @@ function getAccountPublicKey(account) {
 /**
  * Conversion functions
  */
-const mnano = 1000000000000000000000000000000;
-const knano = 1000000000000000000000000000;
-const nano  = 1000000000000000000000000;
+const mnano = 10000000000;
+const knano = 10000000;
+const nano  = 10000;
 function mnanoToRaw(value) {
   return new BigNumber(value).times(mnano);
 }
@@ -265,8 +264,14 @@ function rawToNano(value) {
   return new BigNumber(value).div(nano);
 }
 
-
-
+/**
+ * Date functions
+ */
+const shortTimestampEpoch : number = 1535760000; // Sept 1 2018
+// Convert block.creation_time short time to unix time (add epoch 0)
+function shortDateToUnixTime(value : number) {
+  return +shortTimestampEpoch + +value;  // extra + is needed to avoid type coersion
+}
 
 function array_crop (array) {
   var length = array.length - 1;
@@ -315,6 +320,9 @@ const util = {
     getPublicAccountID: getPublicAccountID,
     generateSeedBytes: generateSeedBytes,
     getAccountPublicKey: getAccountPublicKey,
+  },
+  date: {
+    shortDateToUnixTime: shortDateToUnixTime,
   },
   nano: {
     mnanoToRaw: mnanoToRaw,

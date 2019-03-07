@@ -20,7 +20,7 @@ export class ConfigureAppComponent implements OnInit {
   wallet = this.walletService.wallet;
 
   denominations = [
-    { name: 'NANO (1 Mnano)', value: 'mnano' },
+    { name: 'MIK', value: 'mnano' },
     { name: 'knano (0.001 Mnano)', value: 'knano' },
     { name: 'nano (0.000001 Mnano)', value: 'nano' },
   ];
@@ -90,8 +90,30 @@ export class ConfigureAppComponent implements OnInit {
   selectedPoWOption = this.powOptions[0].value;
 
   serverOptions = [
-    { name: 'NanoVault Default', value: 'nanovault' },
-    { name: 'Custom', value: 'custom' },
+    {
+      name: 'Mikron Default',
+      value: 'server-mikron',
+      isCustom: false,
+      serverAPI: 'https://wallet.mikron.io/api/node-api',
+      serverNode: '',
+      serverWS: 'wss://ws.nanovault.io/',
+    },
+    {
+      name: 'MikronLiveTest1',
+      value: 'server-test1',
+      isCustom: false,
+      serverAPI: 'http://server3.mikron.io:9950/api/node-api',
+      serverNode: '',
+      serverWS: 'ws://server3.mikron.io:3333/',
+    },
+    {
+      name: 'Custom',
+      value: 'server-custom',
+      isCustom: true,
+      serverAPI: 'https://wallet.mikron.io/api/node-api',
+      serverNode: 'http://localhost:7043',
+      serverWS: 'wss://ws.nanovault.io/',
+    },
   ];
   selectedServer = this.serverOptions[0].value;
 
@@ -99,7 +121,7 @@ export class ConfigureAppComponent implements OnInit {
   serverNode = null;
   serverWS = null;
 
-  showServerConfigs = () => this.selectedServer === 'custom';
+  showServerConfigs = () => this.selectedServer === 'server-custom';
 
   constructor(
     private walletService: WalletService,
@@ -135,16 +157,45 @@ export class ConfigureAppComponent implements OnInit {
     const matchingPowOption = this.powOptions.find(d => d.value === settings.powSource);
     this.selectedPoWOption = matchingPowOption ? matchingPowOption.value : this.powOptions[0].value;
 
-    const matchingServerOption = this.serverOptions.find(d => d.value === settings.serverName);
-    this.selectedServer = matchingServerOption ? matchingServerOption.value : this.serverOptions[0].value;
+    this.selectedServer = settings.serverName;
+    this.loadServerSettingFromSettings();
+  }
 
-    this.serverAPI = settings.serverAPI;
-    this.serverNode = settings.serverNode;
-    this.serverWS = settings.serverWS;
+  loadServerSettingFromSettings() {
+    const matchingServerOptionAny = this.serverOptions.find(d => d.value === this.selectedServer);
+    const matchingServerOption = matchingServerOptionAny ? matchingServerOptionAny : this.serverOptions[0];
+    this.selectedServer = matchingServerOption.value;
+    if (!matchingServerOption.isCustom) {
+      this.serverAPI = matchingServerOption.serverAPI;
+      this.serverNode = matchingServerOption.serverNode;
+      this.serverWS = matchingServerOption.serverWS;
+    } else {
+      this.serverAPI = this.appSettings.settings.serverAPI;
+      this.serverNode = this.appSettings.settings.serverNode;
+      this.serverWS = this.appSettings.settings.serverWS;
+    }
+  }
+  
+  async selectedServerChanged() {
+    const matchingServerOptionAny = this.serverOptions.find(d => d.value === this.selectedServer);
+    const matchingServerOption = matchingServerOptionAny ? matchingServerOptionAny : this.serverOptions[0];
+    this.selectedServer = matchingServerOption.value;
+    if (!matchingServerOption.isCustom) {
+      this.serverAPI = matchingServerOption.serverAPI;
+      this.serverNode = matchingServerOption.serverNode;
+      this.serverWS = matchingServerOption.serverWS;
+    } else {
+      // custom, leave it
+    }
   }
 
   async updateDisplaySettings() {
-    const newCurrency = this.selectedCurrency;
+    let newCurrency = this.selectedCurrency;
+    if (newCurrency !== '') {
+      // Currency not supported currently
+      newCurrency = '';
+      this.notifications.sendWarning('Fiat currency conversion is not supported currently!');
+    }
     const reloadFiat = this.appSettings.settings.displayCurrency !== newCurrency;
     this.appSettings.setAppSetting('displayDenomination', this.selectedDenomination);
     this.notifications.sendSuccess(`App display settings successfully updated!`);
@@ -190,17 +241,20 @@ export class ConfigureAppComponent implements OnInit {
   }
 
   async updateServerSettings() {
-    if (this.selectedServer === 'nanovault') {
+    let matchingServerOption = this.serverOptions.find(d => d.value === this.selectedServer);
+    matchingServerOption = matchingServerOption ? matchingServerOption : this.serverOptions[0];
+    if (!matchingServerOption.isCustom) {
       const newSettings = {
-        serverName: 'nanovault',
-        serverAPI: null,
-        serverNode: null,
-        serverWS: null,
+        serverName: matchingServerOption.value,
+        serverAPI: matchingServerOption.serverAPI,
+        serverNode: matchingServerOption.serverNode,
+        serverWS: matchingServerOption.serverWS,
       };
       this.appSettings.setAppSettings(newSettings);
     } else {
+      // custom setting
       const newSettings = {
-        serverName: 'custom',
+        serverName: matchingServerOption.value,
         serverAPI: null,
         serverNode: null,
         serverWS: null,
@@ -211,7 +265,7 @@ export class ConfigureAppComponent implements OnInit {
         if (this.serverAPI.startsWith('https://') || this.serverAPI.startsWith('http://')) {
           newSettings.serverAPI = this.serverAPI;
         } else {
-          return this.notifications.sendWarning(`Custom API Server has an invalid address.  Make sure to use the full address ie: https://nanovault.io/api/node-api`);
+          return this.notifications.sendWarning(`Custom API Server has an invalid address.  Make sure to use the full address ie: https://wallet.mikron.io/api/node-api`);
         }
       }
 

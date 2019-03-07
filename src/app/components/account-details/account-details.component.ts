@@ -19,7 +19,7 @@ import {BehaviorSubject} from "rxjs/BehaviorSubject";
   styleUrls: ['./account-details.component.css']
 })
 export class AccountDetailsComponent implements OnInit, OnDestroy {
-  nano = 1000000000000000000000000;
+  nano = 10000000000;
 
   accountHistory: any[] = [];
   pendingBlocks = [];
@@ -94,7 +94,7 @@ export class AccountDetailsComponent implements OnInit, OnDestroy {
           this.pendingBlocks.push({
             account: pending.blocks[block].source,
             amount: pending.blocks[block].amount,
-            timestamp: pending.blocks[block].timestamp,
+            date: pending.blocks[block].block_time * 1000,
             addressBookName: this.addressBook.getAccountName(pending.blocks[block].source) || null,
             hash: block,
           });
@@ -138,9 +138,11 @@ export class AccountDetailsComponent implements OnInit, OnDestroy {
 
     if (history && history.history && Array.isArray(history.history)) {
       this.accountHistory = history.history.map(h => {
+        // prepare date
+        h.date = h.block_time * 1000;
         if (h.type === 'state') {
           // For Open and receive blocks, we need to look up block info to get originating account
-          if (h.subtype === 'open' || h.subtype === 'receive') {
+          if (h.subtype === 'open' || h.subtype === 'receive' || h.subtype === 'open_receive') {
             additionalBlocksInfo.push({ hash: h.hash, link: h.link });
           } else {
             h.link_as_account = this.util.account.getPublicAccountID(this.util.hex.toUint8(h.link));

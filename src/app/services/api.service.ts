@@ -6,7 +6,7 @@ import {AppSettingsService} from "./app-settings.service";
 @Injectable()
 export class ApiService {
 
-  rpcUrl = `https://nanovault.io/api/node-api`;
+  rpcUrl = `https://wallet.mikron.io/api/node-api`;
   // rpcUrl = `http://localhost:9950/api/node-api`;
 
   constructor(private http: HttpClient, private node: NodeService, private appSettings: AppSettingsService) { }

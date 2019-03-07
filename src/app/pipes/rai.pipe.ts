@@ -7,9 +7,9 @@ import {AppSettingsService} from "../services/app-settings.service";
 export class RaiPipe implements PipeTransform {
   precision = 6;
 
-  mrai = 1000000000000000000000000000000;
-  krai = 1000000000000000000000000000;
-  rai  = 1000000000000000000000000;
+  mrai = 10000000000;
+  krai = 10000000;
+  rai  = 10000;
 
   transform(value: any, args?: any): any {
     const opts = args.split(',');
@@ -18,14 +18,14 @@ export class RaiPipe implements PipeTransform {
 
     switch (denomination.toLowerCase()) {
       default:
-      case 'xrb': return `${(value / this.mrai).toFixed(6)}${!hideText ? ' NANO': ''}`;
+      case 'xrb': return `${(value / this.mrai).toFixed(6)}${!hideText ? ' MIK': ''}`;
       case 'mnano':
         const hasRawValue = (value / this.rai) % 1;
         if (hasRawValue) {
           const newVal = value / this.mrai < 0.000001 ? 0 : value / this.mrai; // New more precise toFixed function, but bugs on huge raw numbers
-          return `${this.toFixed(newVal, this.precision)}${!hideText ? ' NANO': ''}`;
+          return `${this.toFixed(newVal, this.precision)}${!hideText ? ' MIK': ''}`;
         } else {
-          return `${(value / this.mrai).toFixed(6)}${!hideText ? ' NANO': ''}`;
+          return `${(value / this.mrai).toFixed(6)}${!hideText ? ' MIK': ''}`;
         }
       case 'knano': return `${(value / this.krai).toFixed(3)}${!hideText ? ' knano': ''}`;
       case 'nano': return `${(value / this.rai).toFixed(0)}${!hideText ? ' nano': ''}`;
