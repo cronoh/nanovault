@@ -218,7 +218,13 @@ function getPublicAccountID(accountPublicKeyBytes) {
 }
 
 function getAccountPublicKey(account) {
-  if ((!account.startsWith('mik_1') && !account.startsWith('mik_3')) || account.length !== 64) throw new Error(`Invalid Mikron Account`);
+  if (account.length !== 64) {
+    throw new Error(`Invalid Mikron Account`);
+  }
+  if (!account.startsWith('mik_1') && !account.startsWith('mik_3'))
+  {
+    throw new Error(`Invalid Mikron Account`);
+  }
   const account_crop = account.substring(4,64);
   const isValid = /^[13456789abcdefghijkmnopqrstuwxyz]+$/.test(account_crop);
   if (!isValid) throw new Error(`Invalid Mikron account`);
