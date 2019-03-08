@@ -46,7 +46,7 @@ export interface FullWallet {
 
 @Injectable()
 export class WalletService {
-  nano = 10000000000;
+  unitMikron = 10000000000;
   storeKey = `nanovault-wallet`;
 
   wallet: FullWallet = {
@@ -465,12 +465,12 @@ export class WalletService {
     const fiatPrice = this.price.price.lastPrice;
 
     this.wallet.accounts.forEach(account => {
-      account.balanceFiat = this.util.nano.rawToMnano(account.balance).times(fiatPrice).toNumber();
-      account.pendingFiat = this.util.nano.rawToMnano(account.pending).times(fiatPrice).toNumber();
+      account.balanceFiat = this.util.unit.antToMikron(account.balance).times(fiatPrice).toNumber();
+      account.pendingFiat = this.util.unit.antToMikron(account.pending).times(fiatPrice).toNumber();
     });
 
-    this.wallet.balanceFiat = this.util.nano.rawToMnano(this.wallet.balance).times(fiatPrice).toNumber();
-    this.wallet.pendingFiat = this.util.nano.rawToMnano(this.wallet.pending).times(fiatPrice).toNumber();
+    this.wallet.balanceFiat = this.util.unit.antToMikron(this.wallet.balance).times(fiatPrice).toNumber();
+    this.wallet.pendingFiat = this.util.unit.antToMikron(this.wallet.pending).times(fiatPrice).toNumber();
   }
 
   async reloadBalances(reloadPending = true) {
@@ -501,11 +501,11 @@ export class WalletService {
       walletAccount.balance = new BigNumber(accounts.balances[accountID].balance);
       walletAccount.pending = new BigNumber(accounts.balances[accountID].pending);
 
-      walletAccount.balanceRaw = new BigNumber(walletAccount.balance).mod(this.nano);
-      walletAccount.pendingRaw = new BigNumber(walletAccount.pending).mod(this.nano);
+      walletAccount.balanceRaw = new BigNumber(walletAccount.balance).mod(this.unitMikron);
+      walletAccount.pendingRaw = new BigNumber(walletAccount.pending).mod(this.unitMikron);
 
-      walletAccount.balanceFiat = this.util.nano.rawToMnano(walletAccount.balance).times(fiatPrice).toNumber();
-      walletAccount.pendingFiat = this.util.nano.rawToMnano(walletAccount.pending).times(fiatPrice).toNumber();
+      walletAccount.balanceFiat = this.util.unit.antToMikron(walletAccount.balance).times(fiatPrice).toNumber();
+      walletAccount.pendingFiat = this.util.unit.antToMikron(walletAccount.pending).times(fiatPrice).toNumber();
 
       walletAccount.frontier = frontiers.frontiers[accountID] || null;
 
@@ -530,11 +530,11 @@ export class WalletService {
     this.wallet.balance = walletBalance;
     this.wallet.pending = walletPending;
 
-    this.wallet.balanceRaw = new BigNumber(walletBalance).mod(this.nano);
-    this.wallet.pendingRaw = new BigNumber(walletPending).mod(this.nano);
+    this.wallet.balanceRaw = new BigNumber(walletBalance).mod(this.unitMikron);
+    this.wallet.pendingRaw = new BigNumber(walletPending).mod(this.unitMikron);
 
-    this.wallet.balanceFiat = this.util.nano.rawToMnano(walletBalance).times(fiatPrice).toNumber();
-    this.wallet.pendingFiat = this.util.nano.rawToMnano(walletPending).times(fiatPrice).toNumber();
+    this.wallet.balanceFiat = this.util.unit.antToMikron(walletBalance).times(fiatPrice).toNumber();
+    this.wallet.pendingFiat = this.util.unit.antToMikron(walletPending).times(fiatPrice).toNumber();
 
     // If there is a pending balance, search for the actual pending transactions
     if (reloadPending && walletPending.gt(0)) {
@@ -680,8 +680,8 @@ export class WalletService {
       if (this.successfulBlocks.length >= 15) this.successfulBlocks.shift();
       this.successfulBlocks.push(nextBlock.hash);
 
-      const receiveAmount = this.util.nano.rawToMnano(nextBlock.amount);
-      this.notifications.sendSuccess(`Successfully received ${receiveAmount.isZero() ? '' : receiveAmount.toFixed(6)} Nano!`);
+      const receiveAmount = this.util.unit.antToMikron(nextBlock.amount);
+      this.notifications.sendSuccess(`Successfully received ${receiveAmount.isZero() ? '' : receiveAmount.toFixed(6)} Mikron!`);
 
       // await this.promiseSleep(500); // Give the node a chance to make sure its ready to reload all?
       await this.reloadBalances();

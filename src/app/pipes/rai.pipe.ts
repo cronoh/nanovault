@@ -7,42 +7,30 @@ import {AppSettingsService} from "../services/app-settings.service";
 export class RaiPipe implements PipeTransform {
   precision = 6;
 
-  mrai = 10000000000;
-  krai = 10000000;
-  rai  = 10000;
+  unitMikron = 10000000000;
+  unitKMikron = 10000000000000;
 
   transform(value: any, args?: any): any {
     const opts = args.split(',');
-    let denomination = opts[0] || 'mrai';
+    let denomination = opts[0] || 'den-mik';
     const hideText = opts[1] || false;
 
     switch (denomination.toLowerCase()) {
       default:
-      case 'xrb': return `${(value / this.mrai).toFixed(6)}${!hideText ? ' MIK': ''}`;
-      case 'mnano':
-        const hasRawValue = (value / this.rai) % 1;
-        if (hasRawValue) {
-          const newVal = value / this.mrai < 0.000001 ? 0 : value / this.mrai; // New more precise toFixed function, but bugs on huge raw numbers
-          return `${this.toFixed(newVal, this.precision)}${!hideText ? ' MIK': ''}`;
-        } else {
-          return `${(value / this.mrai).toFixed(6)}${!hideText ? ' MIK': ''}`;
-        }
-      case 'knano': return `${(value / this.krai).toFixed(3)}${!hideText ? ' knano': ''}`;
-      case 'nano': return `${(value / this.rai).toFixed(0)}${!hideText ? ' nano': ''}`;
-      case 'raw': return `${value}${!hideText ? ' raw': ''}`;
-      case 'dynamic':
-        const rai = (value / this.rai);
-        if (rai >= 1000000) {
-          return `${(value / this.mrai).toFixed(this.precision)}${!hideText ? ' mRai': ''}`;
-        } else if (rai >= 1000) {
-          return `${(value / this.krai).toFixed(this.precision)}${!hideText ? ' kRai': ''}`;
-        } else if (rai >= 0.00001) {
-          return `${(value / this.rai).toFixed(this.precision)}${!hideText ? ' Rai': ''}`;
-        } else if (rai === 0) {
-          return `${value}${!hideText ? ' mRai': ''}`;
-        } else {
-          return `${value}${!hideText ? ' raw': ''}`;
-        }
+      case 'den-mik': // default floating point, with variable number of digits
+        const mik = value / this.unitMikron;
+        const fracStrLen = ((value % this.unitMikron) / this.unitMikron).toString().length;
+        let fracDigits = fracStrLen - 2;
+        fracDigits = Math.max(0, Math.min(10, fracDigits));
+        return `${mik.toFixed(fracDigits)}${!hideText ? ' MIK': ''}`;
+      case 'den-mik-short': // fixed-point format with 2 digits
+        return `${(value / this.unitMikron).toFixed(2)}${!hideText ? ' MIK': ''}`;
+      case 'den-mik-long': // fixed-point format with 10 digits
+        return `${(value / this.unitMikron).toFixed(10)}${!hideText ? ' MIK': ''}`;
+      case 'den-kmik':
+        const kmik = value / this.unitKMikron;
+        return `${kmik.toString()}${!hideText ? ' KMIK': ''}`;
+      case 'den-ant': return `${value.toString()}${!hideText ? ' Ant': ''}`;
     }
   }
 

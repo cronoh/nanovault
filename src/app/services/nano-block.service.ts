@@ -92,13 +92,13 @@ export class NanoBlockService {
     }
   }
 
-  async generateSend(walletAccount, toAccountID, rawAmount, ledger = false) {
+  async generateSend(walletAccount, toAccountID, antAmount, ledger = false) {
     const fromAccount = await this.api.accountInfo(walletAccount.id);
     if (!fromAccount) throw new Error(`Unable to get account information for ${walletAccount.id}`);
 
     const creationTimeDec = this.getCreationTimeNow();
     let creationTimeHex = this.padStringLeft(creationTimeDec.toString(16), 8, '0');
-    const remaining = new BigNumber(fromAccount.balance).minus(rawAmount);
+    const remaining = new BigNumber(fromAccount.balance).minus(antAmount);
     const remainingDecimal = remaining.toString(10);
     let remainingPadded = this.padStringLeft(remaining.toString(16), 16, '0');
 

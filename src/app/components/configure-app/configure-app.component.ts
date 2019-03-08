@@ -20,9 +20,11 @@ export class ConfigureAppComponent implements OnInit {
   wallet = this.walletService.wallet;
 
   denominations = [
-    { name: 'MIK', value: 'mnano' },
-    { name: 'knano (0.001 Mnano)', value: 'knano' },
-    { name: 'nano (0.000001 Mnano)', value: 'nano' },
+    { name: 'MIK, default format', value: 'den-mik' }, // MIK default format, as many fractional digits as needed
+    { name: 'MIK, long format', value: 'den-mik-long' }, // MIK long format, always 10 fractional digits
+    { name: 'MIK, short format', value: 'den-mik-short' }, // MIK short format, always 2 fractional digits
+    { name: 'KMIK', value: 'den-kmik' }, // Kilo MIK (1000 MIK)
+    { name: 'Ant (raw)', value: 'den-ant' }, // Ant (raw), no fractional part
   ];
   selectedDenomination = this.denominations[0].value;
 

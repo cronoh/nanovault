@@ -14,7 +14,7 @@
               <div class="uk-margin">
                 <label class="uk-form-label" for="form-horizontal-select">From Account</label>
                 <div class="uk-form-controls">
-                  <select class="uk-select" [(ngModel)]="fromAccountID" (change)="resetRaw()" id="form-horizontal-select">
+                  <select class="uk-select" [(ngModel)]="fromAccountID" (change)="resetAmount()" id="form-horizontal-select">
                     <option *ngFor="let account of accounts" [value]="account.id">{{ account.addressBookName ? account.addressBookName + ' - ' : '' }} {{ account.id | squeeze }} ({{ account.balance | rai: settings.settings.displayDenomination }})</option>
                   </select>
                 </div>
@@ -55,23 +55,19 @@
                       <div class="uk-width-3-5">
                         <div class="uk-inline uk-width-1-1">
                           <a class="uk-form-icon uk-form-icon-flip" (click)="setMaxAmount()" style="padding-right: 7px;" uk-tooltip title="Set Maximum Amount">Max</a>
-                          <input [(ngModel)]="amount" class="uk-input" id="form-horizontal-text" (keyup)="syncFiatPrice()" (change)="syncFiatPrice()" type="text" placeholder="Amount of {{ selectedAmount.name }} to send">
+                          <input [(ngModel)]="amount" class="uk-input" id="form-horizontal-text" (keyup)="updatedAmount()" (change)="updatedAmount()" type="text" placeholder="Amount of {{ selectedDenomination.name }} to send">
                         </div>
 
                       </div>
                       <div class="uk-width-2-5">
                         <div class="uk-inline uk-width-1-1">
-                          <button class="uk-button uk-button-secondary uk-width-1-1" type="button" style="text-transform: none;">{{ selectedAmount.shortName }}</button>
+                          <button class="uk-button uk-button-secondary uk-width-1-1" type="button" style="text-transform: none;">{{ selectedDenomination.shortName }}</button>
                           <div uk-dropdown>
                             <ul class="uk-nav uk-dropdown-nav">
-                              <li class="uk-active" *ngFor="let amount of amounts" [class]="{ 'uk-active': selectedAmount.value == amount.value }"><a href="#" (click)="selectedAmount = amount; syncNanoPrice();">{{ amount.name }}</a></li>
+                              <li class="uk-active" *ngFor="let denom of denominations" [class]="{ 'uk-active': selectedDenomination.value == denom.value }"><a href="#" (click)="selectedDenomination = denom; updatedDenom();">{{ denom.name }} ({{ denom.shortName }})</a></li>
                             </ul>
                           </div>
                         </div>
-                      </div>
-
-                      <div *ngIf="amountRaw.gt(0)" class="uk-width-1-1 uk-width-3-5@m uk-text-center uk-text-small uk-text-muted uk-margin-remove">
-                        +{{ amountRaw.toString(10) }} raw &nbsp; <a (click)="resetRaw()">remove</a>
                       </div>
 
                       <div class="uk-width-1-1 uk-width-3-5@s" style="margin-top: 10px;" *ngIf="settings.settings.displayCurrency">
@@ -102,8 +98,7 @@
       <div class="uk-width-1-1">
         <div class="uk-card uk-card-default uk-width-1-1 uk-text-center">
           <span style="display: block; padding-top: 8px;">You are about to send</span>
-          <span style="display:block; font-size: 32px;">{{ rawAmount | rai: 'mnano' }}</span>
-          <span style="display:block; font-size: 12px;" *ngIf="amountRaw.gt(0)">+{{ amountRaw.toString(10) }} raw</span>
+          <span style="display:block; font-size: 32px;">{{ antAmount | rai: 'den-mik' }}</span>
           <span style="display:block; font-size: 16px; padding-bottom: 5px;" *ngIf="settings.settings.displayCurrency">{{ amountFiat | fiat: settings.settings.displayCurrency }} @ {{ price.price.lastPrice | fiat: settings.settings.displayCurrency }} / MIK</span>
         </div>
         <br>
@@ -128,11 +123,11 @@
               <div class="uk-card-body" style="padding: 20px 20px;">
                 <div uk-grid>
                   <div class="uk-width-1-2 uk-text-muted">
-                    <span class="confirm-currency">{{ fromAccount.balance || 0 | rai: 'mnano'}}</span>
+                    <span class="confirm-currency">{{ fromAccount.balance || 0 | rai: 'den-mik'}}</span>
                     <span class="confirm-subtitle">Current Balance</span>
                   </div>
                   <div class="uk-width-1-2 uk-text-right">
-                    <span class="confirm-currency uk-text-danger">-{{ rawAmount | rai: 'mnano' }}</span>
+                    <span class="confirm-currency uk-text-danger">-{{ antAmount | rai: 'den-mik' }}</span>
                   </div>
                 </div>
               </div>
@@ -159,11 +154,11 @@
               <div class="uk-card-body" style="padding: 20px 20px;">
                 <div uk-grid>
                   <div class="uk-width-1-2 uk-text-muted">
-                    <span class="confirm-currency">{{ toAccount.balance || 0 | rai: 'mnano'}}</span>
+                    <span class="confirm-currency">{{ toAccount.balance || 0 | rai: 'den-mik'}}</span>
                     <span class="confirm-subtitle">Current Balance</span>
                   </div>
                   <div class="uk-width-1-2 uk-text-right">
-                    <span class="confirm-currency uk-text-success">+{{ rawAmount | rai: 'mnano' }}</span>
+                    <span class="confirm-currency uk-text-success">+{{ antAmount | rai: 'den-mik' }}</span>
                   </div>
                 </div>
               </div>

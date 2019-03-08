@@ -12,7 +12,6 @@ import {UtilService} from "../../services/util.service";
   styleUrls: ['./transaction-details.component.css']
 })
 export class TransactionDetailsComponent implements OnInit {
-  nano = 10000000000;
 
   routerSub = null;
   transaction: any = {};
@@ -29,7 +28,6 @@ export class TransactionDetailsComponent implements OnInit {
   transactionJSON = '';
   showBlockData = false;
 
-  amountRaw = new BigNumber(0);
   amountSigned : number = 0;
 
   constructor(private route: ActivatedRoute,
@@ -59,7 +57,6 @@ export class TransactionDetailsComponent implements OnInit {
     this.transactionJSON = '';
     this.showBlockData = false;
     let legacyFromAccount = '';
-    this.amountRaw = new BigNumber(0);
     this.amountSigned = 0;
     const hash = this.route.snapshot.params.transaction;
     this.hashID = hash;
@@ -94,7 +91,6 @@ export class TransactionDetailsComponent implements OnInit {
       this.isStateBlock = false;
     }
     if (hashData.amount) {
-      this.amountRaw = new BigNumber(hashData.amount).mod(this.nano);
       this.amountSigned = hashData.amount;
       if (hashData.amount_sign) {
         this.amountSigned = hashData.amount * hashData.amount_sign;

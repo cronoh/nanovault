@@ -23,7 +23,7 @@ export class AppSettingsService {
 
   // Default settings
   defaultSettings: AppSettings = {
-    displayDenomination: 'mnano',
+    displayDenomination: 'den-mik',
     walletStore: 'localStorage',
     displayCurrency: '',
     lockOnClose: 1,

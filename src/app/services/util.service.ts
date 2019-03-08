@@ -40,13 +40,11 @@ export class UtilService {
   date = {
     shortDateToUnixTime: shortDateToUnixTime,
   };
-  nano = {
-    mnanoToRaw: mnanoToRaw,
-    knanoToRaw: knanoToRaw,
-    nanoToRaw: nanoToRaw,
-    rawToMnano: rawToMnano,
-    rawToKnano: rawToKnano,
-    rawToNano: rawToNano,
+  unit = {
+    mikronToAnt: mikronToAnt,
+    antToMikron: antToMikron,
+    kmikronToAnt: kmikronToAnt,
+    antToKMikron: antToKMikron,
   };
 
 }
@@ -242,26 +240,19 @@ function getAccountPublicKey(account) {
 /**
  * Conversion functions
  */
-const mnano = 10000000000;
-const knano = 10000000;
-const nano  = 10000;
-function mnanoToRaw(value) {
-  return new BigNumber(value).times(mnano);
+const unitMikron = 10000000000;
+const unitKMikron = 10000000000000;
+function mikronToAnt(value : number) : BigNumber {
+  return new BigNumber(Math.round(value * unitMikron));
 }
-function knanoToRaw(value) {
-  return new BigNumber(value).times(knano);
+function antToMikron(value : any) : BigNumber {
+  return new BigNumber(value / unitMikron);
 }
-function nanoToRaw(value) {
-  return new BigNumber(value).times(nano);
+function kmikronToAnt(value : number) : BigNumber {
+  return new BigNumber(Math.round(value * unitKMikron));
 }
-function rawToMnano(value) {
-  return new BigNumber(value).div(mnano);
-}
-function rawToKnano(value) {
-  return new BigNumber(value).div(knano);
-}
-function rawToNano(value) {
-  return new BigNumber(value).div(nano);
+function antToKMikron(value : number) : BigNumber {
+  return new BigNumber(value / unitKMikron);
 }
 
 /**
@@ -324,12 +315,10 @@ const util = {
   date: {
     shortDateToUnixTime: shortDateToUnixTime,
   },
-  nano: {
-    mnanoToRaw: mnanoToRaw,
-    knanoToRaw: knanoToRaw,
-    nanoToRaw: nanoToRaw,
-    rawToMnano: rawToMnano,
-    rawToKnano: rawToKnano,
-    rawToNano: rawToNano,
+  unit: {
+    mikronToAnt: mikronToAnt,
+    antToMikron: antToMikron,
+    kmikronToAnt: kmikronToAnt,
+    antToKMikron: antToKMikron,
   }
 };

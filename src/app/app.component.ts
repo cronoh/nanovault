@@ -113,7 +113,7 @@ export class AppComponent implements OnInit {
     } else if (searchData.length === 64) {
       this.router.navigate(['transaction', searchData]);
     } else {
-      this.notifications.sendWarning(`Invalid Nano account or transaction hash!`)
+      this.notifications.sendWarning(`Invalid Mikron account or transaction hash!`)
     }
     this.searchData = '';
   }
