@@ -19,7 +19,7 @@ interface AppSettings {
 
 @Injectable()
 export class AppSettingsService {
-  storeKey = `nanovault-appsettings`;
+  storeKey = `mikron-vault-appsettings`;
 
   // Default settings
   defaultSettings: AppSettings = {

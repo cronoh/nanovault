@@ -2,8 +2,9 @@
   <div class="uk-width-1-1 uk-animation-slide-left-small">
     <div uk-grid class="uk-text-center" style="margin-bottom: 90px;">
       <div class="uk-width-1-1" style="margin-top: 45px;">
-        <h2>Welcome to NanoVault!</h2>
-        <span class="uk-text-lead">The "no strings attached" open source wallet for <a href="https://mikron.io" class="uk-link-text" target="_blank">Mikron</a></span><br>
+        <h2>Welcome to the <a href="https://mikron.io" class="uk-link-text" target="_blank">Mikron</a> Web Wallet!</h2>
+        <span class="uk-text-lead">The offical web-based wallet for <a href="https://mikron.io" class="uk-link-text" target="_blank">Mikron</a></span><br>
+        <span class="uk-text-medium">MikronWebWallet is based on <a href="https://nanovault.io" class="uk-link-text" target="_blank">NanoVault</a></span><br>   
       </div>
       <div class="uk-width-1-1" *ngIf="!isConfigured()">
         <div uk-grid>
@@ -40,17 +41,17 @@
             <ul uk-accordion="">
               <li class="uk-open">
 
-                <a class="uk-accordion-title uk-link-text" href="#">Why Use NanoVault?</a>
+                <a class="uk-accordion-title uk-link-text" href="#">Why Use MikronWebWallet?</a>
                 <div class="uk-accordion-content">
-                  <!--NanoVault is an open source web wallet which makes it incredibly easy to send and receive <a href="https://mikron.io" target="_blank">Mikron</a> from anywhere in the world.<br>-->
+                  <!--MikronWebWallet is an open source web wallet which makes it incredibly easy to send and receive <a href="https://mikron.io" target="_blank">Mikron</a> from anywhere in the world.<br>-->
 
                   <dl class="uk-description-list">
                     <dt>Security Focused</dt>
                     <dd>All sensitive operations happen in your browser only - your seed and private keys are never sent across your network, or stored on any server in any format. (So there is no need for server-based authentication measures such as 2FA)</dd>
+                    <dt>Any Device, Anywhere</dt>
+                    <dd>Send and receive Mikron from any device using the web wallet, be it mobile or desktop, Windows or Liunux.</dd>
                     <dt>"No Strings Attached" Wallet</dt>
                     <dd>Because no information is ever stored on a server, there is no account to login to or email address required. Create as many wallets as you want and switch between them easily.</dd>
-                    <dt>Any Device, Anywhere</dt>
-                    <dd>Send and receive Mikron from any device using the web wallet, or <a href="https://github.com/cronoh/nanovault/releases" target="_blank">download the desktop wallet</a> available for Windows/Mac/Linux.</dd>
                     <dt>Helpful Features</dt>
                     <dd>Store labels for your friends and your own accounts in the address book, track your balances in your local currency, and more!</dd>
                   </dl>
@@ -68,21 +69,9 @@
 
         <div class="uk-card uk-card-small uk-card-default uk-margin uk-width-1-1">
           <div class="uk-card-body uk-text-center">
-            NanoVault is open source and all code is available at <a href="https://github.com/cronoh/nanovault" target="_blank">https://github.com/cronoh/nanovault</a>.<br>
-            Please submit any feedback or bug reports on our GitHub page.  Thank you for using NanoVault!
+            MikronWebWallet is open source and all code is available at <a href="https://github.com/mikroncoin/mikron-vault-web" target="_blank">https://github.com/mikroncoin/mikron-vault-web</a>.<br>
+            Please submit any feedback or bug reports on our GitHub page.  Thank you for using MikronWebWallet!
           </div>
-        </div>
-
-        <div class="uk-width-1-1">
-          <div class="uk-text-center uk-alert uk-alert-primary" uk-alert>
-            <a class="uk-alert-close" uk-close></a>
-            <strong>Don't have any Nano, but want to see how quick and easy it is to use?</strong><br>
-            Use the <a href="https://nanofaucet.org/" target="_blank">Nano Faucet</a> with your NanoVault account to get going instantly!
-          </div>
-        </div>
-
-        <div class="uk-text-center uk-text-small uk-text-truncate">
-          Donation Address: <a [routerLink]="'/send'" [queryParams]="{ to: donationAccount }">{{ donationAccount }}</a>
         </div>
       </div>
     </div>

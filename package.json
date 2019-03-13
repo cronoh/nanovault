@@ -1,5 +1,5 @@
 {
-  "name": "NanoVault",
+  "name": "MikronWebWallet",
   "version": "0.2.0",
   "license": "MIT",
   "description": "Wallet for interacting with Nano",
@@ -31,7 +31,7 @@
     "desktop:full": "electron-builder -wml --x64",
     "desktop:publish": "build -wml --x64 -p always",
 
-    "server:copy-wallet": "cd .. && rm -rf nanovault-server/static && cp -R nanovault/dist nanovault-server/static"
+    "server:copy-wallet": "cd .. && rm -rf mikron-vault-server/static && cp -R mikron-vault/dist mikron-vault-server/static"
   },
   "private": true,
   "dependencies": {
@@ -92,9 +92,9 @@
     "uikit": "^3.0.0-beta.40"
   },
   "build": {
-    "appId": "com.electron.nanovault",
+    "appId": "com.electron.mikron-vault",
     "buildVersion": "1.1.0",
-    "productName": "NanoVault",
+    "productName": "MikronWebWallet",
     "copyright": "Copyright © 2019 Andrew Steele",
     "directories": {
       "output": "desktop-app/build",
@@ -121,7 +121,7 @@
       {
         "provider": "github",
         "owner": "cronoh",
-        "repo": "nanovault"
+        "repo": "mikron-vault"
       }
     ],
     "protocols": {

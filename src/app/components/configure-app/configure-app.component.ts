@@ -87,7 +87,7 @@ export class ConfigureAppComponent implements OnInit {
     { name: 'Best Option Available', value: 'best' },
     { name: 'Client Side - WebGL (Chrome/Firefox)', value: 'clientWebGL' },
     { name: 'Client Side - CPU', value: 'clientCPU' },
-    { name: 'Server - NanoVault Server', value: 'server' },
+    { name: 'Server - MikronWebWallet Server', value: 'server' },
   ];
   selectedPoWOption = this.powOptions[0].value;
 
@@ -98,7 +98,7 @@ export class ConfigureAppComponent implements OnInit {
       isCustom: false,
       serverAPI: 'https://wallet.mikron.io/api/node-api',
       serverNode: '',
-      serverWS: 'wss://ws.nanovault.io/',
+      serverWS: 'wss://ws.wallet.mikron.io/',
     },
     {
       name: 'MikronLiveTest1',
@@ -114,7 +114,7 @@ export class ConfigureAppComponent implements OnInit {
       isCustom: true,
       serverAPI: 'https://wallet.mikron.io/api/node-api',
       serverNode: 'http://localhost:7043',
-      serverWS: 'wss://ws.nanovault.io/',
+      serverWS: 'wss://ws.wallet.mikron.io/',
     },
   ];
   selectedServer = this.serverOptions[0].value;
@@ -283,7 +283,7 @@ export class ConfigureAppComponent implements OnInit {
         if (this.serverWS.startsWith('wss://') || this.serverWS.startsWith('ws://')) {
           newSettings.serverWS = this.serverWS;
         } else {
-          return this.notifications.sendWarning(`Custom Update Server has an invalid address.  Make sure to use the full address ie: wss://ws.nanovault.io/`);
+          return this.notifications.sendWarning(`Custom Update Server has an invalid address.  Make sure to use the full address ie: wss://ws.wallet.mikron.io/`);
         }
       }
 
@@ -325,7 +325,7 @@ export class ConfigureAppComponent implements OnInit {
   async clearWalletData() {
     const UIkit = window['UIkit'];
     try {
-      await UIkit.modal.confirm('<p style="text-align: center;">You are about to delete all of your wallet data stored in NanoVault!<br><b>Make sure you have your seed backed up!!</b><br><br><b>Are you sure?</b></p>');
+      await UIkit.modal.confirm('<p style="text-align: center;">You are about to delete all of your wallet data stored in MikronWebWallet!<br><b>Make sure you have your seed backed up!!</b><br><br><b>Are you sure?</b></p>');
       this.walletService.resetWallet();
       this.walletService.removeWalletData();
 
@@ -336,7 +336,7 @@ export class ConfigureAppComponent implements OnInit {
   async clearAllData() {
     const UIkit = window['UIkit'];
     try {
-      await UIkit.modal.confirm('<p style="text-align: center;">You are about to delete ALL of your data stored in NanoVault.<br>This includes all of your wallet data, your address book, and your application settings!<br><br><b>Make sure you have your seed backed up!!</b><br><br><b>Are you sure?</b></p>');
+      await UIkit.modal.confirm('<p style="text-align: center;">You are about to delete ALL of your data stored in MikronWebWallet.<br>This includes all of your wallet data, your address book, and your application settings!<br><br><b>Make sure you have your seed backed up!!</b><br><br><b>Are you sure?</b></p>');
       this.walletService.resetWallet();
       this.walletService.removeWalletData();
 

@@ -1,6 +1,6 @@
 {
-    "name": "NanoVault",
-    "short_name": "NanoVault",
+    "name": "MikronWebWallet",
+    "short_name": "MikronWebWallet",
     "icons": [
         {
             "src": "android-chrome-192x192.png",

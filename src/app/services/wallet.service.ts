@@ -47,7 +47,7 @@ export interface FullWallet {
 @Injectable()
 export class WalletService {
   unitMikron = 10000000000;
-  storeKey = `nanovault-wallet`;
+  storeKey = `mikron-vault-wallet`;
 
   wallet: FullWallet = {
     type: 'seed',
@@ -228,7 +228,7 @@ export class WalletService {
     const exportData = this.generateExportData();
     const base64Data = btoa(JSON.stringify(exportData));
 
-    return `https://nanovault.io/import-wallet#${base64Data}`;
+    return `https://wallet.mikron.io/import-wallet#${base64Data}`;  // TODO dynamic
   }
 
   lockWallet() {

@@ -4,7 +4,7 @@ import {NotificationService} from "./notification.service";
 
 @Injectable()
 export class WorkPoolService {
-  storeKey = `nanovault-workcache`;
+  storeKey = `mikron-vault-workcache`;
 
   cacheLength = 25;
   workCache = [];
