@@ -85,12 +85,12 @@ export class RepresentativeService {
   defaultRepresentatives = [
     {
       id: 'mik_317ntk3fs3666tuzrdsx755rruhw935apyquan95uc18po55i1s53sew45tb',
-      name: 'Official Mikron Rep 1',
+      name: 'Mikron Rep 1',
       trusted: true,
     },
     {
       id: 'mik_39wmnmapst5wujyja9ydkkbmeirqz6ytcxg3aoj9ri8bttx4mxiz3pn8rqfc',
-      name: 'Official Mikron Rep 2',
+      name: 'Mikron Rep 2',
       trusted: true,
     },
   ];
