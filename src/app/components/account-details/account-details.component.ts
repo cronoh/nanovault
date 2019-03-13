@@ -137,14 +137,15 @@ export class AccountDetailsComponent implements OnInit, OnDestroy {
     let additionalBlocksInfo = [];
 
     if (history && history.history && Array.isArray(history.history)) {
-      this.accountHistory = history.history.map(h => {
+      const history_filtered = history.history.filter(h => ((h.type !== 'undefined') && !(h.type === 'state' && h.subtype === undefined)));
+      this.accountHistory = history_filtered.map(h => {
         // prepare date
         h.date = h.block_time * 1000;
         if (h.type === 'state') {
           // For Open and receive blocks, we need to look up block info to get originating account
           if (h.subtype === 'open' || h.subtype === 'receive' || h.subtype === 'open_receive') {
             additionalBlocksInfo.push({ hash: h.hash, link: h.link });
-          } else {
+          } else {  // send or other
             h.link_as_account = this.util.account.getPublicAccountID(this.util.hex.toUint8(h.link));
             h.addressBookName = this.addressBook.getAccountName(h.link_as_account) || null;
           }
