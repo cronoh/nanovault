@@ -30,9 +30,9 @@ export class AppSettingsService {
     lockInactivityMinutes: 30,
     powSource: 'best',
     serverName: 'server-test1', // 'server-mikron',
-    serverAPI: null,
+    serverAPI: 'http://server3.mikron.io:9950/api/node-api',
     serverNode: null,
-    serverWS: null,
+    serverWS: 'ws://server3.mikron.io:3333/',
   };
 
   settings: AppSettings = this.defaultSettings;
