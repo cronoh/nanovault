@@ -3,7 +3,7 @@ import { NgModule } from '@angular/core';
 
 
 import { AppComponent } from './app.component';
-import {HttpClientModule} from "@angular/common/http";
+import {HttpClientModule, HttpClient} from "@angular/common/http";
 import {FormsModule, ReactiveFormsModule} from "@angular/forms";
 import {WelcomeComponent} from "./welcome/welcome.component";
 import {AppRoutingModule} from "./app-routing.module";
@@ -44,7 +44,12 @@ import {ManageRepresentativesComponent} from "./components/manage-representative
 import {NodeService} from "./services/node.service";
 import {LedgerService} from "./services/ledger.service";
 import {DesktopService} from "./services/desktop.service";
+import { TranslateHttpLoader } from '@ngx-translate/http-loader';
+import { TranslateLoader, TranslateModule } from '@ngx-translate/core';
 
+export function HttpLoaderFactory(httpClient: HttpClient) {
+  return new TranslateHttpLoader(httpClient, '/assets/translations/', '-lang.json');
+}
 
 @NgModule({
   declarations: [
@@ -77,7 +82,14 @@ import {DesktopService} from "./services/desktop.service";
     AppRoutingModule,
     ReactiveFormsModule,
     FormsModule,
-    ClipboardModule
+    ClipboardModule,
+    TranslateModule.forRoot({
+      loader: {
+        provide: TranslateLoader,
+        useFactory: HttpLoaderFactory,
+        deps: [HttpClient]
+      }
+    })
   ],
   providers: [
     UtilService,
