@@ -46,6 +46,7 @@ import {LedgerService} from "./services/ledger.service";
 import {DesktopService} from "./services/desktop.service";
 import { TranslateHttpLoader } from '@ngx-translate/http-loader';
 import { TranslateLoader, TranslateModule } from '@ngx-translate/core';
+import { TranslateTPipe } from './pipes/translate.pipe';
 
 export function HttpLoaderFactory(httpClient: HttpClient) {
   return new TranslateHttpLoader(httpClient, '/assets/translations/', '-lang.json');
@@ -75,6 +76,7 @@ export function HttpLoaderFactory(httpClient: HttpClient) {
     CurrencySymbolPipe,
     RepresentativesComponent,
     ManageRepresentativesComponent,
+    TranslateTPipe,
   ],
   imports: [
     BrowserModule,
