@@ -4,7 +4,7 @@
       <div class="uk-width-1-1" style="margin-top: 45px;">
         <h2>Welcome to the <a href="https://mikron.io" class="uk-link-text" target="_blank">Mikron</a> Web Wallet!</h2>
         <span class="uk-text-lead">The offical web-based wallet for <a href="https://mikron.io" class="uk-link-text" target="_blank">Mikron</a></span><br>
-        <span class="uk-text-medium">MikronWebWallet is based on <a href="https://nanovault.io" class="uk-link-text" target="_blank">NanoVault</a></span><br>   
+        <span class="uk-text-medium">{{'gen.prod-name' | translate}} {{'welcome.based-on.text' | translate}} <a href="{{'welcome.based-on.link-ref' | translate}}" class="uk-link-text" target="_blank">{{'welcome.based-on.link-text' | translate}}</a></span><br>
       </div>
       <div class="uk-width-1-1" *ngIf="!isConfigured()">
         <div uk-grid>
