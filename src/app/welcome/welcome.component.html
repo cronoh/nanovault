@@ -2,9 +2,9 @@
   <div class="uk-width-1-1 uk-animation-slide-left-small">
     <div uk-grid class="uk-text-center" style="margin-bottom: 90px;">
       <div class="uk-width-1-1" style="margin-top: 45px;">
-        <h2>Welcome to the <a href="https://mikron.io" class="uk-link-text" target="_blank">Mikron</a> Web Wallet!</h2>
+        <h2>{{'welcome.title' | t}}</h2>
         <span class="uk-text-lead">The offical web-based wallet for <a href="https://mikron.io" class="uk-link-text" target="_blank">Mikron</a></span><br>
-        <span class="uk-text-medium">MikronWebWallet is based on <a href="https://nanovault.io" class="uk-link-text" target="_blank">NanoVault</a></span><br>   
+        <span class="uk-text-medium">{{'welcome.based-on.text1' | t}} <a href="{{'welcome.based-on.link-ref' | t}}" class="uk-link-text" target="_blank">{{'welcome.based-on.link-text' | t}}</a> {{'welcome.based-on.text2' | t}}</span><br>
       </div>
       <div class="uk-width-1-1" *ngIf="!isConfigured()">
         <div uk-grid>

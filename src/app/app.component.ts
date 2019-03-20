@@ -13,6 +13,7 @@ import {NodeService} from "./services/node.service";
 import Nano from "hw-app-nano";
 import TransportU2F from "@ledgerhq/hw-transport-u2f";
 import {DesktopService} from "./services/desktop.service";
+import { TranslateService } from '@ngx-translate/core';
 
 @Component({
   selector: 'app-root',
@@ -44,11 +45,18 @@ export class AppComponent implements OnInit {
     private router: Router,
     private workPool: WorkPoolService,
     private desktop: DesktopService,
-    public price: PriceService) { }
+    public price: PriceService,
+    public translate: TranslateService) { }
 
   async ngOnInit() {
     this.windowHeight = window.innerHeight;
     this.settings.loadAppSettings();
+
+    this.translate.addLangs(['en', 'hu']);
+    this.translate.setDefaultLang('en');
+    const browserLang = this.translate.getBrowserLang();
+    this.translate.use(browserLang.match(/en|hu/) ? browserLang : 'en');
+
     this.addressBook.loadAddressBook();
     this.workPool.loadWorkCache();
     await this.walletService.loadStoredWallet();
