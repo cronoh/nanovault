@@ -7,7 +7,7 @@
       <div class="title-block">
         <div class="uk-margin-left" style="padding-bottom: 15px; color: #666;">
           <div uk-grid>
-            <div class="uk-width-expand"><a routerLink="/" class="title">MikronWebWallet</a></div>
+            <div class="uk-width-expand"><a routerLink="/" class="title">{{'prod-name' | t}}</a></div>
             <div class="uk-width-1-6 uk-padding-remove-left" style="padding-top: 15px;" *ngIf="wallet.seed">
               <span class="uk-text-danger" uk-icon="icon: warning; ratio: 1.2;" *ngIf="node.status === false" uk-tooltip title="Unable to connect to Mikron node.  Your balances may be wrong!"></span>
               <div uk-spinner="ratio: 0.6;" *ngIf="node.status === null" uk-tooltip title="Attempting to connect to Mikron node"></div>
@@ -15,13 +15,13 @@
           </div>
 
           <div style="display: inline-block; text-align: right;" class="uk-text-truncate">
-            <span class="balance-text" style="display: inline-block; text-align: left; float: left; margin-top: 5px;">Balance</span>
+            <span class="balance-text" style="display: inline-block; text-align: left; float: left; margin-top: 5px;">{{'balance' | t}}</span>
             <span class="" style="margin-left: 11px; color: #62a25b; display: inline-block; font-size: 12px;" uk-tooltip title="Last Price: {{ price.price.lastPrice | fiat: settings.settings.displayCurrency }} / MIK">{{ wallet.balanceFiat | fiat: settings.settings.displayCurrency }}</span>
             <span class="balance" style="clear: left; text-align: left;" [ngClass]="{ 'uk-text-danger': node.status === false, 'uk-text-muted': node.status === null && wallet.seed }">{{ wallet.balance | rai: settings.settings.displayDenomination }}</span>
           </div>
 
           <div style="display: inline-block; text-align: right;" class="uk-text-muted" *ngIf="wallet.pending.gt(0)">
-            <span class="balance-text" style="display: inline-block; text-align: left; float: left; margin-top: 5px; color: #999;">Pending </span>
+            <span class="balance-text" style="display: inline-block; text-align: left; float: left; margin-top: 5px; color: #999;">{{'pending' | t}} </span>
             <span style="margin-left: 11px; display: inline-block; font-size: 12px; color: #999;">{{ wallet.pendingFiat | fiat: settings.settings.displayCurrency }}</span>
             <span class="balance" style="clear: left; text-align: left; color: #999;">{{ wallet.pending | rai: settings.settings.displayDenomination }}</span>
           </div>
@@ -31,26 +31,26 @@
       <app-wallet-widget></app-wallet-widget>
 
       <ul class="uk-nav uk-nav-default uk-nav-parent-icon left-nav" uk-nav>
-        <li routerLink="/accounts" routerLinkActive="uk-active"><a routerLink="/accounts" routerLinkActive="active" class="uk-margin-left " uk-toggle="target: #mobile-nav">Accounts</a></li>
-        <li><a routerLink="/send" routerLinkActive="active" class="uk-margin-left " uk-toggle="target: #mobile-nav">Send</a></li>
+        <li routerLink="/accounts" routerLinkActive="uk-active"><a routerLink="/accounts" routerLinkActive="active" class="uk-margin-left " uk-toggle="target: #mobile-nav">{{'accounts' | t}}</a></li>
+        <li><a routerLink="/send" routerLinkActive="active" class="uk-margin-left " uk-toggle="target: #mobile-nav">{{'send' | t}}</a></li>
         <li *ngIf="wallet.pending.gt(0)">
           <div uk-grid>
             <div class="uk-width-3-4">
-              <a routerLink="/receive" routerLinkActive="active" class="uk-margin-left " uk-toggle="target: #mobile-nav">Receive</a>
+              <a routerLink="/receive" routerLinkActive="active" class="uk-margin-left " uk-toggle="target: #mobile-nav">{{'receive' | t}}</a>
             </div>
             <div class="uk-width-1-4 uk-text-center">
-              <span *ngIf="wallet.pending.gt(0)" class="uk-badge uk-text-top" style="font-size: 16px; padding-bottom: 2px;">New</span>
+              <span *ngIf="wallet.pending.gt(0)" class="uk-badge uk-text-top" style="font-size: 16px; padding-bottom: 2px;">{{'new' | t}}</span>
             </div>
           </div>
         </li>
-        <li><a routerLink="/address-book" routerLinkActive="active" class="uk-margin-left " uk-toggle="target: #mobile-nav">Address Book</a></li>
+        <li><a routerLink="/address-book" routerLinkActive="active" class="uk-margin-left " uk-toggle="target: #mobile-nav">{{'address-book' | t}}</a></li>
         <li class="uk-parent">
-          <a href="#" class="uk-margin-left">Settings</a>
+          <a href="#" class="uk-margin-left">{{'settings' | t}}</a>
           <ul class="uk-nav-sub">
-            <li><a routerLink="/representatives" routerLinkActive="active" class="uk-margin-left">Representatives</a></li>
-            <li><a routerLink="/configure-app" routerLinkActive="active" class="uk-margin-left " uk-toggle="target: #mobile-nav">App Settings</a></li>
-            <li><a routerLink="/manage-wallet" routerLinkActive="active" class="uk-margin-left " uk-toggle="target: #mobile-nav">Manage Wallet</a></li>
-            <li><a routerLink="/configure-wallet" routerLinkActive="active" class="uk-margin-left " uk-toggle="target: #mobile-nav">Configure New Wallet</a></li>
+            <li><a routerLink="/representatives" routerLinkActive="active" class="uk-margin-left">{{'settingsc.representatives' | t}}</a></li>
+            <li><a routerLink="/configure-app" routerLinkActive="active" class="uk-margin-left " uk-toggle="target: #mobile-nav">{{'settingsc.app-settings' | t}}</a></li>
+            <li><a routerLink="/manage-wallet" routerLinkActive="active" class="uk-margin-left " uk-toggle="target: #mobile-nav">{{'settingsc.manage-wallet' | t}}</a></li>
+            <li><a routerLink="/configure-wallet" routerLinkActive="active" class="uk-margin-left " uk-toggle="target: #mobile-nav">{{'settingsc.new-wallet' | t}}</a></li>
           </ul>
         </li>
       </ul>
@@ -85,7 +85,7 @@
       <div class="uk-width-1-2">
         <div class="uk-margin-small-top uk-margin-small-bottom uk-margin-small-left uk-text-middle" uk-toggle="target: #mobile-nav;" style="cursor: pointer;">
           <span uk-icon="icon: menu;" style=" margin-right: 10px; vertical-align: text-bottom;"></span>
-          <span style="font-size: 22px;" >MikronWebWallet</span>
+          <span style="font-size: 22px;" >{{'prod-name' | t}}</span>
         </div>
       </div>
       <div class="uk-width-1-2 " style="text-align: right;">
@@ -99,8 +99,8 @@
           <div class="uk-margin-left" style="padding-bottom: 15px;">
             <div uk-grid>
               <div>
-                <span class="uk-width-expand"><a routerLink="/" class="title">MikronWebWallet</a></span>
-                <span class="uk-text-small">Based on <a href="https://nanovault.io" class="uk-link-text" target="_blank">NanoVault</a></span>
+                <span class="uk-width-expand"><a routerLink="/" class="title">{{'prod-name' | t}}</a></span>
+                <span class="uk-text-small">{{'appc.based-on.text1' | t}} <a href="{{'appc.based-on.link-ref' | t}}" class="uk-link-text" target="_blank">{{'appc.based-on.link-text' | t}}</a> {{'appc.based-on.text2' | t}}</span>
               </div>
               <div class="uk-width-1-6 uk-padding-remove-left" style="padding-top: 15px;" *ngIf="wallet.seed">
                 <span class="uk-text-danger" uk-icon="icon: warning; ratio: 1.2;" *ngIf="node.status === false" uk-tooltip title="Unable to connect to Mikron node.  Your balances may be wrong!"></span>
@@ -109,7 +109,7 @@
             </div>
 
             <div style="display: inline-block; text-align: right;" class="uk-text-truncate">
-              <span class="balance-text" style="display: inline-block; text-align: left; float: left; margin-top: 5px;">Balance </span>
+              <span class="balance-text" style="display: inline-block; text-align: left; float: left; margin-top: 5px;">{{'balance' | t}} </span>
               <span class="" style="margin-left: 11px; color: #62a25b; display: inline-block; font-size: 12px;" uk-tooltip title="Last Price: {{ price.price.lastPrice | fiat: settings.settings.displayCurrency }} / MIK">{{ wallet.balanceFiat | fiat: settings.settings.displayCurrency }}</span>
               <span class="balance" [ngClass]="{ 'uk-text-danger': node.status === false, 'uk-text-muted': node.status === null && wallet.seed }" style="clear: left; text-align: left;">{{ wallet.balance | rai: settings.settings.displayDenomination }}</span>
             </div>
@@ -129,26 +129,26 @@
         <app-wallet-widget></app-wallet-widget>
 
         <ul class="uk-nav uk-nav-default uk-nav-parent-icon left-nav" uk-nav>
-          <li routerLink="/accounts" routerLinkActive="uk-active"><a routerLink="/accounts" routerLinkActive="active" class="uk-margin-left">Accounts</a></li>
-          <li><a routerLink="/send" routerLinkActive="active" class="uk-margin-left">Send</a></li>
+          <li routerLink="/accounts" routerLinkActive="uk-active"><a routerLink="/accounts" routerLinkActive="active" class="uk-margin-left">{{'accounts' | t}}</a></li>
+          <li><a routerLink="/send" routerLinkActive="active" class="uk-margin-left">{{'send' | t}}</a></li>
           <li *ngIf="wallet.pending.gt(0)">
             <div uk-grid>
               <div class="uk-width-3-4">
-                <a routerLink="/receive" routerLinkActive="active" class="uk-margin-left">Receive</a>
+                <a routerLink="/receive" routerLinkActive="active" class="uk-margin-left">{{'receive' | t}}</a>
               </div>
               <div class="uk-width-1-4 uk-text-center">
-                <span *ngIf="wallet.pending.gt(0)" class="uk-badge uk-text-top uk-align-center" style="font-size: 16px; padding-bottom: 2px;">New</span>
+                <span *ngIf="wallet.pending.gt(0)" class="uk-badge uk-text-top uk-align-center" style="font-size: 16px; padding-bottom: 2px;">{{'new' | t}}</span>
               </div>
             </div>
           </li>
-          <li><a routerLink="/address-book" routerLinkActive="active" class="uk-margin-left">Address Book</a></li>
+          <li><a routerLink="/address-book" routerLinkActive="active" class="uk-margin-left">{{'address-book' | t}}</a></li>
           <li class="uk-parent">
-            <a href="#" class="uk-margin-left">Settings</a>
+            <a href="#" class="uk-margin-left">{{'settings' | t}}</a>
             <ul class="uk-nav-sub">
-              <li><a routerLink="/representatives" routerLinkActive="active" class="uk-margin-left">Representatives</a></li>
-              <li><a routerLink="/configure-app" routerLinkActive="active" class="uk-margin-left">App Settings</a></li>
-              <li><a routerLink="/manage-wallet" routerLinkActive="active" class="uk-margin-left">Manage Wallet</a></li>
-              <li><a routerLink="/configure-wallet" routerLinkActive="active" class="uk-margin-left">Configure New Wallet</a></li>
+              <li><a routerLink="/representatives" routerLinkActive="active" class="uk-margin-left">{{'settingsc.representatives' | t}}</a></li>
+              <li><a routerLink="/configure-app" routerLinkActive="active" class="uk-margin-left">{{'settingsc.app-settings' | t}}</a></li>
+              <li><a routerLink="/manage-wallet" routerLinkActive="active" class="uk-margin-left">{{'settingsc.manage-wallet' | t}}</a></li>
+              <li><a routerLink="/configure-wallet" routerLinkActive="active" class="uk-margin-left">{{'settingsc.new-wallet' | t}}</a></li>
             </ul>
           </li>
         </ul>

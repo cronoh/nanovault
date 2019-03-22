@@ -124,7 +124,7 @@
                 <div uk-grid>
                   <div class="uk-width-1-2 uk-text-muted">
                     <span class="confirm-currency">{{ fromAccount.balance || 0 | rai: 'den-mik'}}</span>
-                    <span class="confirm-subtitle">Current Balance</span>
+                    <span class="confirm-subtitle">{{'sendc.current-balance' | t}}</span>
                   </div>
                   <div class="uk-width-1-2 uk-text-right">
                     <span class="confirm-currency uk-text-danger">-{{ antAmount | rai: 'den-mik' }}</span>
@@ -155,7 +155,7 @@
                 <div uk-grid>
                   <div class="uk-width-1-2 uk-text-muted">
                     <span class="confirm-currency">{{ toAccount.balance || 0 | rai: 'den-mik'}}</span>
-                    <span class="confirm-subtitle">Current Balance</span>
+                    <span class="confirm-subtitle">{{'sendc.current-balance' | t}}</span>
                   </div>
                   <div class="uk-width-1-2 uk-text-right">
                     <span class="confirm-currency uk-text-success">+{{ antAmount | rai: 'den-mik' }}</span>

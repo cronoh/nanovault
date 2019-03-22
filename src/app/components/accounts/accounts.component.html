@@ -3,7 +3,7 @@
     <div uk-grid>
       <div class="uk-width-1-2">
         <h2>
-          Accounts
+          {{'accounts' | t}}
           <a (click)="viewAdvanced = !viewAdvanced" style="font-size: 12px; margin-left: 25px;">{{ viewAdvanced ? 'BASIC' : 'ADVANCED' }}</a>
         </h2>
       </div>
@@ -28,7 +28,7 @@
             </a>
             Account
           </th>
-          <th class="uk-width-1-5@m uk-width-1-4 uk-text-right">Balance</th>
+          <th class="uk-width-1-5@m uk-width-1-4 uk-text-right">{{'balance' | t}}</th>
           <th class="uk-width-1-5@m uk-width-1-4 uk-text-right"></th>
         </tr>
         </thead>

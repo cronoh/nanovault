@@ -6,17 +6,17 @@
           <div *ngIf="ledgerStatus === 'not-connected' || !ledgerStatus">
             <span style="cursor:pointer" (click)="reloadLedger()" class="uk-text-warning" uk-tooltip title="Reload Ledger status">
               <span uk-icon="icon: refresh" style="float: right; margin-right: 15px;" class="uk-text-muted"></span>
-              <span uk-icon="icon: warning" class="uk-text-top"></span> <span class="uk-text-bottom">Ledger Disconnected</span>
+              <span uk-icon="icon: warning" class="uk-text-top"></span> <span class="uk-text-bottom">{{'wallet-widget.ledger-disconnected' | t}}</span>
             </span>
           </div><div *ngIf="ledgerStatus === 'locked'">
             <span style="cursor:pointer" (click)="reloadLedger()" class="uk-text-warning" uk-tooltip title="Reload Ledger status">
               <span uk-icon="icon: refresh" style="float: right; margin-right: 15px;" class="uk-text-muted"></span>
-              <span uk-icon="icon: warning" class="uk-text-top"></span> <span class="uk-text-bottom">Ledger App Closed</span>
+              <span uk-icon="icon: warning" class="uk-text-top"></span> <span class="uk-text-bottom">{{'wallet-widget.ledger-app-closed' | t}}</span>
             </span>
           </div>
           <div *ngIf="ledgerStatus === 'ready'">
             <span style="cursor:pointer" (click)="reloadLedger()" class="uk-text-success">
-              <span uk-icon="icon: bolt" class="uk-text-top"></span> <span class="uk-text-bottom">Ledger Ready</span>
+              <span uk-icon="icon: bolt" class="uk-text-top"></span> <span class="uk-text-bottom">{{'wallet-widget.ledger-ready' | t}}</span>
             </span>
           </div>
         </div>
@@ -24,19 +24,19 @@
         <div *ngIf="walletService.isConfigured() && !walletService.isLedgerWallet()">
           <div *ngIf="walletService.isLocked()" class="uk-text-bottom">
             <span style="cursor: pointer;" (click)="modal.show()">
-              <span uk-icon="icon: lock" class="uk-text-top"></span> <span class="uk-text-bottom">Wallet Locked</span>
+              <span uk-icon="icon: lock" class="uk-text-top"></span> <span class="uk-text-bottom">{{'wallet-widget.wallet-locked' | t}}</span>
             </span>
           </div>
           <div *ngIf="!walletService.isLocked()">
             <span style="cursor:pointer" (click)="lockWallet()">
-              <span uk-icon="icon: unlock" class="uk-text-top"></span> <span class="uk-text-bottom">Wallet Unlocked</span>
+              <span uk-icon="icon: unlock" class="uk-text-top"></span> <span class="uk-text-bottom">{{'wallet-widget.wallet-unlocked' | t}}</span>
             </span>
           </div>
         </div>
 
         <div *ngIf="!walletService.isConfigured()">
           <a routerLink="/configure-wallet" class="uk-text-warning">
-            <span uk-icon="icon: warning" class="uk-text-top"></span> <span class="uk-text-bottom">Configure Wallet</span>
+            <span uk-icon="icon: warning" class="uk-text-top"></span> <span class="uk-text-bottom">{{'wallet-widget.configure-wallet' | t}}</span>
           </a>
         </div>
       </div>
@@ -48,14 +48,14 @@
   <div class="uk-modal-dialog">
     <button class="uk-modal-close-default" type="button" uk-close></button>
     <div class="uk-modal-header">
-      <h2 class="uk-modal-title">Unlock Wallet</h2>
+      <h2 class="uk-modal-title">{{'wallet-widget.unlock-wallet' | t}}</h2>
     </div>
     <div class="uk-modal-body">
       <input autofocus type="password" [(ngModel)]="unlockPassword" (keyup.enter)="unlockWallet()" class="uk-input" placeholder="Enter wallet password">
     </div>
     <div class="uk-modal-footer uk-text-right">
-      <button class="uk-button uk-button-default uk-modal-close" type="button">Cancel</button>
-      <button class="uk-button uk-button-primary" type="button" (click)="unlockWallet()">Unlock</button>
+      <button class="uk-button uk-button-default uk-modal-close" type="button">{{'wallet-widget.cancel' | t}}</button>
+      <button class="uk-button uk-button-primary" type="button" (click)="unlockWallet()">{{'wallet-widget.unlock' | t}}</button>
     </div>
   </div>
 </div>
