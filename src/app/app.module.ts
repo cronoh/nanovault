@@ -47,6 +47,7 @@ import {DesktopService} from "./services/desktop.service";
 import { TranslateHttpLoader } from '@ngx-translate/http-loader';
 import { TranslateLoader, TranslateModule } from '@ngx-translate/core';
 import { TranslateTPipe } from './pipes/translate.pipe';
+import { LanguageService } from './services/language.service';
 
 export function HttpLoaderFactory(httpClient: HttpClient) {
   return new TranslateHttpLoader(httpClient, '/assets/translations/', '-lang.json');
@@ -110,6 +111,7 @@ export function HttpLoaderFactory(httpClient: HttpClient) {
     NodeService,
     LedgerService,
     DesktopService,
+    LanguageService,
   ],
   bootstrap: [AppComponent]
 })

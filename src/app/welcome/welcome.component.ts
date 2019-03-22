@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
-import {WalletService} from "../services/wallet.service";
+import { ActivatedRoute } from "@angular/router";
+import { WalletService } from "../services/wallet.service";
+import { LanguageService } from "../services/language.service";
 
 @Component({
   selector: 'app-welcome',
@@ -13,10 +15,18 @@ export class WelcomeComponent implements OnInit {
   wallet = this.walletService.wallet;
   isConfigured = this.walletService.isConfigured;
 
-  constructor(private walletService: WalletService) { }
+  constructor(
+    private activatedRoute: ActivatedRoute,
+    private walletService: WalletService,
+    private languageService: LanguageService) { }
 
   ngOnInit() {
-
+    this.languageService.setup(null);
+    this.activatedRoute.queryParamMap.subscribe(params => {
+      const lang = params.get('lang');
+      if (lang) {
+        this.languageService.setup(lang);
+      }
+    });
   }
-
 }
