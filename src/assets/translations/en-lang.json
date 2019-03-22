@@ -1,6 +1,10 @@
 {
     "gen": {
-        "prod-name": "MikronWebWallet"
+        "prod-name": "MikronWebWallet",
+        "lang": {
+            "en": "English",
+            "hu": "Hungarian"
+        }
     }, 
     "welcome": {
         "title": "Welcome to the Mikron Web Wallet!",

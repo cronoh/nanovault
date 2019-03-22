@@ -14,6 +14,7 @@ import Nano from "hw-app-nano";
 import TransportU2F from "@ledgerhq/hw-transport-u2f";
 import {DesktopService} from "./services/desktop.service";
 import { TranslateService } from '@ngx-translate/core';
+import { LanguageService } from "./services/language.service";
 
 @Component({
   selector: 'app-root',
@@ -46,16 +47,13 @@ export class AppComponent implements OnInit {
     private workPool: WorkPoolService,
     private desktop: DesktopService,
     public price: PriceService,
-    public translate: TranslateService) { }
+    private language: LanguageService) { }
 
   async ngOnInit() {
     this.windowHeight = window.innerHeight;
     this.settings.loadAppSettings();
 
-    this.translate.addLangs(['en', 'hu']);
-    this.translate.setDefaultLang('en');
-    const browserLang = this.translate.getBrowserLang();
-    this.translate.use(browserLang.match(/en|hu/) ? browserLang : 'en');
+    this.language.init();
 
     this.addressBook.loadAddressBook();
     this.workPool.loadWorkCache();

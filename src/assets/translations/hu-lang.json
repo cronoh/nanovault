@@ -1,6 +1,10 @@
 {
     "gen": {
-        "prod-name": "MikronWebesTárca"
+        "prod-name": "MikronWebesTárca",
+        "lang": {
+            "en": "angol",
+            "hu": "magyar"
+        }
     }, 
     "welcome": {
         "title": "Üdv a Mikron Webes Tárcában!",
