@@ -103,6 +103,11 @@ export class AppComponent implements OnInit {
     }, 1000);
   }
 
+  async changeLanguage(lang : string) {
+    // TODO save app setting
+    this.language.setup(lang); // TODO
+  }
+
   toggleSearch(mobile = false) {
     this.showSearchBar = !this.showSearchBar;
     if (this.showSearchBar) {
