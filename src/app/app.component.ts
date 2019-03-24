@@ -104,8 +104,13 @@ export class AppComponent implements OnInit {
   }
 
   async changeLanguage(lang : string) {
-    // TODO save app setting
-    this.language.setup(lang); // TODO
+    // save new lang setting
+    if (this.settings.settings.language !== lang) {
+      this.settings.settings.language = lang;
+      this.settings.saveAppSettings();
+    }
+    // update lang
+    this.language.setup(null);
   }
 
   toggleSearch(mobile = false) {

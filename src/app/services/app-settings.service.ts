@@ -15,6 +15,7 @@ interface AppSettings {
   serverAPI: string | null;
   serverNode: string | null;
   serverWS: string | null;
+  language: string | null; // UI language, 2-char code
 }
 
 @Injectable()
@@ -33,6 +34,7 @@ export class AppSettingsService {
     serverAPI: 'http://server3.mikron.io:9950/api/node-api',
     serverNode: null,
     serverWS: 'ws://server3.mikron.io:3333/',
+    language: null,
   };
 
   settings: AppSettings = this.defaultSettings;

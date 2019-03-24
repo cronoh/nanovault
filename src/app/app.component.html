@@ -146,7 +146,11 @@
             <a href="#" class="uk-margin-left">Language</a>
             <ul class="uk-nav-sub">
               <li *ngFor="let lang of this.language.availLanguages">
-                <a class="uk-margin-left" (click)="this.changeLanguage(lang)">{{'gen.lang.' + lang | t}} ({{lang}})</a>
+                <a class="uk-margin-left" (click)="this.changeLanguage(lang)">
+                  <span *ngIf="lang === this.language.selectedLang"><b>{{'gen.lang.' + lang | t}}</b></span>
+                  <span *ngIf="lang !== this.language.selectedLang">{{'gen.lang.' + lang | t}}</span>
+                  ({{lang}})
+                </a>
               </li>
             </ul>
           </li>
