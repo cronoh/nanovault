@@ -1,6 +1,7 @@
 import { Injectable, OnInit } from '@angular/core';
 import { ActivatedRoute, ActivatedRouteSnapshot } from "@angular/router";
 import { TranslateService } from '@ngx-translate/core';
+import { AppSettingsService } from "../services/app-settings.service";
 
 // Handle language selection
 @Injectable()
@@ -13,7 +14,9 @@ export class LanguageService implements OnInit {
 
   constructor(
     private router: ActivatedRoute,
-    private translate: TranslateService) { }
+    private translate: TranslateService,
+    private appSettings: AppSettingsService
+  ) { }
 
   async ngOnInit() {
     console.log('ngOnInit');
@@ -35,7 +38,7 @@ export class LanguageService implements OnInit {
   // Select and apply a language
   setup(queryParamLang) {
     const browserLang = this.translate.getBrowserLang();
-    const newLang = this.chooseLang(queryParamLang, null, browserLang);
+    const newLang = this.chooseLang(queryParamLang, this.appSettings.settings.language, browserLang);
     if (newLang !== this.selectedLang) {
       this.translate.use(newLang);
       this.selectedLang = newLang;
