@@ -143,7 +143,7 @@
           </li>
           <li><a routerLink="/address-book" routerLinkActive="active" class="uk-margin-left">{{'address-book' | t}}</a></li>
           <li class="uk-parent">
-            <a href="#" class="uk-margin-left">{{'language' | t}}</a>
+            <a href="#" class="uk-margin-left">{{'language' | t}} ({{this.language.selectedLang}})</a>
             <ul class="uk-nav-sub">
               <li *ngFor="let lang of this.language.availLanguages">
                 <a class="uk-margin-left" (click)="this.changeLanguage(lang)">
