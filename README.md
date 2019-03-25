@@ -99,6 +99,15 @@ Run `ng test` to execute the unit tests via [Karma](https://karma-runner.github.
 
 Run `ng e2e` to execute the end-to-end tests via [Protractor](http://www.protractortest.org/).
 
+## Language Selection
+
+The selected UI language is based on several factors, in the given order of precedence.  A setting is taken into account only if present, and represents one of the available languages.
+
+- Query param, if present.  E.g. '?lang=en', to the opening page
+- Language selected in the menu and saved with the settings (in the local storage)
+- Language setting of the browser
+- The default English (en).
+
 # Acknowledgements
 Special thanks to the following!
 - [numtel/nano-webgl-pow](https://github.com/numtel/nano-webgl-pow) - WebGL PoW Implementation
