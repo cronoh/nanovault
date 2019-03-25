@@ -4,15 +4,15 @@
       <div class="uk-width-1-2">
         <h2>
           {{'accounts' | t}}
-          <a (click)="viewAdvanced = !viewAdvanced" style="font-size: 12px; margin-left: 25px;">{{ viewAdvanced ? 'BASIC' : 'ADVANCED' }}</a>
+          <a (click)="viewAdvanced = !viewAdvanced" style="font-size: 12px; margin-left: 25px;">{{ viewAdvanced ? ('accsc.view.basic' | t) : ('accsc.view.advanced' | t) }}</a>
         </h2>
       </div>
       <div class="uk-width-1-2 uk-text-right">
         <div uk-grid>
           <div class="uk-width-1-1">
-            <input type="number" class="uk-input uk-form-width-small" [(ngModel)]="newAccountIndex" placeholder="Account #" *ngIf="viewAdvanced">
+            <input type="number" class="uk-input uk-form-width-small" [(ngModel)]="newAccountIndex" placeholder="{{'account-no' | t}}" *ngIf="viewAdvanced">
             <button class="uk-button uk-button-secondary" (click)="createAccount()">
-              Add New Account
+              {{'accsc.add-new' | t}}
             </button>
           </div>
         </div>
@@ -26,7 +26,7 @@
           <th class="uk-width-3-5@m uk-width-1-2">
             <a class="account-index" *ngIf="viewAdvanced" uk-icon="icon: hashtag;" title="Sort Accounts" (click)="sortAccounts()" uk-tooltip>
             </a>
-            Account
+            {{'account' | t}}
           </th>
           <th class="uk-width-1-5@m uk-width-1-4 uk-text-right">{{'balance' | t}}</th>
           <th class="uk-width-1-5@m uk-width-1-4 uk-text-right"></th>
@@ -71,13 +71,13 @@
           </td>
         </tr>
         <tr *ngIf="!(accounts).length">
-          <td colspan="4" style="text-align: center;">You don't have any accounts yet, <a (click)="createAccount()">click here to create one</a></td>
+          <td colspan="4" style="text-align: center;">{{'accsc.no-acc.text1' | t}} <a (click)="createAccount()">{{'accsc.no-acc.text-a' | t}}</a></td>
         </tr>
         </tbody>
       </table>
     </div>
 
-    <p class="uk-text-center uk-text-small">Click on an account to view more details!</p>
+    <p class="uk-text-center uk-text-small">{{'accsc.detail-desc' | t}}</p>
 
   </div>
 </div>

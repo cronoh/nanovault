@@ -1,22 +1,55 @@
 {
     "account": "Account",
+    "account-no": "Account #",
     "accounts": "Accounts",
     "address-book": "Address Book",
+    "amount": "Amount",
     "balance": "Balance",
+    "date": "Date",
+    "hash": "Hash",
     "language": "Language",
+    "mikron": "Mikron",
     "new": "New",
     "pending": "Pending",
     "prod-name": "MikronWebWallet",
     "receive": "Receive",
+    "representative": "Representative",
     "send": "Send",
     "settings": "Settings",
+    "accsc": {
+        "add-new": "Add New Account",
+        "detail-desc": "Click on an account to view more details!",
+        "no-acc": {
+            "text1": "You don't have any accounts yet,",
+            "text-a": "click here to create one"
+        },
+        "view.basic": "BASIC",
+        "view.advanced": "ADVANCED MODE"
+    },
     "accdetc": {
-        "account-balance": "Account Balance"
+        "account-balance": "Account Balance",
+        "label-placeholder": "Account Label (Set to blank to delete)",
+        "load-more": "Load More Results",
+        "no-history": "No account history",
+        "pending-deposits": "Pending Deposits",
+        "pending-transactions": "Pending Transactions",
+        "recent-transactions": "Recent Transactions",
+        "rep-list": "Representative List Results",
+        "rep-placeholder": "New Representative Account",
+        "scan-qr": "Scan to receive Mikron",
+        "title": "Account Details"
     },
     "appc": {
+        "connecting": "Attempting to connect to Mikron node",
+        "connect-unable": "Unable to connect to Mikron node.  Your balances may be wrong!",
+        "current-price": "Current Price",
+        "link-discord": "Join our community on Discord",
+        "link-github": "View our GitHub",
+        "link-homepage": "Official Mikron site",
+        "search": "View an account or transaction",
+        "search-placeholder": "Mikron account or transaction hash",
         "based-on": {
             "text1": "Based on",
-            "link-ref": "https://nanovault.io",
             "link-text": "NanoVault",
             "text2": ""
         }
@@ -45,13 +78,33 @@
         "unlock": "Unlock",
         "cancel": "Cancel"
     },
-    "welcome": {
+    "welcomec": {
+        "create-new-wallet": "Create A New Wallet",
+        "feedback-github": "Please submit any feedback or bug reports on our GitHub page.",
+        "get-started": "To get started, choose an option below to configure your wallet",
+        "import-wallet": "Import An Existing Wallet",
+        "oss-github": "MikronWebWallet is open source and all code is available at:",
+        "subtitle1": "The offical web-based wallet for",
+        "subtitle2": " ",
+        "thank-you": "Thank you for using MikronWebWallet!",
         "title": "Welcome to the Mikron Web Wallet!",
+        "view-accounts": "View My Accounts",
+        "wallet-configured": "Welcome back!  It looks like your wallet is already configured.",
         "based-on": {
             "text1": "MikronWebWallet is based on",
-            "link-ref": "https://nanovault.io",
             "link-text": "NanoVault",
             "text2": ""
+        },
+        "ad": {
+            "why-use": "Why Use MikronWebWallet?",
+            "t1": "Security Focused",
+            "d1": "All sensitive operations happen in your browser only - your seed and private keys are never sent across your network, or stored on any server in any format. (So there is no need for server-based authentication measures such as 2FA)",
+            "t2": "Any Device, Anywhere",
+            "d2": "Send and receive Mikron from any device using the web wallet, be it mobile or desktop, Windows or Liunux.",
+            "t3": "'No Strings Attached' Wallet",
+            "d3": "Because no information is ever stored on a server, there is no account to login to or email address required. Create as many wallets as you want and switch between them easily.",
+            "t4": "Helpful Features",
+            "d4": "Store labels for your friends and your own accounts in the address book, view any Mikron account, track your balances in your local currency, and more!"
         }
     }
 }

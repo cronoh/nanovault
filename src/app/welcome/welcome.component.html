@@ -2,20 +2,20 @@
   <div class="uk-width-1-1 uk-animation-slide-left-small">
     <div uk-grid class="uk-text-center" style="margin-bottom: 90px;">
       <div class="uk-width-1-1" style="margin-top: 45px;">
-        <h2>{{'welcome.title' | t}}</h2>
-        <span class="uk-text-lead">The offical web-based wallet for <a href="https://mikron.io" class="uk-link-text" target="_blank">Mikron</a></span><br>
-        <span class="uk-text-medium">{{'welcome.based-on.text1' | t}} <a href="{{'welcome.based-on.link-ref' | t}}" class="uk-link-text" target="_blank">{{'welcome.based-on.link-text' | t}}</a> {{'welcome.based-on.text2' | t}}</span><br>
+        <h2>{{'welcomec.title' | t}}</h2>
+        <span class="uk-text-lead">{{'welcomec.subtitle1' | t}} <a href="https://mikron.io" class="uk-link-text" target="_blank">{{'mikron' | t}}</a> {{'welcomec.subtitle2' | t}}</span><br>
+        <span class="uk-text-medium">{{'welcomec.based-on.text1' | t}} <a href="https://nanovault.io" class="uk-link-text" target="_blank">{{'welcomec.based-on.link-text' | t}}</a> {{'welcomec.based-on.text2' | t}}</span><br>
       </div>
       <div class="uk-width-1-1" *ngIf="!isConfigured()">
         <div uk-grid>
           <div class="uk-width-1-1" style="margin-top: 60px;">
-            <span class="uk-text-small">To get started, choose an option below to configure your wallet</span>
+            <span class="uk-text-small">{{'welcomec.get-started' | t}}</span>
           </div>
           <div class="uk-width-1-2@m">
-            <button routerLink="/configure-wallet" class="uk-button uk-button-primary uk-button-large">Create A New Wallet</button>
+            <button routerLink="/configure-wallet" class="uk-button uk-button-primary uk-button-large">{{'welcomec.create-new-wallet' | t}}</button>
           </div>
           <div class="uk-width-1-2@m">
-            <button routerLink="/configure-wallet" [queryParams]="{ import: 1}" class="uk-button uk-button-primary uk-button-large">Import An Existing Wallet</button>
+            <button routerLink="/configure-wallet" [queryParams]="{ import: 1}" class="uk-button uk-button-primary uk-button-large">{{'welcomec.import-wallet' | t}}</button>
           </div>
         </div>
       </div>
@@ -23,10 +23,10 @@
       <div class="uk-width-1-1" *ngIf="isConfigured()">
         <div uk-grid>
           <div class="uk-width-1-1" style="margin-top: 60px;">
-            <span class="uk-text-small">Welcome back!  It looks like your wallet is already configured.</span>
+            <span class="uk-text-small">{{'welcomec.wallet-configured' | t}}</span>
           </div>
           <div class="uk-width-1-1@m">
-            <button routerLink="/accounts" class="uk-button uk-button-primary uk-button-large">View My Accounts</button>
+            <button routerLink="/accounts" class="uk-button uk-button-primary uk-button-large">{{'welcomec.view-accounts' | t}}</button>
           </div>
         </div>
       </div>
@@ -41,19 +41,19 @@
             <ul uk-accordion="">
               <li class="uk-open">
 
-                <a class="uk-accordion-title uk-link-text" href="#">Why Use MikronWebWallet?</a>
+                <a class="uk-accordion-title uk-link-text" href="#">{{'welcomec.ad.why-use' | t}}</a>
                 <div class="uk-accordion-content">
                   <!--MikronWebWallet is an open source web wallet which makes it incredibly easy to send and receive <a href="https://mikron.io" target="_blank">Mikron</a> from anywhere in the world.<br>-->
 
                   <dl class="uk-description-list">
-                    <dt>Security Focused</dt>
-                    <dd>All sensitive operations happen in your browser only - your seed and private keys are never sent across your network, or stored on any server in any format. (So there is no need for server-based authentication measures such as 2FA)</dd>
-                    <dt>Any Device, Anywhere</dt>
-                    <dd>Send and receive Mikron from any device using the web wallet, be it mobile or desktop, Windows or Liunux.</dd>
-                    <dt>"No Strings Attached" Wallet</dt>
-                    <dd>Because no information is ever stored on a server, there is no account to login to or email address required. Create as many wallets as you want and switch between them easily.</dd>
-                    <dt>Helpful Features</dt>
-                    <dd>Store labels for your friends and your own accounts in the address book, track your balances in your local currency, and more!</dd>
+                    <dt>{{'welcomec.ad.t1' | t}}</dt>
+                    <dd>{{'welcomec.ad.d1' | t}}</dd>
+                    <dt>{{'welcomec.ad.t2' | t}}</dt>
+                    <dd>{{'welcomec.ad.d2' | t}}</dd>
+                    <dt>{{'welcomec.ad.t3' | t}}</dt>
+                    <dd>{{'welcomec.ad.d3' | t}}</dd>
+                    <dt>{{'welcomec.ad.t4' | t}}</dt>
+                    <dd>{{'welcomec.ad.d4' | t}}</dd>
                   </dl>
                 </div>
               </li>
@@ -69,8 +69,8 @@
 
         <div class="uk-card uk-card-small uk-card-default uk-margin uk-width-1-1">
           <div class="uk-card-body uk-text-center">
-            MikronWebWallet is open source and all code is available at <a href="https://github.com/mikroncoin/mikron-vault-web" target="_blank">https://github.com/mikroncoin/mikron-vault-web</a>.<br>
-            Please submit any feedback or bug reports on our GitHub page.  Thank you for using MikronWebWallet!
+            {{'welcomec.oss-github' | t}} <a href="https://github.com/mikroncoin/mikron-vault-web" target="_blank">https://github.com/mikroncoin/mikron-vault-web</a>.<br>
+            {{'welcomec.feedback-github' | t}} {{'welcomec.thank-you' | t}}
           </div>
         </div>
       </div>
