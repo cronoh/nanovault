@@ -1,5 +1,6 @@
 {
     "gen": {
+        "language": "Language",
         "prod-name": "MikronWebWallet",
         "lang": {
             "en": "English",
