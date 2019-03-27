@@ -60,7 +60,19 @@
         "hu": "magyar"
     },
     "sendc": {
-        "current-balance": "Aktuális Egyenleg"
+        "about-to-send": "Küldésre előkészítve:",
+        "address-book-results": "Címtár találatok",
+        "button": "Mikron küldés",
+        "cancel": "Mégsem",
+        "confirm": "Jóváhagy & Küld",
+        "current-balance": "Aktuális Egyenleg",
+        "from-account": "Forrás számla",
+        "loading": "Betöltés",
+        "max": "Max",
+        "send-in": "Küldendő összeg, egység: ",
+        "title": "Mikron küldés",
+        "to-account": "Cél számla",
+        "to-account-expl": "Küldés erre a számlára"
     },
     "settingsc": {
         "app-settings": "App Beállítások",

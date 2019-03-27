@@ -59,7 +59,19 @@
         "hu": "Hungarian"
     },
     "sendc": {
-        "current-balance": "Current Balance"
+        "about-to-send": "You are about to send:",
+        "address-book-results": "Address Book Results",
+        "button": "Send Mikron",
+        "cancel": "Cancel",
+        "confirm": "Confirm & Send",
+        "current-balance": "Current Balance",
+        "from-account": "From Account",
+        "loading": "Loading",
+        "max": "Max",
+        "send-in": "Amount to send in",
+        "title": "Send Mikron",
+        "to-account": "To Account",
+        "to-account-expl": "Account to send to"
     },
     "settingsc": {
         "app-settings": "App Settings",

@@ -1,6 +1,6 @@
 <div uk-grid>
   <div class="uk-width-1-1">
-    <h2>Send Mikron</h2>
+    <h2>{{'sendc.title' | t}}</h2>
 
     <!-- Send Panel -->
     <div uk-grid *ngIf="activePanel == 'send'" class="uk-animation-slide-left-small">
@@ -12,7 +12,7 @@
 
 
               <div class="uk-margin">
-                <label class="uk-form-label" for="form-horizontal-select">From Account</label>
+                <label class="uk-form-label" for="form-horizontal-select">{{'sendc.from-account' | t}}</label>
                 <div class="uk-form-controls">
                   <select class="uk-select" [(ngModel)]="fromAccountID" (change)="resetAmount()" id="form-horizontal-select">
                     <option *ngFor="let account of accounts" [value]="account.id">{{ account.addressBookName ? account.addressBookName + ' - ' : '' }} {{ account.id | squeeze }} ({{ account.balance | rai: settings.settings.displayDenomination }})</option>
@@ -21,16 +21,16 @@
               </div>
 
               <div class="uk-margin">
-                <label class="uk-form-label" for="form-horizontal-text2">To Account</label>
+                <label class="uk-form-label" for="form-horizontal-text2">{{'sendc.to-account' | t}}</label>
                 <div class="uk-form-controls">
                   <div class="uk-inline uk-width-1-1">
                     <span class="uk-form-icon uk-form-icon-flip" *ngIf="toAccountStatus === 0" uk-icon="icon: warning"></span>
                     <span class="uk-form-icon uk-form-icon-flip"*ngIf="toAccountStatus === 2" uk-icon="icon: check"></span>
-                    <input (blur)="validateDestination()" (keyup)="searchAddressBook()" (focus)="searchAddressBook()" [(ngModel)]="toAccountID" [ngClass]="{ 'uk-form-success': toAccountStatus === 2, 'uk-form-danger': toAccountStatus === 0 }" class="uk-input" id="form-horizontal-text2" type="text" placeholder="Account to send to">
+                    <input (blur)="validateDestination()" (keyup)="searchAddressBook()" (focus)="searchAddressBook()" [(ngModel)]="toAccountID" [ngClass]="{ 'uk-form-success': toAccountStatus === 2, 'uk-form-danger': toAccountStatus === 0 }" class="uk-input" id="form-horizontal-text2" type="text" placeholder="{{'sendc.to-account-expl' | t}}">
 
                     <div *ngIf="(addressBookResults$ | async).length" [hidden]="!showAddressBook" class="uk-animation-slide-down-small uk-width-1-1 uk-card uk-card-default uk-card-body uk-position-absolute" style="z-index: 15000">
                       <ul class="uk-nav uk-nav-default">
-                        <li class="uk-nav-header">Address Book Results</li>
+                        <li class="uk-nav-header">{{'sendc.address-book-results' | t}}</li>
                         <li class="uk-nav-divider"></li>
                         <li *ngFor="let book of addressBookResults$ | async">
                           <a (click)="selectBookEntry(book.account)">{{ book.name }}</a>
@@ -49,13 +49,13 @@
 
               <div uk-grid>
                 <div class="uk-width-1-1">
-                  <label class="uk-form-label" for="form-horizontal-text">Amount</label>
+                  <label class="uk-form-label" for="form-horizontal-text">{{'amount' | t}}</label>
                   <div class="uk-form-controls">
                     <div uk-grid>
                       <div class="uk-width-3-5">
                         <div class="uk-inline uk-width-1-1">
-                          <a class="uk-form-icon uk-form-icon-flip" (click)="setMaxAmount()" style="padding-right: 7px;" uk-tooltip title="Set Maximum Amount">Max</a>
-                          <input [(ngModel)]="amount" class="uk-input" id="form-horizontal-text" (keyup)="updatedAmount()" (change)="updatedAmount()" type="text" placeholder="Amount of {{ selectedDenomination.name }} to send">
+                          <a class="uk-form-icon uk-form-icon-flip" (click)="setMaxAmount()" style="padding-right: 7px;" uk-tooltip title="Set Maximum Amount">{{'sendc.max' | t}}</a>
+                          <input [(ngModel)]="amount" class="uk-input" id="form-horizontal-text" (keyup)="updatedAmount()" (change)="updatedAmount()" type="text" placeholder="{{'sendc.send-in' | t}} {{ selectedDenomination.name }}">
                         </div>
 
                       </div>
@@ -73,7 +73,7 @@
                       <div class="uk-width-1-1 uk-width-3-5@s" style="margin-top: 10px;" *ngIf="settings.settings.displayCurrency">
                         <div class="uk-width-1-1 uk-inline">
                           <a class="uk-form-icon uk-link-reset uk-link-muted" style="padding-left: 7px;" uk-tooltip title="Last Price: {{ price.price.lastPrice | fiat: settings.settings.displayCurrency }} / MIK">{{ settings.settings.displayCurrency | currencySymbol }}</a>
-                          <input [(ngModel)]="amountFiat" (keyup)="syncNanoPrice()" (change)="syncNanoPrice()" style="padding-left: 50px; border: 0; border-bottom: 1px solid #e5e5e5;" class="uk-input" id="form-horizontal-text-fiat" type="text" placeholder="Amount of {{ settings.settings.displayCurrency }} to send">
+                          <input [(ngModel)]="amountFiat" (keyup)="syncNanoPrice()" (change)="syncNanoPrice()" style="padding-left: 50px; border: 0; border-bottom: 1px solid #e5e5e5;" class="uk-input" id="form-horizontal-text-fiat" type="text" placeholder="{{'sendc.send-in' | t}} {{ settings.settings.displayCurrency }}">
                         </div>
                       </div>
 
@@ -86,7 +86,7 @@
             </div>
           </div>
           <div class="uk-card-footer">
-            <button class="uk-button uk-button-primary uk-width-1-1" type="button" (click)="sendTransaction()">Send Mikron</button>
+            <button class="uk-button uk-button-primary uk-width-1-1" type="button" (click)="sendTransaction()">{{'sendc.button' | t}}</button>
           </div>
         </div>
       </div>
@@ -97,7 +97,7 @@
     <div uk-grid *ngIf="activePanel == 'confirm'" class="uk-animation-slide-left">
       <div class="uk-width-1-1">
         <div class="uk-card uk-card-default uk-width-1-1 uk-text-center">
-          <span style="display: block; padding-top: 8px;">You are about to send</span>
+          <span style="display: block; padding-top: 8px;">{{'sendc.about-to-send' | t}}</span>
           <span style="display:block; font-size: 32px;">{{ antAmount | rai: 'den-mik' }}</span>
           <span style="display:block; font-size: 16px; padding-bottom: 5px;" *ngIf="settings.settings.displayCurrency">{{ amountFiat | fiat: settings.settings.displayCurrency }} @ {{ price.price.lastPrice | fiat: settings.settings.displayCurrency }} / MIK</span>
         </div>
@@ -110,12 +110,12 @@
                 <span class="confirm-title uk-text-truncate">
                   <div *ngIf="fromAddressBook">
                     <span class="confirm-title">{{ fromAddressBook }}</span>
-                    <span class="confirm-subtitle">From Account</span>
+                    <span class="confirm-subtitle">{{'sendc.from-account' | t}}</span>
                     <span class="uk-text-small uk-text-truncate">{{ fromAccountID | squeeze }}</span>
                   </div>
                   <div *ngIf="!fromAddressBook">
                     <span class="confirm-title uk-text-truncate">{{ fromAccountID | squeeze }}</span>
-                    <span class="confirm-subtitle">From Account</span>
+                    <span class="confirm-subtitle">{{'sendc.from-account' | t}}</span>
                     <br class="br-spacer" />
                   </div>
                 </span>
@@ -141,12 +141,12 @@
                 <span class="confirm-title uk-text-truncate">
                   <div *ngIf="toAddressBook">
                     <span class="confirm-title">{{ toAddressBook }}</span>
-                    <span class="confirm-subtitle">To Account</span>
+                    <span class="confirm-subtitle">{{'sendc.to-account' | t}}</span>
                     <span class="uk-text-small uk-text-truncate">{{ toAccountID | squeeze }}</span>
                   </div>
                   <div *ngIf="!toAddressBook">
                     <span class="confirm-title uk-text-truncate">{{ toAccountID | squeeze }}</span>
-                    <span class="confirm-subtitle">To Account</span>
+                    <span class="confirm-subtitle">{{'sendc.to-account' | t}}</span>
                     <br class="br-spacer" />
                   </div>
                 </span>
@@ -168,11 +168,11 @@
 
         <div uk-grid>
           <div class="uk-width-1-2@s">
-            <button (click)="activePanel = 'send'" class="uk-button uk-button-danger uk-width-1-1">Cancel</button>
+            <button (click)="activePanel = 'send'" class="uk-button uk-button-danger uk-width-1-1">{{'sendc.cancel' | t}}</button>
           </div>
           <div class="uk-width-1-2@s">
-            <button *ngIf="!confirmingTransaction" class="uk-button uk-button-primary uk-width-1-1" (click)="confirmTransaction()">Confirm & Send</button>
-            <button *ngIf="confirmingTransaction" class="uk-button uk-button-primary uk-disabled uk-width-1-1"><span class="uk-margin-right" uk-spinner></span> Loading</button>
+            <button *ngIf="!confirmingTransaction" class="uk-button uk-button-primary uk-width-1-1" (click)="confirmTransaction()">{{'sendc.confirm' | t}}</button>
+            <button *ngIf="confirmingTransaction" class="uk-button uk-button-primary uk-disabled uk-width-1-1"><span class="uk-margin-right" uk-spinner></span> {{'sendc.loading' | t}}</button>
           </div>
         </div>
       </div>
