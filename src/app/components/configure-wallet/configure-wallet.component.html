@@ -1,17 +1,17 @@
 <h2>{{'confwallc.title' | t}}</h2>
-<p>Use the options below to import an existing wallet or create a new one.</p>
+<p>{{'confwallc.help-top' | t}}</p>
 
 <div *ngIf="wallet.seed && (activePanel != 3 && activePanel != 4 && activePanel != 5)" class="uk-alert uk-alert-danger">
-  <b>You already have a wallet configured</b><br>
-  Before going any further, be 100% certain you have backed up the seed to your current wallet!<br>
-  Without it, <b>any funds you have will become completely unrecoverable!</b>
+  <b>{{'confwallc.msg-already-confd' | t}}</b><br>
+  {{'confwallc.msg-backup' | t}}<br>
+  <b>{{'confwallc.msg-backup2' | t}}<br></b>
 </div>
 
 <div uk-grid *ngIf="activePanel == 0 || activePanel == 1">
   <div class="uk-width-1-1">
     <div class="uk-button-group uk-width-1-1">
-      <button (click)="setPanel(0)" class="uk-button uk-width-1-2" [ngClass]="{ 'uk-button-primary': activePanel == 0, 'uk-button-secondary': activePanel != 0 }">Create New Wallet</button>
-      <button (click)="setPanel(1)" class="uk-button uk-width-1-2" [ngClass]="{ 'uk-button-primary': activePanel == 1, 'uk-button-secondary': activePanel != 1 }">Import Existing Wallet</button>
+      <button (click)="setPanel(0)" class="uk-button uk-width-1-2" [ngClass]="{ 'uk-button-primary': activePanel == 0, 'uk-button-secondary': activePanel != 0 }">{{'confwallc.create-new' | t}}</button>
+      <button (click)="setPanel(1)" class="uk-button uk-width-1-2" [ngClass]="{ 'uk-button-primary': activePanel == 1, 'uk-button-secondary': activePanel != 1 }">{{'confwallc.import' | t}}</button>
     </div>
   </div>
 </div>
@@ -19,31 +19,25 @@
 <div class="uk-card uk-card-default" *ngIf="activePanel == 0">
   <div class="uk-card-body">
     <p>
-      When you create a new wallet, a new seed will be generated which can be used to create brand new accounts
-      on the Mikron network.  Your Mikron seed is the master key to all of your accounts and any money inside of them!
+      {{'confwallc.msg-new-seed' | t}}
     </p>
     <div class="uk-alert-primary" uk-alert>
-      <p>Make sure you back up your seed, write it down, and keep it incredibly safe!  There is NO way to recover it after
-        creation, and all funds inside WILL be lost without it!  You have been warned!</p>
+      <p>{{'confwallc.msg-backup-do' | t}}</p>
     </div>
   </div>
   <div class="uk-card-footer uk-text-right">
-    <button class="uk-button uk-button-primary" (click)="createNewWallet()">Create Wallet</button>
+    <button class="uk-button uk-button-primary" (click)="createNewWallet()">{{'confwallc.create' | t}}</button>
   </div>
 </div>
 
 <div class="uk-card uk-card-default" *ngIf="activePanel == 1">
   <div class="uk-card-body">
-    <p>
-      If you already have a Mikron wallet, you can import it below.  When you import a wallet, none of your existing
-      wallets or accounts are affected, and your seed is not stored anywhere besides in your local client.  Use the drop
-      down below to select which type of import you want to use.
-    </p>
+    <p>{{'confwallc.msg-import' | t}}</p>
     <div uk-grid>
       <div class="uk-width-1-1">
         <div class="uk-form-horizontal">
           <div class="uk-margin">
-            <label class="uk-form-label" for="form-horizontal-select">Select Import Type</label>
+            <label class="uk-form-label" for="form-horizontal-select">{{'confwallc.select-import-type' | t}}</label>
             <div class="uk-form-controls">
               <select class="uk-select" [(ngModel)]="selectedImportOption" id="form-horizontal-select">
                 <option *ngFor="let option of importOptions" [value]="option.value">{{ 'confwallc.import-option-' + option.value | t}}</option>
@@ -58,25 +52,19 @@
 
     <div uk-grid *ngIf="selectedImportOption === 'file'">
       <div class="uk-width-1-1">
-        <p>
-          If you have saved your wallet to a file using MikronWebWallet before, use the button below to import it.
-        </p>
+        <p>{{'confwallc.msg-import-file' | t}}</p>
       </div>
     </div>
     <div uk-grid *ngIf="selectedImportOption === 'seed'" class="uk-margin-top">
       <div class="uk-width-1-1">
-        <p>
-          Enter your 64 character seed from any Mikron wallet to import it below.
-        </p>
-        <input type="text" class="uk-input" (keyup.enter)="importExistingWallet()" [(ngModel)]="importSeedModel" placeholder="Your Backup Seed">
+        <p>{{'confwallc.msg-seed' | t}}</p>
+        <input type="text" class="uk-input" (keyup.enter)="importExistingWallet()" [(ngModel)]="importSeedModel" placeholder="{{'confwallc.seed-placeholder' | t}}">
       </div>
     </div>
     <div uk-grid *ngIf="selectedImportOption === 'mnemonic'" class="uk-margin-top">
       <div class="uk-width-1-1">
-        <p>
-          Enter your wallet mnemonic phrase generated from any Mikron wallet to import it below.
-        </p>
-        <textarea class="uk-textarea" rows="3" (keyup.enter)="importExistingWallet()" [(ngModel)]="importSeedMnemonicModel" placeholder="Your Backup Mnemonic Phrase"></textarea>
+        <p>{{'confwallc.msg-mnemonic' | t}}</p>
+        <textarea class="uk-textarea" rows="3" (keyup.enter)="importExistingWallet()" [(ngModel)]="importSeedMnemonicModel" placeholder="{{'confwallc.mnemonic-placeholder' | t}}"></textarea>
       </div>
     </div>
     <div uk-grid *ngIf="selectedImportOption === 'ledger'" class="uk-margin-top">
@@ -103,12 +91,12 @@
   <div class="uk-card-footer uk-text-right">
     <div *ngIf="selectedImportOption === 'file'" class="js-upload" uk-form-custom style="display: inline-block;">
       <input type="file" id="import-from-file" (change)="importFromFile($event.target.files)" multiple>
-      <button class="uk-button uk-button-primary" type="button" tabindex="-1">Import From File</button>
+      <button class="uk-button uk-button-primary" type="button" tabindex="-1">{{'confwallc.import-file' | t}}</button>
     </div>
-    <button *ngIf="selectedImportOption === 'mnemonic'" class="uk-button uk-button-primary" (click)="importExistingWallet()">Import From Mnemonic Phrase</button>
-    <button *ngIf="selectedImportOption === 'seed'" class="uk-button uk-button-primary" (click)="importExistingWallet()">Import From Seed</button>
-    <button *ngIf="selectedImportOption === 'ledger' && ledger.status === ledgerStatus.READY" class="uk-button uk-button-primary" (click)="importLedgerWallet()">Import From Ledger</button>
-    <button *ngIf="selectedImportOption === 'ledger' && ledger.status !== ledgerStatus.READY" class="uk-button uk-button-primary" (click)="importLedgerWallet(true)">Refresh Ledger Status</button>
+    <button *ngIf="selectedImportOption === 'mnemonic'" class="uk-button uk-button-primary" (click)="importExistingWallet()">{{'confwallc.import-mnemonic' | t}}</button>
+    <button *ngIf="selectedImportOption === 'seed'" class="uk-button uk-button-primary" (click)="importExistingWallet()">{{'confwallc.import-seed' | t}}</button>
+    <button *ngIf="selectedImportOption === 'ledger' && ledger.status === ledgerStatus.READY" class="uk-button uk-button-primary" (click)="importLedgerWallet()">{{'confwallc.import-ledger' | t}}</button>
+    <button *ngIf="selectedImportOption === 'ledger' && ledger.status !== ledgerStatus.READY" class="uk-button uk-button-primary" (click)="importLedgerWallet(true)">{{'confwallc.ledger-refresh' | t}}</button>
   </div>
 </div>
 
@@ -116,80 +104,71 @@
 
 <div class="uk-card uk-card-default" *ngIf="activePanel == 3">
   <div class="uk-card-header">
-    <h3 class="uk-card-title">Wallet Created!</h3>
+    <h3 class="uk-card-title">{{'confwallc.wallet-created' | t}}</h3>
   </div>
   <div class="uk-card-body">
-    <p>
-      Your new Mikron wallet has been created!  Below is the mnemonic phrase and seed for your wallet, you can use whichever you prefer.
-    </p>
+    <p>{{'confwallc.msg-wallet-created' | t}}</p>
     <div class="uk-alert uk-alert-primary">
-      Make sure to write down your mnemonic phrase/seed or save it somewhere safe, and <strong>never share it with anyone!</strong><br>
-      It is the master key to all of your accounts, and the only way to recover your funds in an emergency.
+      {{'confwallc.msg-write-down' | t}}
+      <br/>
+      {{'confwallc.msg-write-down2' | t}}
     </div>
     <div uk-grid>
-      <div class="uk-width-1-4">Wallet Mnemonic Phrase</div>
+      <div class="uk-width-1-4">{{'confwallc.mnemonic' | t}}</div>
       <div class="uk-width-3-4">
         {{ newWalletMnemonic }}<br>
-        <a title="Copy Mnemonic To Clipboard" ngxClipboard [cbContent]="newWalletMnemonic" (cbOnSuccess)="copied()" uk-tooltip>Copy mnemonic to clipboard</a>
+        <a title="{{'confwallc.mnemonic-copy' | t}}" ngxClipboard [cbContent]="newWalletMnemonic" (cbOnSuccess)="copied()" uk-tooltip>{{'confwallc.mnemonic-copy' | t}}</a>
       </div>
     </div>
     <div uk-grid>
-      <div class="uk-width-1-4">Wallet Seed</div>
+      <div class="uk-width-1-4">{{'confwallc.seed' | t}}</div>
       <div class="uk-width-3-4 uk-text-truncate">
         {{ newWalletSeed }}<br>
-        <a title="Copy Seed To Clipboard" ngxClipboard [cbContent]="newWalletSeed" (cbOnSuccess)="copied()" uk-tooltip>Copy seed to clipboard</a>
+        <a title="{{'confwallc.seed-copy' | t}}" ngxClipboard [cbContent]="newWalletSeed" (cbOnSuccess)="copied()" uk-tooltip>{{'confwallc.seed-copy' | t}}</a>
       </div>
     </div>
   </div>
   <div class="uk-card-footer">
-    <button class="uk-button uk-button-danger" (click)="confirmNewSeed()">I've Saved My Seed/Mnemonic</button>
+    <button class="uk-button uk-button-danger" (click)="confirmNewSeed()">{{'confwallc.i-have-saved' | t}}</button>
   </div>
 </div>
 
 <div class="uk-card uk-card-default" *ngIf="activePanel == 4">
   <div class="uk-card-header">
-    <h3 class="uk-card-title">Set Wallet Password</h3>
+    <h3 class="uk-card-title">{{'confwallc.pwd-set' | t}}</h3>
   </div>
   <div class="uk-card-body">
-    <p>
-      The last step is to set a new password for your wallet.  Your password is used to encrypt the sensitive parts of
-      your wallet when it is locked, which disables sending, receiving, creating accounts, and other operations.
-    </p>
-
-    <p>
-      Set your wallet password below:
-    </p>
+    <p>{{'confwallc.msg-pwd-set' | t}}</p>
+    <p>{{'confwallc.msg-pwd-set2' | t}}</p>
     <div uk-grid>
       <div class="uk-width-1-2@m">
-        <input type="password" class="uk-input" [(ngModel)]="walletPasswordModel" placeholder="New Wallet Password">
+        <input type="password" class="uk-input" [(ngModel)]="walletPasswordModel" placeholder="{{'confwallc.pwd-new-placeholder' | t}}">
       </div>
       <div class="uk-width-1-2@m">
-        <input type="password" class="uk-input" (keyup.enter)="saveWalletPassword()" [(ngModel)]="walletPasswordConfirmModel" placeholder="Confirm Wallet Password">
+        <input type="password" class="uk-input" (keyup.enter)="saveWalletPassword()" [(ngModel)]="walletPasswordConfirmModel" placeholder="{{'confwallc.pwd-confirm-placeholder' | t}}">
       </div>
     </div>
   </div>
   <div class="uk-card-footer uk-text-right">
-    <button class="uk-button uk-button-primary" (click)="saveWalletPassword()">Set Wallet Password</button>
+    <button class="uk-button uk-button-primary" (click)="saveWalletPassword()">{{'confwallc.pwd-set' | t}}</button>
   </div>
 </div>
 
 <div class="uk-card uk-card-default" *ngIf="activePanel == 5">
   <div class="uk-card-header">
-    <h3 class="uk-card-title">Wallet Configured!</h3>
+    <h3 class="uk-card-title">{{'confwallc.wallet-configured' | t}}</h3>
   </div>
   <div class="uk-card-body">
-    <p>
-      Your wallet has been configured and you are ready to send and receive Mikron!
-    </p>
+    <p>{{'confwallc.msg-configured' | t}}</p>
   </div>
   <div class="uk-card-footer uk-text-right">
-    <button routerLink="/accounts" class="uk-button uk-button-primary">View Accounts</button>
+    <button routerLink="/accounts" class="uk-button uk-button-primary">{{'welcomec.view-accounts' | t}}</button>
   </div>
 </div>
 
 <div *ngIf="(activePanel == 4 || activePanel == 5) && !walletService.isLedgerWallet()" class="uk-alert-primary" uk-alert>
-  <p><b>ProTip:</b> If you lose your password, you can always restore your wallet using your seed.</p>
+  <p>{{'confwallc.msg-pwd-lose' | t}}</p>
 </div>
 <div *ngIf="activePanel == 5 && walletService.isLedgerWallet()" class="uk-alert-primary" uk-alert>
-  <p><b>ProTip:</b> Press the Ledger status bar on the left side to reload your Ledger when connecting or disconnecting it.</p>
+  <p>{{'confwallc.msg-ledger-status' | t}}</p>
 </div>
