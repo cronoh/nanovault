@@ -23,16 +23,23 @@ export class ConfigureWalletComponent implements OnInit {
 
   selectedImportOption = 'seed';
   importOptions = [
-    { name: 'Nano Seed', value: 'seed' },
-    { name: 'Nano Mnemonic Phrase', value: 'mnemonic' },
+    { name: 'Mikron Seed', value: 'seed' },
+    { name: 'Mikron Mnemonic Phrase', value: 'mnemonic' },
     { name: 'MikronWebWallet Wallet File', value: 'file' },
-    { name: 'Ledger Nano S', value: 'ledger' },
+    // Ledger support removed, see https://github.com/mikroncoin/mikron-vault-web/issues/4
+    //{ name: 'Ledger Nano S', value: 'ledger' },
   ];
 
   ledgerStatus = LedgerStatus;
   ledger = this.ledgerService.ledger;
 
-  constructor(private router: ActivatedRoute, public walletService: WalletService, private notifications: NotificationService, private route: Router, private ledgerService: LedgerService) { }
+  constructor(
+    private router: ActivatedRoute,
+    public walletService: WalletService,
+    private notifications: NotificationService,
+    private route: Router,
+    private ledgerService: LedgerService
+  ) { }
 
   async ngOnInit() {
     const toggleImport = this.router.snapshot.queryParams.import;

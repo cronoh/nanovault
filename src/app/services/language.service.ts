@@ -69,4 +69,9 @@ export class LanguageService implements OnInit {
   isValid(lang : string) {
     return (this.availLanguages.indexOf(lang) != -1);
   }
+
+  // Get a translation.  To be used from code (from HTML template, use pipe t).  Current language is used
+  getTran(dictKey : string) {
+    return this.translate.instant(dictKey);
+  }
 }

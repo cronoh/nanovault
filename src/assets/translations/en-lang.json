@@ -54,6 +54,12 @@
             "text2": ""
         }
     },
+    "confwallc": {
+        "import-option-file": "MikronWebWallet Wallet File",
+        "import-option-mnemonic": "Mikron Mnemonic Phrase",
+        "import-option-seed": "Mikron Seed",
+        "title": "Configure Wallet"
+    },
     "lang": {
         "en": "English",
         "hu": "Hungarian"

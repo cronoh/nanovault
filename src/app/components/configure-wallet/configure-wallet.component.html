@@ -1,4 +1,4 @@
-<h2>Configure Wallet</h2>
+<h2>{{'confwallc.title' | t}}</h2>
 <p>Use the options below to import an existing wallet or create a new one.</p>
 
 <div *ngIf="wallet.seed && (activePanel != 3 && activePanel != 4 && activePanel != 5)" class="uk-alert uk-alert-danger">
@@ -46,7 +46,7 @@
             <label class="uk-form-label" for="form-horizontal-select">Select Import Type</label>
             <div class="uk-form-controls">
               <select class="uk-select" [(ngModel)]="selectedImportOption" id="form-horizontal-select">
-                <option *ngFor="let option of importOptions" [value]="option.value">{{ option.name }}</option>
+                <option *ngFor="let option of importOptions" [value]="option.value">{{ 'confwallc.import-option-' + option.value | t}}</option>
               </select>
             </div>
           </div>

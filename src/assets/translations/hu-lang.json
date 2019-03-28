@@ -55,6 +55,12 @@
             "text2": "alapján"
         }
     },
+    "confwallc": {
+        "import-option-file": "MikronWebWallet tárca fájl",
+        "import-option-mnemonic": "Mikron emlékeztető (mnemonic)",
+        "import-option-seed": "Mikron írmag",
+        "title": "Tárca Beállítása"
+    },
     "lang": {
         "en": "angol",
         "hu": "magyar"
