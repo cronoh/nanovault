@@ -38,7 +38,7 @@
           <div class="uk-width-auto">
             <ul class="uk-hidden-hover uk-iconnav">
               <li><span uk-icon="icon: pencil;" title="Edit Account Label" uk-tooltip (click)="showEditAddressBook = !showEditAddressBook" title="Edit Account Label"></span></li>
-              <li><a ngxClipboard [cbContent]="accountID" (cbOnSuccess)="copied()" uk-icon="icon: copy" title="Copy Account Address" uk-tooltip></a></li>
+              <li><a ngxClipboard [cbContent]="accountID" (cbOnSuccess)="copied()" uk-icon="icon: copy" title="{{'account-copy' | t}}" uk-tooltip></a></li>
             </ul>
           </div>
         </div>
@@ -160,13 +160,13 @@
                 <td class="uk-visible-toggle">
                   <div uk-grid>
                     <div class="uk-width-expand uk-text-truncate">
-                      <a [routerLink]="'/account/' + pending.account" class="uk-link-text" title="View Account Details" uk-tooltip>
+                      <a [routerLink]="'/account/' + pending.account" class="uk-link-text" title="{{'accdetc.action' | t}}" uk-tooltip>
                         <span *ngIf="pending.addressBookName" class="uk-margin-small-right uk-label uk-label-default">{{ pending.addressBookName }}</span> {{ pending.account }}
                       </a>
                     </div>
                     <div class="uk-width-auto" style="padding-left: 10px;">
                       <ul class="uk-hidden-hover uk-iconnav">
-                        <li><a ngxClipboard [cbContent]="pending.account" (cbOnSuccess)="copied()" uk-icon="icon: copy" title="Copy Account Address" uk-tooltip></a></li>
+                        <li><a ngxClipboard [cbContent]="pending.account" (cbOnSuccess)="copied()" uk-icon="icon: copy" title="{{'account-copy' | t}}" uk-tooltip></a></li>
                       </ul>
                     </div>
                   </div>
@@ -174,7 +174,7 @@
                 <td class="uk-text-muted">
                   +{{ pending.amount | rai: settings.settings.displayDenomination }}*
                 </td>
-                <td class="uk-text-truncate"><a [routerLink]="'/transaction/' + pending.hash" class="uk-link-text" title="View Block Details" uk-tooltip>{{ pending.hash }}</a></td>
+                <td class="uk-text-truncate"><a [routerLink]="'/transaction/' + pending.hash" class="uk-link-text" title="{{'transdetc.action' | t}}" uk-tooltip>{{ pending.hash }}</a></td>
               </tr>
 
               <tr *ngFor="let history of accountHistory">
@@ -183,13 +183,13 @@
                 <td class="uk-visible-toggle">
                   <div uk-grid>
                     <div class="uk-width-expand uk-text-truncate">
-                      <a [routerLink]="'/account/' + (history.link_as_account || history.account)" class="uk-link-text" title="View Account Details" uk-tooltip>
+                      <a [routerLink]="'/account/' + (history.link_as_account || history.account)" class="uk-link-text" title="{{'accdetc.action' | t}}" uk-tooltip>
                         <span *ngIf="history.addressBookName" class="uk-margin-small-right uk-label uk-label-default">{{ history.addressBookName }}</span> {{ history.link_as_account || history.account }}
                       </a>
                     </div>
                     <div class="uk-width-auto" style="padding-left: 10px;">
                       <ul class="uk-hidden-hover uk-iconnav">
-                        <li><a ngxClipboard [cbContent]="history.link_as_account || history.account" (cbOnSuccess)="copied()" uk-icon="icon: copy" title="Copy Account Address" uk-tooltip></a></li>
+                        <li><a ngxClipboard [cbContent]="history.link_as_account || history.account" (cbOnSuccess)="copied()" uk-icon="icon: copy" title="{{'account-copy' | t}}" uk-tooltip></a></li>
                       </ul>
                     </div>
                   </div>
@@ -197,7 +197,7 @@
                 <td [ngClass]="{ 'uk-text-success': history.type == 'receive' || history.subtype == 'receive' || history.type == 'open' || history.subtype == 'open', 'uk-text-danger': history.type == 'send' || history.subtype == 'send' }">
                   {{ (history.type == 'send' || history.subtype == 'send') ? '-' : '+' }}{{ history.amount | rai: settings.settings.displayDenomination }}
                 </td>
-                <td class="uk-text-truncate"><a [routerLink]="'/transaction/' + history.hash" class="uk-link-text" title="View Block Details" uk-tooltip>{{ history.hash }}</a></td>
+                <td class="uk-text-truncate"><a [routerLink]="'/transaction/' + history.hash" class="uk-link-text" title="{{'transdetc.action' | t}}" uk-tooltip>{{ history.hash }}</a></td>
               </tr>
               <tr *ngIf="!accountHistory.length && !pendingBlocks.length">
                 <td colspan="4" style="text-align: center;">{{'accdetc.no-history' | t}}</td>

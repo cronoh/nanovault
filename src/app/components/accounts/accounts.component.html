@@ -40,14 +40,14 @@
                 <span class="account-index" *ngIf="viewAdvanced">
                   {{ account.index }}
                 </span>
-                <a [routerLink]="'/account/' + account.id" class="uk-link-text" title="View Account Details" uk-tooltip>
+                <a [routerLink]="'/account/' + account.id" class="uk-link-text" title="{{'accdetc.action' | t}}" uk-tooltip>
                   <span *ngIf="account.addressBookName" class="uk-margin-small-right uk-label uk-label-default">{{ account.addressBookName }}</span> {{ account.id }}
                 </a>
               </div>
               <div class="uk-width-auto" style="padding-left: 10px;">
                 <ul class="uk-hidden-hover uk-iconnav">
                   <!--<li class="account-index">#{{ account.index }}</li>-->
-                  <li><a ngxClipboard [cbContent]="account.id" (cbOnSuccess)="copied()" uk-icon="icon: copy" title="Copy Account Address" uk-tooltip></a></li>
+                  <li><a ngxClipboard [cbContent]="account.id" (cbOnSuccess)="copied()" uk-icon="icon: copy" title="{{'account-copy' | t}}" uk-tooltip></a></li>
                   <li *ngIf="isLedgerWallet"><a uk-icon="icon: commenting" title="Confirm Address On Ledger" (click)="showLedgerAddress(account)" uk-tooltip></a></li>
                 </ul>
               </div>

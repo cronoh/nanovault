@@ -42,13 +42,13 @@
               <td class="uk-visible-toggle">
                 <div uk-grid>
                   <div class="uk-width-expand uk-text-truncate">
-                    <a [routerLink]="'/account/' + block.account" class="uk-link-text" title="View Account Details" uk-tooltip>
+                    <a [routerLink]="'/account/' + block.account" class="uk-link-text" title="{{'accdetc.action' | t}}" uk-tooltip>
                       {{ block.account }}
                     </a>
                   </div>
                   <div class="uk-width-auto" style="padding-left: 10px;">
                     <ul class="uk-hidden-hover uk-iconnav">
-                      <li><a ngxClipboard [cbContent]="block.account" (cbOnSuccess)="copied()" uk-icon="icon: copy" title="Copy Account Address" uk-tooltip></a></li>
+                      <li><a ngxClipboard [cbContent]="block.account" (cbOnSuccess)="copied()" uk-icon="icon: copy" title="{{'account-copy' | t}}" uk-tooltip></a></li>
                     </ul>
                   </div>
                 </div>
@@ -56,13 +56,13 @@
               <td class="uk-visible-toggle">
                 <div uk-grid>
                   <div class="uk-width-expand uk-text-truncate">
-                    <a [routerLink]="'/account/' + block.source" class="uk-link-text" title="View Account Details" uk-tooltip>
+                    <a [routerLink]="'/account/' + block.source" class="uk-link-text" title="{{'accdetc.action' | t}}" uk-tooltip>
                       {{ block.source }}
                     </a>
                   </div>
                   <div class="uk-width-auto" style="padding-left: 10px;">
                     <ul class="uk-hidden-hover uk-iconnav">
-                      <li><a ngxClipboard [cbContent]="block.source" (cbOnSuccess)="copied()" uk-icon="icon: copy" title="Copy Account Address" uk-tooltip></a></li>
+                      <li><a ngxClipboard [cbContent]="block.source" (cbOnSuccess)="copied()" uk-icon="icon: copy" title="{{'account-copy' | t}}" uk-tooltip></a></li>
                     </ul>
                   </div>
                 </div>
