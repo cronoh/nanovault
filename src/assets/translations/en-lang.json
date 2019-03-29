@@ -46,6 +46,22 @@
         "scan-qr": "Scan to receive Mikron",
         "title": "Account Details"
     },
+    "addrbookc": {
+        "account-id": "Account ID",
+        "action-cancel": "Cancel",
+        "action-save-new": "Save New Contact",
+        "add-new": "Add New Contact",
+        "create-new": "Create New Contact",
+        "delete": "Delete From Address Book",
+        "desc": "You can use the address book to store a label for your own accounts and others you frequently transact with, which are visible throughout the application.",
+        "edit-label": "Edit Account Label",
+        "msg-no-addr": "You do not have any address book entries saved yet",
+        "msg-no-addr-create": "click here to create one",
+        "name": "Name",
+        "name-hint": "Exchange Deposit Address, Main Trading Account, etc",
+        "options": "Options",
+        "title": "Address Book"
+    },
     "appc": {
         "connecting": "Attempting to connect to Mikron node",
         "connect-unable": "Unable to connect to Mikron node.  Your balances may be wrong!",

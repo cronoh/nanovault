@@ -3,7 +3,7 @@
     "account-copy": "Számla vágólapra másolás",
     "account-no": "Számla #",
     "accounts": "Számlák",
-    "address-book": "Címtár",
+    "address-book": "Címjegyzék",
     "amount": "Összeg",
     "balance": "Egyenleg",
     "block": "Blokk",
@@ -45,6 +45,22 @@
         "rep-placeholder": "Új képviselő számla",
         "scan-qr": "Szkenneld Mikron küldéséhez",
         "title": "Számla részletek"
+    },
+    "addrbookc": {
+        "account-id": "Számla azonosító",
+        "action-cancel": "Mégsem",
+        "action-save-new": "Mentés",
+        "add-new": "Új cím",
+        "create-new": "Új cím",
+        "delete": "Törlés a címtárból",
+        "desc": "A címjegyzék saját nevet rendelhetsz a gyakran használt számlákhoz.  Ezek csak ebben a tárcában láthatóak.",
+        "edit-label": "Címke szerkesztése",
+        "msg-no-addr": "Még nincs egy címtár bejegyzésed sem",
+        "msg-no-addr-create": "kattints ide létrehozáshoz",
+        "name": "Címke",
+        "name-hint": "Pl. Fő számla, Váltó számla, Küldő számla, stb.",
+        "options": "Opciók",
+        "title": "Címjegyzék"
     },
     "appc": {
         "connecting": "Csatlakozás Mikron node-hoz",
@@ -112,7 +128,7 @@
     },
     "sendc": {
         "about-to-send": "Küldésre előkészítve:",
-        "address-book-results": "Címtár találatok",
+        "address-book-results": "Címjegyzék találatok",
         "button": "Mikron küldés",
         "cancel": "Mégsem",
         "confirm": "Jóváhagy & Küld",
