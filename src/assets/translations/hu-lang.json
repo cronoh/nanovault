@@ -66,7 +66,7 @@
         "create-new": "Új Tárca létrehozás",
         "help-top": "Használd az alábbi lehetőségeket egy új tárca létrehozására vagy egy létező tárca beimportálására.",
         "i-have-saved": "Elmentettem az írmagot/emlékeztetőt",
-        "import": "Létező tárca Importálás",
+        "import": "Létező tárca Importálása",
         "import-file": "Importálás fájlból",
         "import-mnemonic": "Importálás emlékeztetőből",
         "import-option-file": "MikronWebWallet tárca fájl",
@@ -128,7 +128,7 @@
     "settingsc": {
         "app-settings": "App Beállítások",
         "manage-wallet": "Tárca Kezelés",
-        "new-wallet": "Új tárca beállítás",
+        "new-wallet": "Új tárca beállítása",
         "representatives": "Képviselők"
     },
     "transdetc": {
@@ -167,7 +167,7 @@
         "subtitle2": "webes tárca",
         "thank-you": "Köszönjük, hogy a Mikron Webes Tárcát használod!",
         "title": "Üdv a Mikron Webes Tárcában!",
-        "view-accounts": "Számláim megtekintés",
+        "view-accounts": "Számláim megtekintése",
         "wallet-configured": "Üdv újra itt!  A tárca már be van állítva.",
         "based-on": {
             "text1": "A MikronWebesTárca a",
