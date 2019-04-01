@@ -204,6 +204,11 @@
         "type-receive": "Receive",
         "unable-load": "Unable to load the transaction, double check that the hash is correct and try again!"
     },
+    "wallet-service": {
+        "error-receive": "There was a problem performing the receive transaction, try manually!",
+        "success-received": "Successfully received!",
+        "warn-new-incoming-unlock": "New incoming transaction - unlock the wallet to receive it!"
+    },
     "wallet-widget": {
         "ledger-disconnected": "Ledger Disconnected",
         "ledger-app-closed": "Ledger App Closed",

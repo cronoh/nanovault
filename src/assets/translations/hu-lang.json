@@ -143,7 +143,7 @@
         },
         "buw": {
             "title": "Tárca Biztonsági Mentés",
-            "unlock": "A mentés funkciók eléréséhez nyisd fel a tárcád",
+            "unlock": "A mentés funkciók eléréséhez oldd fel a tárcád",
             "mnemonic-msg1": "A tárca emlékeztető (mnemonic) mentéséhez",
             "copy-mnemonic": "Emlékeztető másolás vágólapra",
             "mnemonic-msg2": "hogy a vágólapra másold.",
@@ -204,16 +204,21 @@
         "type-receive": "Fogadás",
         "unable-load": "Nem sikerült betölteni a tranzakciót.  Ellneőrizd, hogy a hash helyes-e!"
     },
+    "wallet-service": {
+        "error-receive": "Nem sikerült fogadni a függő tranzakciót, próbáld meg manuálisan!",
+        "success-received": "Sikeresen fogadva!",
+        "warn-new-incoming-unlock": "Új bejövő tranzakció -- fogadáshoz oldd fel a tárcád!"
+    },
     "wallet-widget": {
         "ledger-disconnected": "Ledger szétkapcsolva",
         "ledger-app-closed": "Ledger App bezárva",
         "ledger-ready": "Ledger kész",
         "lock-must-set-password": "Be kell állítanod egy jelszót a tárcádhoz -- jelenleg üres!",
         "wallet-locked": "Tárca zárolva",
-        "wallet-unlocked": "Tárca felnyitva",
+        "wallet-unlocked": "Tárca feloldva",
         "configure-wallet": "Tárca beállítás",
-        "unlock-wallet": "Tárca felnyitás",
-        "unlock": "Felnyit",
+        "unlock-wallet": "Tárca feloldás",
+        "unlock": "Felold",
         "cancel": "Mégsem"
     },
     "welcomec": {

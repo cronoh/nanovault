@@ -40,6 +40,9 @@ export class NotificationService {
   sendSuccessKey(messageKey: string, options = {}) {
     this.sendNotification('success', '', messageKey, options);
   }
+  sendSuccessTranslated(messageTranslated: string, options = {}) {
+    this.sendNotification('success', messageTranslated, '', options);
+  }
   sendWarningKey(messageKey: string, options = {}) {
     this.sendNotification('warning', '', messageKey, options);
   }
