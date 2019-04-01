@@ -5,7 +5,7 @@ import * as QRCode from 'qrcode';
 import {AddressBookService} from "../../services/address-book.service";
 import {Router} from "@angular/router";
 import * as bip from 'bip39';
-import { LanguageSetting, LanguageService } from "../../services/language.service";
+import { LanguageService } from "../../services/language.service";
 
 @Component({
   selector: 'app-manage-wallet',
