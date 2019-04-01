@@ -208,6 +208,7 @@
         "ledger-disconnected": "Ledger Disconnected",
         "ledger-app-closed": "Ledger App Closed",
         "ledger-ready": "Ledger Ready",
+        "lock-must-set-password": "You must set a password on your wallet - it is currently blank!",
         "wallet-locked": "Wallet Locked",
         "wallet-unlocked": "Wallet Unlocked",
         "configure-wallet": "Configure Wallet",
@@ -243,5 +244,8 @@
             "t4": "Helpful Features",
             "d4": "Store labels for your friends and your own accounts in the address book, view any Mikron account, track your balances in your local currency, and more!"
         }
+    },
+    "work-pool-serv": {
+        "error-retrieve": "Failed to retrieve work.  Try a different PoW method."
     }
 }

@@ -48,7 +48,7 @@ export class WorkPoolService {
 
     const work = await this.pow.getPow(hash);
     if (!work) {
-      this.notifications.sendWarninRemove(`Failed to retrieve work for ${hash}.  Try a different PoW method.`);
+      this.notifications.sendWarningKey('work-pool-serv.error-retrieve');
       return null;
     }
 

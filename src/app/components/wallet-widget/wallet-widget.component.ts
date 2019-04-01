@@ -38,11 +38,11 @@ export class WalletWidgetComponent implements OnInit {
       return; // No need to lock a ledger wallet, no password saved
     }
     if (!this.wallet.password) {
-      return this.notificationService.sendWarninRemove(`You must set a password on your wallet - it is currently blank!`);
+      return this.notificationService.sendWarningKey('wallet-widget.lock-must-set-password');
     }
     const locked = await this.walletService.lockWallet();
     if (locked) {
-      this.notificationService.sendSuccesRemove(`Wallet locked`);
+      this.notificationService.sendSuccessKey('wallet-widget.wallet-locked');
     } else {
       this.notificationService.sendErrRemove(`Unable to lock wallet`);
     }
@@ -63,7 +63,7 @@ export class WalletWidgetComponent implements OnInit {
     } catch (err) {
       console.log(`Got error when loading ledger! `, err);
       this.notificationService.removeNotification('ledger-status');
-      // this.notificationService.sendError(`Unable to load Ledger Device: ${err.message}`);
+      // this.notificationService.sendErrRemove(`Unable to load Ledger Device: ${err.message}`);
     }
   }
 
@@ -72,7 +72,7 @@ export class WalletWidgetComponent implements OnInit {
     this.unlockPassword = '';
 
     if (unlocked) {
-      this.notificationService.sendSuccesRemove(`Wallet unlocked`);
+      this.notificationService.sendSuccessKey('wallet-widget.wallet-unlocked');
       this.modal.hide();
     } else {
       this.notificationService.sendErrRemove(`Invalid password, please try again!`);

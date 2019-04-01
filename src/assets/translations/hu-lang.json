@@ -208,7 +208,8 @@
         "ledger-disconnected": "Ledger szétkapcsolva",
         "ledger-app-closed": "Ledger App bezárva",
         "ledger-ready": "Ledger kész",
-        "wallet-locked": "Tárca Zárolva",
+        "lock-must-set-password": "Be kell állítanod egy jelszót a tárcádhoz -- jelenleg üres!",
+        "wallet-locked": "Tárca zárolva",
         "wallet-unlocked": "Tárca felnyitva",
         "configure-wallet": "Tárca beállítás",
         "unlock-wallet": "Tárca felnyitás",
@@ -243,5 +244,8 @@
             "t4": "Kényelmi Funkciók",
             "d4": "Tárold el a többször használt számlaszámokat; nézd meg bármelyik Mikron számlát; jelenítsd meg az egyenleg értéket helyi valutában; és még sok más!"
         }
+    },
+    "work-pool-serv": {
+        "error-retrieve": "Nem sikerült kiolvasni a munka eredményt.  Próbálkozz másik PoW metódussal."
     }
 }
