@@ -1,49 +1,46 @@
 <div class="uk-animation-slide-left-small" uk-grid>
   <div class="uk-width-1-1">
-    <h2>{{'settingsc.manage-wallet' | t}}</h2>
+    <h2>{{'manwalc.title' | t}}</h2>
 
     <div class="uk-card uk-card-default uk-margin" *ngIf="!walletService.isLedgerWallet()">
       <div class="uk-card-header">
-        <h3 class="uk-card-title">Change Wallet Password</h3>
+        <h3 class="uk-card-title">{{'manwalc.pwd.title' | t}}</h3>
       </div>
       <div class="uk-card-body">
         <div uk-grid>
           <div class="uk-width-1-2@s">
-            <input class="uk-input" [(ngModel)]="newPassword" placeholder="New Password" type="password">
+            <input class="uk-input" [(ngModel)]="newPassword" placeholder="{{'manwalc.pwd.place-new' | t}}" type="password">
           </div>
           <div class="uk-width-1-2@s">
-            <input class="uk-input" [(ngModel)]="confirmPassword" placeholder="Confirm New Password" type="password">
+            <input class="uk-input" [(ngModel)]="confirmPassword" placeholder="{{'manwalc.pwd.place-confirm' | t}}" type="password">
           </div>
         </div>
       </div>
       <div class="uk-card-footer uk-text-right">
-        <button (click)="changePassword()" class="uk-button uk-button-secondary">Update Password</button>
+        <button (click)="changePassword()" class="uk-button uk-button-secondary">{{'manwalc.pwd.button' | t}}</button>
       </div>
     </div>
 
     <div class="uk-card uk-card-default uk-margin" *ngIf="!walletService.isLedgerWallet()">
       <div class="uk-card-header">
-        <h3 class="uk-card-title">Backup Wallet</h3>
+        <h3 class="uk-card-title">{{'manwalc.buw.title' | t}}</h3>
       </div>
       <div class="uk-card-body">
-        <p *ngIf="wallet.locked">
-          To access backup options, unlock your wallet.
-        </p>
+        <p *ngIf="wallet.locked">{{'manwalc.buw.unlock' | t}}</p>
         <p *ngIf="!wallet.locked">
-          To backup your wallet mnemonic phrase, <a title="Copy Mnemonic To Clipboard" ngxClipboard [cbContent]="seedMnemonic()" (cbOnSuccess)="notifications.sendSuccess('Wallet mnemonic copied to clipboard!')" uk-tooltip>click here</a> to copy it to your clipboard.<br>
+          {{'manwalc.buw.mnemonic-msg1' | t}} <a title="{{'manwalc.buw.copy-mnemonic' | t}}" ngxClipboard [cbContent]="seedMnemonic()" (cbOnSuccess)="notifyCopySuccess()" uk-tooltip>{{'manwalc.click-here' | t}}</a> {{'manwalc.buw.mnemonic-msg2' | t}}<br>
           <br>
-          To backup your wallet seed, <a title="Copy Seed To Clipboard" ngxClipboard [cbContent]="wallet.seed" (cbOnSuccess)="notifications.sendSuccess('Wallet seed copied to clipboard!')" uk-tooltip>click here</a> to copy it to your clipboard.<br>
+          {{'manwalc.buw.seed-msg1' | t}} <a title="{{'manwalc.buw.copy-seed' | t}}" ngxClipboard [cbContent]="wallet.seed" (cbOnSuccess)="notifyCopySuccess()" uk-tooltip>{{'manwalc.click-here' | t}}</a> {{'manwalc.buw.seed-msg2' | t}}<br>
         </p>
       </div>
     </div>
 
     <div class="uk-card uk-card-default uk-margin" *ngIf="!walletService.isLedgerWallet()">
       <div class="uk-card-header">
-        <h3 class="uk-card-title">Export MikronWebWallet Wallet</h3>
+        <h3 class="uk-card-title">{{'manwalc.expwal.title' | t}}</h3>
       </div>
       <div class="uk-card-body">
-        Use this export tool to simplify wallet transfer to other devices. Your data will be encrypted by your password, and then imported into MikronWebWallet on your new device!
-        The export does not contain your address book.<br>
+        {{'manwalc.expwal.desc' | t}}<br>
         <div *ngIf="showQRExport" uk-grid>
           <div class="uk-width-1-1">
             <hr class="uk-divider-icon">
@@ -53,27 +50,26 @@
             <img [src]="QRExportImg">
           </div>
           <div class="uk-width-1-2@s uk-width-3-4@m">
-            Scan the QR code on any device to load your MikronWebWallet wallet!<br>
+            {{'manwalc.expwal.msg1' | t}}<br>
             <br>
-            If you do not have a QR code scanner, you can also import your wallet by using the URL below.<br>
+            {{'manwalc.expwal.msg2' | t}}<br>
             <input type="text" class="uk-input" value="{{ QRExportUrl }}"><br>
-            <a title="Copy Export URL To Clipboard" ngxClipboard [cbContent]="QRExportUrl" (cbOnSuccess)="notifications.sendSuccess('Wallet export copied to clipboard!')" uk-tooltip>Copy to clipboard</a>
+            <a title="{{'manwalc.expwal.copy-url' | t}}" ngxClipboard [cbContent]="QRExportUrl" (cbOnSuccess)="notifyCopySuccess()" uk-tooltip>{{'manwalc.expwal.copy' | t}}</a>
           </div>
         </div>
       </div>
       <div class="uk-card-footer uk-text-right">
-        <button (click)="exportToFile()" class="uk-button uk-button-secondary">Export As File</button>
-        <button (click)="exportWallet()" class="uk-button uk-button-secondary">Export QR Code</button>
+        <button (click)="exportToFile()" class="uk-button uk-button-secondary">{{'manwalc.expwal.button-file' | t}}</button>
+        <button (click)="exportWallet()" class="uk-button uk-button-secondary">{{'manwalc.expwal.button-qr' | t}}</button>
       </div>
     </div>
 
     <div class="uk-card uk-card-default uk-margin">
       <div class="uk-card-header">
-        <h3 class="uk-card-title">MikronWebWallet Address Book</h3>
+        <h3 class="uk-card-title">{{'manwalc.addr.title' | t}}</h3>
       </div>
       <div class="uk-card-body">
-        Use this tool to simplify transferring your address book between devices.  Use the options below to import or export your
-        address book from a file or QR Code/URL.  Your address book is not encrypted by your wallet password.
+        {{'manwalc.addr.desc' | t}}
         <div *ngIf="addressBookShowQRExport" uk-grid>
           <div class="uk-width-1-1">
             <hr class="uk-divider-icon">
@@ -83,21 +79,21 @@
             <img [src]="addressBookQRExportImg">
           </div>
           <div class="uk-width-1-2@s uk-width-3-4@m">
-            Scan the QR code on any device to import your MikronWebWallet Address Book!<br>
+            {{'manwalc.addr.msg1' | t}}<br>
             <br>
-            If you do not have a QR code scanner, you can also import your address book by using the URL below.<br>
+            {{'manwalc.addr.msg2' | t}}<br>
             <input type="text" class="uk-input" value="{{ addressBookQRExportUrl }}"><br>
-            <a title="Copy Export URL To Clipboard" ngxClipboard [cbContent]="addressBookQRExportUrl" (cbOnSuccess)="notifications.sendSuccess('Address book export copied to clipboard!')" uk-tooltip>Copy to clipboard</a>
+            <a title="{{'manwalc.addr.copy-title' | t}}" ngxClipboard [cbContent]="addressBookQRExportUrl" (cbOnSuccess)="notifyCopySuccess()" uk-tooltip>{{'manwalc.addr.copy' | t}}</a>
           </div>
         </div>
       </div>
       <div class="uk-card-footer uk-text-right">
         <div class="js-upload uk-text-left" style="display: inline-block;" uk-form-custom>
           <input type="file" id="import-from-file" (change)="importFromFile($event.target.files)" multiple>
-          <button class="uk-button uk-button-primary" type="button" tabindex="-1">Import Address Book</button>
+          <button class="uk-button uk-button-primary" type="button" tabindex="-1">{{'manwalc.addr.button-import' | t}}</button>
         </div>
-        <button (click)="exportAddressBookToFile()" class="uk-button uk-button-secondary">Export As File</button>
-        <button (click)="exportAddressBook()" class="uk-button uk-button-secondary">Export QR Code</button>
+        <button (click)="exportAddressBookToFile()" class="uk-button uk-button-secondary">{{'manwalc.addr.button-file' | t}}</button>
+        <button (click)="exportAddressBook()" class="uk-button uk-button-secondary">{{'manwalc.addr.button-qr' | t}}</button>
       </div>
     </div>
 

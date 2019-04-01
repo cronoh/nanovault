@@ -5,6 +5,7 @@ import * as QRCode from 'qrcode';
 import {AddressBookService} from "../../services/address-book.service";
 import {Router} from "@angular/router";
 import * as bip from 'bip39';
+import { LanguageSetting, LanguageService } from "../../services/language.service";
 
 @Component({
   selector: 'app-manage-wallet',
@@ -29,7 +30,9 @@ export class ManageWalletComponent implements OnInit {
     public walletService: WalletService,
     private addressBookService: AddressBookService,
     public notifications: NotificationService,
-    private router: Router) { }
+    private router: Router,
+    private language: LanguageService
+  ) { }
 
   async ngOnInit() {
     this.wallet = this.walletService.wallet;
@@ -145,6 +148,10 @@ export class ManageWalletComponent implements OnInit {
     };
 
     reader.readAsText(file);
+  }
+
+  notifyCopySuccess() {
+    this.notifications.sendSuccess(this.language.getTran('manwalc.copy-success'));
   }
 
 }

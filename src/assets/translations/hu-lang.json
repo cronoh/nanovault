@@ -126,6 +126,48 @@
         "en": "angol",
         "hu": "magyar"
     },
+    "manwalc": {
+        "title": "Tárca Kezelés",
+        "click-here": "kattints ide",
+        "copy-success": "Vágólapra másolva!",
+        "addr": {
+            "title": "MikronWebWallet Címjegyzék",
+            "desc": "Használd ezt a lehetőséget hogy átvidd a címjegyzéked egy másik eszközre. Válassz a lenti opciókból a címjegyzék exportálásához vagy importálásához, fájlon vagy QR kód/URL-en keresztül.  A címjegyzét nincs titkosítva a jelszavaddal.",
+            "msg1": "Szkenneld be a QR kódot bármelyik eszközön a MikronWebTárca Címtár importálásához!",
+            "msg2": "Ha nem tudsz QR kódot beolvasni, importálhatsz a lenti URL-el is.",
+            "copy-title": "Export URL másolása vágólapra",
+            "copy": "Másolás vágólapra",
+            "button-import": "Címjegyzék importálás",
+            "button-file": "Exportálás fájlba",
+            "button-qr": "Exportálás QR kóddal"
+        },
+        "buw": {
+            "title": "Tárca Biztonsági Mentés",
+            "unlock": "A mentés funkciók eléréséhez nyisd fel a tárcád",
+            "mnemonic-msg1": "A tárca emlékeztető (mnemonic) mentéséhez",
+            "copy-mnemonic": "Emlékeztető másolás vágólapra",
+            "mnemonic-msg2": "hogy a vágólapra másold.",
+            "seed-msg1": "A tárca írmag (seed) mentéséhez,",
+            "copy-seed": "Írmga másolás vágólapra",
+            "seed-msg2": "hogy a vágólapra másold."
+        },
+        "expwal": {
+            "title": "MikronWebWallet Tárca Exportálás",
+            "desc": "Használd ezt a lehetőséget a tárcad eszközök közötti egyszerű mozgatásához.  A tárca adatok a jelszavaddal titkosítva átkerülnek a másik eszközre, ahol importálódnak.  A mentés nem tartalmazza a címjegyzéket.",
+            "msg1": "Szkenneld be a QR kódot bármelyik eszközön a MikronWebTárca tárca importálásához!",
+            "msg2": "Ha nem tudsz QR kódot beolvasni, importálhatsz a lenti URL-el is.",
+            "copy-url": "Export URL másolása vágólapra",
+            "copy": "Másolás vágólapra",
+            "button-file": "Exportálás fájlba",
+            "button-qr": "Exportálás QR kóddal"
+        },
+        "pwd": {
+            "title": "Tárca Jelszó Csere",
+            "place-new": "Új jelszó",
+            "place-confirm": "Új jelszó ellenőrzés",
+            "button": "Jelszó Csere"
+        }
+    },
     "sendc": {
         "about-to-send": "Küldésre előkészítve:",
         "address-book-results": "Címjegyzék találatok",

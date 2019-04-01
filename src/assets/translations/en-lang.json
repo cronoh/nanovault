@@ -126,6 +126,48 @@
         "en": "English",
         "hu": "Hungarian"
     },
+    "manwalc": {
+        "title": "Manage Wallet",
+        "click-here": "click here",
+        "copy-success": "Copied to clipboard!",
+        "addr": {
+            "title": "MikronWebWallet Address Book",
+            "desc": "Use this tool to simplify transferring your address book between devices.  Use the options below to import or export your address book from a file or QR Code/URL.  Your address book is not encrypted by your wallet password.",
+            "msg1": "Scan the QR code on any device to import your MikronWebWallet Address Book!",
+            "msg2": "If you do not have a QR code scanner, you can also import your address book by using the URL below.",
+            "copy-title": "Copy Export URL To Clipboard",
+            "copy": "Copy to clipboard",
+            "button-import": "Import Address Book",
+            "button-file": "Export As File",
+            "button-qr": "Export QR Code"
+        },
+        "buw": {
+            "title": "Backup Wallet",
+            "unlock": "To access backup options, unlock your wallet.",
+            "mnemonic-msg1": "To backup your wallet mnemonic phrase,",
+            "copy-mnemonic": "Copy Mnemonic To Clipboard",
+            "mnemonic-msg2": "to copy it to your clipboard.",
+            "seed-msg1": "To backup your wallet seed,",
+            "copy-seed": "Copy Seed To Clipboard",
+            "seed-msg2": "to copy it to your clipboard."
+        },
+        "expwal": {
+            "title": "Export MikronWebWallet Wallet",
+            "desc": "Use this export tool to simplify wallet transfer to other devices. Your data will be encrypted by your password, and then imported into MikronWebWallet on your new device! The export does not contain your address book.",
+            "msg1": "Scan the QR code on any device to load your MikronWebWallet wallet!",
+            "msg2": "If you do not have a QR code scanner, you can also import your wallet by using the URL below.",
+            "copy-url": "Copy Export URL To Clipboard",
+            "copy": "Copy to clipboard",
+            "button-file": "Export As File",
+            "button-qr": "Export QR Code"
+        },
+        "pwd": {
+            "title": "Change Wallet Password",
+            "place-new": "New Password",
+            "place-confirm": "Confirm New Password",
+            "button": "Change Password"
+        }
+    },
     "sendc": {
         "about-to-send": "You are about to send:",
         "address-book-results": "Address Book Results",
