@@ -188,21 +188,21 @@ export class AccountDetailsComponent implements OnInit, OnDestroy {
   }
 
   async saveRepresentative() {
-    if (this.wallet.walletIsLocked()) return this.notifications.sendWarning(`Wallet must be unlocked`);
+    if (this.wallet.walletIsLocked()) return this.notifications.sendWarninRemove(`Wallet must be unlocked`);
     if (!this.walletAccount) return;
     const repAccount = this.representativeModel;
 
     const valid = await this.api.validateAccountNumber(repAccount);
-    if (!valid || valid.valid !== '1') return this.notifications.sendWarning(`Account ID is not a valid account`);
+    if (!valid || valid.valid !== '1') return this.notifications.sendWarninRemove(`Account ID is not a valid account`);
 
     try {
       const changed = await this.nanoBlock.generateChange(this.walletAccount, repAccount, this.wallet.isLedgerWallet());
       if (!changed) {
-        this.notifications.sendError(`Error changing representative, please try again`);
+        this.notifications.sendErrRemove(`Error changing representative, please try again`);
         return;
       }
     } catch (err) {
-      this.notifications.sendError(err.message);
+      this.notifications.sendErrRemove(err.message);
       return;
     }
 
@@ -215,7 +215,7 @@ export class AccountDetailsComponent implements OnInit, OnDestroy {
     const newRep = this.repService.getRepresentative(repAccount);
     this.repLabel = newRep ? newRep.name : '';
 
-    this.notifications.sendSuccess(`Successfully changed representative`);
+    this.notifications.sendSuccesRemove(`Successfully changed representative`);
   }
 
   async saveAddressBook() {
@@ -224,7 +224,7 @@ export class AccountDetailsComponent implements OnInit, OnDestroy {
       // Check for deleting an entry in the address book
       if (this.addressBookEntry) {
         this.addressBook.deleteAddress(this.accountID);
-        this.notifications.sendSuccess(`Successfully removed address book entry!`);
+        this.notifications.sendSuccesRemove(`Successfully removed address book entry!`);
         this.addressBookEntry = null;
       }
 
@@ -235,11 +235,11 @@ export class AccountDetailsComponent implements OnInit, OnDestroy {
     try {
       await this.addressBook.saveAddress(this.accountID, addressBookName);
     } catch (err) {
-      this.notifications.sendError(err.message);
+      this.notifications.sendErrRemove(err.message);
       return;
     }
 
-    this.notifications.sendSuccess(`Saved address book entry!`);
+    this.notifications.sendSuccesRemove(`Saved address book entry!`);
 
     this.addressBookEntry = addressBookName;
     this.showEditAddressBook = false;
@@ -277,7 +277,7 @@ export class AccountDetailsComponent implements OnInit, OnDestroy {
   }
 
   copied() {
-    this.notifications.sendSuccess(`Successfully copied to clipboard!`);
+    this.notifications.sendSuccesRemove(`Successfully copied to clipboard!`);
   }
 
 }

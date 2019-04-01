@@ -37,7 +37,7 @@ export class ImportWalletComponent implements OnInit {
 
   importDataError(message) {
     this.activePanel = 'error';
-    return this.notifications.sendError(message);
+    return this.notifications.sendErrRemove(message);
   }
 
   async decryptWallet() {
@@ -47,7 +47,7 @@ export class ImportWalletComponent implements OnInit {
       const decryptedSeed = decryptedBytes.toString(CryptoJS.enc.Utf8);
       if (!decryptedSeed || decryptedSeed.length !== 64) {
         this.walletPassword = '';
-        return this.notifications.sendError(`Invalid password, please try again`);
+        return this.notifications.sendErrRemove(`Invalid password, please try again`);
       }
 
       await this.wallet.loadImportedWallet(decryptedSeed, this.walletPassword, this.importData.accountsIndex || 0);
@@ -55,7 +55,7 @@ export class ImportWalletComponent implements OnInit {
 
     } catch (err) {
       this.walletPassword = '';
-      return this.notifications.sendError(`Invalid password, please try again`);
+      return this.notifications.sendErrRemove(`Invalid password, please try again`);
     }
   }
 

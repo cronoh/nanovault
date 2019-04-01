@@ -14,7 +14,7 @@ export class NodeService {
     if (this.node.status === false) return; // Already offline
     this.node.status = false;
 
-    this.notifications.sendError(`Unable to connect to the Mikron node, your balances may be inaccurate!`, { identifier: 'node-offline', length: 0 });
+    this.notifications.sendErrRemove(`Unable to connect to the Mikron node, your balances may be inaccurate!`, { identifier: 'node-offline', length: 0 });
   }
 
   setOnline() {

@@ -66,7 +66,7 @@ export class AppComponent implements OnInit {
 
     // If the wallet is locked and there is a pending balance, show a warning to unlock the wallet
     if (this.wallet.locked && this.wallet.pending.gt(0)) {
-      this.notifications.sendWarning(`New incoming transaction - unlock the wallet to receive it!`, { length: 0, identifier: 'pending-locked' });
+      this.notifications.sendWarninRemove(`New incoming transaction - unlock the wallet to receive it!`, { length: 0, identifier: 'pending-locked' });
     }
 
     // When the page closes, determine if we should lock the wallet
@@ -98,7 +98,7 @@ export class AppComponent implements OnInit {
       // Determine if we have been inactive for longer than our lock setting
       if (this.inactiveSeconds >= this.settings.settings.lockInactivityMinutes * 60) {
         this.walletService.lockWallet();
-        this.notifications.sendSuccess(`Wallet locked after ${this.settings.settings.lockInactivityMinutes} minutes of inactivity`);
+        this.notifications.sendSuccesRemove(`Wallet locked after ${this.settings.settings.lockInactivityMinutes} minutes of inactivity`);
       }
     }, 1000);
   }
@@ -129,7 +129,7 @@ export class AppComponent implements OnInit {
     } else if (searchData.length === 64) {
       this.router.navigate(['transaction', searchData]);
     } else {
-      this.notifications.sendWarning(`Invalid Mikron account or transaction hash!`)
+      this.notifications.sendWarninRemove(`Invalid Mikron account or transaction hash!`)
     }
     this.searchData = '';
   }

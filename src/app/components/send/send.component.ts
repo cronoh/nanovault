@@ -168,13 +168,13 @@ export class SendComponent implements OnInit {
 
   async sendTransaction() {
     const isValid = await this.nodeApi.validateAccountNumber(this.toAccountID);
-    if (!isValid || isValid.valid == '0') return this.notificationService.sendWarning(`To account address is not valid`);
-    if (!this.fromAccountID || !this.toAccountID) return this.notificationService.sendWarning(`From and to account are required`);
+    if (!isValid || isValid.valid == '0') return this.notificationService.sendWarninRemove(`To account address is not valid`);
+    if (!this.fromAccountID || !this.toAccountID) return this.notificationService.sendWarninRemove(`From and to account are required`);
 
     const from = await this.nodeApi.accountInfo(this.fromAccountID);
     const to = await this.nodeApi.accountInfo(this.toAccountID);
-    if (!from) return this.notificationService.sendError(`From account not found`);
-    if (this.fromAccountID == this.toAccountID) return this.notificationService.sendWarning(`From and to account cannot be the same`);
+    if (!from) return this.notificationService.sendErrRemove(`From account not found`);
+    if (this.fromAccountID == this.toAccountID) return this.notificationService.sendWarninRemove(`From and to account cannot be the same`);
 
     from.balanceBN = new BigNumber(from.balance || 0);
     to.balanceBN = new BigNumber(to.balance || 0);
@@ -185,9 +185,9 @@ export class SendComponent implements OnInit {
     this.antAmount = this.getAmountValueAsAnt();
     const mikronAmount = this.antAmount.div(this.unitMikron);
 
-    if (this.amount < 0 || this.antAmount.lessThan(0)) return this.notificationService.sendWarning(`Amount is invalid`);
-    if (mikronAmount.lessThan(0.0001)) return this.notificationService.sendWarning(`Send amount is too low.`);
-    if (from.balanceBN.minus(this.antAmount).lessThan(0)) return this.notificationService.sendError(`From account does not have enough XRB`);
+    if (this.amount < 0 || this.antAmount.lessThan(0)) return this.notificationService.sendWarninRemove(`Amount is invalid`);
+    if (mikronAmount.lessThan(0.0001)) return this.notificationService.sendWarninRemove(`Send amount is too low.`);
+    if (from.balanceBN.minus(this.antAmount).lessThan(0)) return this.notificationService.sendErrRemove(`From account does not have enough XRB`);
 
     // Determine fiat value of the amount
     this.amountFiat = this.util.unit.antToMikron(this.antAmount).times(this.price.price.lastPrice).toNumber();
@@ -203,14 +203,14 @@ export class SendComponent implements OnInit {
   async confirmTransaction() {
     const walletAccount = this.walletService.wallet.accounts.find(a => a.id == this.fromAccountID);
     if (!walletAccount) throw new Error(`Unable to find sending account in wallet`);
-    if (this.walletService.walletIsLocked()) return this.notificationService.sendWarning(`Wallet must be unlocked`);
+    if (this.walletService.walletIsLocked()) return this.notificationService.sendWarninRemove(`Wallet must be unlocked`);
 
     this.confirmingTransaction = true;
 
     try {
       const newHash = await this.nanoBlock.generateSend(walletAccount, this.toAccountID, this.antAmount, this.walletService.isLedgerWallet());
       if (newHash) {
-        this.notificationService.sendSuccess(`Successfully sent ${this.amount} ${this.selectedDenomination.shortName}!`);
+        this.notificationService.sendSuccesRemove(`Successfully sent ${this.amount} ${this.selectedDenomination.shortName}!`);
         this.activePanel = 'send';
         this.amount = null;
         this.amountFiat = null;
@@ -222,11 +222,11 @@ export class SendComponent implements OnInit {
         this.addressBookMatch = '';
       } else {
         if (!this.walletService.isLedgerWallet()) {
-          this.notificationService.sendError(`There was an error sending your transaction, please try again.`)
+          this.notificationService.sendErrRemove(`There was an error sending your transaction, please try again.`)
         }
       }
     } catch (err) {
-      this.notificationService.sendError(`There was an error sending your transaction: ${err.message}`)
+      this.notificationService.sendErrRemove(`There was an error sending your transaction: ${err.message}`)
     }
 
 

@@ -57,47 +57,47 @@ export class ConfigureWalletComponent implements OnInit {
     let importSeed = '';
     if (this.selectedImportOption === 'seed') {
       const existingSeed = this.importSeedModel.trim();
-      if (existingSeed.length !== 64) return this.notifications.sendError(`Seed is invalid, double check it!`);
+      if (existingSeed.length !== 64) return this.notifications.sendErrRemove(`Seed is invalid, double check it!`);
       importSeed = existingSeed;
     } else if (this.selectedImportOption === 'mnemonic') {
       const mnemonic = this.importSeedMnemonicModel.toLowerCase().trim();
       const words = mnemonic.split(' ');
-      if (words.length < 12) return this.notifications.sendError(`Mnemonic is too short, double check it!`);
+      if (words.length < 12) return this.notifications.sendErrRemove(`Mnemonic is too short, double check it!`);
 
       // Try and decode the mnemonic
       try {
         const newSeed = bip.mnemonicToEntropy(mnemonic);
-        if (!newSeed || newSeed.length !== 64) return this.notifications.sendError(`Mnemonic is invalid, double check it!`);
+        if (!newSeed || newSeed.length !== 64) return this.notifications.sendErrRemove(`Mnemonic is invalid, double check it!`);
         importSeed = newSeed.toUpperCase(); // Force uppercase, for consistency
       } catch (err) {
-        return this.notifications.sendError(`Unable to decode mnemonic, double check it!`);
+        return this.notifications.sendErrRemove(`Unable to decode mnemonic, double check it!`);
       }
     } else {
-      return this.notifications.sendError(`Invalid import option`);
+      return this.notifications.sendErrRemove(`Invalid import option`);
     }
 
-    this.notifications.sendInfo(`Importing existing accounts...`, { identifier: 'importing-loading' });
+    this.notifications.sendInfRemove(`Importing existing accounts...`, { identifier: 'importing-loading' });
     await this.walletService.createWalletFromSeed(importSeed);
 
     this.notifications.removeNotification('importing-loading');
 
     this.activePanel = 4;
-    this.notifications.sendSuccess(`Successfully imported wallet!`);
+    this.notifications.sendSuccesRemove(`Successfully imported wallet!`);
   }
 
   async importLedgerWallet(refreshOnly = false) {
     // what is our ledger status? show a warning?
-    this.notifications.sendInfo(`Checking for Ledger device...`, { identifier: 'ledger-status', length: 0 });
+    this.notifications.sendInfRemove(`Checking for Ledger device...`, { identifier: 'ledger-status', length: 0 });
     await this.ledgerService.loadLedger(true);
     this.notifications.removeNotification('ledger-status');
 
     console.log(`Importing ledger device.....`);
     if (this.ledger.status === LedgerStatus.NOT_CONNECTED) {
-      return this.notifications.sendWarning(`No ledger device detected, make sure it is connected and you are using Chrome/Opera`);
+      return this.notifications.sendWarninRemove(`No ledger device detected, make sure it is connected and you are using Chrome/Opera`);
     }
 
     if (this.ledger.status === LedgerStatus.LOCKED) {
-      return this.notifications.sendWarning(`Unlock your ledger device and open the Nano app to continue`);
+      return this.notifications.sendWarninRemove(`Unlock your ledger device and open the Nano app to continue`);
     }
 
     if (refreshOnly) {
@@ -109,7 +109,7 @@ export class ConfigureWalletComponent implements OnInit {
 
     // We skip the password panel
     this.activePanel = 5;
-    this.notifications.sendSuccess(`Successfully loaded ledger device!`);
+    this.notifications.sendSuccesRemove(`Successfully loaded ledger device!`);
 
   }
 
@@ -119,7 +119,7 @@ export class ConfigureWalletComponent implements OnInit {
     this.newWalletMnemonic = bip.entropyToMnemonic(newSeed);
 
     this.activePanel = 3;
-    this.notifications.sendSuccess(`Successfully created new wallet! Make sure to write down your seed!`);
+    this.notifications.sendSuccesRemove(`Successfully created new wallet! Make sure to write down your seed!`);
   }
 
   confirmNewSeed() {
@@ -130,10 +130,10 @@ export class ConfigureWalletComponent implements OnInit {
 
   saveWalletPassword() {
     if (this.walletPasswordConfirmModel !== this.walletPasswordModel) {
-      return this.notifications.sendError(`Password confirmation does not match, try again!`);
+      return this.notifications.sendErrRemove(`Password confirmation does not match, try again!`);
     }
     if (this.walletPasswordModel.length < 1) {
-      return this.notifications.sendWarning(`Password cannot be empty!`);
+      return this.notifications.sendWarninRemove(`Password cannot be empty!`);
     }
     const newPassword = this.walletPasswordModel;
     this.walletService.wallet.password = newPassword;
@@ -144,7 +144,7 @@ export class ConfigureWalletComponent implements OnInit {
     this.walletPasswordConfirmModel = '';
 
     this.activePanel = 5;
-    this.notifications.sendSuccess(`Successfully set wallet password!`);
+    this.notifications.sendSuccesRemove(`Successfully set wallet password!`);
   }
 
   setPanel(panel) {
@@ -152,7 +152,7 @@ export class ConfigureWalletComponent implements OnInit {
   }
 
   copied() {
-    this.notifications.sendSuccess(`Wallet seed copied to clipboard!`);
+    this.notifications.sendSuccesRemove(`Wallet seed copied to clipboard!`);
   }
 
   importFromFile(files) {
@@ -165,13 +165,13 @@ export class ConfigureWalletComponent implements OnInit {
       try {
         const importData = JSON.parse(fileData);
         if (!importData.seed || !importData.hasOwnProperty('accountsIndex')) {
-          return this.notifications.sendError(`Bad import data `)
+          return this.notifications.sendErrRemove(`Bad import data `)
         }
 
         const walletEncrypted = btoa(JSON.stringify(importData));
         this.route.navigate(['import-wallet'], { fragment: walletEncrypted });
       } catch (err) {
-        this.notifications.sendError(`Unable to parse import data, make sure you selected the right file!`);
+        this.notifications.sendErrRemove(`Unable to parse import data, make sure you selected the right file!`);
       }
     };
 

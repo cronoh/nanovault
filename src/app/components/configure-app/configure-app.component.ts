@@ -196,11 +196,11 @@ export class ConfigureAppComponent implements OnInit {
     if (newCurrency !== '') {
       // Currency not supported currently
       newCurrency = '';
-      this.notifications.sendWarning('Fiat currency conversion is not supported currently!');
+      this.notifications.sendWarninRemove('Fiat currency conversion is not supported currently!');
     }
     const reloadFiat = this.appSettings.settings.displayCurrency !== newCurrency;
     this.appSettings.setAppSetting('displayDenomination', this.selectedDenomination);
-    this.notifications.sendSuccess(`App display settings successfully updated!`);
+    this.notifications.sendSuccesRemove(`App display settings successfully updated!`);
 
     if (reloadFiat) {
       // Reload prices with our currency, then call to reload fiat balances.
@@ -219,11 +219,11 @@ export class ConfigureAppComponent implements OnInit {
 
     if (this.appSettings.settings.powSource !== newPoW) {
       if (newPoW === 'clientWebGL' && !this.pow.hasWebGLSupport()) {
-        this.notifications.sendWarning(`WebGL support not available, set PoW to Best`);
+        this.notifications.sendWarninRemove(`WebGL support not available, set PoW to Best`);
         newPoW = 'best';
       }
       if (newPoW === 'clientCPU' && !this.pow.hasWorkerSupport()) {
-        this.notifications.sendWarning(`CPU Worker support not available, set PoW to Best`);
+        this.notifications.sendWarninRemove(`CPU Worker support not available, set PoW to Best`);
         newPoW = 'best';
       }
     }
@@ -235,7 +235,7 @@ export class ConfigureAppComponent implements OnInit {
     };
 
     this.appSettings.setAppSettings(newSettings);
-    this.notifications.sendSuccess(`App wallet settings successfully updated!`);
+    this.notifications.sendSuccesRemove(`App wallet settings successfully updated!`);
 
     if (resaveWallet) {
       this.walletService.saveWalletExport(); // If swapping the storage engine, resave the wallet
@@ -267,7 +267,7 @@ export class ConfigureAppComponent implements OnInit {
         if (this.serverAPI.startsWith('https://') || this.serverAPI.startsWith('http://')) {
           newSettings.serverAPI = this.serverAPI;
         } else {
-          return this.notifications.sendWarning(`Custom API Server has an invalid address.  Make sure to use the full address ie: https://wallet.mikron.io/api/node-api`);
+          return this.notifications.sendWarninRemove(`Custom API Server has an invalid address.  Make sure to use the full address ie: https://wallet.mikron.io/api/node-api`);
         }
       }
 
@@ -275,7 +275,7 @@ export class ConfigureAppComponent implements OnInit {
         if (this.serverNode.startsWith('https://') || this.serverNode.startsWith('http://')) {
           newSettings.serverNode = this.serverNode;
         } else {
-          return this.notifications.sendWarning(`Custom Node Server has an invalid address.  Make sure to use the full address ie: http://127.0.0.1:7076`);
+          return this.notifications.sendWarninRemove(`Custom Node Server has an invalid address.  Make sure to use the full address ie: http://127.0.0.1:7076`);
         }
       }
 
@@ -283,14 +283,14 @@ export class ConfigureAppComponent implements OnInit {
         if (this.serverWS.startsWith('wss://') || this.serverWS.startsWith('ws://')) {
           newSettings.serverWS = this.serverWS;
         } else {
-          return this.notifications.sendWarning(`Custom Update Server has an invalid address.  Make sure to use the full address ie: wss://ws.wallet.mikron.io/`);
+          return this.notifications.sendWarninRemove(`Custom Update Server has an invalid address.  Make sure to use the full address ie: wss://ws.wallet.mikron.io/`);
         }
       }
 
       this.appSettings.setAppSettings(newSettings);
     }
 
-    this.notifications.sendSuccess(`Server settings successfully updated, refreshing balances`);
+    this.notifications.sendSuccesRemove(`Server settings successfully updated, refreshing balances`);
 
     // Reload some things to show new statuses?
     await this.walletService.reloadBalances();
@@ -318,7 +318,7 @@ export class ConfigureAppComponent implements OnInit {
     try {
       await UIkit.modal.confirm('<p style="text-align: center;">You are about to delete all locally cached Proof of Work values<br><br><b>Are you sure?</b></p>');
       this.workPool.clearCache();
-      this.notifications.sendSuccess(`Successfully cleared the work cache!`);
+      this.notifications.sendSuccesRemove(`Successfully cleared the work cache!`);
     } catch (err) {}
   }
 
@@ -329,7 +329,7 @@ export class ConfigureAppComponent implements OnInit {
       this.walletService.resetWallet();
       this.walletService.removeWalletData();
 
-      this.notifications.sendSuccess(`Successfully deleted all wallet data!`);
+      this.notifications.sendSuccesRemove(`Successfully deleted all wallet data!`);
     } catch (err) {}
   }
 
@@ -346,7 +346,7 @@ export class ConfigureAppComponent implements OnInit {
 
       this.loadFromSettings();
 
-      this.notifications.sendSuccess(`Successfully deleted ALL locally stored data!`);
+      this.notifications.sendSuccesRemove(`Successfully deleted ALL locally stored data!`);
     } catch (err) {}
   }
 }

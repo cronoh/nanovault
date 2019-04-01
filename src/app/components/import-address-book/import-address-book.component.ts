@@ -64,13 +64,13 @@ export class ImportAddressBookComponent implements OnInit {
       }
     }
 
-    this.notifications.sendSuccess(`Successfully imported ${importedCount} address book entries`);
+    this.notifications.sendSuccesRemove(`Successfully imported ${importedCount} address book entries`);
     this.activePanel = 'imported';
   }
 
   importDataError(message) {
     this.activePanel = 'error';
-    return this.notifications.sendError(message);
+    return this.notifications.sendErrRemove(message);
   }
 
 }

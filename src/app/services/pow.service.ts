@@ -137,7 +137,7 @@ export class PowService {
     this.processingQueueItem = false;
 
     if (!work) {
-      this.notifications.sendError(`Unable to generate work for ${queueItem.hash} using ${powSource}`);
+      this.notifications.sendErrRemove(`Unable to generate work for ${queueItem.hash} using ${powSource}`);
       queueItem.promise.reject(null);
     } else {
       queueItem.work = work;

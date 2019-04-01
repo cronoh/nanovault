@@ -92,7 +92,7 @@ export class WalletService {
         if (walletAccount) {
           // If the wallet is locked, show a notification
           if (this.wallet.locked) {
-            this.notifications.sendWarning(`New incoming transaction - unlock the wallet to receive it!`, { length: 0, identifier: 'pending-locked' });
+            this.notifications.sendWarninRemove(`New incoming transaction - unlock the wallet to receive it!`, { length: 0, identifier: 'pending-locked' });
           }
           this.addPendingBlock(walletAccount.id, transaction.hash, transaction.amount);
           await this.processPendingBlocks();
@@ -590,7 +590,7 @@ export class WalletService {
         console.log(`Creating ledger account at index: `, index);
         newAccount = await this.createLedgerAccount(index);
       } catch (err) {
-        // this.notifications.sendWarning(`Unable to load account from ledger.  Make sure it is connected`);
+        // this.notifications.sendWarninRemove(`Unable to load account from ledger.  Make sure it is connected`);
         throw err;
       }
 
@@ -681,7 +681,7 @@ export class WalletService {
       this.successfulBlocks.push(nextBlock.hash);
 
       const receiveAmount = this.util.unit.antToMikron(nextBlock.amount);
-      this.notifications.sendSuccess(`Successfully received ${receiveAmount.isZero() ? '' : receiveAmount.toFixed(6)} Mikron!`);
+      this.notifications.sendSuccesRemove(`Successfully received ${receiveAmount.isZero() ? '' : receiveAmount.toFixed(6)} Mikron!`);
 
       // await this.promiseSleep(500); // Give the node a chance to make sure its ready to reload all?
       await this.reloadBalances();
@@ -689,7 +689,7 @@ export class WalletService {
       if (this.isLedgerWallet()) {
         return null; // Denied to receive, stop processing
       }
-      return this.notifications.sendError(`There was a problem performing the receive transaction, try manually!`);
+      return this.notifications.sendErrRemove(`There was a problem performing the receive transaction, try manually!`);
     }
 
     this.pendingBlocks.shift(); // Remove it after processing, to prevent attempting to receive duplicated messages

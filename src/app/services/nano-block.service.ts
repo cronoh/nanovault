@@ -66,7 +66,7 @@ export class NanoBlockService {
     }
 
     if (!this.workPool.workExists(toAcct.frontier)) {
-      this.notifications.sendInfo(`Generating Proof of Work...`);
+      this.notifications.sendInfRemove(`Generating Proof of Work...`);
     }
 
     blockData = {
@@ -129,7 +129,7 @@ export class NanoBlockService {
     }
 
     if (!this.workPool.workExists(fromAccount.frontier)) {
-      this.notifications.sendInfo(`Generating Proof of Work...`);
+      this.notifications.sendInfRemove(`Generating Proof of Work...`);
     }
 
     blockData = {
@@ -195,7 +195,7 @@ export class NanoBlockService {
         signature = sig.signature.toUpperCase();
       } catch (err) {
         this.notifications.removeNotification('ledger-sign');
-        this.notifications.sendWarning(err.message || `Transaction denied on Ledger device`);
+        this.notifications.sendWarninRemove(err.message || `Transaction denied on Ledger device`);
         return;
       }
     } else {
@@ -216,7 +216,7 @@ export class NanoBlockService {
     };
 
     if (!this.workPool.workExists(workBlock)) {
-      this.notifications.sendInfo(`Generating Proof of Work...`);
+      this.notifications.sendInfRemove(`Generating Proof of Work...`);
     }
 
     blockData.work = await this.workPool.getWork(workBlock);
@@ -286,10 +286,10 @@ export class NanoBlockService {
   }
 
   sendLedgerDeniedNotification(err = null) {
-    this.notifications.sendWarning(err && err.message || `Transaction denied on Ledger device`);
+    this.notifications.sendWarninRemove(err && err.message || `Transaction denied on Ledger device`);
   }
   sendLedgerNotification() {
-    this.notifications.sendInfo(`Waiting for confirmation on Ledger Device...`, { identifier: 'ledger-sign', length: 0 });
+    this.notifications.sendInfRemove(`Waiting for confirmation on Ledger Device...`, { identifier: 'ledger-sign', length: 0 });
   }
   clearLedgerNotification() {
     this.notifications.removeNotification('ledger-sign');
