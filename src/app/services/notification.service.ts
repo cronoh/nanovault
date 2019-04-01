@@ -14,25 +14,37 @@ export class NotificationService {
   // This provides an entry point for all components to send notifications.
   // It exposes an observable that the actual component uses to grab new notifications
 
-  sendNotification(type: NotificationType, message: string, options = {}) {
-    this.notifications$.next({ type, message, options });
+  sendNotification(type: NotificationType, messageTranslated: string, messageKey: string, options = {}) {
+    this.notifications$.next({ type, messageTranslated, messageKey, options });
   }
 
   removeNotification(identifier: string) {
     this.removeNotification$.next(identifier);
   }
 
-  sendInfo(message:string, options = {}) {
-    this.sendNotification('info', message, options);
+  sendInfo(messageTranslated: string, options = {}) {
+    this.sendNotification('info', messageTranslated, '', options);
   }
-  sendSuccess(message:string, options = {}) {
-    this.sendNotification('success', message, options);
+  sendSuccess(messageTranslated: string, options = {}) {
+    this.sendNotification('success', messageTranslated, '', options);
   }
-  sendWarning(message:string, options = {}) {
-    this.sendNotification('warning', message, options);
+  sendWarning(messageTranslated: string, options = {}) {
+    this.sendNotification('warning', messageTranslated, '', options);
   }
-  sendError(message:string, options = {}) {
-    this.sendNotification('error', message, options);
+  sendError(messageTranslated: string, options = {}) {
+    this.sendNotification('error', messageTranslated, '', options);
+  }
+  sendInfoKey(messageKey: string, options = {}) {
+    this.sendNotification('info', '', messageKey, options);
+  }
+  sendSuccessKey(messageKey: string, options = {}) {
+    this.sendNotification('success', '', messageKey, options);
+  }
+  sendWarningKey(messageKey: string, options = {}) {
+    this.sendNotification('warning', '', messageKey, options);
+  }
+  sendErrorKey(messageKey: string, options = {}) {
+    this.sendNotification('error', '', messageKey, options);
   }
 
 }

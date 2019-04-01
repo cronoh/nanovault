@@ -17,7 +17,11 @@ export class WalletWidgetComponent implements OnInit {
 
   modal: any = null;
 
-  constructor(public walletService: WalletService, private notificationService: NotificationService, public ledgerService: LedgerService) { }
+  constructor(
+    public walletService: WalletService, 
+    private notificationService: NotificationService, 
+    public ledgerService: LedgerService
+  ) { }
 
   ngOnInit() {
     const UIkit = (window as any).UIkit;
