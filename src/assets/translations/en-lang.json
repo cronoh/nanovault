@@ -168,6 +168,12 @@
             "button": "Change Password"
         }
     },
+    "node-service": {
+        "error-unable-connect-node": "Unable to connect to the remote Mikron node, account balances may be inaccurate!"
+    },
+    "pow-service": {
+        "error-unable": "Unable to generate work"
+    },
     "sendc": {
         "about-to-send": "You are about to send:",
         "address-book-results": "Address Book Results",

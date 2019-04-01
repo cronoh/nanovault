@@ -40,6 +40,7 @@ export class NotificationService {
   sendSuccessKey(messageKey: string, options = {}) {
     this.sendNotification('success', '', messageKey, options);
   }
+  // This is special case, when message is given already translated/prepared, not translated in the html template
   sendSuccessTranslated(messageTranslated: string, options = {}) {
     this.sendNotification('success', messageTranslated, '', options);
   }
@@ -49,5 +50,4 @@ export class NotificationService {
   sendErrorKey(messageKey: string, options = {}) {
     this.sendNotification('error', '', messageKey, options);
   }
-
 }

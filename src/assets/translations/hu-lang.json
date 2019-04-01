@@ -168,6 +168,12 @@
             "button": "Jelszó Csere"
         }
     },
+    "node-service": {
+        "error-unable-connect-node": "Nem sikerült a távoli Mikron node-hoz csatlakozni, a mutatott számla egyenlegek valószínű valótlanok!"
+    },
+    "pow-service": {
+        "error-unable": "Nem sikerült a munka eredményt generálni"
+    },
     "sendc": {
         "about-to-send": "Küldésre előkészítve:",
         "address-book-results": "Címjegyzék találatok",
