@@ -66,11 +66,13 @@
         "connecting": "Attempting to connect to Mikron node",
         "connect-unable": "Unable to connect to Mikron node.  Your balances may be wrong!",
         "current-price": "Current Price",
+        "error-search-invalid": "Invalid Mikron account or transaction hash!",
         "link-discord": "Join our community on Discord",
         "link-github": "View our GitHub",
         "link-homepage": "Official Mikron site",
         "search": "View an account or transaction",
         "search-placeholder": "Mikron account or transaction hash",
+        "wallet-locked-inactivity": "Wallet automatically locked after a period of inactivity",
         "based-on": {
             "text1": "Based on",
             "link-text": "NanoVault",

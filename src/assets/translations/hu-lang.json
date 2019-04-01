@@ -66,11 +66,13 @@
         "connecting": "Csatlakozás Mikron node-hoz",
         "connect-unable": "Nem sikerült Mikron node-hoz csatlakozni.  Az egyenleginformációk valótlanok lehetnek!",
         "current-price": "Jelenlegi Ár",
+        "error-search-invalid": "Érvénytelen Mikron számla vagy tranzakció hash!",
         "link-discord": "Csatlakozz a Discord csatornánkhoz",
         "link-github": "Nézd meg GitHub-on",
         "link-homepage": "Hivatalos Mikron weblap",
         "search": "Számla vagy tranzakció megtekintés",
         "search-placeholder": "Mikron számla vagy tranzakció hash",
+        "wallet-locked-inactivity": "A tárca automatikusan lezárva, inaktivitás miatt",
         "based-on": {
             "text1": "A",
             "link-text": "NanoVault",
