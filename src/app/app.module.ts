@@ -34,7 +34,7 @@ import { TransactionDetailsComponent } from './components/transaction-details/tr
 import {PriceService} from "./services/price.service";
 import { FiatPipe } from './pipes/fiat.pipe';
 import { ImportWalletComponent } from './components/import-wallet/import-wallet.component';
-import { NanoAccountIdComponent } from './components/helpers/nano-account-id/nano-account-id.component';
+import { MikronAccountIdComponent } from './components/helpers/mikron-account-id/mikron-account-id.component';
 import {PowService} from "./services/pow.service";
 import { ImportAddressBookComponent } from './components/import-address-book/import-address-book.component';
 import { CurrencySymbolPipe } from './pipes/currency-symbol.pipe';
@@ -72,7 +72,7 @@ export function HttpLoaderFactory(httpClient: HttpClient) {
     TransactionDetailsComponent,
     FiatPipe,
     ImportWalletComponent,
-    NanoAccountIdComponent,
+    MikronAccountIdComponent,
     ImportAddressBookComponent,
     CurrencySymbolPipe,
     RepresentativesComponent,
