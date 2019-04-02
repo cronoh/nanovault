@@ -2,6 +2,7 @@ import { Injectable, OnInit } from '@angular/core';
 import { ActivatedRoute, ActivatedRouteSnapshot } from "@angular/router";
 import { TranslateService } from '@ngx-translate/core';
 import { AppSettingsService } from "../services/app-settings.service";
+import { NotificationService } from "../services/notification.service";
 
 // Handle language selection
 @Injectable()
@@ -15,7 +16,8 @@ export class LanguageService implements OnInit {
   constructor(
     private router: ActivatedRoute,
     private translate: TranslateService,
-    private appSettings: AppSettingsService
+    private appSettings: AppSettingsService,
+    private notifications: NotificationService
   ) { }
 
   async ngOnInit() {
@@ -39,30 +41,35 @@ export class LanguageService implements OnInit {
   setup(queryParamLang) {
     const browserLang = this.translate.getBrowserLang();
     const newLang = this.chooseLang(queryParamLang, this.appSettings.settings.language, browserLang);
-    if (newLang !== this.selectedLang) {
-      this.translate.use(newLang);
-      this.selectedLang = newLang;
+    if (newLang.lang !== this.selectedLang) {
+      const oldLang = this.selectedLang;
+      this.selectedLang = newLang.lang;
+      this.translate.use(this.selectedLang);
+      if (oldLang) {
+        // This is not transalated, as translation is being set up
+        this.notifications.sendSuccessTranslated(`Language changed: '${this.selectedLang}'  (from ${newLang.source})`);
+      }
     }
   }
 
   getSelectedLang() : string { return this.selectedLang; }
 
   // Choose the language to use
-  chooseLang(queryParamLang : string, settingLang : string, browserLang : string) : string {
+  chooseLang(queryParamLang : string, settingLang : string, browserLang : string) {
     let source : string = 'default';
     let lang : string = this.defaultLang;
     if (queryParamLang && this.isValid(queryParamLang)) {
-      source = 'query param';
+      source = 'URL query param';
       lang = queryParamLang;
     } else if (settingLang && this.isValid(settingLang)) {
-      source = 'setting';
+      source = 'Settings';
       lang = settingLang;
     } else if (browserLang && this.isValid(browserLang)) {
-      source = 'browser setting';
+      source = 'Browser setting';
       lang = browserLang;
     }
     //console.log("Language service: selected language '" + lang + "', based on", source);
-    return lang;
+    return  { lang, source };
   }
 
   // Check if a language is supported (valid option)

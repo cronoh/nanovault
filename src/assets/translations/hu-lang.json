@@ -152,6 +152,9 @@
         "en": "angol",
         "hu": "magyar"
     },
+    "language-service": {
+        "lang-changed": "Nyelv átállítva"
+    },
     "ledger-service": {
         "error-loading": "Hiba a Ledger eszköz betöltése közben",
         "success": "Sikeresen kapcsolódva a Ledger eszközhöz",

@@ -152,6 +152,9 @@
         "en": "English",
         "hu": "Hungarian"
     },
+    "language-service": {
+        "lang-changed": "Language changed"
+    },
     "ledger-service": {
         "error-loading": "Error loading Ledger device",
         "success": "Successfully connected to Ledger device",
