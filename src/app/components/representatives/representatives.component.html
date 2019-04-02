@@ -2,10 +2,10 @@
   <div class="uk-width-1-1">
     <div uk-grid>
       <div class="uk-width-3-4@s">
-        <h2>Representatives Overview</h2>
+        <h2>{{'repsc.title' | t}}</h2>
       </div>
       <div class="uk-width-1-4@s uk-text-right">
-        <a routerLink="/manage-representatives" class="uk-button uk-button-secondary">Manage Reps</a>
+        <a routerLink="/manage-representatives" class="uk-button uk-button-secondary">{{'repsc.manage' | t}}</a>
       </div>
     </div>
 
@@ -15,15 +15,15 @@
 
         <div class="uk-card uk-card-default">
           <div class="uk-card-body uk-padding-remove-bottom">
-            <p class="uk-text-lead uk-text-center">You have delegated voting weight to the following representatives</p>
+            <p class="uk-text-lead uk-text-center">{{'repsc.desc' | t}}</p>
 
 
             <ul class="uk-list uk-list-striped" style="margin-bottom: 0;">
               <li style="background: #fff; border-bottom: 0;">
                 <div uk-grid style="color: #999; text-transform: uppercase; font-size: .875rem; font-weight: 400;">
-                  <div class="uk-width-1-5">Status</div>
-                  <div class="uk-width-expand">Representative</div>
-                  <div class="uk-width-1-4">Weight</div>
+                  <div class="uk-width-1-5">{{'repsc.status' | t}}</div>
+                  <div class="uk-width-expand">{{'representative' | t}}</div>
+                  <div class="uk-width-1-4">{{'repsc.weight' | t}}</div>
                 </div>
               </li>
             </ul>
@@ -32,15 +32,15 @@
                 <div uk-grid class="">
 
                   <div class="uk-width-1-5" [ngClass]="{ 'uk-text-danger': rep.status === 'alert', 'uk-text-warning': rep.status === 'warn', 'uk-text-success': rep.status === 'trusted', 'uk-text-primary': rep.status === 'known' }">
-                    <span *ngIf="rep.status === 'alert'" uk-tooltip title="This is an official representative or it has very high (10%+) voting weight.  It is recommended to change to a new representative!"><span uk-icon="icon: warning"></span> Change</span>
-                    <span *ngIf="rep.status === 'warn'" uk-tooltip title="This representative has a high voting weight (1%+).  Consider changing to a new representative."><span uk-icon="icon: warning"></span> Change</span>
-                    <span *ngIf="rep.status === 'trusted'" uk-tooltip title="This representative is marked as trusted.  No change is needed."><span uk-icon="icon: star"></span> Trusted</span>
-                    <span *ngIf="rep.status === 'known'" uk-tooltip title="This representative is saved in your list, as long as it is online, no change is needed."><span uk-icon="icon: check"></span> Known</span>
-                    <span *ngIf="rep.status === 'none'" uk-tooltip title="This representative is not known, consider switching to a known one or add this one to your list"><span uk-icon="icon: question"></span> Unknown</span>
+                    <span *ngIf="rep.status === 'alert'" uk-tooltip title="{{'repsc.cat1t' | t}}"><span uk-icon="icon: warning"></span> {{'repsc.change' | t}}</span>
+                    <span *ngIf="rep.status === 'warn'" uk-tooltip title="{{'repsc.cat2t' | t}}"><span uk-icon="icon: warning"></span> {{'repsc.change' | t}}</span>
+                    <span *ngIf="rep.status === 'trusted'" uk-tooltip title="{{'repsc.cat3t' | t}}"><span uk-icon="icon: star"></span> {{'repsc.trusted' | t}}</span>
+                    <span *ngIf="rep.status === 'known'" uk-tooltip title="{{'repsc.cat4t' | t}}"><span uk-icon="icon: check"></span> {{'repsc.known' | t}}</span>
+                    <span *ngIf="rep.status === 'none'" uk-tooltip title="{{'repsc.cat5t' | t}}"><span uk-icon="icon: question"></span> {{'repsc.unknown' | t}}</span>
                   </div>
-                  <div class="uk-width-expand uk-text-truncate" (click)="addSelectedAccounts(rep.accounts)" style="cursor: pointer;" uk-tooltip title="Select the accounts which are using this representative">
-                    <span class="circle circle-online" *ngIf="rep.online" uk-tooltip title="Representative is online"></span>
-                    <span class="circle circle-offline" *ngIf="!rep.online" uk-tooltip title="Representative is offline"></span>
+                  <div class="uk-width-expand uk-text-truncate" (click)="addSelectedAccounts(rep.accounts)" style="cursor: pointer;" uk-tooltip title="{{'repsc.select-accounts' | t}}">
+                    <span class="circle circle-online" *ngIf="rep.online" uk-tooltip title="{{'repsc.rep-online' | t}}"></span>
+                    <span class="circle circle-offline" *ngIf="!rep.online" uk-tooltip title="{{'repsc.rep-offline' | t}}"></span>
                     <span *ngIf="rep.label">{{ rep.label }}</span> <span *ngIf="!rep.label">{{ rep.id }}</span>
                   </div>
                   <div class="uk-width-1-4">
@@ -50,11 +50,11 @@
                 </div>
               </li>
               <li *ngIf="!representativeOverview || !representativeOverview.length" class="uk-text-center">
-                None of your accounts have delegated any voting weight yet, you must receive a transaction to change your representative!
+                {{'repsc.no-acc-delegated' | t}}
               </li>
             </ul>
             <p class="uk-text-center uk-margin-small-bottom">
-              <small>Click on a representative to select all of the accounts delegated to it</small>
+              <small>{{'repsc.select-rep-desc' | t}}</small>
             </p>
           </div>
         </div>
@@ -69,17 +69,17 @@
         <div class="uk-card uk-card-default">
           <div class="uk-card-body">
 
-            <p class="uk-text-lead uk-text-center">Change your representatives</p>
+            <p class="uk-text-lead uk-text-center">{{'repsc.change-rep' | t}}</p>
 
 
             <div class="uk-form-horizontal">
 
               <div class="uk-margin">
-                <label class="uk-form-label" for="form-horizontal-select">Accounts to Change</label>
+                <label class="uk-form-label" for="form-horizontal-select">{{'repsc.accs-to-change' | t}}</label>
                 <div class="uk-form-controls">
                   <select class="uk-select" [(ngModel)]="changeAccountID" (change)="newAccountID()" id="form-horizontal-select">
-                    <option [value]="null">Select Accounts to Change</option>
-                    <option [value]="'all'">All Accounts</option>
+                    <option [value]="null">{{'repsc.select-accs' | t}}</option>
+                    <option [value]="'all'">{{'repsc.all-accs' | t}}</option>
                     <option *ngFor="let account of wallet.wallet.accounts" [value]="account.id">{{ account.addressBookName ? account.addressBookName + ' - ' : '' }} {{ account.id | squeeze }} ({{ account.balance | rai: settings.settings.displayDenomination }})</option>
                   </select>
                   <ul class="uk-list uk-list-striped">
@@ -89,7 +89,7 @@
                           <span *ngIf="account.addressBookName" class="uk-margin-small-right uk-label uk-label-default">{{ account.addressBookName }}</span> {{ account.id }}
                         </div>
                         <div class="uk-width-1-6 uk-text-center" style="padding-left: 0;">
-                          <a (click)="removeSelectedAccount(account)" class="uk-text-danger" title="Remove From List" uk-tooltip><span uk-icon="icon: close;"></span></a>
+                          <a (click)="removeSelectedAccount(account)" class="uk-text-danger" title="{{'repsc.remove' | t}}" uk-tooltip><span uk-icon="icon: close;"></span></a>
                         </div>
                       </div>
 
@@ -99,14 +99,14 @@
               </div>
 
               <div class="uk-margin">
-                <label class="uk-form-label" for="form-horizontal-text2">New Representative</label>
+                <label class="uk-form-label" for="form-horizontal-text2">{{'repsc.new-rep' | t}}</label>
                 <div class="uk-form-controls">
                   <div class="uk-inline uk-width-1-1">
-                    <input (blur)="validateRepresentative()" (keyup)="searchRepresentatives()" (focus)="searchRepresentatives()" [(ngModel)]="toRepresentativeID" class="uk-input" id="form-horizontal-text2" type="text" placeholder="Representative Account ID" #repInput>
+                    <input (blur)="validateRepresentative()" (keyup)="searchRepresentatives()" (focus)="searchRepresentatives()" [(ngModel)]="toRepresentativeID" class="uk-input" id="form-horizontal-text2" type="text" placeholder="{{'repsc.rep-acc-id' | t}}" #repInput>
 
                     <div *ngIf="(representativeResults$ | async).length" [hidden]="!showRepresentatives" class="uk-animation-slide-down-small uk-width-1-1 uk-card uk-card-default uk-card-body uk-position-absolute" style="z-index: 15000">
                       <ul class="uk-nav uk-nav-default">
-                        <li class="uk-nav-header">Representative List Results</li>
+                        <li class="uk-nav-header">{{'repsc.rep-list-result' | t}}</li>
                         <li class="uk-nav-divider"></li>
                         <li *ngFor="let rep of representativeResults$ | async">
                           <a (click)="selectRepresentative(rep.id)">
@@ -130,8 +130,8 @@
             </div>
           </div>
           <div class="uk-card-footer">
-            <button class="uk-button uk-button-primary uk-width-1-1" type="button" (click)="changeRepresentatives()" *ngIf="!changingRepresentatives">Update Representatives</button>
-            <button class="uk-button uk-button-primary uk-width-1-1 uk-disabled" type="button" *ngIf="changingRepresentatives"><span uk-spinner></span> Updating Representatives...</button>
+            <button class="uk-button uk-button-primary uk-width-1-1" type="button" (click)="changeRepresentatives()" *ngIf="!changingRepresentatives">{{'repsc.update-reps' | t}}</button>
+            <button class="uk-button uk-button-primary uk-width-1-1 uk-disabled" type="button" *ngIf="changingRepresentatives"><span uk-spinner></span> {{'repsc.updating-reps' | t}}</button>
           </div>
       </div>
     </div>
