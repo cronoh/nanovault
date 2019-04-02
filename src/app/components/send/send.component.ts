@@ -12,7 +12,7 @@ import {WorkPoolService} from "../../services/work-pool.service";
 import {AppSettingsService} from "../../services/app-settings.service";
 import {ActivatedRoute, ActivatedRouteSnapshot} from "@angular/router";
 import {PriceService} from "../../services/price.service";
-import {NanoBlockService} from "../../services/nano-block.service";
+import {BlockService} from "../../services/block.service";
 
 const nacl = window['nacl'];
 
@@ -58,7 +58,7 @@ export class SendComponent implements OnInit {
     private addressBookService: AddressBookService,
     private notificationService: NotificationService,
     private nodeApi: ApiService,
-    private nanoBlock: NanoBlockService,
+    private block: BlockService,
     public price: PriceService,
     private workPool: WorkPoolService,
     public settings: AppSettingsService,
@@ -208,7 +208,7 @@ export class SendComponent implements OnInit {
     this.confirmingTransaction = true;
 
     try {
-      const newHash = await this.nanoBlock.generateSend(walletAccount, this.toAccountID, this.antAmount, this.walletService.isLedgerWallet());
+      const newHash = await this.block.generateSend(walletAccount, this.toAccountID, this.antAmount, this.walletService.isLedgerWallet());
       if (newHash) {
         this.notificationService.sendSuccesRemove(`Successfully sent ${this.amount} ${this.selectedDenomination.shortName}!`);
         this.activePanel = 'send';

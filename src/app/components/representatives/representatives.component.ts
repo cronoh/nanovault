@@ -7,7 +7,7 @@ import {RepresentativeService} from "../../services/representative.service";
 import {AppSettingsService} from "../../services/app-settings.service";
 import {BehaviorSubject} from "rxjs/BehaviorSubject";
 import {NotificationService} from "../../services/notification.service";
-import {NanoBlockService} from "../../services/nano-block.service";
+import {BlockService} from "../../services/block.service";
 
 @Component({
   selector: 'app-representatives',
@@ -35,7 +35,7 @@ export class RepresentativesComponent implements OnInit {
     public wallet: WalletService,
     private api: ApiService,
     private notifications: NotificationService,
-    private nanoBlock: NanoBlockService,
+    private block: BlockService,
     private util: UtilService,
     private representativeService: RepresentativeService,
     public settings: AppSettingsService) { }
@@ -287,7 +287,7 @@ export class RepresentativesComponent implements OnInit {
       if (!walletAccount) continue; // Unable to find account in the wallet? wat?
 
       try {
-        const changed = await this.nanoBlock.generateChange(walletAccount, newRep, this.wallet.isLedgerWallet());
+        const changed = await this.block.generateChange(walletAccount, newRep, this.wallet.isLedgerWallet());
         if (!changed) {
           this.notifications.sendErrRemove(`Error changing representative for ${account.id}, please try again`);
         }

@@ -28,7 +28,7 @@ import {WorkPoolService} from "./services/work-pool.service";
 import {ConfigureAppComponent} from "./components/configure-app/configure-app.component";
 import {AppSettingsService} from "./services/app-settings.service";
 import {WebsocketService} from "./services/websocket.service";
-import {NanoBlockService} from "./services/nano-block.service";
+import {BlockService} from "./services/block.service";
 import { AccountDetailsComponent } from './components/account-details/account-details.component';
 import { TransactionDetailsComponent } from './components/transaction-details/transaction-details.component';
 import {PriceService} from "./services/price.service";
@@ -104,7 +104,7 @@ export function HttpLoaderFactory(httpClient: HttpClient) {
     WorkPoolService,
     AppSettingsService,
     WebsocketService,
-    NanoBlockService,
+    BlockService,
     PriceService,
     PowService,
     RepresentativeService,

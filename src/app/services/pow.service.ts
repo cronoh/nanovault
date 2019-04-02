@@ -137,7 +137,7 @@ export class PowService {
     this.processingQueueItem = false;
 
     if (!work) {
-      this.notifications.sendErrorKey('pow-service.error-unable'); // ${queueItem.hash} using ${powSource}
+      this.notifications.sendErrorKey('pow-service.error-unable'); // should also have sendErrorTranslate(language.getTran(...)) ${queueItem.hash} using ${powSource}
       queueItem.promise.reject(null);
     } else {
       queueItem.work = work;

@@ -4,7 +4,7 @@ import {AddressBookService} from "../../services/address-book.service";
 import {ApiService} from "../../services/api.service";
 import {NotificationService} from "../../services/notification.service";
 import {WalletService} from "../../services/wallet.service";
-import {NanoBlockService} from "../../services/nano-block.service";
+import {BlockService} from "../../services/block.service";
 import {AppSettingsService} from "../../services/app-settings.service";
 import {PriceService} from "../../services/price.service";
 import {UtilService} from "../../services/util.service";
@@ -58,7 +58,7 @@ export class AccountDetailsComponent implements OnInit, OnDestroy {
     private wallet: WalletService,
     private util: UtilService,
     public settings: AppSettingsService,
-    private nanoBlock: NanoBlockService) { }
+    private block: BlockService) { }
 
   async ngOnInit() {
     this.routerSub = this.route.events.subscribe(event => {
@@ -196,7 +196,7 @@ export class AccountDetailsComponent implements OnInit, OnDestroy {
     if (!valid || valid.valid !== '1') return this.notifications.sendWarninRemove(`Account ID is not a valid account`);
 
     try {
-      const changed = await this.nanoBlock.generateChange(this.walletAccount, repAccount, this.wallet.isLedgerWallet());
+      const changed = await this.block.generateChange(this.walletAccount, repAccount, this.wallet.isLedgerWallet());
       if (!changed) {
         this.notifications.sendErrRemove(`Error changing representative, please try again`);
         return;

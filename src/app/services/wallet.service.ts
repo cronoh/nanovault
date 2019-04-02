@@ -6,7 +6,7 @@ import {AddressBookService} from "./address-book.service";
 import * as CryptoJS from 'crypto-js';
 import {WorkPoolService} from "./work-pool.service";
 import {WebsocketService} from "./websocket.service";
-import {NanoBlockService} from "./nano-block.service";
+import {BlockService} from "./block.service";
 import {NotificationService} from "./notification.service";
 import {AppSettingsService} from "./app-settings.service";
 import {PriceService} from "./price.service";
@@ -78,7 +78,7 @@ export class WalletService {
     private price: PriceService,
     private workPool: WorkPoolService,
     private websocket: WebsocketService,
-    private nanoBlock: NanoBlockService,
+    private block: BlockService,
     private ledgerService: LedgerService,
     private notifications: NotificationService,
     private language: LanguageService
@@ -677,7 +677,7 @@ export class WalletService {
     const walletAccount = this.getWalletAccount(nextBlock.account);
     if (!walletAccount) return; // Dispose of the block, no matching account
 
-    const newHash = await this.nanoBlock.generateReceive(walletAccount, nextBlock.hash, this.isLedgerWallet());
+    const newHash = await this.block.generateReceive(walletAccount, nextBlock.hash, this.isLedgerWallet());
     if (newHash) {
       if (this.successfulBlocks.length >= 15) this.successfulBlocks.shift();
       this.successfulBlocks.push(nextBlock.hash);

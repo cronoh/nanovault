@@ -14,7 +14,7 @@ const STATE_BLOCK_PREAMBLE = '00000000000000000000000000000000000000000000000000
 const EPOCH_0 = 1535760000; // Epoch 0, origin for block times, Sept 1 2018
 
 @Injectable()
-export class NanoBlockService {
+export class BlockService {
   representativeAccount = 'mik_317ntk3fs3666tuzrdsx755rruhw935apyquan95uc18po55i1s53sew45tb'; // Default Mikron Representative
 
   constructor(
