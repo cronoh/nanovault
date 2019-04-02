@@ -112,7 +112,6 @@
             <div uk-grid>
               <div>
                 <span class="uk-width-expand"><a routerLink="/" class="title">{{'prod-name' | t}}</a></span>
-                <span class="uk-text-small">{{'appc.based-on.text1' | t}} <a href="https://nanovault.io" class="uk-link-text" target="_blank">{{'appc.based-on.link-text' | t}}</a> {{'appc.based-on.text2' | t}}</span>
               </div>
               <div class="uk-width-1-6 uk-padding-remove-left" style="padding-top: 15px;" *ngIf="wallet.seed">
                 <span class="uk-text-danger" uk-icon="icon: warning; ratio: 1.2;" *ngIf="node.status === false" uk-tooltip title="{{'appc.connect-unable' | t}}"></span>
