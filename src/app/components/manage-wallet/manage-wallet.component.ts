@@ -151,7 +151,7 @@ export class ManageWalletComponent implements OnInit {
   }
 
   notifyCopySuccess() {
-    this.notifications.sendSuccesRemove(this.language.getTran('manwalc.copy-success'));
+    this.notifications.sendSuccesRemove(this.language.getTran('copy-success'));
   }
 
 }

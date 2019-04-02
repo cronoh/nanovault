@@ -7,6 +7,7 @@
     "amount": "Amount",
     "balance": "Balance",
     "block": "Block",
+    "copy-success": "Copied to clipboard!",
     "date": "Date",
     "hash": "Hash",
     "language": "Language",
@@ -25,16 +26,29 @@
     "accsc": {
         "add-new": "Add New Account",
         "detail-desc": "Click on an account to view more details!",
+        "error-could-not-add": "Unable to add new account!",
+        "error-could-not-delete-acc": "Unable to delete account!",
+        "ledger-account-confirmed": "Account address confirmed on Ledger",
+        "ledger-confirming-account": "Confirming account address on Ledger device...",
+        "ledger-error-account-denied": "Account address denied on Ledger - if it is wrong do not use the wallet!",
+        "success-acc-removed": "Successfully removed account",
+        "success-created-acc": "Successfully created new account",
+        "success-sorted": "Successfully sorted accounts by index",
+        "view.basic": "BASIC",
+        "view.advanced": "ADVANCED MODE",
+        "warning-index-already-loaded": "The account at this index is already loaded",
+        "warning-invalid-index": "Invalid account index - must be positive number",
+        "warning-need-min-two-accs": "You need at least 2 accounts to sort them",
+        "warning-too-many-accounts": "You can only track up to 20 accounts at a time.",
         "no-acc": {
             "text1": "You don't have any accounts yet,",
             "text-a": "click here to create one"
-        },
-        "view.basic": "BASIC",
-        "view.advanced": "ADVANCED MODE"
+        }
     },
     "accdetc": {
         "account-balance": "Account Balance",
         "action": "View Account Details",
+        "error-rep-change": "Error changing representative, please try again",
         "label-placeholder": "Account Label (Set to blank to delete)",
         "load-more": "Load More Results",
         "no-history": "No account history",
@@ -44,7 +58,11 @@
         "rep-list": "Representative List Results",
         "rep-placeholder": "New Representative Account",
         "scan-qr": "Scan to receive Mikron",
-        "title": "Account Details"
+        "success-addr-remove": "Successfully removed address book entry!",
+        "success-addr-saved": "Saved address book entry!",
+        "success-rep-change": "Successfully changed representative",
+        "title": "Account Details",
+        "warning-account-id": "Account ID is not a valid account"
     },
     "addrbookc": {
         "account-id": "Account ID",
@@ -87,6 +105,7 @@
     "confwallc": {
         "create": "Create Wallet",
         "create-new": "Create New Wallet",
+        "error-wallet-not-configured": "Wallet is not configured!",
         "help-top": "Use the options below to import an existing wallet or create a new one.",
         "i-have-saved": "I've Saved My Seed/Mnemonic",
         "import": "Import Existing Wallet",

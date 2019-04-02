@@ -7,6 +7,7 @@
     "amount": "Összeg",
     "balance": "Egyenleg",
     "block": "Blokk",
+    "copy-success": "Vágólapra másolva!",
     "date": "Dátum",
     "hash": "Hash",
     "language": "Nyelv",
@@ -25,16 +26,29 @@
     "accsc": {
         "add-new": "Új számla hozzáadás",
         "detail-desc": "Válassz ki egy számlát a részletekért!",
+        "error-could-not-add": "Nem sikerült új számlát hozzáadni!",
+        "error-could-not-delete-acc": "Nem sikerült törölni a számlát!",
+        "ledger-account-confirmed": "Számlacím ellenőrizve a Ledger eszközön",
+        "ledger-confirming-account": "Számlacím ellenőrizése a Ledger eszközön...",
+        "ledger-error-account-denied": "Számlacím elutasítva a Ledger eszközön -- ha nem egyezik, ne használd a tárcát!",
+        "success-acc-removed": "Számla sikeresen eltávolítva",
+        "success-created-acc": "Új számla sikerese létrehozva",
+        "success-sorted": "Index alapján sorbarendezve",
+        "view.basic": "ALAP",
+        "view.advanced": "HALADÓ MÓD",
+        "warning-index-already-loaded": "Ez az indexű számla már be van töltve",
+        "warning-invalid-index": "Érvénytelen számla index -- pozitív szám kell legyen",
+        "warning-need-min-two-accs": "Legalább 2 számla kell legyen, hogy rendezni lehessen",
+        "warning-too-many-accounts": "Egyszerre legfeljebb 20 számlát használhatsz.",
         "no-acc": {
             "text1": "Még nincs egy számlád sem,",
             "text-a": "klikkelj ide hogy létrehozz egyet"
-        },
-        "view.basic": "ALAP",
-        "view.advanced": "HALADÓ MÓD"
+        }
     },
     "accdetc": {
         "account-balance": "Számla Egyenleg",
         "action": "Számla részletei",
+        "error-rep-change": "Hiba a képviselő állításánál, próbáld újra",
         "label-placeholder": "Számla címke (törléshez állítsd üresre)",
         "load-more": "További sorok betöltése",
         "no-history": "Nincsenek műveletek",
@@ -44,7 +58,11 @@
         "rep-list": "Képviselők Lista Eredmény",
         "rep-placeholder": "Új képviselő számla",
         "scan-qr": "Szkenneld Mikron küldéséhez",
-        "title": "Számla részletek"
+        "success-addr-remove": "Címbejegyzés törölve",
+        "success-addr-saved": "Címbejegyzés elmentve",
+        "success-rep-change": "Képviselő megváltoztatva",
+        "title": "Számla részletek",
+        "warning-account-id": "A számla ID nem egy érvényes számla"
     },
     "addrbookc": {
         "account-id": "Számla azonosító",
@@ -87,6 +105,7 @@
     "confwallc": {
         "create": "Tárca létrehozás",
         "create-new": "Új Tárca létrehozás",
+        "error-wallet-not-configured": "A tárca nincs beállítva!",
         "help-top": "Használd az alábbi lehetőségeket egy új tárca létrehozására vagy egy létező tárca beimportálására.",
         "i-have-saved": "Elmentettem az írmagot/emlékeztetőt",
         "import": "Létező tárca Importálása",

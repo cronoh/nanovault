@@ -4,6 +4,7 @@ import {NotificationService} from "../../services/notification.service";
 import {ModalService} from "../../services/modal.service";
 import {AppSettingsService} from "../../services/app-settings.service";
 import {LedgerService, LedgerStatus} from "../../services/ledger.service";
+import {LanguageService} from "../../services/language.service";
 
 @Component({
   selector: 'app-accounts',
@@ -21,75 +22,77 @@ export class AccountsComponent implements OnInit {
     private notificationService: NotificationService,
     public modal: ModalService,
     public settings: AppSettingsService,
-    private ledger: LedgerService) { }
+    private ledger: LedgerService,
+    private language: LanguageService
+  ) { }
 
   async ngOnInit() {
   }
 
   async createAccount() {
     if (this.walletService.isLocked()) {
-      return this.notificationService.sendErrRemove(`Wallet is locked.`);
+      return this.notificationService.sendErrorKey('wallet-widget.warning-wallet-locked');
     }
-    if (!this.walletService.isConfigured()) return this.notificationService.sendErrRemove(`Wallet is not configured`);
-    if (this.walletService.wallet.accounts.length >= 20) return this.notificationService.sendWarninRemove(`You can only track up to 20 accounts at a time.`);
+    if (!this.walletService.isConfigured()) return this.notificationService.sendErrorKey('confwallc.error-wallet-not-configured');
+    if (this.walletService.wallet.accounts.length >= 20) return this.notificationService.sendWarningKey('accsc.warning-too-many-accounts');
     // Advanced view, manual account index?
     let accountIndex = null;
     if (this.viewAdvanced && this.newAccountIndex != null) {
       let index = parseInt(this.newAccountIndex);
-      if (index < 0) return this.notificationService.sendWarninRemove(`Invalid account index - must be positive number`);
+      if (index < 0) return this.notificationService.sendWarningKey('accsc.warning-invalid-index');
       const existingAccount = this.walletService.wallet.accounts.find(a => a.index == index);
       if (existingAccount) {
-        return this.notificationService.sendWarninRemove(`The account at this index is already loaded`);
+        return this.notificationService.sendWarningKey('accsc.warning-index-already-loaded');
       }
       accountIndex = index;
     }
     try {
       const newAccount = await this.walletService.addWalletAccount(accountIndex);
-      this.notificationService.sendSuccesRemove(`Successfully created new account ${newAccount.id}`);
+      this.notificationService.sendSuccessTranslated(this.language.getTran('accsc.success-created-acc') + ` -- ${newAccount.id}`);
       this.newAccountIndex = null;
     } catch (err) {
-      this.notificationService.sendErrRemove(`Unable to add new account: ${err.message}`);
+      this.notificationService.sendErrorTranslated(this.language.getTran('accsc.error-could-not-add') + ` -- ${err.message}`);
     }
   }
 
   sortAccounts() {
     if (this.walletService.isLocked()) {
-      return this.notificationService.sendErrRemove(`Wallet is locked.`);
+      return this.notificationService.sendErrorKey('wallet-widget.warning-wallet-locked');
     }
-    if (!this.walletService.isConfigured()) return this.notificationService.sendErrRemove(`Wallet is not configured`);
-    if (this.walletService.wallet.accounts.length <= 1) return this.notificationService.sendWarninRemove(`You need at least 2 accounts to sort them`);
+    if (!this.walletService.isConfigured()) return this.notificationService.sendErrorKey('confwallc.error-wallet-not-configured');
+    if (this.walletService.wallet.accounts.length <= 1) return this.notificationService.sendWarningKey('accsc.warning-need-min-two-accs');
     this.walletService.wallet.accounts = this.walletService.wallet.accounts.sort((a, b) => a.index - b.index);
     // this.accounts = this.walletService.wallet.accounts;
     this.walletService.saveWalletExport(); // Save new sorted accounts list
-    this.notificationService.sendSuccesRemove(`Successfully sorted accounts by index!`);
+    this.notificationService.sendSuccessKey('accsc.success-sorted');
   }
 
   copied() {
-    this.notificationService.sendSuccesRemove(`Successfully copied to clipboard!`);
+    this.notificationService.sendSuccessKey('copy-success');
   }
 
   async deleteAccount(account) {
     if (this.walletService.walletIsLocked()) {
-      return this.notificationService.sendWarninRemove(`Wallet must be unlocked.`);
+      return this.notificationService.sendWarningKey('wallet-widget.warning-wallet-locked');
     }
     try {
       await this.walletService.removeWalletAccount(account.id);
-      this.notificationService.sendSuccesRemove(`Successfully removed account ${account.id}`);
+      this.notificationService.sendSuccessTranslated(this.language.getTran('accsc.success-acc-removed') + ` -- ${account.id}`);
     } catch (err) {
-      this.notificationService.sendErrRemove(`Unable to delete account: ${err.message}`);
+      this.notificationService.sendErrorTranslated(this.language.getTran('accsc.error-could-not-delete-acc') + ` -- ${err.message}`);
     }
   }
 
   async showLedgerAddress(account) {
     if (this.ledger.ledger.status !== LedgerStatus.READY) {
-      return this.notificationService.sendWarninRemove(`Ledger device must be ready`);
+      return this.notificationService.sendWarningKey('ledger-service.warning-unable-to-connect');
     }
-    this.notificationService.sendInfRemove(`Confirming account address on Ledger device...`, { identifier: 'ledger-account', length: 0 });
+    this.notificationService.sendInfoKey('accsc.ledger-confirming-account', { identifier: 'ledger-account', length: 0 });
     try {
       await this.ledger.getLedgerAccount(account.index, true);
-      this.notificationService.sendSuccesRemove(`Account address confirmed on Ledger`);
+      this.notificationService.sendSuccessKey('accsc.ledger-account-confirmed');
     } catch (err) {
-      this.notificationService.sendErrRemove(`Account address denied - if it is wrong do not use the wallet!`);
+      this.notificationService.sendErrorKey('accsc.ledger-error-account-denied');
     }
     this.notificationService.removeNotification('ledger-account');
   }

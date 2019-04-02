@@ -98,7 +98,7 @@ export class AppComponent implements OnInit {
       // Determine if we have been inactive for longer than our lock setting
       if (this.inactiveSeconds >= this.settings.settings.lockInactivityMinutes * 60) {
         this.walletService.lockWallet();
-        this.notifications.sendSuccessTranslated(this.language.getTran('appc.wallet-locked-inactivity') + ` ${this.settings.settings.lockInactivityMinutes}`);
+        this.notifications.sendSuccessTranslated(this.language.getTran('appc.wallet-locked-inactivity') + ` (${this.settings.settings.lockInactivityMinutes} min.)`);
       }
     }, 1000);
   }
