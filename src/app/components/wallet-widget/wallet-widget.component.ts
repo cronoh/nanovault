@@ -44,21 +44,21 @@ export class WalletWidgetComponent implements OnInit {
     if (locked) {
       this.notificationService.sendSuccessKey('wallet-widget.wallet-locked');
     } else {
-      this.notificationService.sendErrRemove(`Unable to lock wallet`);
+      this.notificationService.sendErrorKey('wallet-widget.error-unable-lock');
     }
   }
 
   async reloadLedger() {
-    this.notificationService.sendInfRemove(`Checking Ledger Status...`, { identifier: 'ledger-status', length: 0 })
+    this.notificationService.sendInfRemove('wallet-widget.info-checking-ledger', { identifier: 'ledger-status', length: 0 })
     try {
       console.log(`Reloading ledger....`);
       const loaded = await this.ledgerService.loadLedger();
       console.log(`Got loaded response: `, loaded);
       this.notificationService.removeNotification('ledger-status');
       if (loaded) {
-        this.notificationService.sendSuccesRemove(`Successfully connected to Ledger device`);
+        this.notificationService.sendSuccessKey('ledger-service.success');
       } else if (loaded === false) {
-        this.notificationService.sendErrRemove(`Unable to connect to Ledger device`);
+        this.notificationService.sendErrorKey('ledger-service.warning-unable-to-connect');
       }
     } catch (err) {
       console.log(`Got error when loading ledger! `, err);
@@ -75,7 +75,7 @@ export class WalletWidgetComponent implements OnInit {
       this.notificationService.sendSuccessKey('wallet-widget.wallet-unlocked');
       this.modal.hide();
     } else {
-      this.notificationService.sendErrRemove(`Invalid password, please try again!`);
+      this.notificationService.sendErrorKey('wallet-widget.error-invalid-password');
     }
 
     this.unlockPassword = '';

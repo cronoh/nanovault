@@ -292,7 +292,7 @@ export class RepresentativesComponent implements OnInit {
           this.notifications.sendErrRemove(`Error changing representative for ${account.id}, please try again`);
         }
       } catch (err) {
-        this.notifications.sendErrRemove(err.message);
+        this.notifications.sendErrorTranslated(err.message);
       }
     }
 

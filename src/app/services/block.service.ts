@@ -66,7 +66,7 @@ export class BlockService {
     }
 
     if (!this.workPool.workExists(toAcct.frontier)) {
-      this.notifications.sendInfRemove(`Generating Proof of Work...`);
+      this.notifications.sendInfoKey('block-service.info-generate-work');
     }
 
     blockData = {
@@ -129,7 +129,7 @@ export class BlockService {
     }
 
     if (!this.workPool.workExists(fromAccount.frontier)) {
-      this.notifications.sendInfRemove(`Generating Proof of Work...`);
+      this.notifications.sendInfoKey('block-service.info-generate-work');
     }
 
     blockData = {
@@ -195,7 +195,8 @@ export class BlockService {
         signature = sig.signature.toUpperCase();
       } catch (err) {
         this.notifications.removeNotification('ledger-sign');
-        this.notifications.sendWarninRemove(err.message || `Transaction denied on Ledger device`);
+        this.notifications.sendWarningKey('block-service.warning-denied');
+        if (err && err.message) { this.notifications.sendWarningTranslated(err.message); }
         return;
       }
     } else {
@@ -216,7 +217,7 @@ export class BlockService {
     };
 
     if (!this.workPool.workExists(workBlock)) {
-      this.notifications.sendInfRemove(`Generating Proof of Work...`);
+      this.notifications.sendInfoKey('block-service.info-generate-work');
     }
 
     blockData.work = await this.workPool.getWork(workBlock);
@@ -286,10 +287,11 @@ export class BlockService {
   }
 
   sendLedgerDeniedNotification(err = null) {
-    this.notifications.sendWarninRemove(err && err.message || `Transaction denied on Ledger device`);
+    this.notifications.sendWarningKey('block-service.warning-denied');
+    if (err && err.message) { this.notifications.sendWarningTranslated(err.message); }
   }
   sendLedgerNotification() {
-    this.notifications.sendInfRemove(`Waiting for confirmation on Ledger Device...`, { identifier: 'ledger-sign', length: 0 });
+    this.notifications.sendInfoKey('block-service.info-wait-confirm', { identifier: 'ledger-sign', length: 0 });
   }
   clearLedgerNotification() {
     this.notifications.removeNotification('ledger-sign');

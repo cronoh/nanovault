@@ -79,6 +79,11 @@
             "text2": "alapján"
         }
     },
+    "block-service": {
+        "info-generate-work": "Munka bizonyíték generálása...",
+        "info-wait-confirm": "Várakozás a Ledger eszköz jóváhagyására...",
+        "warning-denied": "A Ledger eszköz elutasította a tranzakciót"
+    },
     "confwallc": {
         "create": "Tárca létrehozás",
         "create-new": "Új Tárca létrehozás",
@@ -128,6 +133,12 @@
         "en": "angol",
         "hu": "magyar"
     },
+    "ledger-service": {
+        "error-loading": "Hiba a Ledger eszköz betöltése közben",
+        "success": "Sikeresen kapcsolódva a Ledger eszközhöz",
+        "warning-locked": "A Ledger eszköz zárolva van.  Oldd fel és nyisd meg a Nano applikációt.",
+        "warning-unable-to-connect": "Nem sikerült a Ledger eszközhöz kapcsolódni.  Ellenőrizd, hogy nincs zárolva és a Nano applikáció fut."
+    },
     "manwalc": {
         "title": "Tárca Kezelés",
         "click-here": "kattints ide",
@@ -174,7 +185,7 @@
         "error-unable-connect-node": "Nem sikerült a távoli Mikron node-hoz csatlakozni, a mutatott számla egyenlegek valószínű valótlanok!"
     },
     "pow-service": {
-        "error-unable": "Nem sikerült a munka eredményt generálni"
+        "error-unable": "Nem sikerült a munka bizonyítékot generálni"
     },
     "sendc": {
         "about-to-send": "Küldésre előkészítve:",
@@ -183,13 +194,22 @@
         "cancel": "Mégsem",
         "confirm": "Jóváhagy & Küld",
         "current-balance": "Aktuális Egyenleg",
+        "error-from-not-found": "A forrás számla nem található!",
+        "error-not-enough": "A forrás számla egyenlege nem elég a külséshez!",
+        "error-send": "Hiba a tranzakció során, próbáld újra!",
         "from-account": "Forrás számla",
         "loading": "Betöltés",
         "max": "Max",
         "send-in": "Küldendő összeg, egység: ",
+        "success-sent": "Sikeres küldés!",
         "title": "Mikron küldés",
         "to-account": "Cél számla",
-        "to-account-expl": "Küldés erre a számlára"
+        "to-account-expl": "Küldés erre a számlára",
+        "warning-accounts-must-differ": "A cél és forrásszámla nem lehet ugynaz",
+        "warning-accounts-required": "Meg kell adni mind a forrás, mind a cél számlát",
+        "warning-amount-invalid": "Érvénytelen összeg",
+        "warning-amount-small": "Túl kicsi küldés összeg",
+        "warning-to-invalid": "Érvénytelen cél számla"
     },
     "settingsc": {
         "app-settings": "App Beállítások",
@@ -210,7 +230,7 @@
         "type-send": "Küldés",
         "type-open": "Nyitó fogadás",
         "type-receive": "Fogadás",
-        "unable-load": "Nem sikerült betölteni a tranzakciót.  Ellneőrizd, hogy a hash helyes-e!"
+        "unable-load": "Nem sikerült betölteni a tranzakciót.  Ellenőrizd, hogy a hash helyes-e!"
     },
     "wallet-service": {
         "error-receive": "Nem sikerült fogadni a függő tranzakciót, próbáld meg manuálisan!",
@@ -218,6 +238,10 @@
         "warn-new-incoming-unlock": "Új bejövő tranzakció -- fogadáshoz oldd fel a tárcád!"
     },
     "wallet-widget": {
+        "cancel": "Mégsem",
+        "error-invalid-password": "Hibás jelszó, próbáld újra!",
+        "error-unable-lock": "Nem sikerült zárolni a tárcát!",
+        "info-checking-ledger": "Ledger eszköz állapot ellenőrzés...",
         "ledger-disconnected": "Ledger szétkapcsolva",
         "ledger-app-closed": "Ledger App bezárva",
         "ledger-ready": "Ledger kész",
@@ -227,7 +251,7 @@
         "configure-wallet": "Tárca beállítás",
         "unlock-wallet": "Tárca feloldás",
         "unlock": "Felold",
-        "cancel": "Mégsem"
+        "warning-wallet-locked": "A tárcát fel kell nyitni"
     },
     "welcomec": {
         "create-new-wallet": "Új tárca létrehozás",
@@ -259,6 +283,6 @@
         }
     },
     "work-pool-serv": {
-        "error-retrieve": "Nem sikerült kiolvasni a munka eredményt.  Próbálkozz másik PoW metódussal."
+        "error-retrieve": "Nem sikerült kiolvasni a munka bizonyítékot.  Próbálkozz másik PoW metódussal."
     }
 }

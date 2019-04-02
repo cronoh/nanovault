@@ -6,6 +6,7 @@ import {ApiService} from "./api.service";
 import {NotificationService} from "./notification.service";
 import { environment } from "../../environments/environment";
 import {DesktopService} from "./desktop.service";
+import {LanguageService} from "../services/language.service";
 
 export const STATUS_CODES = {
   SECURITY_STATUS_NOT_SATISFIED: 0x6982,
@@ -50,10 +51,12 @@ export class LedgerService {
   ledgerStatus$: Subject<any> = new Subject();
   desktopMessage$ = new Subject();
 
-  constructor(private api: ApiService,
-              private desktop: DesktopService,
-              private notifications: NotificationService)
-  {
+  constructor(
+    private api: ApiService,
+    private desktop: DesktopService,
+    private notifications: NotificationService,
+    private language: LanguageService
+  ) {
     if (this.isDesktop) {
       this.configureDesktop();
     }
@@ -251,7 +254,7 @@ export class LedgerService {
         this.ledger.status = LedgerStatus.NOT_CONNECTED;
         this.ledgerStatus$.next({ status: this.ledger.status, statusText: `Unable to detect Nano Ledger application (Timeout)` });
         if (!hideNotifications) {
-          this.notifications.sendWarninRemove(`Unable to connect to the Ledger device.  Make sure it is unlocked and the Nano application is open`);
+          this.notifications.sendWarningKey('ledger-service.warning-unable-to-connect');
         }
         resolved = true;
         return resolve(false);
@@ -273,7 +276,7 @@ export class LedgerService {
           this.resetLedger();
         }
         if (!hideNotifications && !resolved) {
-          this.notifications.sendWarninRemove(`Ledger device locked.  Unlock and open the Nano application`);
+          this.notifications.sendWarningKey('ledger-service.warning-locked');
         }
         return resolve(false);
       }
@@ -292,7 +295,7 @@ export class LedgerService {
         console.log(`Error on account details: `, err);
         if (err.statusCode === STATUS_CODES.SECURITY_STATUS_NOT_SATISFIED) {
           if (!hideNotifications) {
-            this.notifications.sendWarninRemove(`Ledger device locked.  Unlock and open the Nano application`);
+            this.notifications.sendWarningKey('ledger-service.warning-locked');
           }
         }
       }
@@ -301,7 +304,7 @@ export class LedgerService {
     }).catch(err => {
       console.log(`error when loading ledger `, err);
       if (!hideNotifications) {
-        this.notifications.sendWarninRemove(`Error loading Ledger device: ${typeof err === 'string' ? err : err.message}`, { length: 6000 });
+        this.notifications.sendWarningTranslated(this.language.getTran('ledger-service.error-loading') + ` -- ${typeof err === 'string' ? err : err.message}`, { length: 6000 });
       }
 
       return null;

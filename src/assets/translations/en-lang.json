@@ -79,6 +79,11 @@
             "text2": ""
         }
     },
+    "block-service": {
+        "info-generate-work": "Generating Proof of Work...",
+        "info-wait-confirm": "Waiting for confirmation on Ledger Device...",
+        "warning-denied": "Transaction denied on Ledger device"
+    },
     "confwallc": {
         "create": "Create Wallet",
         "create-new": "Create New Wallet",
@@ -127,6 +132,12 @@
     "lang": {
         "en": "English",
         "hu": "Hungarian"
+    },
+    "ledger-service": {
+        "error-loading": "Error loading Ledger device",
+        "success": "Successfully connected to Ledger device",
+        "warning-locked": "Ledger device locked.  Unlock and open the Nano application.",
+        "warning-unable-to-connect": "Unable to connect to the Ledger device.  Make sure it is unlocked and the Nano application is open."
     },
     "manwalc": {
         "title": "Manage Wallet",
@@ -183,13 +194,22 @@
         "cancel": "Cancel",
         "confirm": "Confirm & Send",
         "current-balance": "Current Balance",
+        "error-from-not-found": "From account not found",
+        "error-not-enough": "From account does not have enough balance!",
+        "error-send": "There was an error sending your transaction, please try again!",
         "from-account": "From Account",
         "loading": "Loading",
         "max": "Max",
         "send-in": "Amount to send in",
+        "success-sent": "Successfully sent!",
         "title": "Send Mikron",
         "to-account": "To Account",
-        "to-account-expl": "Account to send to"
+        "to-account-expl": "Account to send to",
+        "warning-accounts-must-differ": "From and to accounts must be different",
+        "warning-accounts-required": "From and to accounts are required",
+        "warning-amount-invalid": "Amount is invalid",
+        "warning-amount-small": "Send amount is too small",
+        "warning-to-invalid": "To account address is not valid"
     },
     "settingsc": {
         "app-settings": "App Settings",
@@ -218,6 +238,10 @@
         "warn-new-incoming-unlock": "New incoming transaction - unlock the wallet to receive it!"
     },
     "wallet-widget": {
+        "cancel": "Cancel",
+        "error-invalid-password": "Invalid password, please try again!",
+        "error-unable-lock": "Unable to lock wallet",
+        "info-checking-ledger": "Checking Ledger Status...",
         "ledger-disconnected": "Ledger Disconnected",
         "ledger-app-closed": "Ledger App Closed",
         "ledger-ready": "Ledger Ready",
@@ -227,7 +251,7 @@
         "configure-wallet": "Configure Wallet",
         "unlock-wallet": "Unlock Wallet",
         "unlock": "Unlock",
-        "cancel": "Cancel"
+        "warning-wallet-locked": "Wallet must be unlocked"
     },
     "welcomec": {
         "create-new-wallet": "Create A New Wallet",

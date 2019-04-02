@@ -40,14 +40,22 @@ export class NotificationService {
   sendSuccessKey(messageKey: string, options = {}) {
     this.sendNotification('success', '', messageKey, options);
   }
-  // This is special case, when message is given already translated/prepared, not translated in the html template
+  // This is special case, when message is given already translated/prepared, not translated in the html template.  Not recommended.
   sendSuccessTranslated(messageTranslated: string, options = {}) {
     this.sendNotification('success', messageTranslated, '', options);
   }
   sendWarningKey(messageKey: string, options = {}) {
     this.sendNotification('warning', '', messageKey, options);
   }
+  // This is special case, when message is given already translated/prepared, not translated in the html template.  Not recommended.
+  sendWarningTranslated(messageTranslated: string, options = {}) {
+    this.sendNotification('warning', messageTranslated, '', options);
+  }
   sendErrorKey(messageKey: string, options = {}) {
     this.sendNotification('error', '', messageKey, options);
+  }
+  // This is special case, when message is given already translated/prepared, not translated in the html template.  Not recommended.
+  sendErrorTranslated(messageTranslated: string, options = {}) {
+    this.sendNotification('error', messageTranslated, '', options);
   }
 }
