@@ -102,6 +102,89 @@
         "info-wait-confirm": "Várakozás a Ledger eszköz jóváhagyására...",
         "warning-denied": "A Ledger eszköz elutasította a tranzakciót"
     },
+    "confappc": {
+        "title": "App Beállítása (MikronWebesTárca)",
+        "advanced": {
+            "all-button": "MINDEN adat Törlése",
+            "all-desc": "Letöröl MINDEN tárolt adatot: a tárcát, címjegyzéket, beállításokat, stb.",
+            "data-button": "Tárca adatok Törlése",
+            "data-desc": "Letörli a tárca adatait: számlákat, írmagot, privát kulcsokat",
+            "title": "Haladó Opciók",
+            "work-button": "Munka tár Törlése",
+            "work-desc": "Letörli a helyi átmeneti tárolóban tárolt munka bizonyíték értékeket."
+        },
+        "display": {
+            "denom-desc": "A Mikron egyenlegek megjelenítésének (egység, formázás) állítása.",
+            "denom-name": "Egyenleg egység",
+            "denom-opt": {
+                "den-mik": "MIK, normál formázás",
+                "den-mik-long": "MIK, hosszú formázás",
+                "den-mik-short": "MIK, rövid formázás",
+                "den-kmik": "KMIK",
+                "den-ant": "Ant (nyers)"
+            },
+            "fiat-desc": "A hagyományos (fiat) pénz ellenérték kijelzésének valutaneme.  A 'None' esetén nem jelenik meg érték.",
+            "fiat-name": "Fiat pénznem",
+            "title": "Megjelenítési Beállítások",
+            "update": "Megjelenítés Beállítások Mentése"
+        },
+        "server": {
+            "conf-desc": "A Mikron hálózattal való kommunikálásra használt szerverek címei.  Nem ajánlott változtatni, csak fejlesztőknek.",
+            "conf-name": "Szerver konfig",
+            "title": "Szerver Beállítások",
+            "update": "Szerver Beállítások Mentése",
+            "node": {
+                "desc": "A használt Mikron node felülírása.",
+                "msg1": "Ez a node",
+                "msg2": "Mikron RPC interfészt",
+                "msg3": "tesz elérhatővé az API szerver számára.  A kérések az API szerverhez mennek, de az ezt a node-ot használja a Mikron hálózattal való kommunikációra.",
+                "name": "Felülírt Mikron node"
+            },
+            "server": {
+                "desc": "Ez a szerver adatokat kér le a Mikron node-tól, azokat tárolja és kiegészíti.",
+                "msg1": "Ez a szerver egy",
+                "msg2": "MikronWebWallet szerver",
+                "msg3": "kell legyen (vagy avval kompatibilis API).",
+                "name": "API Szerver"
+            },
+            "updates": {
+                "desc": "Ez a szerver jelez azonnali értesítéseket új tranzakciókról.",
+                "msg1": "Ez a szerver egy",
+                "msg2": "MikronWebWallet Websocket szerver",
+                "msg3": "kell legyen (vagy avval kompatibilis API).  Ez az automatikus egyenleg frissítésekhez szükséges (de az alap tárcafunkciók működnek nélküle is)",
+                "name": "Értesítés Szerver"
+            }
+        },
+        "wallet": {
+            "lock-desc": "Beállítható, hogy mennyi inaktivitási idő után záródjon automatikusan a tárca, biztonság miatt.",
+            "lock-name": "Automatikus lezárás",
+            "lock-opt": {
+                "0": "Soha",
+                "1": "1 perc",
+                "5": "5 perc",
+                "15": "15 perc",
+                "30": "30 perc",
+                "60": "1 óra",
+                "360": "6 óra"
+            },
+            "pow-desc": "Beállítható, hogy hogyan generálódjanak az új blokkokhoz szükséges munka bizonyítékok (proof of work).",
+            "pow-name": "PoW számítás helye",
+            "pow-opt": {
+                "best": "A legjobb elérhető opció",
+                "clientWebGL": "Kliens oldal - WebGL (Chrome/Firefox)",
+                "clientCPU": "Kliens oldal - CPU",
+                "server": "Szerver - MikronWebWallet szerver"
+            },
+            "store-desc": "Hol tárolódjon a tárcád.  Ha nincs tárolva, minden alkalommal újra be kell állítanod a tárcád.",
+            "store-name": "Tárca tárolás",
+            "store-opt": {
+                "localStorage": "Böngésző helyi tárolója",
+                "none": "Sehol"
+            },
+            "title": "Tárca Beállítások",
+            "update": "Tárca Beállítások Mentése"
+        }
+    },
     "confwallc": {
         "create": "Tárca létrehozás",
         "create-new": "Új Tárca létrehozás",
@@ -217,17 +300,17 @@
         "cat3t": "Ez egy megbízhatónak jelzett képviselő.  Nincs szükség változtatásra.",
         "cat4t": "Ez a képviselő el van mentve a listában, amíg online, addig nincs szükség változtatásra.",
         "cat5t": "Ez a képviselő nem ismert, fontold meg, hogy egy másikra cseréled, vagy ezt hozzáadod a listádhoz.",
-        "change": "Megávltoztat",
+        "change": "Megváltoztat",
         "change-rep": "Képviselőid megváltoztatása",
         "desc": "A következő képviselőknek delegáltál szavazati jogot",
         "known": "Ismert",
-        "manage": "Képviselől kezelése",
+        "manage": "Képviselők kezelése",
         "new-rep": "Új képviselő",
         "no-acc-delegated": "Még egyik számlád sem delegált szavazati jogot, fogadnod kell egy tranzakciót hogy delegálhass.",
         "remove": "Listából eltávolít",
-        "rep-acc-id": "Képviselő számla ID",
+        "rep-acc-id": "Képviselő számla azonosító",
         "rep-list-result": "Képviselő lista eredmény",
-        "rep-offline": "A képviselő nincs online",
+        "rep-offline": "A képviselő nem online",
         "rep-online": "A képviselő online",
         "select-accs": "Válaszd ki a megváltoztatandó képviselőket",
         "select-accounts": "Válaszd ki a számlákat amelyek a képviselőt használják",

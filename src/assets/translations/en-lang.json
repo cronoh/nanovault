@@ -102,6 +102,89 @@
         "info-wait-confirm": "Waiting for confirmation on Ledger Device...",
         "warning-denied": "Transaction denied on Ledger device"
     },
+    "confappc": {
+        "title": "Configure App (MikronWebWallet)",
+        "advanced": {
+            "all-button": "Delete ALL Data",
+            "all-desc": "This will delete ALL stored data, including your wallet, address book, settings and more.",
+            "data-button": "Delete Wallet Data",
+            "data-desc": "This will delete all data related to your wallet (Your seed and accounts)",
+            "title": "Advanced Options",
+            "work-button": "Clear Work Cache",
+            "work-desc": "This will delete all locally cached Proof of Work values"
+        },
+        "display": {
+            "denom-desc": "Change the default denomination used throughout the application when displaying Mikron balances",
+            "denom-name": "Display Denomination",
+            "denom-opt": {
+                "den-mik": "MIK, default format",
+                "den-mik-long": "MIK, long format",
+                "den-mik-short": "MIK, short format",
+                "den-kmik": "KMIK",
+                "den-ant": "Ant (raw)"
+            },
+            "fiat-desc": "Change the currency pair used when showing fiat values in the application.  Select None to hide fiat pairs.",
+            "fiat-name": "FIAT Currency",
+            "update": "Update Display Settings",
+            "title": "Display Settings"
+        },
+        "server": {
+            "conf-desc": "Change which server is used to communicate with the Mikron network.  Not recommended to change, only by developers.",
+            "conf-name": "Server Configuration",
+            "title": "Server Settings",
+            "update`": "Update Server Settings",
+            "node": {
+                "desc": "Override which node is used by the API Server to communicate with the Mikron network.",
+                "msg1": "This server must be exposing the",
+                "msg2": "Mikron RPC",
+                "msg3": "to the API server used above.  Requests will still be sent to the API server, but this node will be used to communicate with the network.",
+                "name": "Override Mikron Node"
+            },
+            "server": {
+                "desc": "This server is used to load, cache, and enhance results from the Mikron node.",
+                "msg1": "This server must be running the",
+                "msg2": "MikronWebWallet Server",
+                "msg3": "application, or an API compliant with it.",
+                "name": "API Server"
+            },
+            "updates": {
+                "desc": "This server is used to notify the wallet in real time when new transactions arrive.",
+                "msg1": "This server must be running the",
+                "msg2": "MikronWebWallet Websocket",
+                "msg3": "application, or a WebSocket API compliant with it.  Note: Since this server only notifies about new transactions, most of the wallet functions fine without it.",
+                "name": "Updates Server"
+            }
+        },
+        "wallet": {
+            "lock-desc": "Change if your wallet should be locked automatically after you have not interacted with it for a certain period of time",
+            "lock-name": "Lock After Inactivity",
+            "lock-opt": {
+                "0": "Never",
+                "1": "1 Minute",
+                "5": "5 Minutes",
+                "15": "15 Minutes",
+                "30": "30 Minutes",
+                "60": "1 Hour",
+                "360": "6 Hours"
+            },
+            "pow-desc": "Change how Proof of Work for your blocks are generated.",
+            "pow-name": "PoW Source",
+            "pow-opt": {
+                "best": "Best Option Available",
+                "clientWebGL": "Client Side - WebGL (Chrome/Firefox)",
+                "clientCPU": "Client Side - CPU",
+                "server": "Server - MikronWebWallet Server"
+            },
+            "store-desc": "Change where your wallet is stored.  If you select none, your wallet is reset every time you reload.",
+            "store-name": "Wallet Storage",
+            "store-opt": {
+                "localStorage": "Browser Local Storage",
+                "none": "None"
+            },
+            "update": "Update Wallet Settings",
+            "title": "Wallet Settings"
+        }
+    },
     "confwallc": {
         "create": "Create Wallet",
         "create-new": "Create New Wallet",
