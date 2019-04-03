@@ -13,12 +13,14 @@
     "language": "Language",
     "mikron": "Mikron",
     "new": "New",
+    "options": "Options",
     "pending": "Pending",
     "previous": "Previous",
     "prod-name": "MikronWebWallet",
     "receive": "Receive",
     "representative": "Representative",
     "send": "Send",
+    "sender": "Sender",
     "settings": "Settings",
     "signature": "Signature",
     "type": "Type",
@@ -302,6 +304,17 @@
     },
     "pow-service": {
         "error-unable": "Unable to generate work"
+    },
+    "recc": {
+        "butt-loading": "Loading",
+        "butt-receive": "Receive",
+        "desc1": "When someone sends you Mikron, you are also in charge of performing a receive block to actually receive the funds.",
+        "desc2": "If you have the wallet open when you receive a transaction, this will be performed automatically.",
+        "desc3": "Otherwise, select the account you are expecting to receive from below to search for pending transactions.",
+        "find-pending": "Find Pending",
+        "no-pending": "No pending transactions",
+        "opt-all-accounts": "All Accounts",
+        "title": "Receive Mikron"
     },
     "repsc": {
         "accs-to-change": "Accounts to Change",

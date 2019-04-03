@@ -13,12 +13,14 @@
     "language": "Nyelv",
     "mikron": "Mikron",
     "new": "Új",
+    "options": "Opciók",
     "pending": "Függő",
     "previous": "Előző",
     "prod-name": "MikronWebesTárca",
     "receive": "Fogadás",
     "representative": "Képviselő",
     "send": "Küldés",
+    "sender": "Küldő",
     "settings": "Beállítások",
     "signature": "Aláírás",
     "type": "Típus",
@@ -302,6 +304,17 @@
     },
     "pow-service": {
         "error-unable": "Nem sikerült a munka bizonyítékot generálni"
+    },
+    "recc": {
+        "butt-loading": "Betöltés...",
+        "butt-receive": "Fogadás",
+        "desc1": "Ha valaki Mikront küld neked, ez csak akkor kerül ténylegesen a te számládra, amikor létrejön egy fogadó blokk is a tárcádban.",
+        "desc2": "Ha a tárcád nyitva van a fogadás pillanatában, ez automatikusan megtörténik.",
+        "desc3": "Ha nem, akkor ezt külön meg kell tenni.  Válaszd ki a számlát amiről várod a fogadást, a függő tranzakciók kereséséhez.",
+        "find-pending": "Függők keresése",
+        "no-pending": "Nincs függő tranzakció",
+        "opt-all-accounts": "Összes számla",
+        "title": "Mikron fogadása"
     },
     "repsc": {
         "accs-to-change": "Változtatandó számlák",

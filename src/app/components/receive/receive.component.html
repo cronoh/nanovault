@@ -2,16 +2,18 @@
   <div class="uk-width-1-1">
     <div uk-grid>
       <div class="uk-width-1-1">
-        <h2>Receive Mikron</h2>
+        <h2>{{'recc.title' | t}}</h2>
       </div>
     </div>
 
     <div uk-grid>
       <div class="uk-width-1-1">
         <p>
-          When someone sends you Mikron, you are also in charge of performing a receive block to actually receive the funds.<br>
-          If you have the wallet open when you receive a transaction, this will be performed automatically.<br>
-          Otherwise, select the account you are expecting to receive from below to search for pending transactions.
+          {{'recc.desc1' | t}}
+          <br>
+          {{'recc.desc2' | t}}
+          <br>
+          {{'recc.desc3' | t}}
         </p>
       </div>
     </div>
@@ -19,12 +21,12 @@
     <div uk-grid>
       <div class="uk-width-3-4@s">
         <select class="uk-select" [(ngModel)]="pendingAccountModel">
-          <option [value]="0">All Accounts</option>
+          <option [value]="0">{{'recc.opt-all-accounts' | t}}</option>
           <option *ngFor="let account of accounts" [value]="account.id">{{ account.id }}</option>
         </select>
       </div>
       <div class="uk-width-1-4@s">
-        <button class="uk-button uk-button-primary uk-width-1-1" (click)="getPending(pendingAccountModel)"> Find Pending</button>
+        <button class="uk-button uk-button-primary uk-width-1-1" (click)="getPending(pendingAccountModel)">{{'recc.find-pending' | t}}</button>
       </div>
       <div class="uk-width-1-1">
         <div class="uk-card uk-card-default">
@@ -32,9 +34,9 @@
             <thead>
             <tr>
               <th>{{'accounts' | t}}</th>
-              <th>Sender</th>
-              <th>Amount</th>
-              <th>Options</th>
+              <th>{{'sender' | t}}</th>
+              <th>{{'amount' | t}}</th>
+              <th>{{'options' | t}}</th>
             </tr>
             </thead>
             <tbody>
@@ -69,12 +71,12 @@
               </td>
               <td>{{ block.amount | rai: settings.settings.displayDenomination }}</td>
               <td class="uk-text-nowrap">
-                <button *ngIf="!block.loading" (click)="receivePending(block)" class="uk-button uk-button-secondary uk-button-small">Receive</button>
-                <button *ngIf="block.loading" class="uk-button uk-button-secondary uk-disabled uk-button-small"><span class="uk-margin-right" uk-spinner></span> Loading</button>
+                <button *ngIf="!block.loading" (click)="receivePending(block)" class="uk-button uk-button-secondary uk-button-small">{{'recc.butt-receive' | t}}</button>
+                <button *ngIf="block.loading" class="uk-button uk-button-secondary uk-disabled uk-button-small"><span class="uk-margin-right" uk-spinner></span>{{'recc.butt-loading' | t}}</button>
               </td>
             </tr>
             <tr *ngIf="!pendingBlocks.length">
-              <td colspan="4" style="text-align: center;">No pending transactions</td>
+              <td colspan="4" style="text-align: center;">{{'recc.no-pending' | t}}</td>
             </tr>
             </tbody>
           </table>
