@@ -1,30 +1,30 @@
 <div class="uk-animation-slide-left-small" uk-grid>
   <div class="uk-width-1-1">
-    <h2>Import Address Book</h2>
+    <h2>{{'impaddrc.title' | t}}</h2>
 
     <div class="uk-card uk-card-default uk-margin" *ngIf="activePanel == 'error'">
       <div class="uk-card-header">
-        <h3 class="uk-card-title">Bad Import Data</h3>
+        <h3 class="uk-card-title">{{'impaddrc.bad-data' | t}}</h3>
       </div>
       <div class="uk-card-body">
-        <p>There was an issue reading the import data for your address book.  Double check the address and try again.</p>
+        <p>{{'impaddrc.bad-data-desc' | t}}</p>
       </div>
     </div>
 
     <div class="uk-card uk-card-default uk-margin" *ngIf="activePanel == 'import'">
       <div class="uk-card-header">
-        <h3 class="uk-card-title">Confirm Import</h3>
+        <h3 class="uk-card-title">{{'impaddrc.confirm-import' | t}}</h3>
       </div>
       <div class="uk-card-body">
         <p class="uk-text-center">
           <span class="import-warning" *ngIf="conflictingEntries">
-            {{ conflictingEntries }} Labels already exist and will have their name changed.
+            {{ conflictingEntries }} {{'impaddrc.labels-exist-update' | t}}
           </span>
           <span class="import-warning" *ngIf="newEntries">
-            {{ newEntries }} New labels will be added.
+            {{ newEntries }} {{'impaddrc.labels-new' | t}}
           </span>
           <span class="import-warning" *ngIf="existingEntries">
-            {{ existingEntries }} Labels already exist and will not be modified.
+            {{ existingEntries }} {{'impaddrc.labels-exist-same' | t}}
           </span>
         </p>
 
@@ -33,8 +33,8 @@
             <ul class="uk-list uk-list-striped" style="margin-bottom: 0;">
               <li style="background: #fff; border-bottom: 0;">
                 <div uk-grid style="color: #999; text-transform: uppercase; font-size: .875rem; font-weight: 400;">
-                  <div class="uk-width-1-4">New Label</div>
-                  <div class="uk-width-1-4">Current Label</div>
+                  <div class="uk-width-1-4">{{'impaddrc.new-label' | t}}</div>
+                  <div class="uk-width-1-4">{{'impaddrc.current-label' | t}}</div>
                   <div class="uk-width-1-2 uk-text-truncate" style="padding-left: 0;">{{'account' | t}}</div>
                 </div>
               </li>
@@ -62,10 +62,10 @@
       <div class="uk-card-footer">
         <div uk-grid>
           <div class="uk-width-1-2 uk-text-left">
-            <button routerLink="/address-book" class="uk-button uk-button-danger">Cancel</button>
+            <button routerLink="/address-book" class="uk-button uk-button-danger">{{'cancel' | t}}</button>
           </div>
           <div class="uk-width-1-2 uk-text-right">
-            <button (click)="confirmImport()" class="uk-button uk-button-secondary">Import Address Book</button>
+            <button (click)="confirmImport()" class="uk-button uk-button-secondary">{{'impaddrc.import' | t}}</button>
           </div>
         </div>
       </div>
@@ -73,16 +73,15 @@
 
     <div class="uk-card uk-card-default uk-margin" *ngIf="activePanel == 'imported'">
       <div class="uk-card-header">
-        <h3 class="uk-card-title">Address Book Imported</h3>
+        <h3 class="uk-card-title">{{'impaddrc.imported' | t}}</h3>
       </div>
       <div class="uk-card-body">
-        <p>Your address book has been successfully imported!</p>
+        <p>{{'impaddrc.imported-desc' | t}}</p>
       </div>
       <div class="uk-card-footer uk-text-right">
-        <button routerLink="/address-book" class="uk-button uk-button-secondary">View Address Book</button>
+        <button routerLink="/address-book" class="uk-button uk-button-secondary">{{'addrbookc.view-action' | t}}</button>
       </div>
     </div>
-
 
   </div>
 </div>

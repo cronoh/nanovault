@@ -7,6 +7,7 @@
     "amount": "Összeg",
     "balance": "Egyenleg",
     "block": "Blokk",
+    "cancel": "Mégsem",
     "copy-success": "Vágólapra másolva!",
     "date": "Dátum",
     "hash": "Hash",
@@ -80,7 +81,8 @@
         "name": "Címke",
         "name-hint": "Pl. Fő számla, Váltó számla, Küldő számla, stb.",
         "options": "Opciók",
-        "title": "Címjegyzék"
+        "title": "Címjegyzék",
+        "view-action": "Címjegyzék Megtekintés"
     },
     "appc": {
         "connecting": "Csatlakozás Mikron node-hoz",
@@ -232,6 +234,20 @@
         "title": "Tárca Beállítás",
         "wallet-configured": "Tárca beállítva!",
         "wallet-created": "Tárca létrehozva!"
+    },
+    "impaddrc": {
+        "bad-data": "Hibás import adat!",
+        "bad-data-desc": "Valami gond volt az importálandó adattal.  Ellenőrízd és próbáld újra!",
+        "confirm-import": "Importálás jóváhagyása",
+        "current-label": "Jelenlegi címke",
+        "import": "Címjegyzék importálás",
+        "imported": "Címjegyzék beimportálva",
+        "imported-desc": "A címjegyzéked sikeresen be lett importálva!",
+        "labels-exist-same": "db. címke már létezik és nem lesz módosítva",
+        "labels-exist-update": "db. címke már létezik és frissítve lesz",
+        "labels-new": "db. új címke kerül hozzáadásra",
+        "new-label": "Új címke",
+        "title": "Címjegyzék importálás"
     },
     "impwallc": {
         "bad-data": "Hibás import adat",

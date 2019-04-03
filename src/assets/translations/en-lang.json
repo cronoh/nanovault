@@ -7,6 +7,7 @@
     "amount": "Amount",
     "balance": "Balance",
     "block": "Block",
+    "cancel": "Cancel",
     "copy-success": "Copied to clipboard!",
     "date": "Date",
     "hash": "Hash",
@@ -80,7 +81,8 @@
         "name": "Name",
         "name-hint": "Exchange Deposit Address, Main Trading Account, etc",
         "options": "Options",
-        "title": "Address Book"
+        "title": "Address Book",
+        "view-action": "View Address Book"
     },
     "appc": {
         "connecting": "Attempting to connect to Mikron node",
@@ -232,6 +234,20 @@
         "title": "Configure Wallet",
         "wallet-configured": "Wallet Configured!",
         "wallet-created": "Wallet Created!"
+    },
+    "impaddrc": {
+        "bad-data": "Bad Import Data",
+        "bad-data-desc": "There was an issue reading the import data for your address book.  Double check the address and try again.",
+        "confirm-import": "Confirm Import",
+        "current-label": "Current Label",
+        "import": "Import Address Book",
+        "imported": "Address Book Imported",
+        "imported-desc": "Your address book has been successfully imported!",
+        "labels-exist-same": "Labels already exist and will not be modified.",
+        "labels-exist-update": "Labels already exist and will have their name changed.",
+        "labels-new": "New labels will be added.",
+        "new-label": "New Label",
+        "title": "Import Address Book"
     },
     "impwallc": {
         "bad-data": "Bad Import Data",
