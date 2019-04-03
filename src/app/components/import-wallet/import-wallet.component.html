@@ -1,42 +1,42 @@
 <div class="uk-animation-slide-left-small" uk-grid>
   <div class="uk-width-1-1">
-    <h2>Import Wallet</h2>
+    <h2>{{'impwallc.title' | t}}</h2>
 
     <div class="uk-card uk-card-default uk-margin" *ngIf="activePanel == 'error'">
       <div class="uk-card-header">
-        <h3 class="uk-card-title">Bad Import Data</h3>
+        <h3 class="uk-card-title">{{'impwallc.bad-data' | t}}</h3>
       </div>
       <div class="uk-card-body">
-        <p>There was an issue reading the import data for your wallet.  Double check the address and try again.</p>
+        <p>{{'impwallc.bad-data-msg' | t}}</p>
       </div>
     </div>
 
     <div class="uk-card uk-card-default uk-margin" *ngIf="activePanel == 'import'">
       <div class="uk-card-header">
-        <h3 class="uk-card-title">Confirm Wallet Password</h3>
+        <h3 class="uk-card-title">{{'impwallc.pwd-confirm' | t}}</h3>
       </div>
       <div class="uk-card-body">
-        <p>Almost finished - just enter your wallet password to decrypt your wallet!</p>
+        <p>{{'impwallc.pwd-confirm-msg' | t}}</p>
         <div uk-grid>
           <div class="uk-width-1-1">
-            <input class="uk-input" [(ngModel)]="walletPassword" placeholder="Wallet Password" type="password">
+            <input class="uk-input" [(ngModel)]="walletPassword" placeholder="{{'impwallc.pwd-placeholder' | t}}" type="password">
           </div>
         </div>
       </div>
       <div class="uk-card-footer uk-text-right">
-        <button (click)="decryptWallet()" class="uk-button uk-button-secondary">Import Wallet</button>
+        <button (click)="decryptWallet()" class="uk-button uk-button-secondary">{{'impwallc.import-button' | t}}</button>
       </div>
     </div>
 
     <div class="uk-card uk-card-default uk-margin" *ngIf="activePanel == 'imported'">
       <div class="uk-card-header">
-        <h3 class="uk-card-title">Wallet Imported</h3>
+        <h3 class="uk-card-title">{{'impwallc.imported' | t}}</h3>
       </div>
       <div class="uk-card-body">
-        <p>Your wallet has been successfully imported!</p>
+        <p>{{'impwallc.imported-msg' | t}}</p>
       </div>
       <div class="uk-card-footer uk-text-right">
-        <button routerLink="/accounts" class="uk-button uk-button-secondary">View Accounts</button>
+        <button routerLink="/accounts" class="uk-button uk-button-secondary">{{'welcomec.view-accounts' | t}}</button>
       </div>
     </div>
 

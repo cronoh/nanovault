@@ -231,6 +231,17 @@
         "wallet-configured": "Tárca beállítva!",
         "wallet-created": "Tárca létrehozva!"
     },
+    "impwallc": {
+        "bad-data": "Hibás import adat",
+        "bad-data-msg": "Valami gond volt az importált tárca adatokkal. Ellenőrízd a címet, és próbáld újra",
+        "import-button": "Tárca Importálás",
+        "imported": "Tárca importálva",
+        "imported-msg": "Sikeresen importáltuk a tárcád!",
+        "pwd-confirm": "Tárca jelszó ellenőrzése",
+        "pwd-confirm-msg": "Majdnem kész -- add meg a tárca jelszavad a kititkosításhoz!",
+        "pwd-placeholder": "tárca jelszó",
+        "title": "Tárca Importálás"
+    },
     "lang": {
         "en": "angol",
         "hu": "magyar"
@@ -375,6 +386,7 @@
     },
     "wallet-widget": {
         "cancel": "Mégsem",
+        "configure-wallet": "Tárca beállítás",
         "error-invalid-password": "Hibás jelszó, próbáld újra!",
         "error-unable-lock": "Nem sikerült zárolni a tárcát!",
         "info-checking-ledger": "Ledger eszköz állapot ellenőrzés...",
@@ -382,11 +394,11 @@
         "ledger-app-closed": "Ledger App bezárva",
         "ledger-ready": "Ledger kész",
         "lock-must-set-password": "Be kell állítanod egy jelszót a tárcádhoz -- jelenleg üres!",
+        "pwd-placeholder": "tárca jelszó",
+        "unlock": "Felold",
+        "unlock-wallet": "Tárca feloldás",
         "wallet-locked": "Tárca zárolva",
         "wallet-unlocked": "Tárca feloldva",
-        "configure-wallet": "Tárca beállítás",
-        "unlock-wallet": "Tárca feloldás",
-        "unlock": "Felold",
         "warning-wallet-locked": "A tárcát fel kell nyitni"
     },
     "welcomec": {

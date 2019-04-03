@@ -231,6 +231,17 @@
         "wallet-configured": "Wallet Configured!",
         "wallet-created": "Wallet Created!"
     },
+    "impwallc": {
+        "bad-data": "Bad Import Data",
+        "bad-data-msg": "There was an issue reading the import data for your wallet.  Double check the address and try again.",
+        "import-button": "Import Wallet",
+        "imported": "Wallet Imported",
+        "imported-msg": "Your wallet has been successfully imported!",
+        "pwd-confirm": "Confirm Wallet Password",
+        "pwd-confirm-msg": "Almost finished - just enter your wallet password to decrypt your wallet!",
+        "pwd-placeholder": "Enter wallet password",
+        "title": "Import Wallet"
+    },
     "lang": {
         "en": "English",
         "hu": "Hungarian"
@@ -375,6 +386,7 @@
     },
     "wallet-widget": {
         "cancel": "Cancel",
+        "configure-wallet": "Configure Wallet",
         "error-invalid-password": "Invalid password, please try again!",
         "error-unable-lock": "Unable to lock wallet",
         "info-checking-ledger": "Checking Ledger Status...",
@@ -382,11 +394,11 @@
         "ledger-app-closed": "Ledger App Closed",
         "ledger-ready": "Ledger Ready",
         "lock-must-set-password": "You must set a password on your wallet - it is currently blank!",
+        "pwd-placeholder": "Enter wallet password",
+        "unlock": "Unlock",
+        "unlock-wallet": "Unlock Wallet",
         "wallet-locked": "Wallet Locked",
         "wallet-unlocked": "Wallet Unlocked",
-        "configure-wallet": "Configure Wallet",
-        "unlock-wallet": "Unlock Wallet",
-        "unlock": "Unlock",
         "warning-wallet-locked": "Wallet must be unlocked"
     },
     "welcomec": {
