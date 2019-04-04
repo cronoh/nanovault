@@ -344,9 +344,11 @@
         "desc1": "When someone sends you Mikron, you are also in charge of performing a receive block to actually receive the funds.",
         "desc2": "If you have the wallet open when you receive a transaction, this will be performed automatically.",
         "desc3": "Otherwise, select the account you are expecting to receive from below to search for pending transactions.",
+        "error-recieving": "There was an error receiving the transaction!",
         "find-pending": "Find Pending",
         "no-pending": "No pending transactions",
         "opt-all-accounts": "All Accounts",
+        "success": "Successfully received incoming Mikron!",
         "title": "Receive Mikron"
     },
     "repsc": {

@@ -102,16 +102,16 @@ export class ReceiveComponent implements OnInit {
     const walletAccount = this.walletService.wallet.accounts.find(a => a.id == pendingBlock.account);
     if (!walletAccount) throw new Error(`unable to find receiving account in wallet`);
 
-    if (this.walletService.walletIsLocked()) return this.notificationService.sendWarninNotifTodo(`Wallet must be unlocked`);
+    if (this.walletService.walletIsLocked()) return this.notificationService.sendWarningKey('wallet-widget.warning-wallet-locked');
     pendingBlock.loading = true;
 
     const newBlock = await this.block.generateReceive(walletAccount, sourceBlock, this.walletService.isLedgerWallet());
 
     if (newBlock) {
-      this.notificationService.sendSuccesNotifTodo(`Successfully received Nano!`);
+      this.notificationService.sendSuccessKey('recc.success');
     } else {
       if (!this.walletService.isLedgerWallet()) {
-        this.notificationService.sendErrNotifTodo(`There was an error receiving the transaction`)
+        this.notificationService.sendErrorKey('recc.error-recieving')
       }
     }
 
@@ -122,7 +122,7 @@ export class ReceiveComponent implements OnInit {
   }
 
   copied() {
-    this.notificationService.sendSuccesNotifTodo(`Successfully copied to clipboard!`);
+    this.notificationService.sendSuccessKey('copy-success');
   }
 
 }

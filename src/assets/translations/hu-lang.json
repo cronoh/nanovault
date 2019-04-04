@@ -344,9 +344,11 @@
         "desc1": "Ha valaki Mikront küld neked, ez csak akkor kerül ténylegesen a te számládra, amikor létrejön egy fogadó blokk is a tárcádban.",
         "desc2": "Ha a tárcád nyitva van a fogadás pillanatában, ez automatikusan megtörténik.",
         "desc3": "Ha nem, akkor ezt külön meg kell tenni.  Válaszd ki a számlát amiről várod a fogadást, a függő tranzakciók kereséséhez.",
+        "error-recieving": "Hiba a tranzakció fogadása során!",
         "find-pending": "Függők keresése",
         "no-pending": "Nincs függő tranzakció",
         "opt-all-accounts": "Összes számla",
+        "success": "Sikeres bejövő Mikron fogadás!",
         "title": "Mikron fogadása"
     },
     "repsc": {
