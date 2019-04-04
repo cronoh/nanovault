@@ -1,6 +1,7 @@
 {
     "account": "Account",
     "account-copy": "Copy Account Address",
+    "account-id": "Account ID",
     "account-no": "Account #",
     "accounts": "Accounts",
     "address-book": "Address Book",
@@ -13,6 +14,7 @@
     "hash": "Hash",
     "language": "Language",
     "mikron": "Mikron",
+    "name": "Name",
     "new": "New",
     "options": "Options",
     "pending": "Pending",
@@ -68,7 +70,6 @@
         "warning-account-id": "Account ID is not a valid account"
     },
     "addrbookc": {
-        "account-id": "Account ID",
         "action-cancel": "Cancel",
         "action-save-new": "Save New Contact",
         "add-new": "Add New Contact",
@@ -362,6 +363,25 @@
         "update-reps": "Update Representatives",
         "updating-reps": "Updating Representatives",
         "weight": "Weight"
+    },
+    "repsmanc": {
+        "add-new-rep": "Add New Rep",
+        "avoid-rep": "Avoid Representative",
+        "click-to-create": "click here to create one",
+        "create-new-rep": "Create New Representative",
+        "delete-rep": "Delete Representative",
+        "desc": "You can use the representatives list to store a label and other information for representatives you use.",
+        "edit-rep": "Edit Representative",
+        "marked-avoid": "Representative marked as avoid",
+        "marked-trusted": "Representative marked as trusted",
+        "no-rep": "You do not have any representatives saved yet",
+        "rep-flags": "Representative Flags",
+        "rep-name": "Representative Name",
+        "save-new-rep": "Save New Representative",
+        "title": "Representatives List",
+        "to-top": "Make a representative appear at the top of your list as a recommended option",
+        "trusted-rep": "Trusted Representative",
+        "warn-rep": "Warn the user when using this representative"
     },
     "sendc": {
         "about-to-send": "You are about to send:",
