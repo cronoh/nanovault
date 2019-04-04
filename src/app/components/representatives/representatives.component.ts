@@ -170,7 +170,7 @@ export class RepresentativesComponent implements OnInit {
         representatives.push(representative);
       }
     } catch (err) {
-      this.notifications.sendWarninRemove(`Unable to determine online status of representatives`);
+      this.notifications.sendWarninNotifTodo(`Unable to determine online status of representatives`);
     }
 
     return representatives;
@@ -250,15 +250,15 @@ export class RepresentativesComponent implements OnInit {
     const newRep = this.toRepresentativeID;
 
     if (this.changingRepresentatives) return; // Already running
-    if (this.wallet.walletIsLocked()) return this.notifications.sendWarninRemove(`Wallet must be unlocked`);
-    if (!accounts || !accounts.length) return this.notifications.sendWarninRemove(`You must select at least one account to change`);
+    if (this.wallet.walletIsLocked()) return this.notifications.sendWarninNotifTodo(`Wallet must be unlocked`);
+    if (!accounts || !accounts.length) return this.notifications.sendWarninNotifTodo(`You must select at least one account to change`);
 
     this.changingRepresentatives = true;
 
     const valid = await this.api.validateAccountNumber(newRep);
     if (!valid || valid.valid !== '1') {
       this.changingRepresentatives = false;
-      return this.notifications.sendWarninRemove(`Representative is not a valid account`);
+      return this.notifications.sendWarninNotifTodo(`Representative is not a valid account`);
     }
 
     const allAccounts = accounts.find(a => a.id === 'All Accounts');
@@ -278,7 +278,7 @@ export class RepresentativesComponent implements OnInit {
 
     if (!accountsNeedingChange.length) {
       this.changingRepresentatives = false;
-      return this.notifications.sendInfRemove(`None of the accounts selected need to be updated`);
+      return this.notifications.sendInfNotifTodo(`None of the accounts selected need to be updated`);
     }
 
     // Now loop and change them
@@ -289,7 +289,7 @@ export class RepresentativesComponent implements OnInit {
       try {
         const changed = await this.block.generateChange(walletAccount, newRep, this.wallet.isLedgerWallet());
         if (!changed) {
-          this.notifications.sendErrRemove(`Error changing representative for ${account.id}, please try again`);
+          this.notifications.sendErrNotifTodo(`Error changing representative for ${account.id}, please try again`);
         }
       } catch (err) {
         this.notifications.sendErrorTranslated(err.message);
@@ -302,7 +302,7 @@ export class RepresentativesComponent implements OnInit {
     this.representativeListMatch = '';
     this.changingRepresentatives = false;
 
-    this.notifications.sendSuccesRemove(`Successfully updated representatives!`);
+    this.notifications.sendSuccesNotifTodo(`Successfully updated representatives!`);
 
     await this.loadRepresentativeOverview();
   }

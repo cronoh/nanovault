@@ -62,21 +62,21 @@ export class ManageRepresentativesComponent implements OnInit, AfterViewInit {
   }
 
   async saveNewRepresentative() {
-    if (!this.newRepAccount || !this.newRepName) return this.notificationService.sendErrRemove(`Account and name are required`);
+    if (!this.newRepAccount || !this.newRepName) return this.notificationService.sendErrNotifTodo(`Account and name are required`);
 
     this.newRepAccount = this.newRepAccount.replace(/ /g, ''); // Remove spaces
 
     // Make sure the address is valid
     const valid = await this.nodeApi.validateAccountNumber(this.newRepAccount);
-    if (!valid || valid.valid !== '1') return this.notificationService.sendWarninRemove(`Account ID is not a valid account`);
+    if (!valid || valid.valid !== '1') return this.notificationService.sendWarninNotifTodo(`Account ID is not a valid account`);
 
     try {
       await this.repService.saveRepresentative(this.newRepAccount, this.newRepName, this.newRepTrusted, this.newRepWarn);
-      this.notificationService.sendSuccesRemove(`Successfully saved new representative!`);
+      this.notificationService.sendSuccesNotifTodo(`Successfully saved new representative!`);
 
       this.cancelNewRep();
     } catch (err) {
-      this.notificationService.sendErrRemove(`Unable to save entry: ${err.message}`)
+      this.notificationService.sendErrNotifTodo(`Unable to save entry: ${err.message}`)
     }
   }
 
@@ -89,7 +89,7 @@ export class ManageRepresentativesComponent implements OnInit, AfterViewInit {
   }
 
   copied() {
-    this.notificationService.sendSuccesRemove(`Account address copied to clipboard!`);
+    this.notificationService.sendSuccesNotifTodo(`Account address copied to clipboard!`);
   }
 
   async getOnlineRepresentatives() {
@@ -101,7 +101,7 @@ export class ManageRepresentativesComponent implements OnInit, AfterViewInit {
         representatives.push(representative);
       }
     } catch (err) {
-      this.notificationService.sendWarninRemove(`Unable to determine online status of representatives`);
+      this.notificationService.sendWarninNotifTodo(`Unable to determine online status of representatives`);
     }
 
     return representatives;
@@ -110,9 +110,9 @@ export class ManageRepresentativesComponent implements OnInit, AfterViewInit {
   async deleteRepresentative(accountID) {
     try {
       this.repService.deleteRepresentative(accountID);
-      this.notificationService.sendSuccesRemove(`Successfully deleted representative`)
+      this.notificationService.sendSuccesNotifTodo(`Successfully deleted representative`)
     } catch (err) {
-      this.notificationService.sendErrRemove(`Unable to delete representative: ${err.message}`)
+      this.notificationService.sendErrNotifTodo(`Unable to delete representative: ${err.message}`)
     }
   }
 

@@ -39,20 +39,20 @@ export class ManageWalletComponent implements OnInit {
   }
 
   async changePassword() {
-    if (this.newPassword !== this.confirmPassword) return this.notifications.sendErrRemove(`Passwords do not match`);
-    if (this.newPassword.length < 1) return this.notifications.sendErrRemove(`Password cannot be empty`);
-    if (this.walletService.walletIsLocked()) return this.notifications.sendWarninRemove(`Wallet must be unlocked`);
+    if (this.newPassword !== this.confirmPassword) return this.notifications.sendErrNotifTodo(`Passwords do not match`);
+    if (this.newPassword.length < 1) return this.notifications.sendErrNotifTodo(`Password cannot be empty`);
+    if (this.walletService.walletIsLocked()) return this.notifications.sendWarninNotifTodo(`Wallet must be unlocked`);
 
     this.walletService.wallet.password = this.newPassword;
     this.walletService.saveWalletExport();
 
     this.newPassword = '';
     this.confirmPassword = '';
-    this.notifications.sendSuccesRemove(`Wallet password successfully updated`);
+    this.notifications.sendSuccesNotifTodo(`Wallet password successfully updated`);
   }
 
   async exportWallet() {
-    if (this.walletService.walletIsLocked()) return this.notifications.sendWarninRemove(`Wallet must be unlocked`);
+    if (this.walletService.walletIsLocked()) return this.notifications.sendWarninNotifTodo(`Wallet must be unlocked`);
 
     const exportUrl = this.walletService.generateExportUrl();
     this.QRExportUrl = exportUrl;
@@ -61,7 +61,7 @@ export class ManageWalletComponent implements OnInit {
   }
 
   copied() {
-    this.notifications.sendSuccesRemove(`Wallet seed copied to clipboard!`);
+    this.notifications.sendSuccesNotifTodo(`Wallet seed copied to clipboard!`);
   }
 
   seedMnemonic() {
@@ -71,7 +71,7 @@ export class ManageWalletComponent implements OnInit {
   async exportAddressBook() {
     const exportData = this.addressBookService.addressBook;
     if (exportData.length >= 25) {
-      return this.notifications.sendErrRemove(`Address books with 25 or more entries need to use the file export method.`);
+      return this.notifications.sendErrNotifTodo(`Address books with 25 or more entries need to use the file export method.`);
     }
     const base64Data = btoa(JSON.stringify(exportData));
     const exportUrl = `https://wallet.mikron.io/import-address-book#${base64Data}`;  // TODO
@@ -82,13 +82,13 @@ export class ManageWalletComponent implements OnInit {
   }
 
   exportAddressBookToFile() {
-    if (this.walletService.walletIsLocked()) return this.notifications.sendWarninRemove(`Wallet must be unlocked`);
+    if (this.walletService.walletIsLocked()) return this.notifications.sendWarninNotifTodo(`Wallet must be unlocked`);
     const fileName = `MikronWebWallet-AddressBook.json`;
 
     const exportData = this.addressBookService.addressBook;
     this.triggerFileDownload(fileName, exportData);
 
-    this.notifications.sendSuccesRemove(`Address book export downloaded!`);
+    this.notifications.sendSuccesNotifTodo(`Address book export downloaded!`);
   }
 
   triggerFileDownload(fileName, exportData) {
@@ -118,13 +118,13 @@ export class ManageWalletComponent implements OnInit {
   }
 
   exportToFile() {
-    if (this.walletService.walletIsLocked()) return this.notifications.sendWarninRemove(`Wallet must be unlocked`);
+    if (this.walletService.walletIsLocked()) return this.notifications.sendWarninNotifTodo(`Wallet must be unlocked`);
 
     const fileName = `MikronWebWallet-Wallet.json`;
     const exportData = this.walletService.generateExportData();
     this.triggerFileDownload(fileName, exportData);
 
-    this.notifications.sendSuccesRemove(`Wallet export downloaded!`);
+    this.notifications.sendSuccesNotifTodo(`Wallet export downloaded!`);
   }
 
   importFromFile(files) {
@@ -137,13 +137,13 @@ export class ManageWalletComponent implements OnInit {
       try {
         const importData = JSON.parse(fileData);
         if (!importData.length || !importData[0].account) {
-          return this.notifications.sendErrRemove(`Bad import data, make sure you selected a MikronWebWallet Address Book export`)
+          return this.notifications.sendErrNotifTodo(`Bad import data, make sure you selected a MikronWebWallet Address Book export`)
         }
 
         const walletEncrypted = btoa(JSON.stringify(importData));
         this.router.navigate(['import-address-book'], { fragment: walletEncrypted });
       } catch (err) {
-        this.notifications.sendErrRemove(`Unable to parse import data, make sure you selected the right file!`);
+        this.notifications.sendErrNotifTodo(`Unable to parse import data, make sure you selected the right file!`);
       }
     };
 
@@ -151,7 +151,7 @@ export class ManageWalletComponent implements OnInit {
   }
 
   notifyCopySuccess() {
-    this.notifications.sendSuccesRemove(this.language.getTran('copy-success'));
+    this.notifications.sendSuccesNotifTodo(this.language.getTran('copy-success'));
   }
 
 }

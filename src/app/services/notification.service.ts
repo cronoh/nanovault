@@ -22,16 +22,16 @@ export class NotificationService {
     this.removeNotification$.next(identifier);
   }
 
-  sendInfRemove(messageTranslated: string, options = {}) {
+  sendInfNotifTodo(messageTranslated: string, options = {}) {
     this.sendNotification('info', messageTranslated, '', options);
   }
-  sendSuccesRemove(messageTranslated: string, options = {}) {
+  sendSuccesNotifTodo(messageTranslated: string, options = {}) {
     this.sendNotification('success', messageTranslated, '', options);
   }
-  sendWarninRemove(messageTranslated: string, options = {}) {
+  sendWarninNotifTodo(messageTranslated: string, options = {}) {
     this.sendNotification('warning', messageTranslated, '', options);
   }
-  sendErrRemove(messageTranslated: string, options = {}) {
+  sendErrNotifTodo(messageTranslated: string, options = {}) {
     this.sendNotification('error', messageTranslated, '', options);
   }
   sendInfoKey(messageKey: string, options = {}) {
