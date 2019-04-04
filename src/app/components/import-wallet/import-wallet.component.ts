@@ -20,24 +20,24 @@ export class ImportWalletComponent implements OnInit {
 
   ngOnInit() {
     const importData = this.route.snapshot.fragment;
-    if (!importData || !importData.length) return this.importDataError(`No import data found.  Check your link and try again.`);
+    if (!importData || !importData.length) return this.importDataError('impwallc.error-no-data');
 
     const decodedData = atob(importData);
 
     try {
       const importBlob = JSON.parse(decodedData);
-      if (!importBlob || !importBlob.seed) return this.importDataError(`Bad import data.  Check your link and try again.`);
+      if (!importBlob || !importBlob.seed) return this.importDataError('impwallc.error-bad-data');
       this.validImportData = true;
       this.importData = importBlob;
       this.activePanel = 'import';
     } catch (err) {
-      return this.importDataError(`Unable to decode import data.  Check your link and try again.`);
+      return this.importDataError('impwallc.error-unable-to-decode');
     }
   }
 
-  importDataError(message) {
+  importDataError(messageKey) {
     this.activePanel = 'error';
-    return this.notifications.sendErrNotifTodo(message);
+    return this.notifications.sendErrorKey(messageKey);
   }
 
   async decryptWallet() {
@@ -47,7 +47,7 @@ export class ImportWalletComponent implements OnInit {
       const decryptedSeed = decryptedBytes.toString(CryptoJS.enc.Utf8);
       if (!decryptedSeed || decryptedSeed.length !== 64) {
         this.walletPassword = '';
-        return this.notifications.sendErrNotifTodo(`Invalid password, please try again`);
+        return this.notifications.sendErrorKey('impwallc.error-invalid-pwd');
       }
 
       await this.wallet.loadImportedWallet(decryptedSeed, this.walletPassword, this.importData.accountsIndex || 0);
@@ -55,7 +55,7 @@ export class ImportWalletComponent implements OnInit {
 
     } catch (err) {
       this.walletPassword = '';
-      return this.notifications.sendErrNotifTodo(`Invalid password, please try again`);
+      return this.notifications.sendErrorKey('impwallc.error-invalid-pwd');
     }
   }
 

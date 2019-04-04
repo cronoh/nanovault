@@ -246,7 +246,7 @@
     },
     "impaddrc": {
         "bad-data": "Hibás import adat!",
-        "bad-data-desc": "Valami gond volt az importálandó adattal.  Ellenőrízd és próbáld újra!",
+        "bad-data-desc": "Valami gond volt az importálandó adattal.  Ellenőrizd és próbáld újra!",
         "confirm-import": "Importálás jóváhagyása",
         "current-label": "Jelenlegi címke",
         "import": "Címjegyzék importálás",
@@ -260,7 +260,11 @@
     },
     "impwallc": {
         "bad-data": "Hibás import adat",
-        "bad-data-msg": "Valami gond volt az importált tárca adatokkal. Ellenőrízd a címet, és próbáld újra",
+        "bad-data-msg": "Valami gond volt az importált tárca adatokkal.  Ellenőrizd a linket, és próbáld újra.",
+        "error-bad-data": "Hibás import adat.  Ellenőrizd a linket, és próbáld újra.",
+        "error-invalid-pwd": "Hibás jelszó, próbáld újra!",
+        "error-no-data": "Hiányzó import adat.  Ellenőrizd a linket, és próbáld újra.",
+        "error-unable-to-decode": "Nem sikerült dekódolni az import adatot.  Ellenőrizd a linket, és próbáld újra.",
         "import-button": "Tárca Importálás",
         "imported": "Tárca importálva",
         "imported-msg": "Sikeresen importáltuk a tárcád!",

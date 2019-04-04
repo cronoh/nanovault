@@ -49,7 +49,7 @@ export class WalletWidgetComponent implements OnInit {
   }
 
   async reloadLedger() {
-    this.notificationService.sendInfNotifTodo('wallet-widget.info-checking-ledger', { identifier: 'ledger-status', length: 0 })
+    this.notificationService.sendInfoKey('wallet-widget.info-checking-ledger', { identifier: 'ledger-status', length: 0 })
     try {
       console.log(`Reloading ledger....`);
       const loaded = await this.ledgerService.loadLedger();
@@ -63,7 +63,7 @@ export class WalletWidgetComponent implements OnInit {
     } catch (err) {
       console.log(`Got error when loading ledger! `, err);
       this.notificationService.removeNotification('ledger-status');
-      // this.notificationService.sendErrNotifTodo(`Unable to load Ledger Device: ${err.message}`);
+      // this.notificationService.sendError(`Unable to load Ledger Device: ${err.message}`);
     }
   }
 

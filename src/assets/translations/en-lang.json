@@ -261,6 +261,10 @@
     "impwallc": {
         "bad-data": "Bad Import Data",
         "bad-data-msg": "There was an issue reading the import data for your wallet.  Double check the address and try again.",
+        "error-bad-data": "Bad import data.  Check your link and try again.",
+        "error-invalid-pwd": "Invalid password, please try again!",
+        "error-no-data": "No import data found.  Check your link and try again.",
+        "error-unable-to-decode": "Unable to decode import data.  Check your link and try again.",
         "import-button": "Import Wallet",
         "imported": "Wallet Imported",
         "imported-msg": "Your wallet has been successfully imported!",
