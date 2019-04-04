@@ -10,6 +10,7 @@ import {ApiService} from "../../services/api.service";
 import {LedgerService, LedgerStatus} from "../../services/ledger.service";
 import BigNumber from "bignumber.js";
 import {WebsocketService} from "../../services/websocket.service";
+import {RepresentativeService} from "../../services/representative.service";
 
 @Component({
   selector: 'app-configure-app',
@@ -139,7 +140,9 @@ export class ConfigureAppComponent implements OnInit {
     private ledgerService: LedgerService,
     private websocket: WebsocketService,
     private workPool: WorkPoolService,
-    private price: PriceService) { }
+    private price: PriceService,
+    private representative: RepresentativeService
+  ) { }
 
   async ngOnInit() {
     this.loadFromSettings();
@@ -347,6 +350,7 @@ export class ConfigureAppComponent implements OnInit {
       this.workPool.deleteCache();
       this.addressBook.clearAddressBook();
       this.appSettings.clearAppSettings();
+      this.representative.resetRepresentativeList();
 
       this.loadFromSettings();
 
