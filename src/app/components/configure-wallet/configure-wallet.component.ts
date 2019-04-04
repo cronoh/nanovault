@@ -57,47 +57,47 @@ export class ConfigureWalletComponent implements OnInit {
     let importSeed = '';
     if (this.selectedImportOption === 'seed') {
       const existingSeed = this.importSeedModel.trim();
-      if (existingSeed.length !== 64) return this.notifications.sendErrNotifTodo(`Seed is invalid, double check it!`);
+      if (existingSeed.length !== 64) return this.notifications.sendErrorKey('confwallc.error-seed-invalid');
       importSeed = existingSeed;
     } else if (this.selectedImportOption === 'mnemonic') {
       const mnemonic = this.importSeedMnemonicModel.toLowerCase().trim();
       const words = mnemonic.split(' ');
-      if (words.length < 12) return this.notifications.sendErrNotifTodo(`Mnemonic is too short, double check it!`);
+      if (words.length < 12) return this.notifications.sendErrorKey('confwallc.error-mnemonic-short');
 
       // Try and decode the mnemonic
       try {
         const newSeed = bip.mnemonicToEntropy(mnemonic);
-        if (!newSeed || newSeed.length !== 64) return this.notifications.sendErrNotifTodo(`Mnemonic is invalid, double check it!`);
+        if (!newSeed || newSeed.length !== 64) return this.notifications.sendErrorKey('confwallc.error-mnemonic-invalid');
         importSeed = newSeed.toUpperCase(); // Force uppercase, for consistency
       } catch (err) {
-        return this.notifications.sendErrNotifTodo(`Unable to decode mnemonic, double check it!`);
+        return this.notifications.sendErrorKey('confwallc.error-mnemonic-decode');
       }
     } else {
-      return this.notifications.sendErrNotifTodo(`Invalid import option`);
+      return this.notifications.sendErrorKey('confwallc.error-invalid-import-option');
     }
 
-    this.notifications.sendInfNotifTodo(`Importing existing accounts...`, { identifier: 'importing-loading' });
+    this.notifications.sendInfoKey('confwallc.info-importing', { identifier: 'importing-loading' });
     await this.walletService.createWalletFromSeed(importSeed);
 
     this.notifications.removeNotification('importing-loading');
 
     this.activePanel = 4;
-    this.notifications.sendSuccesNotifTodo(`Successfully imported wallet!`);
+    this.notifications.sendSuccessKey('confwallc.success-imported');
   }
 
   async importLedgerWallet(refreshOnly = false) {
     // what is our ledger status? show a warning?
-    this.notifications.sendInfNotifTodo(`Checking for Ledger device...`, { identifier: 'ledger-status', length: 0 });
+    this.notifications.sendInfoKey('wallet-widget.info-checking-ledger', { identifier: 'ledger-status', length: 0 });
     await this.ledgerService.loadLedger(true);
     this.notifications.removeNotification('ledger-status');
 
     console.log(`Importing ledger device.....`);
     if (this.ledger.status === LedgerStatus.NOT_CONNECTED) {
-      return this.notifications.sendWarninNotifTodo(`No ledger device detected, make sure it is connected and you are using Chrome/Opera`);
+      return this.notifications.sendWarningKey('ledger-service.warning-unable-to-connect');
     }
 
     if (this.ledger.status === LedgerStatus.LOCKED) {
-      return this.notifications.sendWarninNotifTodo(`Unlock your ledger device and open the Nano app to continue`);
+      return this.notifications.sendWarningKey('ledger-service.warning-locked');
     }
 
     if (refreshOnly) {
@@ -109,7 +109,7 @@ export class ConfigureWalletComponent implements OnInit {
 
     // We skip the password panel
     this.activePanel = 5;
-    this.notifications.sendSuccesNotifTodo(`Successfully loaded ledger device!`);
+    this.notifications.sendSuccessKey('ledger-service.success');
 
   }
 
@@ -119,7 +119,7 @@ export class ConfigureWalletComponent implements OnInit {
     this.newWalletMnemonic = bip.entropyToMnemonic(newSeed);
 
     this.activePanel = 3;
-    this.notifications.sendSuccesNotifTodo(`Successfully created new wallet! Make sure to write down your seed!`);
+    this.notifications.sendSuccessKey('confwallc.success-wallet-created');
   }
 
   confirmNewSeed() {
@@ -130,10 +130,10 @@ export class ConfigureWalletComponent implements OnInit {
 
   saveWalletPassword() {
     if (this.walletPasswordConfirmModel !== this.walletPasswordModel) {
-      return this.notifications.sendErrNotifTodo(`Password confirmation does not match, try again!`);
+      return this.notifications.sendErrorKey('confwallc.error-pwd-mismatch');
     }
     if (this.walletPasswordModel.length < 1) {
-      return this.notifications.sendWarninNotifTodo(`Password cannot be empty!`);
+      return this.notifications.sendWarningKey('confwallc.warning-pwd-empty');
     }
     const newPassword = this.walletPasswordModel;
     this.walletService.wallet.password = newPassword;
@@ -144,7 +144,7 @@ export class ConfigureWalletComponent implements OnInit {
     this.walletPasswordConfirmModel = '';
 
     this.activePanel = 5;
-    this.notifications.sendSuccesNotifTodo(`Successfully set wallet password!`);
+    this.notifications.sendSuccessKey('confwallc.success-pwd-set');
   }
 
   setPanel(panel) {
@@ -152,7 +152,7 @@ export class ConfigureWalletComponent implements OnInit {
   }
 
   copied() {
-    this.notifications.sendSuccesNotifTodo(`Wallet seed copied to clipboard!`);
+    this.notifications.sendSuccessKey('copy-success');
   }
 
   importFromFile(files) {
@@ -165,13 +165,13 @@ export class ConfigureWalletComponent implements OnInit {
       try {
         const importData = JSON.parse(fileData);
         if (!importData.seed || !importData.hasOwnProperty('accountsIndex')) {
-          return this.notifications.sendErrNotifTodo(`Bad import data `)
+          return this.notifications.sendErrorKey('confwallc.error-bad-import-data')
         }
 
         const walletEncrypted = btoa(JSON.stringify(importData));
         this.route.navigate(['import-wallet'], { fragment: walletEncrypted });
       } catch (err) {
-        this.notifications.sendErrNotifTodo(`Unable to parse import data, make sure you selected the right file!`);
+        this.notifications.sendErrorKey('confwallc.error-import-parse');
       }
     };
 

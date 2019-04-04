@@ -201,6 +201,14 @@
     "confwallc": {
         "create": "Create Wallet",
         "create-new": "Create New Wallet",
+        "error-bad-import-data": "Bad import data!",
+        "error-import-parse": "Unable to parse import data, make sure you selected the right file!",
+        "error-invalid-import-option": "Invalid import option!",
+        "error-mnemonic-decode": "Unable to decode mnemonic, double check it!",
+        "error-mnemonic-invalid": "Mnemonic is invalid, double check it!",
+        "error-mnemonic-short": "Mnemonic is too short, double check it!",
+        "error-pwd-mismatch": "Password confirmation does not match, try again!",
+        "error-seed-invalid": "Seed is invalid, double check it!",
         "error-wallet-not-configured": "Wallet is not configured!",
         "help-top": "Use the options below to import an existing wallet or create a new one.",
         "i-have-saved": "I've Saved My Seed/Mnemonic",
@@ -212,6 +220,7 @@
         "import-option-seed": "Mikron Seed",
         "import-seed": "Import From Seed",
         "import-ledger": "Import From Ledger device",
+        "info-importing": "Importing existing accounts...",
         "ledger-refresh": "Refresh Ledger Status",
         "mnemonic": "Wallet Mnemonic Phrase",
         "mnemonic-copy": "Copy Mnemonic To Clipboard",
@@ -240,9 +249,13 @@
         "seed-copy": "Copy Seed To Clipboard",
         "seed-placeholder": "Your Backup Seed",
         "select-import-type": "Select Import Type",
+        "success-imported": "Successfully imported wallet",
+        "success-pwd-set": "Successfully set wallet password",
+        "success-wallet-created": "Successfully created new wallet.  Make sure to write down your seed!",
         "title": "Configure Wallet",
         "wallet-configured": "Wallet Configured!",
-        "wallet-created": "Wallet Created!"
+        "wallet-created": "Wallet Created!",
+        "warning-pwd-empty": "Password cannot be empty!"
     },
     "impaddrc": {
         "bad-data": "Bad Import Data",

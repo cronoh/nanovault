@@ -201,6 +201,14 @@
     "confwallc": {
         "create": "Tárca létrehozás",
         "create-new": "Új Tárca létrehozás",
+        "error-bad-import-data": "Hibás import adat",
+        "error-import-parse": "Nem sikerült beolvasni az import adatot, ellenőrizd, hogy jó fájlt választottál ki!",
+        "error-invalid-import-option": "Érvénytelen import opció!",
+        "error-mnemonic-decode": "Az emlékeztetőt nem sikerült dekódolni, ellenőrizd le!",
+        "error-mnemonic-invalid": "Érvénytelen emlékeztető, ellenőrizd le!",
+        "error-mnemonic-short": "Az emlékeztető túl rövid, ellenőrizd le!",
+        "error-pwd-mismatch": "A jelszó ellenőrzés eltér, próbáld újra!",
+        "error-seed-invalid": "Érvénytelen írmag, ellenőrizd le!",
         "error-wallet-not-configured": "A tárca nincs beállítva!",
         "help-top": "Használd az alábbi lehetőségeket egy új tárca létrehozására vagy egy létező tárca beimportálására.",
         "i-have-saved": "Elmentettem az írmagot/emlékeztetőt",
@@ -212,6 +220,7 @@
         "import-option-seed": "Mikron írmag",        
         "import-seed": "Importálás Írmagból",
         "import-ledger": "Importálás Ledger eszközről",
+        "info-importing": "Számlák importálása...",
         "ledger-refresh": "Ledger eszköz státusz szinkronizálás",
         "mnemonic": "Tárca emlékeztető mondat",
         "mnemonic-copy": "Emlékeztető másolás vágólapra",
@@ -240,9 +249,13 @@
         "seed-copy": "Írmag másolás vágólapra",
         "seed-placeholder": "mentett tárca írmag",
         "select-import-type": "Válassz importálás típust",
+        "success-imported": "Tárca sikeresen importálva",
+        "success-pwd-set": "Tárca jelszó beállítva",
+        "success-wallet-created": "Új tárca sikeresen létrehozva.  Mindenképpen jegyezd le az írmagot!",
         "title": "Tárca Beállítás",
         "wallet-configured": "Tárca beállítva!",
-        "wallet-created": "Tárca létrehozva!"
+        "wallet-created": "Tárca létrehozva!",
+        "warning-pwd-empty": "A jelszó nem lehet üres!"
     },
     "impaddrc": {
         "bad-data": "Hibás import adat!",
