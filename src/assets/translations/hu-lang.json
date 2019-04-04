@@ -249,6 +249,9 @@
         "bad-data-desc": "Valami gond volt az importálandó adattal.  Ellenőrizd és próbáld újra!",
         "confirm-import": "Importálás jóváhagyása",
         "current-label": "Jelenlegi címke",
+        "error-bad-data": "Hibás import adat.  Ellenőrizd a linket, és próbáld újra.",
+        "error-no-data": "Hiányzó import adat.  Ellenőrizd a linket, és próbáld újra.",
+        "error-unable-to-decode": "Nem sikerült dekódolni az import adatot.  Ellenőrizd a linket, és próbáld újra.",
         "import": "Címjegyzék importálás",
         "imported": "Címjegyzék beimportálva",
         "imported-desc": "A címjegyzéked sikeresen be lett importálva!",
@@ -256,6 +259,7 @@
         "labels-exist-update": "db. címke már létezik és frissítve lesz",
         "labels-new": "db. új címke kerül hozzáadásra",
         "new-label": "Új címke",
+        "success-imported": "Címjegyzék sikeresen importálva",
         "title": "Címjegyzék importálás"
     },
     "impwallc": {

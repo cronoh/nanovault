@@ -249,6 +249,9 @@
         "bad-data-desc": "There was an issue reading the import data for your address book.  Double check the address and try again.",
         "confirm-import": "Confirm Import",
         "current-label": "Current Label",
+        "error-bad-data": "Bad import data.  Check your link and try again.",
+        "error-no-data": "No import data found.  Check your link and try again.",
+        "error-unable-to-decode": "Unable to decode import data.  Check your link and try again.",
         "import": "Import Address Book",
         "imported": "Address Book Imported",
         "imported-desc": "Your address book has been successfully imported!",
@@ -256,6 +259,7 @@
         "labels-exist-update": "Labels already exist and will have their name changed.",
         "labels-new": "New labels will be added.",
         "new-label": "New Label",
+        "success-imported": "Successfully imported address book",
         "title": "Import Address Book"
     },
     "impwallc": {

@@ -22,13 +22,13 @@ export class ImportAddressBookComponent implements OnInit {
 
   ngOnInit() {
     const importData = this.route.snapshot.fragment;
-    if (!importData || !importData.length) return this.importDataError(`No import data found.  Check your link and try again.`);
+    if (!importData || !importData.length) return this.importDataError('impaddrc.error-no-data');
 
     const decodedData = atob(importData);
 
     try {
       const importBlob = JSON.parse(decodedData);
-      if (!importBlob || !importBlob.length) return this.importDataError(`Bad import data.  Check your link and try again.`);
+      if (!importBlob || !importBlob.length) return this.importDataError('impaddrc.error-bad-data');
       this.validImportData = true;
       this.importData = importBlob;
       this.activePanel = 'import';
@@ -47,7 +47,7 @@ export class ImportAddressBookComponent implements OnInit {
       }
 
     } catch (err) {
-      return this.importDataError(`Unable to decode import data.  Check your link and try again.`);
+      return this.importDataError('impaddrc.error-unable-to-decode');
     }
   }
 
@@ -64,13 +64,13 @@ export class ImportAddressBookComponent implements OnInit {
       }
     }
 
-    this.notifications.sendSuccesNotifTodo(`Successfully imported ${importedCount} address book entries`);
+    this.notifications.sendSuccessTranslated('impaddrc.success-imported' + ` (${importedCount})`);
     this.activePanel = 'imported';
   }
 
-  importDataError(message) {
+  importDataError(messageKey) {
     this.activePanel = 'error';
-    return this.notifications.sendErrNotifTodo(message);
+    return this.notifications.sendErrorKey(messageKey);
   }
 
 }
