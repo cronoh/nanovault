@@ -74,6 +74,11 @@
         "action-save-new": "Save New Contact",
         "add-new": "Add New Contact",
         "create-new": "Create New Contact",
+        "error-account-and-name-required": "Account and name are required!",
+        "error-account-invalid": "Account ID is not a valid account!",
+        "error-name-already-used": "This name is already in use!  Please use a unique name",
+        "error-deleting": "Error while deleting entry",
+        "error-saving": "Error while save entry",
         "delete": "Delete From Address Book",
         "desc": "You can use the address book to store a label for your own accounts and others you frequently transact with, which are visible throughout the application.",
         "edit-label": "Edit Account Label",
@@ -82,7 +87,10 @@
         "name": "Name",
         "name-hint": "Exchange Deposit Address, Main Trading Account, etc",
         "options": "Options",
+        "success-created-new-name": "Successfully created new name for account!",
+        "success-deleted": "Successfully deleted address book entry",
         "title": "Address Book",
+        "updated-order": "Updated address book order",
         "view-action": "View Address Book"
     },
     "appc": {

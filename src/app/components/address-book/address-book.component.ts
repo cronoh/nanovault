@@ -40,7 +40,7 @@ export class AddressBookComponent implements OnInit, AfterViewInit {
       const datas = result.map(e => e.dataset.account);
 
       this.addressBookService.setAddressBookOrder(datas);
-      this.notificationService.sendSuccesRemove(`Updated address book order`);
+      this.notificationService.sendSuccessKey('addrbookc.updated-order');
     });
   }
 
@@ -54,22 +54,22 @@ export class AddressBookComponent implements OnInit, AfterViewInit {
   }
 
   async saveNewAddress() {
-    if (!this.newAddressAccount || !this.newAddressName) return this.notificationService.sendErrRemove(`Account and name are required`);
+    if (!this.newAddressAccount || !this.newAddressName) return this.notificationService.sendErrorKey('addrbookc.error-account-and-name-required');
 
     this.newAddressAccount = this.newAddressAccount.replace(/ /g, ''); // Remove spaces
 
     // Make sure name doesn't exist
     if (this.addressBookService.nameExists(this.newAddressName)) {
-      return this.notificationService.sendErrRemove(`This name is already in use!  Please use a unique name`);
+      return this.notificationService.sendErrorKey('addrbookc.error-name-already-used');
     }
 
     // Make sure the address is valid
     const valid = await this.nodeApi.validateAccountNumber(this.newAddressAccount);
-    if (!valid || valid.valid !== '1') return this.notificationService.sendWarninRemove(`Account ID is not a valid account`);
+    if (!valid || valid.valid !== '1') return this.notificationService.sendWarningKey('addrbookc.error-account-invalid');
 
     try {
       await this.addressBookService.saveAddress(this.newAddressAccount, this.newAddressName);
-      this.notificationService.sendSuccesRemove(`Successfully created new name for account!`);
+      this.notificationService.sendSuccessKey('addrbookc.success-created-new-name');
       // IF this is one of our accounts, set its name, and hope things update?
       const walletAccount = this.walletService.wallet.accounts.find(a => a.id.toLowerCase() === this.newAddressAccount.toLowerCase());
       if (walletAccount) {
@@ -77,7 +77,7 @@ export class AddressBookComponent implements OnInit, AfterViewInit {
       }
       this.cancelNewAddress();
     } catch (err) {
-      this.notificationService.sendErrRemove(`Unable to save entry: ${err.message}`)
+      this.notificationService.sendErrorTranslated('addrbookc.error-saving' + `: ${err.message}`);
     }
   }
 
@@ -88,15 +88,15 @@ export class AddressBookComponent implements OnInit, AfterViewInit {
   }
 
   copied() {
-    this.notificationService.sendSuccesRemove(`Account address copied to clipboard!`);
+    this.notificationService.sendSuccessKey('copy-success');
   }
 
   async deleteAddress(account) {
     try {
       this.addressBookService.deleteAddress(account);
-      this.notificationService.sendSuccesRemove(`Successfully deleted address book entry`)
+      this.notificationService.sendSuccessKey('addrbookc.success-deleted');
     } catch (err) {
-      this.notificationService.sendErrRemove(`Unable to delete entry: ${err.message}`)
+      this.notificationService.sendErrorTranslated('addrbookc.error-deleting' + `: ${err.message}`);
     }
   }
 

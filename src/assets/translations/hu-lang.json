@@ -74,6 +74,11 @@
         "action-save-new": "Mentés",
         "add-new": "Új cím",
         "create-new": "Új cím",
+        "error-account-and-name-required": "A számla és név ki kell legyen töltve!",
+        "error-account-invalid": "A számlaszám nem érvényes!",
+        "error-name-already-used": "Ez a név már használatban van!  Használj egy egyedi nevet.",
+        "error-deleting": "Hiba a bejegyzés törlése közben",
+        "error-saving": "Hiba a bejegyzés mentése közben",
         "delete": "Törlés a címtárból",
         "desc": "A címjegyzékben saját nevet rendelhetsz a gyakran használt számlákhoz.  Ezek csak ebben a tárcában láthatóak.",
         "edit-label": "Címke szerkesztése",
@@ -82,7 +87,10 @@
         "name": "Címke",
         "name-hint": "Pl. Fő számla, Váltó számla, Küldő számla, stb.",
         "options": "Opciók",
+        "success-created-new-name": "Új név társítva a számlához",
+        "success-deleted": "Címjegyzék bejegyzés törölve",
         "title": "Címjegyzék",
+        "updated-order": "Címjegyék újra rendezve",
         "view-action": "Címjegyzék Megtekintés"
     },
     "appc": {
