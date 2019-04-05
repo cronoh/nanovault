@@ -40,7 +40,7 @@ export class WebsocketService {
     if (this.socket.connected && this.socket.ws) return;
     delete this.socket.ws; // Maybe this will erase old connections
 
-    const wsUrl = this.appSettings.settings.serverWS || 'wss://ws.wallet.mikron.io';
+    const wsUrl = this.appSettings.settings.serverWS || 'wss://wallet-wss.mikron.io';
     const ws = new WebSocket(wsUrl);
     this.socket.ws = ws;
 

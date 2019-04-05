@@ -131,7 +131,7 @@
         "warning-cpu-not-avail": "A CPU munka számoló opció nem elérhető, állítsd a PoW opciót Legjobb-ra",
         "warning-custom-api-invalid": "A beállított API szerver címe érvénytelen.  Használj teljes címet, mint pl.: https://wallet.mikron.io/api/node-api",
         "warning-custom-node-invalid": "A beállított node címe érvénytelen. Használj teljes címet, mint pl.: http://127.0.0.1:7076",
-        "warning-custom-updates-invalid": "A beállított értesítés szerver címe érvénytelen.  Használj teljes címet, mint pl.: wss://ws.wallet.mikron.io/",
+        "warning-custom-updates-invalid": "A beállított értesítés szerver címe érvénytelen.  Használj teljes címet, mint pl.: wss://wallet-wss.mikron.io/",
         "warning-fiat-not-supported": "A pénznem átváltás jelenleg nem támogatott!",
         "warning-webgl-not-avail": "A WebGL munka számoló opció nem elérhető, állítsd a PoW opciót Legjobb-ra",
         "advanced": {

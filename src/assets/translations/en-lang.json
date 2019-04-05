@@ -131,7 +131,7 @@
         "warning-cpu-not-avail": "CPU Worker support not available, set PoW to Best",
         "warning-custom-api-invalid": "Custom API Server has an invalid address.  Make sure to use the full address ie: https://wallet.mikron.io/api/node-api",
         "warning-custom-node-invalid": "Custom Node Server has an invalid address.  Make sure to use the full address ie: http://127.0.0.1:7076",
-        "warning-custom-updates-invalid": "Custom Update Server has an invalid address.  Make sure to use the full address ie: wss://ws.wallet.mikron.io/",
+        "warning-custom-updates-invalid": "Custom Update Server has an invalid address.  Make sure to use the full address ie: wss://wallet-wss.mikron.io/",
         "warning-fiat-not-supported": "Fiat currency conversion is not supported currently!",
         "warning-webgl-not-avail": "WebGL support not available, set PoW to Best",
         "advanced": {

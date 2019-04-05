@@ -104,7 +104,7 @@ export class ConfigureAppComponent implements OnInit {
       isCustom: false,
       serverAPI: 'https://wallet.mikron.io/api/node-api',
       serverNode: '',
-      serverWS: 'wss://ws.wallet.mikron.io/',
+      serverWS: 'wss://wallet-wss.mikron.io/',
     },
     {
       name: 'MikronLiveTest1',
@@ -120,7 +120,7 @@ export class ConfigureAppComponent implements OnInit {
       isCustom: true,
       serverAPI: 'https://wallet.mikron.io/api/node-api',
       serverNode: 'http://localhost:7043',
-      serverWS: 'wss://ws.wallet.mikron.io/',
+      serverWS: 'wss://wallet-wss.mikron.io/',
     },
   ];
   selectedServer = this.serverOptions[0].value;
