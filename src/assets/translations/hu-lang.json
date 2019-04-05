@@ -306,7 +306,14 @@
     "manwalc": {
         "title": "Tárca Kezelés",
         "click-here": "kattints ide",
-        "copy-success": "Vágólapra másolva!",
+        "error-import-data-bad": "Hibás import adat, ellenőrizd, hogy egy helyes MikronWebesTárca címjegyzék export fájlt választottál ki!",
+        "error-import-data-parse": "Nem sikerült értelmezni az import adatot, ellenőrizd, hogy jó fájlt választottál ki!",
+        "error-password-empty": "A jelszó nem lehet üres!",
+        "error-password-mismatch": "A két jelszó nem egyezik!",
+        "error-too-many-entries": "A 25-nél több elemű címjegyzék csak fájlba exportálható!",
+        "success-addr-export-downloaded": "Címjegyzék export letöltve",
+        "success-pwd-chaged": "Tárca jelszó sikeresen frissítve",
+        "success-walet-export-downloaded": "Tárca export letöltve",
         "addr": {
             "title": "MikronWebWallet Címjegyzék",
             "desc": "Használd ezt a lehetőséget hogy átvidd a címjegyzéked egy másik eszközre. Válassz a lenti opciókból a címjegyzék exportálásához vagy importálásához, fájlon vagy QR kód/URL-en keresztül.  A címjegyzét nincs titkosítva a jelszavaddal.",

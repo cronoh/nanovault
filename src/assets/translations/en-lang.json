@@ -306,7 +306,14 @@
     "manwalc": {
         "title": "Manage Wallet",
         "click-here": "click here",
-        "copy-success": "Copied to clipboard!",
+        "error-import-data-bad": "Bad import data, make sure you selected a MikronWebWallet Address Book export!",
+        "error-import-data-parse": "Unable to parse import data, make sure you selected the right file!",
+        "error-password-empty": "Password cannot be empty!",
+        "error-password-mismatch": "Passwords do not match!",
+        "error-too-many-entries": "Address books with 25 or more entries need to use the file export method!",
+        "success-addr-export-downloaded": "Address book export downloaded",
+        "success-pwd-chaged": "Wallet password successfully updated",
+        "success-walet-export-downloaded": "Wallet export downloaded",
         "addr": {
             "title": "MikronWebWallet Address Book",
             "desc": "Use this tool to simplify transferring your address book between devices.  Use the options below to import or export your address book from a file or QR Code/URL.  Your address book is not encrypted by your wallet password.",
