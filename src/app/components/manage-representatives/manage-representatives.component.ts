@@ -6,6 +6,7 @@ import {ModalService} from "../../services/modal.service";
 import {ApiService} from "../../services/api.service";
 import {Router} from "@angular/router";
 import {RepresentativeService} from "../../services/representative.service";
+import {LanguageService} from "../../services/language.service";
 
 @Component({
   selector: 'app-manage-representatives',
@@ -39,7 +40,9 @@ export class ManageRepresentativesComponent implements OnInit, AfterViewInit {
     public modal: ModalService,
     private repService: RepresentativeService,
     private router: Router,
-    private nodeApi: ApiService) { }
+    private nodeApi: ApiService,
+    private languageService: LanguageService
+  ) { }
 
   async ngOnInit() {
     this.repService.loadRepresentativeList();
@@ -62,21 +65,21 @@ export class ManageRepresentativesComponent implements OnInit, AfterViewInit {
   }
 
   async saveNewRepresentative() {
-    if (!this.newRepAccount || !this.newRepName) return this.notificationService.sendErrNotifTodo(`Account and name are required`);
+    if (!this.newRepAccount || !this.newRepName) return this.notificationService.sendErrorKey('repsmanc.error-required-acc-and-name');
 
     this.newRepAccount = this.newRepAccount.replace(/ /g, ''); // Remove spaces
 
     // Make sure the address is valid
     const valid = await this.nodeApi.validateAccountNumber(this.newRepAccount);
-    if (!valid || valid.valid !== '1') return this.notificationService.sendWarninNotifTodo(`Account ID is not a valid account`);
+    if (!valid || valid.valid !== '1') return this.notificationService.sendWarningKey('accdetc.warning-account-id');
 
     try {
       await this.repService.saveRepresentative(this.newRepAccount, this.newRepName, this.newRepTrusted, this.newRepWarn);
-      this.notificationService.sendSuccesNotifTodo(`Successfully saved new representative!`);
+      this.notificationService.sendSuccessKey('repsmanc.success-saved-new-rep');
 
       this.cancelNewRep();
     } catch (err) {
-      this.notificationService.sendErrNotifTodo(`Unable to save entry: ${err.message}`)
+      this.notificationService.sendErrorTranslated(this.languageService.getTran('repsmanc.error-saving') + `: ${err.message}`);
     }
   }
 
@@ -89,7 +92,7 @@ export class ManageRepresentativesComponent implements OnInit, AfterViewInit {
   }
 
   copied() {
-    this.notificationService.sendSuccesNotifTodo(`Account address copied to clipboard!`);
+    this.notificationService.sendSuccessKey('copy-success');
   }
 
   async getOnlineRepresentatives() {
@@ -101,7 +104,7 @@ export class ManageRepresentativesComponent implements OnInit, AfterViewInit {
         representatives.push(representative);
       }
     } catch (err) {
-      this.notificationService.sendWarninNotifTodo(`Unable to determine online status of representatives`);
+      this.notificationService.sendWarningKey('repsc.warning-unable-rep-status');
     }
 
     return representatives;
@@ -110,9 +113,9 @@ export class ManageRepresentativesComponent implements OnInit, AfterViewInit {
   async deleteRepresentative(accountID) {
     try {
       this.repService.deleteRepresentative(accountID);
-      this.notificationService.sendSuccesNotifTodo(`Successfully deleted representative`)
+      this.notificationService.sendSuccessKey('repsmanc.success-rep-delete');
     } catch (err) {
-      this.notificationService.sendErrNotifTodo(`Unable to delete representative: ${err.message}`)
+      this.notificationService.sendErrorTranslated(this.languageService.getTran('repsmanc.error-rep-delete') + `: ${err.message}`);
     }
   }
 

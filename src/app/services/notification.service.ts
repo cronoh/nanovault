@@ -22,18 +22,6 @@ export class NotificationService {
     this.removeNotification$.next(identifier);
   }
 
-  sendInfNotifTodo(messageTranslated: string, options = {}) {
-    this.sendNotification('info', messageTranslated, '', options);
-  }
-  sendSuccesNotifTodo(messageTranslated: string, options = {}) {
-    this.sendNotification('success', messageTranslated, '', options);
-  }
-  sendWarninNotifTodo(messageTranslated: string, options = {}) {
-    this.sendNotification('warning', messageTranslated, '', options);
-  }
-  sendErrNotifTodo(messageTranslated: string, options = {}) {
-    this.sendNotification('error', messageTranslated, '', options);
-  }
   sendInfoKey(messageKey: string, options = {}) {
     this.sendNotification('info', '', messageKey, options);
   }

@@ -8,6 +8,7 @@ import {AppSettingsService} from "../../services/app-settings.service";
 import {BehaviorSubject} from "rxjs/BehaviorSubject";
 import {NotificationService} from "../../services/notification.service";
 import {BlockService} from "../../services/block.service";
+import {LanguageService} from "../../services/language.service";
 
 @Component({
   selector: 'app-representatives',
@@ -38,7 +39,9 @@ export class RepresentativesComponent implements OnInit {
     private block: BlockService,
     private util: UtilService,
     private representativeService: RepresentativeService,
-    public settings: AppSettingsService) { }
+    public settings: AppSettingsService,
+    private languageService: LanguageService
+  ) { }
 
   async ngOnInit() {
     this.representativeService.loadRepresentativeList();
@@ -170,7 +173,7 @@ export class RepresentativesComponent implements OnInit {
         representatives.push(representative);
       }
     } catch (err) {
-      this.notifications.sendWarninNotifTodo(`Unable to determine online status of representatives`);
+      this.notifications.sendWarningKey('repsc.warning-unable-rep-status');
     }
 
     return representatives;
@@ -250,15 +253,15 @@ export class RepresentativesComponent implements OnInit {
     const newRep = this.toRepresentativeID;
 
     if (this.changingRepresentatives) return; // Already running
-    if (this.wallet.walletIsLocked()) return this.notifications.sendWarninNotifTodo(`Wallet must be unlocked`);
-    if (!accounts || !accounts.length) return this.notifications.sendWarninNotifTodo(`You must select at least one account to change`);
+    if (this.wallet.walletIsLocked()) return this.notifications.sendWarningKey('wallet-widget.warning-wallet-locked');
+    if (!accounts || !accounts.length) return this.notifications.sendWarningKey('repsc.warning-select-account');
 
     this.changingRepresentatives = true;
 
     const valid = await this.api.validateAccountNumber(newRep);
     if (!valid || valid.valid !== '1') {
       this.changingRepresentatives = false;
-      return this.notifications.sendWarninNotifTodo(`Representative is not a valid account`);
+      return this.notifications.sendWarningKey('repsc.warning-rep-invalid');
     }
 
     const allAccounts = accounts.find(a => a.id === 'All Accounts');
@@ -278,7 +281,7 @@ export class RepresentativesComponent implements OnInit {
 
     if (!accountsNeedingChange.length) {
       this.changingRepresentatives = false;
-      return this.notifications.sendInfNotifTodo(`None of the accounts selected need to be updated`);
+      return this.notifications.sendInfoKey('repsc.info-no-need-to-update');
     }
 
     // Now loop and change them
@@ -289,7 +292,7 @@ export class RepresentativesComponent implements OnInit {
       try {
         const changed = await this.block.generateChange(walletAccount, newRep, this.wallet.isLedgerWallet());
         if (!changed) {
-          this.notifications.sendErrNotifTodo(`Error changing representative for ${account.id}, please try again`);
+          this.notifications.sendErrorTranslated(this.languageService.getTran('repsc.error-changing-rep') + ` -- ${account.id}`);
         }
       } catch (err) {
         this.notifications.sendErrorTranslated(err.message);
@@ -302,7 +305,7 @@ export class RepresentativesComponent implements OnInit {
     this.representativeListMatch = '';
     this.changingRepresentatives = false;
 
-    this.notifications.sendSuccesNotifTodo(`Successfully updated representatives!`);
+    this.notifications.sendSuccessKey('repsc.success-reps-updated');
 
     await this.loadRepresentativeOverview();
   }
