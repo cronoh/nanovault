@@ -162,7 +162,7 @@
             "conf-desc": "Change which server is used to communicate with the Mikron network.  Not recommended to change, only by developers.",
             "conf-name": "Server Configuration",
             "title": "Server Settings",
-            "update`": "Update Server Settings",
+            "update": "Update Server Settings",
             "node": {
                 "desc": "Override which node is used by the API Server to communicate with the Mikron network.",
                 "msg1": "This server must be exposing the",
