@@ -30,10 +30,10 @@ export class AppSettingsService {
     lockOnClose: 1,
     lockInactivityMinutes: 30,
     powSource: 'best',
-    serverName: 'server-test1', // 'server-mikron',
-    serverAPI: 'http://server3.mikron.io:9950/api/node-api',
+    serverName: 'server-mikron',
+    serverAPI: 'https://wallet.mikron.io/api/node-api',
     serverNode: null,
-    serverWS: 'ws://server3.mikron.io:3333/',
+    serverWS: 'wss://wallet-wss.mikron.io/',
     language: null,
   };
 
