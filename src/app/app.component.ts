@@ -110,7 +110,7 @@ export class AppComponent implements OnInit {
       this.settings.saveAppSettings();
     }
     // update lang
-    this.language.setup(null);
+    this.language.setup();
   }
 
   toggleSearch(mobile = false) {

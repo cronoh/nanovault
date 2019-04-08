@@ -208,7 +208,7 @@ export class ConfigureAppComponent implements OnInit {
     if (newLanguage != this.appSettings.getAppSetting('language')) {
       this.appSettings.setAppSetting('language', newLanguage);
       // may need to change UI lang
-      this.languageService.setup(null);
+      this.languageService.setup();
     }
 
     let newCurrency = this.selectedCurrency;
