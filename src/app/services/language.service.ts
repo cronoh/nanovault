@@ -2,6 +2,7 @@ import { Injectable, OnInit } from '@angular/core';
 import { ActivatedRoute, ActivatedRouteSnapshot } from "@angular/router";
 import { TranslateService } from '@ngx-translate/core';
 import { AppSettingsService } from "../services/app-settings.service";
+import { NotificationService } from "../services/notification.service";
 
 // Handle language selection
 @Injectable()
@@ -15,7 +16,8 @@ export class LanguageService implements OnInit {
   constructor(
     private router: ActivatedRoute,
     private translate: TranslateService,
-    private appSettings: AppSettingsService
+    private appSettings: AppSettingsService,
+    private notifications: NotificationService
   ) { }
 
   async ngOnInit() {
@@ -26,29 +28,41 @@ export class LanguageService implements OnInit {
     this.translate.addLangs(this.availLanguages);
     this.translate.setDefaultLang(this.defaultLang);
     const params = this.router.snapshot.queryParams;
-    console.log('params ' + params);
+    //console.log('params ' + params);
     if (params && params.lang) {
-        console.log('params.lang ' + params.lang);
-        this.queryParamLang = params.lang;
+      this.setQueryParamLang(params.lang);
     }
 
-    this.setup(this.queryParamLang);
+    this.setup();
+  }
+
+  setQueryParamLang(queryParamLang) {
+    if (queryParamLang && queryParamLang !== this.queryParamLang) {
+      console.log('queryParamLang ' + queryParamLang);
+      this.queryParamLang = queryParamLang;
+    }
   }
 
   // Select and apply a language
-  setup(queryParamLang) {
+  setup() {
     const browserLang = this.translate.getBrowserLang();
-    const newLang = this.chooseLang(queryParamLang, this.appSettings.settings.language, browserLang);
-    if (newLang !== this.selectedLang) {
-      this.translate.use(newLang);
-      this.selectedLang = newLang;
+    const newLang = this.chooseLang(this.queryParamLang, this.appSettings.settings.language, browserLang);
+    if (newLang.lang !== this.selectedLang) {
+      const oldLang = this.selectedLang;
+      this.selectedLang = newLang.lang;
+      this.translate.use(this.selectedLang);
+      console.log('Language changed, from "' + oldLang + '" to "' + this.selectedLang + '" based on ' + newLang.source);
+      if (oldLang) {
+        // This is not transalated, as translation is being set up
+        this.notifications.sendSuccess(`Language changed: '${this.selectedLang}'  (from ${newLang.source})`);
+      }
     }
   }
 
   getSelectedLang() : string { return this.selectedLang; }
 
   // Choose the language to use
-  chooseLang(queryParamLang : string, settingLang : string, browserLang : string) : string {
+  chooseLang(queryParamLang : string, settingLang : string, browserLang : string) {
     let source : string = 'default';
     let lang : string = this.defaultLang;
     if (queryParamLang && this.isValid(queryParamLang)) {
@@ -62,7 +76,7 @@ export class LanguageService implements OnInit {
       lang = browserLang;
     }
     //console.log("Language service: selected language '" + lang + "', based on", source);
-    return lang;
+    return { lang, source };
   }
 
   // Check if a language is supported (valid option)
