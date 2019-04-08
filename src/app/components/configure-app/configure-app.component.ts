@@ -10,6 +10,7 @@ import {ApiService} from "../../services/api.service";
 import {LedgerService, LedgerStatus} from "../../services/ledger.service";
 import BigNumber from "bignumber.js";
 import {WebsocketService} from "../../services/websocket.service";
+import {LanguageService} from "../../services/language.service";
 
 @Component({
   selector: 'app-configure-app',
@@ -71,6 +72,9 @@ export class ConfigureAppComponent implements OnInit {
     { name: 'ZAR - South African Rand', value: 'ZAR' },
   ];
   selectedCurrency = this.currencies[0].value;
+
+  languages = this.languageService.availLanguages;
+  selectedLanguage = this.appSettings.getAppSetting('language');
 
   inactivityOptions = [
     { name: 'Never', value: 0 },
@@ -135,7 +139,9 @@ export class ConfigureAppComponent implements OnInit {
     private ledgerService: LedgerService,
     private websocket: WebsocketService,
     private workPool: WorkPoolService,
-    private price: PriceService) { }
+    private price: PriceService,
+    private languageService: LanguageService
+  ) { }
 
   async ngOnInit() {
     this.loadFromSettings();
@@ -192,6 +198,13 @@ export class ConfigureAppComponent implements OnInit {
   }
 
   async updateDisplaySettings() {
+    let newLanguage = this.selectedLanguage;
+    if (newLanguage != this.appSettings.getAppSetting('language')) {
+      this.appSettings.setAppSetting('language', newLanguage);
+      // may need to change UI lang
+      this.languageService.setup(null);
+    }
+
     let newCurrency = this.selectedCurrency;
     if (newCurrency !== '') {
       // Currency not supported currently
