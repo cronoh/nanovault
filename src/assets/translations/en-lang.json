@@ -312,6 +312,7 @@
         "hu": "Hungarian"
     },
     "language-service": {
+        "change-language": "Change the application UI language.",
         "lang-changed": "Language changed"
     },
     "ledger-service": {

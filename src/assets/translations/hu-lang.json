@@ -312,6 +312,7 @@
         "hu": "magyar"
     },
     "language-service": {
+        "change-language": "Az applikáció UI nyelv váltása.",
         "lang-changed": "Nyelv átállítva"
     },
     "ledger-service": {

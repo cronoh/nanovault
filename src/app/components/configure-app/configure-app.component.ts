@@ -76,6 +76,9 @@ export class ConfigureAppComponent implements OnInit {
   ];
   selectedCurrency = this.currencies[0].value;
 
+  languages = this.languageService.availLanguages;
+  selectedLanguage = this.appSettings.getAppSetting('language');
+
   // Option display names come from dictionary (translated)
   inactivityOptions = [
     { name: 'Never', value: 0 },
@@ -201,6 +204,13 @@ export class ConfigureAppComponent implements OnInit {
   }
 
   async updateDisplaySettings() {
+    let newLanguage = this.selectedLanguage;
+    if (newLanguage != this.appSettings.getAppSetting('language')) {
+      this.appSettings.setAppSetting('language', newLanguage);
+      // may need to change UI lang
+      this.languageService.setup(null);
+    }
+
     let newCurrency = this.selectedCurrency;
     if (newCurrency !== '') {
       // Currency not supported currently

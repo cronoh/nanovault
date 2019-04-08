@@ -13,6 +13,21 @@
             <div class="uk-form-horizontal">
 
               <div class="uk-margin">
+                <label class="uk-form-label" for="form-horizontal-select">{{'language' | t}} <span uk-icon="icon: info;" uk-tooltip title="{{'language-service.change-language' | t}}"></span></label>
+                <div class="uk-form-controls">
+                  <select class="uk-select" [(ngModel)]="selectedLanguage" id="form-horizontal-select">
+                    <option *ngFor="let lang of languages" [value]="lang">{{'lang.' + lang | t}} ({{lang}})</option>
+                  </select>
+                </div>
+              </div>
+
+            </div>
+          </div>
+
+          <div class="uk-width-1-1">
+            <div class="uk-form-horizontal">
+
+              <div class="uk-margin">
                 <label class="uk-form-label" for="form-horizontal-select">{{'confappc.display.fiat-name' | t}} <span uk-icon="icon: info;" uk-tooltip title="{{'confappc.display.fiat-desc' | t}}"></span></label>
                 <div class="uk-form-controls">
                   <select class="uk-select" [(ngModel)]="selectedCurrency" id="form-horizontal-select">
