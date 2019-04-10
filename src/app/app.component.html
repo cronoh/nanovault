@@ -7,7 +7,7 @@
       <div class="title-block">
         <div class="uk-margin-left" style="padding-bottom: 15px; color: #666;">
           <div uk-grid>
-            <div class="uk-width-expand"><a routerLink="/" class="title">{{'prod-name' | t}}</a></div>
+            <div class="uk-width-expand"><a routerLink="/" class="title">{{'prod-name-short' | t}}</a></div>
             <div class="uk-width-1-6 uk-padding-remove-left" style="padding-top: 15px;" *ngIf="wallet.seed">
               <span class="uk-text-danger" uk-icon="icon: warning; ratio: 1.2;" *ngIf="node.status === false" uk-tooltip title="{{'appc.connect-unable' | t}}"></span>
               <div uk-spinner="ratio: 0.6;" *ngIf="node.status === null" uk-tooltip title="{{'appc.connecting' | t}}"></div>
@@ -97,7 +97,7 @@
       <div class="uk-width-1-2">
         <div class="uk-margin-small-top uk-margin-small-bottom uk-margin-small-left uk-text-middle" uk-toggle="target: #mobile-nav;" style="cursor: pointer;">
           <span uk-icon="icon: menu;" style=" margin-right: 10px; vertical-align: text-bottom;"></span>
-          <span style="font-size: 22px;" >{{'prod-name' | t}}</span>
+          <span style="font-size: 22px;" >{{'prod-name-short' | t}}</span>
         </div>
       </div>
       <div class="uk-width-1-2 " style="text-align: right;">
@@ -111,7 +111,7 @@
           <div class="uk-margin-left" style="padding-bottom: 15px;">
             <div uk-grid>
               <div>
-                <span class="uk-width-expand"><a routerLink="/" class="title">{{'prod-name' | t}}</a></span>
+                <span class="uk-width-expand"><a routerLink="/" class="title">{{'prod-name-short' | t}}</a></span>
               </div>
               <div class="uk-width-1-6 uk-padding-remove-left" style="padding-top: 15px;" *ngIf="wallet.seed">
                 <span class="uk-text-danger" uk-icon="icon: warning; ratio: 1.2;" *ngIf="node.status === false" uk-tooltip title="{{'appc.connect-unable' | t}}"></span>
