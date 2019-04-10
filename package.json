@@ -1,6 +1,6 @@
 {
   "name": "MikronWebWallet",
-  "version": "0.5.4",
+  "version": "1.0.0",
   "license": "MIT",
   "description": "Wallet for interacting with Nano",
   "author": "Andrew Steele",
@@ -92,7 +92,7 @@
   },
   "build": {
     "appId": "com.electron.mikron-vault",
-    "buildVersion": "0.5.4",
+    "buildVersion": "1.0.0",
     "productName": "MikronWebWallet",
     "copyright": "Copyright © 2019 Andrew Steele",
     "directories": {
