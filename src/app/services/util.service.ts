@@ -246,13 +246,14 @@ function mikronToAnt(value : number) : BigNumber {
   return new BigNumber(Math.round(value * unitMikron));
 }
 function antToMikron(value : any) : BigNumber {
-  return new BigNumber(value / unitMikron);
+  // use BigNumber division here, otherwise 'too many significant digits' error can occur
+  return new BigNumber(value).div(unitMikron);
 }
 function kmikronToAnt(value : number) : BigNumber {
   return new BigNumber(Math.round(value * unitKMikron));
 }
 function antToKMikron(value : number) : BigNumber {
-  return new BigNumber(value / unitKMikron);
+  return new BigNumber(value).div(unitKMikron);
 }
 
 /**
