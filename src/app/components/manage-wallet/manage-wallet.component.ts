@@ -15,6 +15,7 @@ import { LanguageService } from "../../services/language.service";
 export class ManageWalletComponent implements OnInit {
 
   wallet = this.walletService.wallet;
+  isConfigured = this.walletService.isConfigured;
 
   newPassword = '';
   confirmPassword = '';
@@ -65,7 +66,10 @@ export class ManageWalletComponent implements OnInit {
   }
 
   seedMnemonic() {
-    return bip.entropyToMnemonic(this.wallet.seed);
+    if (this.isConfigured && this.wallet.seed) {
+      return bip.entropyToMnemonic(this.wallet.seed);
+    }
+    return "";
   }
 
   async exportAddressBook() {
