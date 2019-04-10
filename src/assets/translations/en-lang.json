@@ -330,6 +330,7 @@
         "error-password-empty": "Password cannot be empty!",
         "error-password-mismatch": "Passwords do not match!",
         "error-too-many-entries": "Address books with 25 or more entries need to use the file export method!",
+        "msg-no-wallet": "Your wallet is not yet configured.  Choose an option below to configure your wallet.",
         "success-addr-export-downloaded": "Address book export downloaded",
         "success-pwd-chaged": "Wallet password successfully updated",
         "success-walet-export-downloaded": "Wallet export downloaded",

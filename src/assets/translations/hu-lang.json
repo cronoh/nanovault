@@ -330,6 +330,7 @@
         "error-password-empty": "A jelszó nem lehet üres!",
         "error-password-mismatch": "A két jelszó nem egyezik!",
         "error-too-many-entries": "A 25-nél több elemű címjegyzék csak fájlba exportálható!",
+        "msg-no-wallet": "Még nincs beállítva egy tárcád.  Válassz egy opciót a tárca beállításához.",
         "success-addr-export-downloaded": "Címjegyzék export letöltve",
         "success-pwd-chaged": "Tárca jelszó sikeresen frissítve",
         "success-walet-export-downloaded": "Tárca export letöltve",

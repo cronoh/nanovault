@@ -2,98 +2,119 @@
   <div class="uk-width-1-1">
     <h2>{{'manwalc.title' | t}}</h2>
 
-    <div class="uk-card uk-card-default uk-margin" *ngIf="!walletService.isLedgerWallet()">
+    <div class="uk-card uk-card-default uk-margin" *ngIf="!isConfigured()">
       <div class="uk-card-header">
-        <h3 class="uk-card-title">{{'manwalc.pwd.title' | t}}</h3>
+        <h3 class="uk-card-title">{{'confwallc.title' | t}}</h3>
       </div>
-      <div class="uk-card-body">
+      <div class="uk-card-body uk-text-center">
         <div uk-grid>
-          <div class="uk-width-1-2@s">
-            <input class="uk-input" [(ngModel)]="newPassword" placeholder="{{'manwalc.pwd.place-new' | t}}" type="password">
-          </div>
-          <div class="uk-width-1-2@s">
-            <input class="uk-input" [(ngModel)]="confirmPassword" placeholder="{{'manwalc.pwd.place-confirm' | t}}" type="password">
-          </div>
-        </div>
-      </div>
-      <div class="uk-card-footer uk-text-right">
-        <button (click)="changePassword()" class="uk-button uk-button-secondary">{{'manwalc.pwd.button' | t}}</button>
-      </div>
-    </div>
-
-    <div class="uk-card uk-card-default uk-margin" *ngIf="!walletService.isLedgerWallet()">
-      <div class="uk-card-header">
-        <h3 class="uk-card-title">{{'manwalc.buw.title' | t}}</h3>
-      </div>
-      <div class="uk-card-body">
-        <p *ngIf="wallet.locked">{{'manwalc.buw.unlock' | t}}</p>
-        <p *ngIf="!wallet.locked">
-          {{'manwalc.buw.mnemonic-msg1' | t}} <a title="{{'manwalc.buw.copy-mnemonic' | t}}" ngxClipboard [cbContent]="seedMnemonic()" (cbOnSuccess)="notifyCopySuccess()" uk-tooltip>{{'manwalc.click-here' | t}}</a> {{'manwalc.buw.mnemonic-msg2' | t}}<br>
-          <br>
-          {{'manwalc.buw.seed-msg1' | t}} <a title="{{'manwalc.buw.copy-seed' | t}}" ngxClipboard [cbContent]="wallet.seed" (cbOnSuccess)="notifyCopySuccess()" uk-tooltip>{{'manwalc.click-here' | t}}</a> {{'manwalc.buw.seed-msg2' | t}}<br>
-        </p>
-      </div>
-    </div>
-
-    <div class="uk-card uk-card-default uk-margin" *ngIf="!walletService.isLedgerWallet()">
-      <div class="uk-card-header">
-        <h3 class="uk-card-title">{{'manwalc.expwal.title' | t}}</h3>
-      </div>
-      <div class="uk-card-body">
-        {{'manwalc.expwal.desc' | t}}<br>
-        <div *ngIf="showQRExport" uk-grid>
           <div class="uk-width-1-1">
-            <hr class="uk-divider-icon">
+            <span class="uk-text-small">{{'manwalc.msg-no-wallet' | t}}</span>
           </div>
-
-          <div class="uk-width-1-2@s uk-width-1-4@m">
-            <img [src]="QRExportImg">
+          <div class="uk-width-1-2@m">
+            <button routerLink="/configure-wallet" class="uk-button uk-button-primary">{{'welcomec.create-new-wallet' | t}}</button>
           </div>
-          <div class="uk-width-1-2@s uk-width-3-4@m">
-            {{'manwalc.expwal.msg1' | t}}<br>
-            <br>
-            {{'manwalc.expwal.msg2' | t}}<br>
-            <input type="text" class="uk-input" value="{{ QRExportUrl }}"><br>
-            <a title="{{'manwalc.expwal.copy-url' | t}}" ngxClipboard [cbContent]="QRExportUrl" (cbOnSuccess)="notifyCopySuccess()" uk-tooltip>{{'manwalc.expwal.copy' | t}}</a>
+          <div class="uk-width-1-2@m">
+            <button routerLink="/configure-wallet" [queryParams]="{ import: 1}" class="uk-button uk-button-primary">{{'welcomec.import-wallet' | t}}</button>
           </div>
         </div>
-      </div>
-      <div class="uk-card-footer uk-text-right">
-        <button (click)="exportToFile()" class="uk-button uk-button-secondary">{{'manwalc.expwal.button-file' | t}}</button>
-        <button (click)="exportWallet()" class="uk-button uk-button-secondary">{{'manwalc.expwal.button-qr' | t}}</button>
       </div>
     </div>
 
-    <div class="uk-card uk-card-default uk-margin">
-      <div class="uk-card-header">
-        <h3 class="uk-card-title">{{'manwalc.addr.title' | t}}</h3>
-      </div>
-      <div class="uk-card-body">
-        {{'manwalc.addr.desc' | t}}
-        <div *ngIf="addressBookShowQRExport" uk-grid>
-          <div class="uk-width-1-1">
-            <hr class="uk-divider-icon">
+    <div *ngIf="isConfigured()">
+      <div class="uk-card uk-card-default uk-margin" *ngIf="!walletService.isLedgerWallet()">
+        <div class="uk-card-header">
+          <h3 class="uk-card-title">{{'manwalc.pwd.title' | t}}</h3>
+        </div>
+        <div class="uk-card-body">
+          <div uk-grid>
+            <div class="uk-width-1-2@s">
+              <input class="uk-input" [(ngModel)]="newPassword" placeholder="{{'manwalc.pwd.place-new' | t}}" type="password">
+            </div>
+            <div class="uk-width-1-2@s">
+              <input class="uk-input" [(ngModel)]="confirmPassword" placeholder="{{'manwalc.pwd.place-confirm' | t}}" type="password">
+            </div>
           </div>
+        </div>
+        <div class="uk-card-footer uk-text-right">
+          <button (click)="changePassword()" class="uk-button uk-button-secondary">{{'manwalc.pwd.button' | t}}</button>
+        </div>
+      </div>
 
-          <div class="uk-width-1-2@s uk-width-1-4@m">
-            <img [src]="addressBookQRExportImg">
-          </div>
-          <div class="uk-width-1-2@s uk-width-3-4@m">
-            {{'manwalc.addr.msg1' | t}}<br>
+      <div class="uk-card uk-card-default uk-margin" *ngIf="!walletService.isLedgerWallet()">
+        <div class="uk-card-header">
+          <h3 class="uk-card-title">{{'manwalc.buw.title' | t}}</h3>
+        </div>
+        <div class="uk-card-body">
+          <p *ngIf="wallet.locked">{{'manwalc.buw.unlock' | t}}</p>
+          <p *ngIf="!wallet.locked">
+            {{'manwalc.buw.mnemonic-msg1' | t}} <a title="{{'manwalc.buw.copy-mnemonic' | t}}" ngxClipboard [cbContent]="seedMnemonic()" (cbOnSuccess)="notifyCopySuccess()" uk-tooltip>{{'manwalc.click-here' | t}}</a> {{'manwalc.buw.mnemonic-msg2' | t}}<br>
             <br>
-            {{'manwalc.addr.msg2' | t}}<br>
-            <input type="text" class="uk-input" value="{{ addressBookQRExportUrl }}"><br>
-            <a title="{{'manwalc.addr.copy-title' | t}}" ngxClipboard [cbContent]="addressBookQRExportUrl" (cbOnSuccess)="notifyCopySuccess()" uk-tooltip>{{'manwalc.addr.copy' | t}}</a>
-          </div>
+            {{'manwalc.buw.seed-msg1' | t}} <a title="{{'manwalc.buw.copy-seed' | t}}" ngxClipboard [cbContent]="wallet.seed" (cbOnSuccess)="notifyCopySuccess()" uk-tooltip>{{'manwalc.click-here' | t}}</a> {{'manwalc.buw.seed-msg2' | t}}<br>
+          </p>
         </div>
       </div>
-      <div class="uk-card-footer uk-text-right">
-        <div class="js-upload uk-text-left" style="display: inline-block;" uk-form-custom>
-          <input type="file" id="import-from-file" (change)="importFromFile($event.target.files)" multiple>
-          <button class="uk-button uk-button-primary" type="button" tabindex="-1">{{'manwalc.addr.button-import' | t}}</button>
+
+      <div class="uk-card uk-card-default uk-margin" *ngIf="!walletService.isLedgerWallet()">
+        <div class="uk-card-header">
+          <h3 class="uk-card-title">{{'manwalc.expwal.title' | t}}</h3>
         </div>
-        <button (click)="exportAddressBookToFile()" class="uk-button uk-button-secondary">{{'manwalc.addr.button-file' | t}}</button>
-        <button (click)="exportAddressBook()" class="uk-button uk-button-secondary">{{'manwalc.addr.button-qr' | t}}</button>
+        <div class="uk-card-body">
+          {{'manwalc.expwal.desc' | t}}<br>
+          <div *ngIf="showQRExport" uk-grid>
+            <div class="uk-width-1-1">
+              <hr class="uk-divider-icon">
+            </div>
+
+            <div class="uk-width-1-2@s uk-width-1-4@m">
+              <img [src]="QRExportImg">
+            </div>
+            <div class="uk-width-1-2@s uk-width-3-4@m">
+              {{'manwalc.expwal.msg1' | t}}<br>
+              <br>
+              {{'manwalc.expwal.msg2' | t}}<br>
+              <input type="text" class="uk-input" value="{{ QRExportUrl }}"><br>
+              <a title="{{'manwalc.expwal.copy-url' | t}}" ngxClipboard [cbContent]="QRExportUrl" (cbOnSuccess)="notifyCopySuccess()" uk-tooltip>{{'manwalc.expwal.copy' | t}}</a>
+            </div>
+          </div>
+        </div>
+        <div class="uk-card-footer uk-text-right">
+          <button (click)="exportToFile()" class="uk-button uk-button-secondary">{{'manwalc.expwal.button-file' | t}}</button>
+          <button (click)="exportWallet()" class="uk-button uk-button-secondary">{{'manwalc.expwal.button-qr' | t}}</button>
+        </div>
+      </div>
+
+      <div class="uk-card uk-card-default uk-margin">
+        <div class="uk-card-header">
+          <h3 class="uk-card-title">{{'manwalc.addr.title' | t}}</h3>
+        </div>
+        <div class="uk-card-body">
+          {{'manwalc.addr.desc' | t}}
+          <div *ngIf="addressBookShowQRExport" uk-grid>
+            <div class="uk-width-1-1">
+              <hr class="uk-divider-icon">
+            </div>
+
+            <div class="uk-width-1-2@s uk-width-1-4@m">
+              <img [src]="addressBookQRExportImg">
+            </div>
+            <div class="uk-width-1-2@s uk-width-3-4@m">
+              {{'manwalc.addr.msg1' | t}}<br>
+              <br>
+              {{'manwalc.addr.msg2' | t}}<br>
+              <input type="text" class="uk-input" value="{{ addressBookQRExportUrl }}"><br>
+              <a title="{{'manwalc.addr.copy-title' | t}}" ngxClipboard [cbContent]="addressBookQRExportUrl" (cbOnSuccess)="notifyCopySuccess()" uk-tooltip>{{'manwalc.addr.copy' | t}}</a>
+            </div>
+          </div>
+        </div>
+        <div class="uk-card-footer uk-text-right">
+          <div class="js-upload uk-text-left" style="display: inline-block;" uk-form-custom>
+            <input type="file" id="import-from-file" (change)="importFromFile($event.target.files)" multiple>
+            <button class="uk-button uk-button-primary" type="button" tabindex="-1">{{'manwalc.addr.button-import' | t}}</button>
+          </div>
+          <button (click)="exportAddressBookToFile()" class="uk-button uk-button-secondary">{{'manwalc.addr.button-file' | t}}</button>
+          <button (click)="exportAddressBook()" class="uk-button uk-button-secondary">{{'manwalc.addr.button-qr' | t}}</button>
+        </div>
       </div>
     </div>
 
