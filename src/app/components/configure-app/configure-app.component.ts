@@ -386,6 +386,9 @@ export class ConfigureAppComponent implements OnInit {
 
       this.loadFromSettings();
 
+      // language may have also changed
+      this.languageService.setup();
+
       this.notifications.sendSuccessKey('confappc.success-all-data-cleared');
     } catch (err) {}
   }

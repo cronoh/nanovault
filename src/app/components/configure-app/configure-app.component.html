@@ -17,6 +17,7 @@
                 <div class="uk-form-controls">
                   <select class="uk-select" [(ngModel)]="selectedLanguage" id="form-horizontal-select">
                     <option *ngFor="let lang of languages" [value]="lang">{{'lang.' + lang | t}} ({{lang}})</option>
+                    <option [value]="'DEFAULT'">{{'default' | t}}</option>
                   </select>
                 </div>
               </div>
