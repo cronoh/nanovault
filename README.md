@@ -82,6 +82,17 @@ The selected UI language is based on several factors, in the given order of prec
 - Language setting of the browser
 - The default English (en).
 
+# Steps for releasing a new version
+
+* Update version in package.json (2 places, version, buildVersion)
+* Commit
+* Tag, e.g. git tag v1.2.0
+* Push, Push tags
+* Build npm run wallet:build
+* Rename and tar resulting dist folder, e.g. mikton-vault-web.v1.2.0.tgz
+* On Github releases page, add tgz to release
+* Deploy release under prod web server
+
 # Acknowledgements
 Special thanks to the following!
 - [nanovault](https://github/cronoh/nanovault) - The NanoVault Nano web wallet
