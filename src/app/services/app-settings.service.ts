@@ -34,7 +34,7 @@ export class AppSettingsService {
     serverAPI: 'https://wallet.mikron.io/api/node-api',
     serverNode: null,
     serverWS: 'wss://wallet-wss.mikron.io/',
-    language: null,
+    language: 'en',
   };
 
   settings: AppSettings = this.defaultSettings;
