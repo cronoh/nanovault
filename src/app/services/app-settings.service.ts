@@ -34,7 +34,7 @@ export class AppSettingsService {
     serverAPI: 'https://wallet.mikron.io/api/node-api',
     serverNode: null,
     serverWS: 'wss://wallet-wss.mikron.io/',
-    language: 'DEFAULT',  // 'DEFAULT' means that default can prevail (e.g. by browser)
+    language: null,  // null means that default can prevail (e.g. by browser)
   };
 
   // a deep copy clone of the default settings
