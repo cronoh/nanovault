@@ -34,10 +34,14 @@ export class AppSettingsService {
     serverAPI: 'http://server3.mikron.io:9950/api/node-api',
     serverNode: null,
     serverWS: 'ws://server3.mikron.io:3333/',
-    language: null,
+    language: null,  // means that default can prevail (e.g. by browser)
   };
 
-  settings: AppSettings = this.defaultSettings;
+  // a deep copy clone of the default settings
+  getDefaultSettings() : AppSettings {
+    return JSON.parse(JSON.stringify(this.defaultSettings));
+  }
+  settings: AppSettings = this.getDefaultSettings(); // deep copy
 
   constructor() { }
 
@@ -76,7 +80,7 @@ export class AppSettingsService {
 
   clearAppSettings() {
     localStorage.removeItem(this.storeKey);
-    this.settings = this.defaultSettings;
+    this.settings = this.getDefaultSettings(); // deep copy
   }
 
 }

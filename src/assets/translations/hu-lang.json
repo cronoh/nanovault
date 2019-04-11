@@ -1,5 +1,6 @@
 {
     "gen": {
+        "default": "Alapértelmezett",
         "language": "Nyelv",
         "prod-name": "MikronWebesTárca",
         "lang": {

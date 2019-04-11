@@ -359,6 +359,9 @@ export class ConfigureAppComponent implements OnInit {
 
       this.loadFromSettings();
 
+      // language may have also changed
+      this.languageService.setup();
+
       this.notifications.sendSuccess(`Successfully deleted ALL locally stored data!`);
     } catch (err) {}
   }
