@@ -3,6 +3,7 @@ import { ActivatedRoute, ActivatedRouteSnapshot } from "@angular/router";
 import { TranslateService } from '@ngx-translate/core';
 import { AppSettingsService } from "../services/app-settings.service";
 import { NotificationService } from "../services/notification.service";
+import * as Rx from 'rxjs';
 
 // Handle language selection
 @Injectable()
@@ -36,6 +37,40 @@ export class LanguageService implements OnInit {
     this.setup();
   }
 
+  private pendingLangChange : Rx.Observable<any>;
+
+  private changeLangInternOne(newLang: string, oldLang: string, source: string) {
+    this.pendingLangChange = this.translate.use(newLang);
+    this.pendingLangChange.subscribe(
+      next => {}, error => {},
+      () => {
+        // completion
+        this.pendingLangChange = undefined;
+        console.log('Language changed, from "' + oldLang + '" to "' + newLang + '" based on ' + source);
+        if (oldLang) {
+          // This is not transalated on purpose (as translation may still change)
+          this.notifications.sendSuccess(`Language changed: '${this.selectedLang}'  (from ${source})`);
+        }
+      }
+    );
+  }
+
+  private changeLangIntern(newLang: string, oldLang: string, source: string) {
+    if (typeof this.pendingLangChange === "undefined") {
+      // no pending change
+      this.changeLangInternOne(newLang, oldLang, source);
+    }
+    else
+    {
+      // in progress
+      //console.log('in progress', this.pendingLangChange);
+      this.pendingLangChange.subscribe(next => {}, error => {}, () => {
+        // do next on completion
+        this.changeLangInternOne(newLang, oldLang, source);
+      });
+    }
+  }
+
   setQueryParamLang(queryParamLang) {
     if (queryParamLang && queryParamLang !== this.queryParamLang) {
       console.log('queryParamLang ' + queryParamLang);
@@ -49,13 +84,8 @@ export class LanguageService implements OnInit {
     const newLang = this.chooseLang(this.queryParamLang, this.appSettings.settings.language, browserLang);
     if (newLang.lang !== this.selectedLang) {
       const oldLang = this.selectedLang;
-      this.selectedLang = newLang.lang;
-      this.translate.use(this.selectedLang);
-      console.log('Language changed, from "' + oldLang + '" to "' + this.selectedLang + '" based on ' + newLang.source);
-      if (oldLang) {
-        // This is not transalated, as translation is being set up
-        this.notifications.sendSuccess(`Language changed: '${this.selectedLang}'  (from ${newLang.source})`);
-      }
+      this.selectedLang = newLang.lang;  // set in advance
+      this.changeLangIntern(newLang.lang, oldLang, newLang.source);
     }
   }
 
