@@ -73,6 +73,10 @@ Run `ng test` to execute the unit tests via [Karma](https://karma-runner.github.
 
 Run `ng e2e` to execute the end-to-end tests via [Protractor](http://www.protractortest.org/).
 
+## Test Spec
+
+See [TestSpec](doc/TestCases.md)
+
 ## Language Selection
 
 The selected UI language is based on several factors, in the given order of precedence.  A setting is taken into account only if present, and represents one of the available languages.
@@ -82,7 +86,7 @@ The selected UI language is based on several factors, in the given order of prec
 - Language setting of the browser
 - The default English (en).
 
-# Steps for releasing a new version
+## Steps for releasing a new version
 
 * Update version in package.json (2 places, version, buildVersion)
 * Commit
