@@ -31,7 +31,7 @@ export class LanguageService implements OnInit {
     const params = this.router.snapshot.queryParams;
     //console.log('params ' + params);
     if (params && params.lang) {
-      this.setQueryParamLang(params.lang);
+      this.setQueryParamLang(params.lang, false);
     }
 
     this.setup();
@@ -40,8 +40,8 @@ export class LanguageService implements OnInit {
   private pendingLangChange : Rx.Observable<any>;
 
   private changeLangInternOne(newLang: string, oldLang: string, source: string) {
-    this.pendingLangChange = this.translate.use(newLang);
-    this.pendingLangChange.subscribe(
+    let newPending : Rx.Observable<any> = this.translate.use(newLang);
+    newPending.subscribe(
       next => {}, error => {},
       () => {
         // completion
@@ -53,10 +53,12 @@ export class LanguageService implements OnInit {
         }
       }
     );
+    this.pendingLangChange = newPending;
   }
 
   private changeLangIntern(newLang: string, oldLang: string, source: string) {
-    if (typeof this.pendingLangChange === "undefined") {
+    let oldPending : Rx.Observable<any> = this.pendingLangChange;
+    if (typeof oldPending === "undefined") {
       // no pending change
       this.changeLangInternOne(newLang, oldLang, source);
     }
@@ -64,15 +66,15 @@ export class LanguageService implements OnInit {
     {
       // in progress
       //console.log('in progress', this.pendingLangChange);
-      this.pendingLangChange.subscribe(next => {}, error => {}, () => {
+      oldPending.subscribe(next => {}, error => {}, () => {
         // do next on completion
         this.changeLangInternOne(newLang, oldLang, source);
       });
     }
   }
 
-  setQueryParamLang(queryParamLang) {
-    if (queryParamLang && queryParamLang !== this.queryParamLang) {
+  setQueryParamLang(queryParamLang: string, forced: boolean) {
+    if (forced || (queryParamLang && queryParamLang !== this.queryParamLang)) {
       console.log('queryParamLang ' + queryParamLang);
       this.queryParamLang = queryParamLang;
     }

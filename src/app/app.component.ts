@@ -60,7 +60,7 @@ export class AppComponent implements OnInit {
     // check 'lang' query param, affects language
     this.activatedRoute.queryParamMap.subscribe(params => {
       const lang = params.get('lang');
-      this.language.setQueryParamLang(lang);
+      this.language.setQueryParamLang(lang, false);
       this.language.setup();
     });
 
@@ -112,12 +112,14 @@ export class AppComponent implements OnInit {
     }, 1000);
   }
 
-  async changeLanguage(lang : string) {
+  changeLanguage(lang : string) {
     // save new lang setting
     if (this.settings.settings.language !== lang) {
       this.settings.settings.language = lang;
       this.settings.saveAppSettings();
     }
+    // in case of explicit language change, forget about query parameter
+    this.language.setQueryParamLang(null, true);
     // update lang
     this.language.setup();
   }
