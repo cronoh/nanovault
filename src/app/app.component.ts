@@ -1,4 +1,5 @@
 import {Component, HostListener, OnInit} from '@angular/core';
+import {ActivatedRoute} from "@angular/router";
 import {WalletService} from "./services/wallet.service";
 import {AddressBookService} from "./services/address-book.service";
 import {AppSettingsService} from "./services/app-settings.service";
@@ -35,6 +36,7 @@ export class AppComponent implements OnInit {
   searchData = '';
 
   constructor(
+    private activatedRoute: ActivatedRoute,
     private walletService: WalletService,
     private addressBook: AddressBookService,
     public settings: AppSettingsService,
@@ -47,13 +49,20 @@ export class AppComponent implements OnInit {
     private workPool: WorkPoolService,
     private desktop: DesktopService,
     public price: PriceService,
-    private language: LanguageService) { }
+    private language: LanguageService
+  ) { }
 
   async ngOnInit() {
     this.windowHeight = window.innerHeight;
     this.settings.loadAppSettings();
 
     this.language.init();
+    // check 'lang' query param, affects language
+    this.activatedRoute.queryParamMap.subscribe(params => {
+      const lang = params.get('lang');
+      this.language.setQueryParamLang(lang);
+      this.language.setup();
+    });
 
     this.addressBook.loadAddressBook();
     this.workPool.loadWorkCache();

@@ -21,13 +21,5 @@ export class WelcomeComponent implements OnInit {
     private languageService: LanguageService) { }
 
   ngOnInit() {
-    this.languageService.setup();
-    this.activatedRoute.queryParamMap.subscribe(params => {
-      const lang = params.get('lang');
-      if (lang) {
-        this.languageService.setQueryParamLang(lang);
-        this.languageService.setup();
-      }
-    });
   }
 }
