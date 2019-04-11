@@ -84,7 +84,6 @@ export class LanguageService implements OnInit {
   setup() {
     const browserLang = this.translate.getBrowserLang();
     const newLang = this.chooseLang(this.queryParamLang, this.appSettings.settings.language, browserLang);
-    console.log('TODO setup', newLang.lang, this.selectedLang);
     if (newLang.lang !== this.selectedLang) {
       const oldLang = this.selectedLang;
       this.selectedLang = newLang.lang;  // set in advance
