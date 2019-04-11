@@ -201,6 +201,8 @@ export class ConfigureAppComponent implements OnInit {
     let newLanguage = this.selectedLanguage;
     if (newLanguage != this.appSettings.getAppSetting('language')) {
       this.appSettings.setAppSetting('language', newLanguage);
+      // in case of explicit language change, forget about query parameter
+      this.languageService.setQueryParamLang(null, true);
       // may need to change UI lang
       this.languageService.setup();
     }
