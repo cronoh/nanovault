@@ -49,7 +49,7 @@ export class AppComponent implements OnInit {
     private workPool: WorkPoolService,
     private desktop: DesktopService,
     public price: PriceService,
-    private language: LanguageService
+    public language: LanguageService
   ) { }
 
   async ngOnInit() {
