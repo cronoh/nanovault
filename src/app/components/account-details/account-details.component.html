@@ -133,8 +133,18 @@
             </div>
           </div>
           <div class="uk-width-2-5@s uk-width-1-4@m uk-text-center">
-            <img *ngIf="qrCodeImage" [src]="qrCodeImage"><br />
-            <span class="uk-text-small">{{'accdetc.scan-qr' | t}}</span>
+            <span *ngIf="this.settings.settings.qrIntegration > 0">
+              <img *ngIf="qrCodeImage" [src]="qrCodeImage" title="{{qrCodeText}}"><br />
+              <span class="uk-text-small">{{'accdetc.scan-qr' | t}}</span>
+            </span>
+            <div>
+              <a class="uk-link-text uk-text-small uk-width-1-1" title="{{'confappc.display.qrint-name' | t}}">{{qrIntegrations[this.settings.settings.qrIntegration].dict_key | t}}</a>
+              <div uk-dropdown>
+                <ul class="uk-nav uk-dropdown-nav">
+                  <li class="uk-active" *ngFor="let int of qrIntegrations" [class]="{ 'uk-active': this.settings.settings.qrIntegration == int.value }"><a href="#" (click)="updateQrIntegration(int.value)">{{int.dict_key | t}}</a></li>
+                </ul>
+              </div>
+            </div>
           </div>
         </div>
 

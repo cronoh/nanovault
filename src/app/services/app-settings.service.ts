@@ -1,5 +1,4 @@
 import { Injectable } from '@angular/core';
-import set = Reflect.set;
 import * as url from 'url';
 
 export type WalletStore = 'localStorage'|'none';
@@ -16,7 +15,8 @@ interface AppSettings {
   serverAPI: string | null;
   serverNode: string | null;
   serverWS: string | null;
-  language: string | null; // UI language, 2-char code
+  language: string | null; // UI language, 2-char code; null means that default can prevail (e.g. by browser),
+  qrIntegration: number; // 0: none, 1: account only, 2: vault URL
 }
 
 @Injectable()
@@ -35,8 +35,15 @@ export class AppSettingsService {
     serverAPI: 'https://wallet.mikron.io/api/node-api',
     serverNode: null,
     serverWS: 'wss://wallet-wss.mikron.io/',
-    language: null,  // null means that default can prevail (e.g. by browser)
+    language: null,
+    qrIntegration: 2
   };
+
+  qrIntegrations = [
+    { value: 0, dict_key: 'confappc.display.qrint0' }, // none
+    { value: 1, dict_key: 'confappc.display.qrint1' }, // account only
+    { value: 2, dict_key: 'confappc.display.qrint2' }  // Vault URL
+  ];
 
   // a deep copy clone of the default settings
   getDefaultSettings() : AppSettings {

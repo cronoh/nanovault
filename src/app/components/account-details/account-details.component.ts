@@ -25,6 +25,7 @@ export class AccountDetailsComponent implements OnInit, OnDestroy {
   pendingBlocks = [];
   pageSize = 25;
   maxPageSize = 200;
+  qrIntegrations = this.settings.qrIntegrations;
 
   repLabel: any = '';
   addressBookEntry: any = null;
@@ -43,6 +44,7 @@ export class AccountDetailsComponent implements OnInit, OnDestroy {
   isNaN = isNaN;
 
   qrCodeImage = null;
+  qrCodeText = null;
 
   routerSub = null;
   priceSub = null;
@@ -115,8 +117,24 @@ export class AccountDetailsComponent implements OnInit, OnDestroy {
     this.account.pendingFiat = this.util.unit.antToMikron(this.account.pending || 0).times(this.price.price.lastPrice).toNumber();
     await this.getAccountHistory(this.accountID);
 
-    let sendUrl = this.prepareSendToUrl(this.accountID);
-    const qrCode = await QRCode.toDataURL(sendUrl);
+    await this.generateQR();
+  }
+
+  // Generate the QR code image, depending on the QR integration style
+  async generateQR() {
+    const style = this.settings.settings.qrIntegration;
+    if (style == 0) {
+      this.qrCodeImage = null;
+      this.qrCodeText = null;
+      return;
+    }
+    this.qrCodeText = '?'
+    switch (style) {
+      default:
+      case 1: this.qrCodeText = this.accountID; break;
+      case 2: this.qrCodeText = this.prepareSendToUrl(this.accountID); break;
+    }
+    const qrCode = await QRCode.toDataURL(this.qrCodeText);
     this.qrCodeImage = qrCode;
   }
 
@@ -124,6 +142,14 @@ export class AccountDetailsComponent implements OnInit, OnDestroy {
   prepareSendToUrl(account: string): string {
     const urlStr = this.settings.getServerApiBaseUrl() + 'send?to=' + account;
     return urlStr;
+  }
+
+  async updateQrIntegration(newIntValue) {
+    // save to here, and to settings
+    this.settings.settings.qrIntegration = newIntValue;
+    this.settings.saveAppSettings();
+    // regenerate QR code
+    this.generateQR();
   }
 
   ngOnDestroy() {

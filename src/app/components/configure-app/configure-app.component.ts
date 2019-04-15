@@ -79,6 +79,9 @@ export class ConfigureAppComponent implements OnInit {
   languages = this.languageService.availLanguages;
   selectedLanguage = this.appSettings.getAppSetting('language');
 
+  qrIntegrations = this.appSettings.qrIntegrations;
+  selectedQrIntegration = 0;
+
   // Option display names come from dictionary (translated)
   inactivityOptions = [
     { name: 'Never', value: 0 },
@@ -159,6 +162,8 @@ export class ConfigureAppComponent implements OnInit {
     const matchingCurrency = this.currencies.find(d => d.value === settings.displayCurrency);
     this.selectedCurrency = matchingCurrency.value || this.currencies[0].value;
 
+    this.selectedQrIntegration = settings.qrIntegration;
+
     const matchingDenomination = this.denominations.find(d => d.value == settings.displayDenomination);
     this.selectedDenomination = matchingDenomination.value || this.denominations[0].value;
 
@@ -222,6 +227,7 @@ export class ConfigureAppComponent implements OnInit {
     }
     const reloadFiat = this.appSettings.settings.displayCurrency !== newCurrency;
     this.appSettings.setAppSetting('displayDenomination', this.selectedDenomination);
+    this.appSettings.settings.qrIntegration = this.selectedQrIntegration;
     this.notifications.sendSuccessKey('confappc.success-display-saved');
 
     if (reloadFiat) {

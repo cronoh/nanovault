@@ -158,6 +158,11 @@
             },
             "fiat-desc": "A hagyományos (fiat) pénz ellenérték kijelzésének valutaneme.  A 'None' esetén nem jelenik meg érték.",
             "fiat-name": "Fiat pénznem",
+            "qrint-name": "QR Kód integráció",
+            "qrint-desc": "A számla QR kódba kódolt URL integráció módja",
+            "qrint0": "Nincs QR kód",
+            "qrint1": "Csak számlaszám",
+            "qrint2": "Teljes WebWallet URL",
             "title": "Megjelenítési Beállítások",
             "update": "Megjelenítés Beállítások Mentése"
         },

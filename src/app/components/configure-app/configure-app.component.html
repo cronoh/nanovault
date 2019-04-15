@@ -57,6 +57,19 @@
             </div>
           </div>
 
+          <div class="uk-width-1-1">
+            <div class="uk-form-horizontal">
+              <div class="uk-margin">
+                <label class="uk-form-label" for="form-horizontal-select">{{'confappc.display.qrint-name' | t}} <span uk-icon="icon: info;" uk-tooltip title="{{'confappc.display.qrint-desc' | t}}"></span></label>
+                <div class="uk-form-controls">
+                  <select class="uk-select" [(ngModel)]="selectedQrIntegration" id="form-horizontal-select">
+                    <option *ngFor="let int of qrIntegrations" [value]="int.value">{{int.dict_key | t}}</option>
+                  </select>
+                </div>
+              </div>
+            </div>
+          </div>
+
         </div>
       </div>
       <div class="uk-card-footer uk-text-right">
