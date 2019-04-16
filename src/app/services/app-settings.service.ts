@@ -1,5 +1,6 @@
 import { Injectable } from '@angular/core';
 import set = Reflect.set;
+import * as url from 'url';
 
 export type WalletStore = 'localStorage'|'none';
 export type PoWSource = 'server'|'clientCPU'|'clientWebGL'|'best';
@@ -83,4 +84,10 @@ export class AppSettingsService {
     this.settings = this.getDefaultSettings(); // deep copy
   }
 
+  // Get the base URL part of the serverAPI, e.g. https://wallet.mikron.io from https://wallet.mikron.io/api/node-api.
+  getServerApiBaseUrl(): string {
+    let u = url.parse(this.settings.serverAPI);
+    u.pathname = '/';
+    return url.format(u);
+  }
 }
