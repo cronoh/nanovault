@@ -6,6 +6,7 @@ import {AddressBookService} from "../../services/address-book.service";
 import {Router} from "@angular/router";
 import * as bip from 'bip39';
 import { LanguageService } from "../../services/language.service";
+import {AppSettingsService} from "../../services/app-settings.service";
 
 @Component({
   selector: 'app-manage-wallet',
@@ -32,7 +33,8 @@ export class ManageWalletComponent implements OnInit {
     private addressBookService: AddressBookService,
     public notifications: NotificationService,
     private router: Router,
-    private language: LanguageService
+    private language: LanguageService,
+    private appSettings: AppSettingsService,
   ) { }
 
   async ngOnInit() {
@@ -78,7 +80,7 @@ export class ManageWalletComponent implements OnInit {
       return this.notifications.sendErrorKey('manwalc.error-too-many-entries');
     }
     const base64Data = btoa(JSON.stringify(exportData));
-    const exportUrl = `https://wallet.mikron.io/import-address-book#${base64Data}`;  // TODO
+    const exportUrl = this.appSettings.getServerApiBaseUrl() + `import-address-book#${base64Data}`;
 
     this.addressBookQRExportUrl = exportUrl;
     this.addressBookQRExportImg = await QRCode.toDataURL(exportUrl);

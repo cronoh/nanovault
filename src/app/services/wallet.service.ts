@@ -230,7 +230,7 @@ export class WalletService {
     const exportData = this.generateExportData();
     const base64Data = btoa(JSON.stringify(exportData));
 
-    return `https://wallet.mikron.io/import-wallet#${base64Data}`;  // TODO dynamic
+    return this.appSettings.getServerApiBaseUrl() + `import-wallet#${base64Data}`;
   }
 
   lockWallet() {
