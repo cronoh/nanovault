@@ -158,6 +158,11 @@
             },
             "fiat-desc": "Change the currency pair used when showing fiat values in the application.  Select None to hide fiat pairs.",
             "fiat-name": "FIAT Currency",
+            "qrint-name": "QR Code Integration",
+            "qrint-desc": "Integration style used in the URLs encoded in Account QR code",
+            "qrint0": "No QR Code",
+            "qrint1": "Account ID Only",
+            "qrint2": "Full WebWallet URL",
             "update": "Update Display Settings",
             "title": "Display Settings"
         },
