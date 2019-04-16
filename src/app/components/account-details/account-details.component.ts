@@ -123,9 +123,15 @@ export class AccountDetailsComponent implements OnInit, OnDestroy {
     this.account.pendingFiat = this.util.nano.rawToMnano(this.account.pending || 0).times(this.price.price.lastPrice).toNumber();
     await this.getAccountHistory(this.accountID);
 
-
-    const qrCode = await QRCode.toDataURL(`${this.accountID}`);
+    let sendUrl = this.prepareSendToUrl(this.accountID);
+    const qrCode = await QRCode.toDataURL(sendUrl);
     this.qrCodeImage = qrCode;
+  }
+
+  // Prepare send-to URL, to our send route with account
+  prepareSendToUrl(account: string): string {
+    const urlStr = this.settings.getServerApiBaseUrl() + 'send?to=' + account;
+    return urlStr;
   }
 
   ngOnDestroy() {
