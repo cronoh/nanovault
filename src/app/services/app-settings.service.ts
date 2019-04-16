@@ -24,7 +24,8 @@ interface AppSettings {
 export class AppSettingsService {
   storeKey = `nanovault-appsettings`;
 
-  settings: AppSettings = {
+  // Default settings
+  defaultSettings: AppSettings = {
     displayDenomination: 'mnano',
     // displayPrefix: 'xrb',
     walletStore: 'localStorage',
@@ -39,6 +40,12 @@ export class AppSettingsService {
     serverWS: null,
     minimumReceive: null,
   };
+
+  // a deep copy clone of the default settings
+  cloneDefaultSettings() : AppSettings {
+    return JSON.parse(JSON.stringify(this.defaultSettings));
+  }
+  settings: AppSettings = this.cloneDefaultSettings(); // deep copy
 
   constructor() { }
 
@@ -77,21 +84,7 @@ export class AppSettingsService {
 
   clearAppSettings() {
     localStorage.removeItem(this.storeKey);
-    this.settings = {
-      displayDenomination: 'mnano',
-      // displayPrefix: 'xrb',
-      walletStore: 'localStorage',
-      displayCurrency: 'USD',
-      defaultRepresentative: null,
-      lockOnClose: 1,
-      lockInactivityMinutes: 30,
-      powSource: 'best',
-      serverName: 'nanovault',
-      serverNode: null,
-      serverAPI: null,
-      serverWS: null,
-      minimumReceive: null,
-    };
+    this.settings = this.cloneDefaultSettings(); // deep copy
   }
 
 }
