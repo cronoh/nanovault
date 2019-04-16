@@ -35,7 +35,7 @@ export class AppSettingsService {
     lockInactivityMinutes: 30,
     powSource: 'best',
     serverName: 'nanovault',
-    serverAPI: null,
+    serverAPI: 'https://nanovault.io/api/node-api',
     serverNode: null,
     serverWS: null,
     minimumReceive: null,

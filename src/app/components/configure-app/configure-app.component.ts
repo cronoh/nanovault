@@ -115,7 +115,7 @@ export class ConfigureAppComponent implements OnInit {
   serverConfigurations = [
     {
       name: 'nanovault',
-      api: null,
+      api: 'https://nanovault.io/api/node-api',
       ws: null,
     },
     {
