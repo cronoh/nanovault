@@ -1,0 +1,3 @@
+[submodule "src/assets/lib/instascan"]
+	path = src/assets/lib/instascan
+	url = https://github.com/mikroncoin/instascan-builds.git

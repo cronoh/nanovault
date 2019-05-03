@@ -1,0 +1,23 @@
+<div uk-grid>
+    <div class="uk-width-1-1 uk-animation-slide-left-small">
+  
+      <div uk-grid class="uk-margin-top">
+        Helló
+  
+        <div class="instascan-container">
+          <video id="instascan"></video>
+        </div>
+  
+        <div>
+            Scanned content: {{content}}
+        </div>
+
+        <div>
+          <ul>
+            <li class="" *ngFor="let camera of cameras"><a (click)="selectCamera(camera)">{{camera.id + camera.name}}</a></li>
+          </ul>
+        </div>
+      </div>
+
+    </div>
+</div>
