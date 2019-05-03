@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import {Router} from "@angular/router";
+import { Router } from "@angular/router";
 
 // for using Instascan library (from instascan.min.js)
 declare var Instascan: any;
@@ -14,8 +14,11 @@ export class QrScanComponent implements OnInit {
   scanner = null;
   activeCameraId = null;
   cameras = [];
-  scans = [];
-  content = '(scanned content comes here)';
+  //scans = [];
+  contentString = '(scanned content comes here)';
+  contentAccount = '';
+  contentHttp = '';
+  contentVault = '';
 
   constructor(
     private router: Router
@@ -26,9 +29,7 @@ export class QrScanComponent implements OnInit {
     let videoElem = document.getElementById('instascan');
     this.scanner = new Instascan.Scanner({ video: videoElem, scanPeriod: 5 });
     this.scanner.addListener('scan', function (content, image) {
-      console.log('SCAN', content);
-      self.content = content;
-      self.scans.unshift({ date: +(Date.now()), content: content });
+      self.scanAction(content);
     });
 
     let cameras1 = await Instascan.Camera.getCameras();
@@ -40,6 +41,9 @@ export class QrScanComponent implements OnInit {
       //console.log('cameras[0].id', this.cameras[0].id);
       this.selectCamera(this.cameras[0]);
     }
+
+    // debug
+    //this.scanAction('https://wallet.mikron.io/send?to=mik_1j648kqxntisaxcdcp6ohctrtu6pgrf1j39zirsb6m3iweg6h9otec9kumgj');
   }
 
   async selectCamera(camera: any) {
@@ -48,5 +52,32 @@ export class QrScanComponent implements OnInit {
     //console.log('scanner starting');
     await this.scanner.start(camera);
     //console.log("camera started", camera.id);
+  }
+
+  scanAction(content: string) {
+    console.log('scanAction', content.length, content);
+    this.contentString = content;
+    this.contentAccount = '';
+    this.contentHttp = '';
+    this.contentVault = '';
+    //this.scans.unshift({ date: +(Date.now()), content: content });
+    if (content.startsWith('http')) {
+      this.contentHttp = content;
+      // TODO check prefix ...
+      this.contentVault = content;
+      const sendToIdx = content.indexOf('send');
+      console.log(content, sendToIdx);
+      if (sendToIdx > 0) {
+        const toIdx = content.indexOf('to');
+        console.log(toIdx);
+        if (toIdx > 0) {
+          const toAddr = content.substring(toIdx+3);
+          console.log(toAddr);
+          this.router.navigate(['send'], {queryParams: {to: toAddr}});
+        }
+      }
+    } else {
+      // check for account
+    }
   }
 }
