@@ -1,5 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from "@angular/router";
+import { UtilService } from '../../services/util.service';
+import { NotificationService } from "../../services/notification.service";
+import { AppSettingsService } from "../../services/app-settings.service";
 
 // for using Instascan library (from instascan.min.js)
 declare var Instascan: any;
@@ -11,25 +14,37 @@ declare var Instascan: any;
 })
 export class QrScanComponent implements OnInit {
 
+  scanState: number = 0;  // 0 not initialized, 1 scanning visible, 2 scanning suspended, 3 stopped
   scanner = null;
+  activeCamera = null;
   activeCameraId = null;
   cameras = [];
+  scanOptions = {
+    video: null, // set later
+    scanPeriod: 1,
+    mirror: false
+  };
   //scans = [];
-  contentString = '(scanned content comes here)';
+  contentString = '';
   contentAccount = '';
   contentHttp = '';
   contentVault = '';
+  contentVaultRoutes = [];
+  contentVaultParams = {};
 
   constructor(
-    private router: Router
+    private router: Router,
+    private utilService: UtilService,
+    private notifcationService: NotificationService,
+    private settings: AppSettingsService,
   ) { }
 
   async ngOnInit() {
     let self = this;
-    let videoElem = document.getElementById('instascan');
-    this.scanner = new Instascan.Scanner({ video: videoElem, scanPeriod: 5 });
+    this.scanOptions.video = document.getElementById('instascan');
+    this.scanner = new Instascan.Scanner(this.scanOptions);
     this.scanner.addListener('scan', function (content, image) {
-      self.scanAction(content);
+      self.doScanAction(content);
     });
 
     let cameras1 = await Instascan.Camera.getCameras();
@@ -38,46 +53,138 @@ export class QrScanComponent implements OnInit {
       console.error('No cameras found.');
     } else {
       this.cameras = cameras1;
-      //console.log('cameras[0].id', this.cameras[0].id);
-      this.selectCamera(this.cameras[0]);
+      await this.selectCamera(this.cameras[0]);
     }
-
-    // debug
-    //this.scanAction('https://wallet.mikron.io/send?to=mik_1j648kqxntisaxcdcp6ohctrtu6pgrf1j39zirsb6m3iweg6h9otec9kumgj');
   }
 
-  async selectCamera(camera: any) {
-    //console.log('selectCamera', camera.id);
-    this.activeCameraId = camera.id;
+  async startScan() {
+    //console.log('startScan', this.activeCamera.id);
     //console.log('scanner starting');
-    await this.scanner.start(camera);
+    this.doScanAction('');
+    await this.scanner.start(this.activeCamera);
+    this.scanState = 1;
     //console.log("camera started", camera.id);
   }
 
-  scanAction(content: string) {
-    console.log('scanAction', content.length, content);
-    this.contentString = content;
+  stopScan() {
+    this.scanState = 3;
+    this.scanner.stop();
+  }
+
+  pauseScan() {
+    //console.log('pauseScan');
+    this.scanState = 2;
+  }
+
+  resumeScan() {
+    //console.log('resumeScan');
+    //this.activeCamera.start();
+    this.scanState = 1;
+    this.doScanAction('');
+  }
+
+  scanAgain() {
+    if (this.scanState == 2) {
+      this.resumeScan();
+    } else {
+      this.startScan();
+    }
+  }
+
+  async selectCamera(camera: any) {
+    this.activeCamera = camera;
+    this.activeCameraId = camera.Id;
+    this.startScan();
+  }
+
+  // Process the scan result.  Action is dependening on the scan content:
+  // - A full link to within this instance of the web wallet: jump automatically
+  // - A Mikron account: Options for (a) send to this address, or (b) explore this account
+  // - Any (other) http link: Option to navigate to the link (in a new tab)
+  // - Any other: no action, just show the content
+  doScanAction(content: string) {
+    if (this.scanState == 2) {
+      // suspended, ignore
+      return;
+    }
+    //console.log('doScanAction', content.length, content);
+    this.contentString = '';
     this.contentAccount = '';
     this.contentHttp = '';
     this.contentVault = '';
+    if (!content) {
+      // empty scan, ignore
+      return;
+    }
+    this.pauseScan();
+    this.notifcationService.sendInfoKey('Scanned QR code content, ' + content); // TODO translate
+    this.contentString = content;
     //this.scans.unshift({ date: +(Date.now()), content: content });
+
+    // content-sensitive processing of QR code content
     if (content.startsWith('http')) {
       this.contentHttp = content;
-      // TODO check prefix ...
-      this.contentVault = content;
-      const sendToIdx = content.indexOf('send');
-      console.log(content, sendToIdx);
-      if (sendToIdx > 0) {
-        const toIdx = content.indexOf('to');
-        console.log(toIdx);
-        if (toIdx > 0) {
-          const toAddr = content.substring(toIdx+3);
-          console.log(toAddr);
-          this.router.navigate(['send'], {queryParams: {to: toAddr}});
+      // check if link points to ourselves (this instance of the vault)
+      const vaultPrefix = this.settings.getServerApiBaseUrl();
+      if (content.startsWith(vaultPrefix)) {
+        this.contentVault = content;
+        // parse routes and params
+        const routeAndParams = content.substring(vaultPrefix.length);
+        //console.log(routeAndParams);
+        const paramsIdx = routeAndParams.indexOf("?");
+        //console.log(paramsIdx);
+        let route = routeAndParams;
+        let params = '';
+        if (paramsIdx > 0) {
+          route = routeAndParams.substring(0, paramsIdx);
+          params = routeAndParams.substring(paramsIdx + 1);
         }
+        //console.log('route', route, 'params', params);
+
+        this.contentVaultRoutes = [route];
+        this.contentVaultParams = {};
+        if (params) {
+          const pps = params.split('?');
+          for (var i in pps) {
+            //console.log(pps[i]);
+            const keyVal = pps[i].split('=');
+            //console.log(pps[i], keyVal[0], keyVal[1]);
+            if (keyVal[0] && keyVal[1]) {
+              //console.log(keyVal[0], keyVal[1]);
+              this.contentVaultParams[keyVal[0]] = keyVal[1];
+            }
+          }
+        }
+        //console.log('contentVaultRoutes', this.contentVaultRoutes);
+        //console.log('contentVaultParams', this.contentVaultParams);
+
+        // jump aumatically
+        this.actVault();
       }
-    } else {
-      // check for account
+    } else if (this.utilService.account.isValidAccount(content)) {
+      this.contentAccount = content;
+      // either go to account details or send to this account
+      //this.routeTo(['send'], {to: content});
     }
+  }
+
+  routeTo(routes, params) {
+    //console.log('routing to', routes, params);
+    this.stopScan();
+    this.router.navigate(routes, {queryParams: params});
+  }
+
+  actAccountSend() {
+    if (!this.contentAccount) return;
+    this.routeTo(['send'], {to: this.contentAccount});
+  }
+
+  actAccountExplore() {
+    if (!this.contentAccount) return;
+    this.routeTo(['account', this.contentAccount], {});
+  }
+
+  actVault() {
+    this.routeTo(this.contentVaultRoutes, this.contentVaultParams);
   }
 }

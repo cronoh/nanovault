@@ -36,6 +36,7 @@ export class UtilService {
     getPublicAccountID: getPublicAccountID,
     generateSeedBytes: generateSeedBytes,
     getAccountPublicKey: getAccountPublicKey,
+    isValidAccount: isValidAccount,
   };
   date = {
     shortDateToUnixTime: shortDateToUnixTime,
@@ -215,12 +216,23 @@ function getPublicAccountID(accountPublicKeyBytes) {
   return `mik_${account}${checksum}`;
 }
 
-function getAccountPublicKey(account) {
+function isValidAccount(account: string): boolean {
   if (account.length !== 64) {
-    throw new Error(`Invalid Mikron Account`);
+    return false;
+  }
+  if (!account.startsWith('mik'))
+  {
+    return false;
   }
   if (!account.startsWith('mik_1') && !account.startsWith('mik_3'))
   {
+    return false;
+  }
+  return true;
+}
+
+function getAccountPublicKey(account) {
+  if (!isValidAccount(account)) {
     throw new Error(`Invalid Mikron Account`);
   }
   const account_crop = account.substring(4,64);
@@ -312,6 +324,7 @@ const util = {
     getPublicAccountID: getPublicAccountID,
     generateSeedBytes: generateSeedBytes,
     getAccountPublicKey: getAccountPublicKey,
+    isValidAccount: isValidAccount,
   },
   date: {
     shortDateToUnixTime: shortDateToUnixTime,

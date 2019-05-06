@@ -2,20 +2,74 @@
     <div class="uk-width-1-1 uk-animation-slide-left-small">
   
       <div uk-grid class="uk-margin-top">
-        Helló
   
-        <div class="instascan-container">
-          <video id="instascan"></video>
+        <div class="uk-width-1-1@m">
+
+          <div *ngIf="contentVault">
+            <div class="uk-card uk-card-default uk-card-small">
+              <div class="uk-card-body">
+                <button class="uk-button uk-button-secondary" (click)="actVault()">Jump</button>
+                <a href="{{contentVault}}">{{contentVault}}</a>
+              </div>
+            </div>
+          </div> 
+
+          <div *ngIf="contentAccount">
+            <div class="uk-card uk-card-default uk-card-small">
+              <div class="uk-card-body">
+                <button class="uk-button uk-button-secondary" (click)="actAccountSend()">Send to account</button>
+                <button class="uk-button uk-button-secondary" (click)="actAccountExplore()">Explore account</button>
+              </div>
+            </div>
+          </div>  
+  
+          <div *ngIf="contentHttp">
+            <div class="uk-card uk-card-default uk-card-small">
+              <div class="uk-card-body">
+                Link: <a href="{{contentHttp}}" target="_blank">{{contentHttp}}</a>
+              </div>
+            </div>
+          </div>  
+    
+          <div class="uk-card uk-card-default uk-card-small">
+            <div class="uk-card-body">
+              Content: 
+              <span *ngIf="contentString">{{contentString}}</span>
+              <span *ngIf="!contentString">(scanning...)</span>
+            </div>
+          </div>
+
+          <div class="uk-card uk-card-default uk-card-small">
+            <div class="uk-card-body uk-center">
+              <span *ngIf="scanState >= 2">
+                <button class="uk-button uk-button-secondary" (click)="scanAgain()">Scan Again</button>
+              </span>
+              <span *ngIf="scanState == 1 || scanState == 2">
+                <a (click)="stopScan()">Stop Camera</a>
+              </span>
+            </div>
+          </div>
+
+          <div class="uk-card uk-card-default uk-card-small">
+            <div class="uk-card-body uk-center">
+              <div class="instascan-container">
+                <video id="instascan"></video>
+              </div>
+            </div>
+          </div>
+
+          <div class="uk-card uk-card-default uk-card-small">
+            <div class="uk-card-body">
+              Point the camera to see the QR code well.
+              You may need to grant permission to access the camera.
+            </div>
+          </div>
+
         </div>
-  
-        <div>Scanned content: {{contentString}}</div>
-        <div>{{contentAccount}}</div>
-        <div>{{contentHttp}}</div>
-        <div>{{contentVault}}</div>
 
         <div>
           <ul>
-            <li class="" *ngFor="let camera of cameras"><a (click)="selectCamera(camera)">{{camera.id + camera.name}}</a></li>
+            <li class="" *ngFor="let camera of cameras"><a (click)="selectCamera(camera)">{{camera.id + ' -- ' + camera.name}}</a></li>
           </ul>
         </div>
       </div>
