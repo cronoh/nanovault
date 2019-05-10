@@ -396,6 +396,7 @@
         "link": "Hivatkozás",
         "scan-progress": "(beolvasás...)",
         "scan-again": "Új olvasás",
+        "scan-complete": "QR kód beolvasva:",
         "title": "QR kód olvasás"
     },
     "recc": {

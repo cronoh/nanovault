@@ -396,6 +396,7 @@
         "link": "Link",
         "scan-progress": "(scanning...)",
         "scan-again": "Scan Again",
+        "scan-complete": "Scanned QR code content:",
         "title": "Scan QR Code"
     },
     "recc": {

@@ -3,6 +3,7 @@ import { Router } from "@angular/router";
 import { UtilService } from '../../services/util.service';
 import { NotificationService } from "../../services/notification.service";
 import { AppSettingsService } from "../../services/app-settings.service";
+import { LanguageService } from '../../services/language.service';
 
 // for using Instascan library (from instascan.min.js)
 declare var Instascan: any;
@@ -37,6 +38,7 @@ export class QrScanComponent implements OnInit {
     private utilService: UtilService,
     private notifcationService: NotificationService,
     private settings: AppSettingsService,
+    private languageService: LanguageService,
   ) { }
 
   async ngOnInit() {
@@ -117,7 +119,7 @@ export class QrScanComponent implements OnInit {
       return;
     }
     this.pauseScan();
-    this.notifcationService.sendInfoKey('Scanned QR code content, ' + content); // TODO translate
+    this.notifcationService.sendInfoKey(this.languageService.getTran('qrscan.scan-complete') + ` ${content}`);
     this.contentString = content;
     //this.scans.unshift({ date: +(Date.now()), content: content });
 
