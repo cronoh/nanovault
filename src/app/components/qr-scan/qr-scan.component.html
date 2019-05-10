@@ -1,0 +1,80 @@
+<div uk-grid>
+    <div class="uk-width-1-1 uk-animation-slide-left-small">
+  
+      <div uk-grid class="uk-margin-top">
+  
+        <div class="uk-width-1-1@m">
+
+          <div *ngIf="contentVault">
+            <div class="uk-card uk-card-default uk-card-small">
+              <div class="uk-card-body">
+                <button class="uk-button uk-button-secondary" (click)="actVault()">{{'qrscan.act-jump' | t}}</button>
+                <a href="{{contentVault}}">{{contentVault}}</a>
+              </div>
+            </div>
+          </div> 
+
+          <div *ngIf="contentAccount">
+            <div class="uk-card uk-card-default uk-card-small">
+              <div class="uk-card-body">
+                <button class="uk-button uk-button-secondary" (click)="actAccountSend()">{{'qrscan.act-acc-send' | t}}</button>
+                <button class="uk-button uk-button-secondary" (click)="actAccountExplore()">{{'qrscan.act-acc-expl' | t}}</button>
+              </div>
+            </div>
+          </div>  
+  
+          <div *ngIf="contentHttp">
+            <div class="uk-card uk-card-default uk-card-small">
+              <div class="uk-card-body">
+                {{'qrscan.link' | t}}: <a href="{{contentHttp}}" target="_blank">{{contentHttp}}</a>
+              </div>
+            </div>
+          </div>  
+    
+          <div class="uk-card uk-card-default uk-card-small">
+            <div class="uk-card-body">
+              {{'qrscan.content' | t}}: 
+              <span *ngIf="contentString">{{contentString}}</span>
+              <span *ngIf="!contentString">{{'qrscan.scan-progress' | t}}</span>
+            </div>
+          </div>
+
+          <div class="uk-card uk-card-default uk-card-small">
+            <div class="uk-card-body uk-center">
+              <span *ngIf="scanState >= 2">
+                <button class="uk-button uk-button-primary" style="margin-right: 10px;" (click)="scanAgain()">{{'qrscan.scan-again' | t}}</button>
+              </span>
+              <span *ngIf="scanState == 1 || scanState == 2">
+                <button class="uk-button uk-button-text" type="button" style="text-transform: none; margin-right: 10px;" (click)="stopScan()">{{'qrscan.camera-stop' | t}}</button>
+              </span>
+              <span>
+                <button class="uk-button uk-button-text" type="button" style="text-transform: none; margin-right: 10px;">{{'qrscan.camera-select' | t}}</button>
+                <div uk-dropdown>
+                  <ul class="uk-nav uk-dropdown-nav">
+                    <li class="uk-active" *ngFor="let camera of cameras" [class]="{ 'uk-active': activeCameraId === camera.id }"><a href="#" (click)="selectCamera(camera)">{{ camera.name }}</a></li>
+                  </ul>
+                </div>
+              </span>
+            </div>
+          </div>
+
+          <div class="uk-card uk-card-default uk-card-small">
+            <div class="uk-card-body uk-center">
+              <div class="instascan-container">
+                <video id="instascan"></video>
+              </div>
+            </div>
+          </div>
+
+          <div class="uk-card uk-card-default uk-card-small">
+            <div class="uk-card-body">
+              {{'qrscan.desc' | t}}
+            </div>
+          </div>
+
+        </div>
+
+      </div>
+
+    </div>
+</div>

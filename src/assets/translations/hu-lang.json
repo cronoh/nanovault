@@ -385,6 +385,19 @@
     "pow-service": {
         "error-unable": "Nem sikerült a munka bizonyítékot generálni"
     },
+    "qrscan": {
+        "act-acc-send": "Számlára küldés",
+        "act-acc-expl": "Számla megtekintése",
+        "act-jump": "Ugrás",
+        "camera-stop": "Kamera leállítás",
+        "camera-select": "Kamera választás",
+        "content": "Tartalom",
+        "desc": "Tartsd a kamerát úgy, hogy jól látható legyen a QR kód.  Szükséges lehet engedélyezni a hozzáférést a kamerához.",
+        "link": "Hivatkozás",
+        "scan-progress": "(beolvasás...)",
+        "scan-again": "Új olvasás",
+        "title": "QR kód olvasás"
+    },
     "recc": {
         "butt-loading": "Betöltés...",
         "butt-receive": "Fogadás",
