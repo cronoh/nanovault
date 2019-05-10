@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import set = Reflect.set;
+import * as url from 'url';
 
 export type WalletStore = 'localStorage'|'none';
 export type PoWSource = 'server'|'clientCPU'|'clientWebGL'|'best';
@@ -24,7 +24,8 @@ interface AppSettings {
 export class AppSettingsService {
   storeKey = `nanovault-appsettings`;
 
-  settings: AppSettings = {
+  // Default settings
+  defaultSettings: AppSettings = {
     displayDenomination: 'mnano',
     // displayPrefix: 'xrb',
     walletStore: 'localStorage',
@@ -34,11 +35,17 @@ export class AppSettingsService {
     lockInactivityMinutes: 30,
     powSource: 'best',
     serverName: 'nanovault',
-    serverAPI: null,
+    serverAPI: 'https://nanovault.io/api/node-api',
     serverNode: null,
     serverWS: null,
     minimumReceive: null,
   };
+
+  // a deep copy clone of the default settings
+  cloneDefaultSettings() : AppSettings {
+    return JSON.parse(JSON.stringify(this.defaultSettings));
+  }
+  settings: AppSettings = this.cloneDefaultSettings(); // deep copy
 
   constructor() { }
 
@@ -77,21 +84,13 @@ export class AppSettingsService {
 
   clearAppSettings() {
     localStorage.removeItem(this.storeKey);
-    this.settings = {
-      displayDenomination: 'mnano',
-      // displayPrefix: 'xrb',
-      walletStore: 'localStorage',
-      displayCurrency: 'USD',
-      defaultRepresentative: null,
-      lockOnClose: 1,
-      lockInactivityMinutes: 30,
-      powSource: 'best',
-      serverName: 'nanovault',
-      serverNode: null,
-      serverAPI: null,
-      serverWS: null,
-      minimumReceive: null,
-    };
+    this.settings = this.cloneDefaultSettings(); // deep copy
   }
 
+  // Get the base URL part of the serverAPI, e.g. https://nanovault.io from https://nanovault.io/api/node-api.
+  getServerApiBaseUrl(): string {
+    let u = url.parse(this.settings.serverAPI);
+    u.pathname = '/';
+    return url.format(u);
+  }
 }
