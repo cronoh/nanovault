@@ -385,6 +385,19 @@
     "pow-service": {
         "error-unable": "Unable to generate work"
     },
+    "qrscan": {
+        "act-acc-send": "Send to Account",
+        "act-acc-expl": "Explore Account",
+        "act-jump": "Jump",
+        "camera-stop": "Stop Camera",
+        "camera-select": "Select Camera",
+        "content": "Content",
+        "desc": "Point the camera to see the QR code well.  You may need to grant permission to access the camera.",
+        "link": "Link",
+        "scan-progress": "(scanning...)",
+        "scan-again": "Scan Again",
+        "title": "Scan QR Code"
+    },
     "recc": {
         "butt-loading": "Loading",
         "butt-receive": "Receive",
