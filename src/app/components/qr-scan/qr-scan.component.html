@@ -42,10 +42,18 @@
           <div class="uk-card uk-card-default uk-card-small">
             <div class="uk-card-body uk-center">
               <span *ngIf="scanState >= 2">
-                <button class="uk-button uk-button-secondary" (click)="scanAgain()">Scan Again</button>
+                <button class="uk-button uk-button-primary" (click)="scanAgain()">Scan Again</button>
               </span>
               <span *ngIf="scanState == 1 || scanState == 2">
-                <a (click)="stopScan()">Stop Camera</a>
+                <button class="uk-button uk-button-text" type="button" style="text-transform: none;" (click)="stopScan()">Stop Camera</button>
+              </span>
+              <span>
+                <button class="uk-button uk-button-text" type="button" style="text-transform: none;">Camera: {{ activeCamera ? activeCamera.name : '?' }}</button>
+                <div uk-dropdown>
+                  <ul class="uk-nav uk-dropdown-nav">
+                    <li class="uk-active" *ngFor="let camera of cameras" [class]="{ 'uk-active': activeCameraId === camera.id }"><a href="#" (click)="selectCamera(camera)">{{ camera.name }}</a></li>
+                  </ul>
+                </div>
               </span>
             </div>
           </div>
@@ -67,11 +75,6 @@
 
         </div>
 
-        <div>
-          <ul>
-            <li class="" *ngFor="let camera of cameras"><a (click)="selectCamera(camera)">{{camera.id + ' -- ' + camera.name}}</a></li>
-          </ul>
-        </div>
       </div>
 
     </div>
