@@ -1,47 +1,35 @@
-const { app, BrowserWindow, shell, Menu, protocol, webFrame, ipcMain } = require('electron');
-const autoUpdater = require('electron-updater').autoUpdater;
-const url = require('url');
-const path = require('path');
+import 'babel-polyfill';
 
-app.setAsDefaultProtocolClient('banano'); // Register handler for xrb: links
+import { app, BrowserWindow, shell, Menu, protocol, webFrame, ipcMain } from 'electron';
+import { autoUpdater } from 'electron-updater';
+import * as url from 'url';
+import * as path from 'path';
+import { initialize } from './lib/ledger';
 
-console.log(`Starting ledger@!`);
+app.setAsDefaultProtocolClient('xrb'); // Register handler for xrb: links
 
-const ledger = require('./desktop-app/src/lib/ledger');
-
-ledger.initialize();
-
-// const Ledger = new ledger();
-
-// Ledger.loadLedger();
+// Initialize Ledger device detection
+initialize();
 
 let mainWindow;
 
-// global['LedgerTransport'] = TransportNodeHid;
-
 function createWindow () {
   // Create the browser window.
-  mainWindow = new BrowserWindow({width: 1000, height: 600, webPreferences: { webSecurity: false } });
-  // const options = { extraHeaders: "pragma: no-cache\n" };
-  // mainWindow.loadURL('https://nanovault.io', options);
-  mainWindow.loadURL('http://localhost:4200/');
-  // mainWindow.loadURL(url.format({
-  //   pathname: path.join(__dirname, 'dist/index.html'),
-  //   protocol: 'file:',
-  //   slashes: true
-  // }));
+  mainWindow = new BrowserWindow({width: 1000, height: 600, webPreferences: { webSecurity: false, devTools: true } });
 
-  // mainWindow.LedgerTransport = TransportU2F;
-  // mainWindow.webContents.
+  // mainWindow.loadURL('http://localhost:4200/'); // Only use this for development
+  mainWindow.loadURL(url.format({
+    pathname: path.join(__dirname, '../../dist/index.html'),
+    protocol: 'file:',
+    slashes: true
+  }));
 
   // Emitted when the window is closed.
   mainWindow.on('closed', function () {
-    // Dereference the window object, usually you would store windows
-    // in an array if your app supports multi windows, this is the time
-    // when you should delete the corresponding element.
     mainWindow = null
   });
 
+  // Detect link clicks to new windows and open them in the default browser
   mainWindow.webContents.on('new-window', function(e, url) {
     e.preventDefault();
     shell.openExternal(url);
@@ -100,7 +88,7 @@ function checkForUpdates() {
 
 // Build up the menu bar options based on platform
 function getApplicationMenu() {
-  const template = [
+  const template: any = [
     {
       label: 'Edit',
       submenu: [
@@ -141,20 +129,20 @@ function getApplicationMenu() {
       submenu: [
         {
           label: 'View GitHub',
-          click () { loadExternal('https://github.com/bananocoin/bananovault') }
+          click () { loadExternal('https://github.com/cronoh/nanovault') }
         },
         {
           label: 'Submit Issue',
-          click () { loadExternal('https://github.com/bananocoin/bananovault/issues/new') }
+          click () { loadExternal('https://github.com/cronoh/nanovault/issues/new') }
         },
         {type: 'separator'},
         {
           type: 'normal',
-          label: `BananoVault Version: ${autoUpdater.currentVersion}`,
+          label: `NanoVault Version: ${autoUpdater.currentVersion}`,
         },
         {
           label: 'View Latest Updates',
-          click () { loadExternal('https://github.com/bananocoin/bananovault/releases') }
+          click () { loadExternal('https://github.com/cronoh/nanovault/releases') }
         },
         {type: 'separator'},
         {
@@ -169,7 +157,7 @@ function getApplicationMenu() {
 
   if (process.platform === 'darwin') {
     template.unshift({
-      label: 'BananoVault',
+      label: 'NanoVault',
       submenu: [
         {role: 'about'},
         {type: 'separator'},

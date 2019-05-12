@@ -120,11 +120,12 @@
                     <div *ngIf="!showEditRepresentative">
                       <div uk-grid>
                         <div class="uk-width-expand uk-text-truncate ">
-                          <span *ngIf="repLabel" class="uk-label">{{ repLabel }}</span> {{ account.representative }}
+                          <span *ngIf="repLabel" class="uk-label uk-label-danger">{{ repLabel }}</span> {{ account.representative }}
                         </div>
                         <div class="uk-width-auto" style="padding-left: 10px;" *ngIf="walletAccount && account.representative">
                           <ul class="uk-hidden-hover uk-iconnav">
-                            <li><a uk-icon="icon: pencil;" title="Change Representative" uk-tooltip (click)="showEditRepresentative = true"></a></li>
+                            <!--<li><a uk-icon="icon: pencil;" title="Change Representative" uk-tooltip (click)="showEditRepresentative = true"></a></li>-->
+                            <li><a uk-icon="icon: pencil;" title="Change Representative" uk-tooltip routerLink="/representatives" [queryParams]="{ hideOverview: true, showRecommended: true, accounts: accountID }"></a></li>
                           </ul>
                         </div>
                       </div>
@@ -151,7 +152,8 @@
             <table class="uk-table uk-table-striped uk-table-small" style="margin-top: 0;">
               <thead>
               <tr>
-                <th class="uk-width-3-5@m uk-width-1-2">Account</th>
+                <th class="uk-width-1-6@m uk-width-1-6">Date</th>
+                <th class="uk-width-2-5@m uk-width-1-3">Account</th>
                 <th class="uk-width-1-5@m uk-width-1-4">Amount</th>
                 <th class="uk-width-1-5@m uk-width-1-4">Hash</th>
               </tr>
@@ -159,6 +161,8 @@
               <tbody>
 
               <tr *ngFor="let pending of pendingBlocks" class="uk-text-muted">
+                <td class="uk-text-truncate" *ngIf="pending.timestamp">{{ pending.timestamp | date: 'short' }}</td>
+                <td class="uk-text-truncate uk-text-muted" *ngIf="!pending.timestamp">N/A</td>
                 <td class="uk-visible-toggle">
                   <div uk-grid>
                     <div class="uk-width-expand uk-text-truncate">
@@ -180,6 +184,8 @@
               </tr>
 
               <tr *ngFor="let history of accountHistory">
+                <td class="uk-text-truncate" *ngIf="history.timestamp">{{ history.timestamp | date: 'short' }}</td>
+                <td class="uk-text-truncate uk-text-muted" *ngIf="!history.timestamp">N/A</td>
                 <td class="uk-visible-toggle">
                   <div uk-grid>
                     <div class="uk-width-expand uk-text-truncate">
@@ -195,7 +201,8 @@
                   </div>
                 </td>
                 <td [ngClass]="{ 'uk-text-success': history.type == 'receive' || history.subtype == 'receive' || history.type == 'open' || history.subtype == 'open', 'uk-text-danger': history.type == 'send' || history.subtype == 'send' }">
-                  {{ (history.type == 'send' || history.subtype == 'send') ? '-' : '+' }}{{ history.amount | rai: settings.settings.displayDenomination }}
+                  <span *ngIf="isNaN(history.amount)">NEW REP</span>
+                  <span *ngIf="!isNaN(history.amount)">{{ (history.type == 'send' || history.subtype == 'send') ? '-' : '+' }}{{ history.amount | rai: settings.settings.displayDenomination }}</span>
                 </td>
                 <td class="uk-text-truncate"><a [routerLink]="'/transaction/' + history.hash" class="uk-link-text" title="View Block Details" uk-tooltip>{{ history.hash }}</a></td>
               </tr>

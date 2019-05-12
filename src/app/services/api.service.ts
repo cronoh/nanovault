@@ -1,18 +1,35 @@
 import { Injectable } from '@angular/core';
 import {HttpClient} from "@angular/common/http";
 import {NodeService} from "./node.service";
+import {AppSettingsService} from "./app-settings.service";
+
+export interface NinjaVerifiedRep {
+  votingweight: number;
+  delegators: number;
+  uptime: number;
+  score: number;
+  account: string;
+  alias: string;
+}
 
 @Injectable()
 export class ApiService {
+  // apiUrl = `http://localhost:9950/api`;
+  apiUrl = `https://nanovault.io/api`;
+  rpcUrl = `${this.apiUrl}/node-api`;
 
-  rpcUrl = `https://vault.banano.co.in/api/node-api`;
-  // rpcUrl = `http://localhost:9950/api/node-api`;
-
-  constructor(private http: HttpClient, private node: NodeService) { }
+  constructor(private http: HttpClient, private node: NodeService, private appSettings: AppSettingsService) { }
 
   private async request(action, data): Promise<any> {
     data.action = action;
-    return await this.http.post(this.rpcUrl, data).toPromise()
+    let apiUrl = this.appSettings.settings.serverAPI || this.rpcUrl;
+    if (this.appSettings.settings.serverNode) {
+      apiUrl += `?node=${this.appSettings.settings.serverNode}`;
+    }
+    if (this.node.node.status === false) {
+      this.node.setLoading();
+    }
+    return await this.http.post(apiUrl, data).toPromise()
       .then(res => {
         this.node.setOnline();
         return res;
@@ -25,6 +42,10 @@ export class ApiService {
       });
   }
 
+  async recommendedReps(): Promise<NinjaVerifiedRep[]> {
+    return await this.http.get(`${this.apiUrl}/recommended-representatives`).toPromise() as NinjaVerifiedRep[];
+  }
+
   async accountsBalances(accounts: string[]): Promise<{balances: any }> {
     return await this.request('accounts_balances', { accounts });
   }
@@ -33,6 +54,9 @@ export class ApiService {
   }
   async accountsPending(accounts: string[], count: number = 50): Promise<{blocks: any }> {
     return await this.request('accounts_pending', { accounts, count, source: true });
+  }
+  async accountsPendingLimit(accounts: string[], threshold: string, count: number = 50): Promise<{blocks: any }> {
+    return await this.request('accounts_pending', { accounts, count, threshold, source: true });
   }
   async delegatorsCount(account: string): Promise<{ count: string }> {
     return await this.request('delegators_count', { account });
@@ -64,5 +88,8 @@ export class ApiService {
   }
   async pending(account, count): Promise<any> {
     return await this.request('pending', { account, count, source: true });
+  }
+  async pendingLimit(account, count, threshold): Promise<any> {
+    return await this.request('pending', { account, count, threshold, source: true });
   }
 }

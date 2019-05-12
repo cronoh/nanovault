@@ -23,10 +23,25 @@ export class WebsocketService {
 
   constructor(private appSettings: AppSettingsService) { }
 
+  forceReconnect() {
+    if (this.socket.connected && this.socket.ws) {
+      // Override the onclose event so it doesnt try to reconnect the old instance
+      this.socket.ws.onclose = event => {
+      };
+      this.socket.ws.close();
+      delete this.socket.ws;
+      this.socket.connected = false;
+    }
+
+    setTimeout(() => this.connect(), 250);
+  }
+
   connect() {
     if (this.socket.connected && this.socket.ws) return;
     delete this.socket.ws; // Maybe this will erase old connections
-    const ws = new WebSocket('wss://ws.banano.co.in');
+
+    const wsUrl = this.appSettings.settings.serverWS || 'wss://ws.banano.co.in';
+    const ws = new WebSocket(wsUrl);
     this.socket.ws = ws;
 
     ws.onopen = event => {
@@ -60,17 +75,10 @@ export class WebsocketService {
         if (newEvent.event === 'newTransaction') {
           this.newTransactions$.next(newEvent.data);
         }
-        if (newEvent.event === 'useStateBlocks') {
-          this.setStateBlocks(); // Forcefully use state blocks, second canary has been released
-        }
       } catch (err) {
         console.log(`Error parsing message`, err);
       }
     }
-  }
-
-  setStateBlocks() {
-    this.appSettings.setAppSetting('useStateBlocks', true);
   }
 
   attemptReconnect() {

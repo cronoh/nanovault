@@ -1,11 +1,21 @@
 <div class="uk-animation-slide-left-small" uk-grid>
   <div class="uk-width-1-1">
     <div uk-grid>
-      <div class="uk-width-1-2"><h2>Accounts</h2></div>
+      <div class="uk-width-1-2">
+        <h2>
+          Accounts
+          <a (click)="viewAdvanced = !viewAdvanced" style="font-size: 12px; margin-left: 25px;">{{ viewAdvanced ? 'BASIC' : 'ADVANCED' }}</a>
+        </h2>
+      </div>
       <div class="uk-width-1-2 uk-text-right">
-        <button class="uk-button uk-button-secondary" (click)="createAccount()">
-          Add New Account
-        </button>
+        <div uk-grid>
+          <div class="uk-width-1-1">
+            <input type="number" class="uk-input uk-form-width-small" [(ngModel)]="newAccountIndex" placeholder="Account #" *ngIf="viewAdvanced">
+            <button class="uk-button uk-button-secondary" (click)="createAccount()">
+              Add New Account
+            </button>
+          </div>
+        </div>
       </div>
     </div>
 
@@ -13,7 +23,11 @@
       <table class="uk-table uk-table-striped uk-table-small">
         <thead>
         <tr>
-          <th class="uk-width-3-5@m uk-width-1-2">Account</th>
+          <th class="uk-width-3-5@m uk-width-1-2">
+            <a class="account-index" *ngIf="viewAdvanced" uk-icon="icon: hashtag;" title="Sort Accounts" (click)="sortAccounts()" uk-tooltip>
+            </a>
+            Account
+          </th>
           <th class="uk-width-1-5@m uk-width-1-4 uk-text-right">Balance</th>
           <th class="uk-width-1-5@m uk-width-1-4 uk-text-right"></th>
         </tr>
@@ -23,13 +37,18 @@
           <td class="uk-visible-toggle">
             <div uk-grid>
               <div class="uk-width-expand uk-text-truncate">
+                <span class="account-index" *ngIf="viewAdvanced">
+                  {{ account.index }}
+                </span>
                 <a [routerLink]="'/account/' + account.id" class="uk-link-text" title="View Account Details" uk-tooltip>
                   <span *ngIf="account.addressBookName" class="uk-margin-small-right uk-label uk-label-default">{{ account.addressBookName }}</span> {{ account.id }}
                 </a>
               </div>
               <div class="uk-width-auto" style="padding-left: 10px;">
                 <ul class="uk-hidden-hover uk-iconnav">
+                  <!--<li class="account-index">#{{ account.index }}</li>-->
                   <li><a ngxClipboard [cbContent]="account.id" (cbOnSuccess)="copied()" uk-icon="icon: copy" title="Copy Account Address" uk-tooltip></a></li>
+                  <li *ngIf="isLedgerWallet"><a uk-icon="icon: commenting" title="Confirm Address On Ledger" (click)="showLedgerAddress(account)" uk-tooltip></a></li>
                 </ul>
               </div>
             </div>
@@ -65,7 +84,6 @@
     </div>
 
     <p class="uk-text-center uk-text-small">Click on an account to view more details!</p>
-
 
   </div>
 </div>

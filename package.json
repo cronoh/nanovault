@@ -1,10 +1,10 @@
 {
   "name": "BananoVault",
-  "version": "1.0.4",
+  "version": "1.1.3",
   "license": "MIT",
-  "description": "Wallet for interacting with Banano",
+  "description": "Wallet for interacting with Nano",
   "author": "Andrew Steele",
-  "main": "main.js",
+  "main": "desktop-app/dist/desktop-app.js",
   "scripts": {
     "ng": "ng",
     "start": "ng serve",
@@ -17,14 +17,21 @@
     "dist": "electron-builder",
     "dist-full": "electron-builder -wml --x64",
     "publish": "build -wml --x64 -p always",
+    "release": "npm run desktop:build && electron-builder",
+
     "wallet:dev": "ng serve --open",
     "wallet:dev-ssl": "ng serve --open --ssl 1 --ssl-key \"assets/dev-cert/key.pem\" --ssl-cert \"assets/dev-cert/cert.pem\"",
     "wallet:build": "ng build --prod",
-    "wallet:build-desktop": "ng build --env=desktop --prod --base-href ",
-    "desktop:dev": "electron main.js",
+    "wallet:build-desktop": "ng build --env=desktop --base-href ",
+
+    "desktop:compile": "cd desktop-app && tsc && cd ..",
+    "desktop:build": "npm run wallet:build-desktop && npm run desktop:compile",
+    "desktop:dev": "npm run desktop:compile && electron desktop-app/dist/desktop-app.js",
     "desktop:local": "electron-builder",
     "desktop:full": "electron-builder -wml --x64",
-    "desktop:publish": "build -wml --x64 -p always"
+    "desktop:publish": "build -wml --x64 -p always",
+
+    "server:copy-wallet": "cd .. && rm -rf bananovault-server/static && cp -R bananovault/dist bananovault-server/static"
   },
   "private": true,
   "dependencies": {
@@ -38,8 +45,11 @@
     "@angular/platform-browser": "^5.0.0",
     "@angular/platform-browser-dynamic": "^5.0.0",
     "@angular/router": "^5.0.0",
-    "@ledgerhq/hw-transport-u2f": "^4.13.0",
+    "@ledgerhq/hw-transport-node-hid": "^4.22.0",
+    "@ledgerhq/hw-transport-u2f": "^4.7.3",
     "@types/crypto-js": "^3.1.38",
+    "babel-polyfill": "^6.26.0",
+    "babel-runtime": "^6.26.0",
     "bignumber.js": "^5.0.0",
     "bip39": "^2.5.0",
     "blakejs": "^1.1.0",
@@ -47,8 +57,9 @@
     "crypto": "^1.0.1",
     "crypto-js": "^3.1.9-1",
     "electron-updater": "^2.21.0",
-    "hw-app-banano": "github:coranos/hw-app-banano#master",
+    "hw-app-nano": "^1.0.0",
     "ngx-clipboard": "^9.1.2",
+    "node-hid": "^0.7.3",
     "qrcode": "^1.2.0",
     "rxjs": "^5.5.2",
     "tweetnacl": "^1.0.0",
@@ -61,7 +72,7 @@
     "@types/bip39": "^2.4.0",
     "@types/jasmine": "~2.5.53",
     "@types/jasminewd2": "~2.0.2",
-    "@types/node": "~6.0.60",
+    "@types/node": "^10.11.0",
     "@types/qrcode": "^0.8.1",
     "codelyzer": "^4.0.1",
     "electron": "^1.8.2",
@@ -82,11 +93,12 @@
   },
   "build": {
     "appId": "com.electron.bananovault",
-    "buildVersion": "1.0.4",
+    "buildVersion": "1.1.3",
     "productName": "BananoVault",
-    "copyright": "Copyright © 2018 Andrew Steele",
+    "copyright": "Copyright © 2019 Andrew Steele",
     "directories": {
-      "output": "dist-desktop",
+      "output": "desktop-app/build",
+      "buildResources": "desktop-app/assets",
       "app": "./"
     },
     "mac": {
@@ -94,9 +106,9 @@
       "extendInfo": {
         "CFBundleURLTypes": [
           {
-            "CFBundleURLName": "banano",
+            "CFBundleURLName": "xrb",
             "CFBundleURLSchemes": [
-              "banano"
+              "xrb"
             ]
           }
         ]
@@ -108,14 +120,14 @@
     "publish": [
       {
         "provider": "github",
-        "owner": "banano",
+        "owner": "cronoh",
         "repo": "bananovault"
       }
     ],
     "protocols": {
-      "name": "banano",
+      "name": "ban",
       "schemes": [
-        "banano"
+        "ban"
       ],
       "role": "Viewer"
     }
