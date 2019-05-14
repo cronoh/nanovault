@@ -41,6 +41,19 @@
             </div>
           </div>
 
+          <div class="uk-width-1-1">
+            <div class="uk-form-horizontal">
+              <div class="uk-margin">
+                <label class="uk-form-label" for="form-horizontal-select">QR Code Integration <span uk-icon="icon: info;" uk-tooltip title="Integration style used in the URLs encoded in Account QR code"></span></label>
+                <div class="uk-form-controls">
+                  <select class="uk-select" [(ngModel)]="selectedQrIntegration" id="form-horizontal-select">
+                    <option *ngFor="let int of qrIntegrations" [value]="int.value">{{int.text}}</option>
+                  </select>
+                </div>
+              </div>
+            </div>
+          </div>
+
           <!--<div class="uk-width-1-1">-->
             <!--<div class="uk-form-horizontal">-->
 

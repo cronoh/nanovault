@@ -74,6 +74,9 @@ export class ConfigureAppComponent implements OnInit {
   ];
   selectedCurrency = this.currencies[0].value;
 
+  qrIntegrations = this.appSettings.qrIntegrations;
+  selectedQrIntegration = 0;
+
   inactivityOptions = [
     { name: 'Never', value: 0 },
     { name: '1 Minute', value: 1 },
@@ -115,7 +118,7 @@ export class ConfigureAppComponent implements OnInit {
   serverConfigurations = [
     {
       name: 'nanovault',
-      api: null,
+      api: 'https://nanovault.io/api/node-api',
       ws: null,
     },
     {
@@ -162,6 +165,8 @@ export class ConfigureAppComponent implements OnInit {
     const matchingCurrency = this.currencies.find(d => d.value === settings.displayCurrency);
     this.selectedCurrency = matchingCurrency.value || this.currencies[0].value;
 
+    this.selectedQrIntegration = settings.qrIntegration;
+
     const matchingDenomination = this.denominations.find(d => d.value == settings.displayDenomination);
     this.selectedDenomination = matchingDenomination.value || this.denominations[0].value;
 
@@ -193,6 +198,7 @@ export class ConfigureAppComponent implements OnInit {
     // const updatePrefixes = this.appSettings.settings.displayPrefix !== this.selectedPrefix;
     const reloadFiat = this.appSettings.settings.displayCurrency !== newCurrency;
     this.appSettings.setAppSetting('displayDenomination', this.selectedDenomination);
+    this.appSettings.settings.qrIntegration = this.selectedQrIntegration;
     this.notifications.sendSuccess(`App display settings successfully updated!`);
 
     if (reloadFiat) {
