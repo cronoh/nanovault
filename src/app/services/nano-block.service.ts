@@ -14,7 +14,25 @@ const STATE_BLOCK_PREAMBLE = '00000000000000000000000000000000000000000000000000
 
 @Injectable()
 export class NanoBlockService {
-  representativeAccount = 'xrb_3rw4un6ys57hrb39sy1qx8qy5wukst1iiponztrz9qiz6qqa55kxzx4491or'; // NanoVault Representative
+  preconfiguredRepresentatives = [
+    'xrb_3rw4un6ys57hrb39sy1qx8qy5wukst1iiponztrz9qiz6qqa55kxzx4491or', // NanoVault / cronoh
+    'xrb_1ninja7rh37ehfp9utkor5ixmxyg8kme8fnzc4zty145ibch8kf5jwpnzr3r', // My Nano Ninja / BitDesert
+    'xrb_1fnx59bqpx11s1yn7i5hba3ot5no4ypy971zbkp5wtium3yyafpwhhwkq8fc', // NiF
+    'xrb_1i9ugg14c5sph67z4st9xk8xatz59xntofqpbagaihctg6ngog1f45mwoa54', // nanode21 / standreas
+    'xrb_3rpixaxmgdws7nk7sx6owp8d8becj9ei5nef6qiwokgycsy9ufytjwgj6eg9', // repnode.org / sev
+    'xrb_3uaydiszyup5zwdt93dahp7mri1cwa5ncg9t4657yyn3o4i1pe8sfjbimbas', // nano.voting / Bimbas
+    'xrb_1f56swb9qtpy3yoxiscq9799nerek153w43yjc9atoaeg3e91cc9zfr89ehj', // dbachm123
+    'xrb_33ad5app7jeo6jfe9ure6zsj8yg7knt6c1zrr5yg79ktfzk5ouhmpn6p5d7p', // warai
+    'xrb_1x7biz69cem95oo7gxkrw6kzhfywq4x5dupw4z1bdzkb74dk9kpxwzjbdhhs', // NanoCrawler / meltingice
+    'xrb_1iuz18n4g4wfp9gf7p1s8qkygxw7wx9qfjq6a9aq68uyrdnningdcjontgar', // NanoLinks.info / Joohansson
+    'xrb_1e6e41up4x5e4jke6wy4k6nnuagagspfx4tjafghub6cw46ueimqt657nx4a', // nanoodle / arranHarty
+    'xrb_1center16ci77qw5w69ww8sy4i4bfmgfhr81ydzpurm91cauj11jn6y3uc5y', // The Nano Center / Dotcom
+    'xrb_34prihdxwz3u4ps8qjnn14p7ujyewkoxkwyxm3u665it8rg5rdqw84qrypzk', // nano-faucet.org / Srayman
+    'xrb_3chartsi6ja8ay1qq9xg3xegqnbg1qx76nouw6jedyb8wx3r4wu94rxap7hg', // Nano Charts / frakilk
+    'xrb_3o7uzba8b9e1wqu5ziwpruteyrs3scyqr761x7ke6w1xctohxfh5du75qgaj', // Nano TipBot / bbedward
+    'xrb_17wmwpg65neuh8u84f99e6nxcf48znusb437efwaafta7rtpy4n9h6io79xj', // nanotipbot.com / mitche50
+    'xrb_1kd4h9nqaxengni43xy9775gcag8ptw8ddjifnm77qes1efuoqikoqy5sjq3', // NanoQuake / jayycox
+  ];
 
   constructor(
     private api: ApiService,
@@ -93,7 +111,7 @@ export class NanoBlockService {
     while (remainingPadded.length < 32) remainingPadded = '0' + remainingPadded; // Left pad with 0's
 
     let blockData;
-    const representative = fromAccount.representative || (this.settings.settings.defaultRepresentative || this.representativeAccount);
+    const representative = fromAccount.representative || (this.settings.settings.defaultRepresentative || this.getRandomRepresentative());
 
     let signature = null;
     if (ledger) {
@@ -151,7 +169,7 @@ export class NanoBlockService {
     const openEquiv = !toAcct || !toAcct.frontier;
 
     const previousBlock = toAcct.frontier || "0000000000000000000000000000000000000000000000000000000000000000";
-    const representative = toAcct.representative || (this.settings.settings.defaultRepresentative || this.representativeAccount);
+    const representative = toAcct.representative || (this.settings.settings.defaultRepresentative || this.getRandomRepresentative());
 
     const srcBlockInfo = await this.api.blocksInfo([sourceBlock]);
     const srcAmount = new BigNumber(srcBlockInfo.blocks[sourceBlock].amount);
@@ -276,6 +294,10 @@ export class NanoBlockService {
   }
   clearLedgerNotification() {
     this.notifications.removeNotification('ledger-sign');
+  }
+  
+  getRandomRepresentative() {
+    return this.preconfiguredRepresentatives[Math.floor(Math.random()*this.preconfiguredRepresentatives.length)];
   }
 
 }
