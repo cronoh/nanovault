@@ -104,4 +104,5 @@ Special thanks to the following!
 - [jaimehgb/RaiBlocksWebAssemblyPoW](https://github.com/jaimehgb/RaiBlocksWebAssemblyPoW) - CPU PoW Implementation
 - [dcposch/blakejs](https://github.com/dcposch/blakejs) - Blake2b Implementation
 - [dchest/tweetnacl-js](https://github.com/dchest/tweetnacl-js) - Cryptography Implementation
+- [schmich/InstaScan](https://github.com/schmich/instascan) - Fully client-side in-browser QR code reading lib
 
