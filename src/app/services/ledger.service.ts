@@ -267,7 +267,7 @@ export class LedgerService {
           if (err.statusText == 'UNKNOWN_ERROR') {
             this.resetLedger();
           }
-          this.ledgerStatus$.next({ status: this.ledger.status, statusText: `Error loading Nano USB transport` });
+          this.ledgerStatus$.next({ status: this.ledger.status, statusText: `Error loading Banano USB transport` });
           return resolve(false);
         }
       }

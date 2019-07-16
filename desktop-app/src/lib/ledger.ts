@@ -24,7 +24,7 @@ const LedgerStatus = {
  * talks to the USB device directly and relays messages over Electron IPC
  */
 export class LedgerService {
-  walletPrefix = `44'/165'/`;
+  walletPrefix = `44'/198'/`;
   waitTimeout = 300000;
   normalTimeout = 5000;
   pollInterval = 45000;
@@ -59,7 +59,7 @@ export class LedgerService {
         this.ledger.transport = trans;
         this.ledger.transport.setDebugMode(true);
         this.ledger.transport.setExchangeTimeout(this.waitTimeout); // 5 minutes
-        this.ledger.nano = new Nano(this.ledger.transport);
+        this.ledger.nano = new Banano(this.ledger.transport);
 
         resolve(this.ledger.transport);
       }).catch(reject);
