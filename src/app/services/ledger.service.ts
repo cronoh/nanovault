@@ -261,7 +261,10 @@ export class LedgerService {
       // Load nano object
       if (!this.ledger.nano) {
         try {
-          this.ledger.nano = new Banano(this.ledger.transport);
+          const ban = new Banano(this.ledger.transport);
+          console.log(`this.ledger.nano ban: `, ban);
+          this.ledger.nano = ban;
+          console.log(`this.ledger.nano: `, this.ledger.nano);
         } catch (err) {
           console.log(`Nano error: `, err);
           if (err.statusText == 'UNKNOWN_ERROR') {
