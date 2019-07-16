@@ -1,5 +1,5 @@
 import TransportNodeHid from '@ledgerhq/hw-transport-node-hid';
-import Nano from 'hw-app-nano';
+import Banano from 'hw-app-nano';
 
 import * as rx from 'rxjs';
 
