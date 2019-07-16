@@ -223,10 +223,10 @@
                 <div class="uk-form-controls">
 
                   <div class="uk-inline uk-width-1-1" *ngIf="!showServerConfigs()">
-                    <strong>{{ serverAPI || 'https://nanovault.io/api/node-api' }}</strong>
+                    <strong>{{ serverAPI || 'https://vault.banano.cc/api/node-api' }}</strong>
                   </div>
                   <div class="uk-inline uk-width-1-1" *ngIf="showServerConfigs()">
-                    <input [(ngModel)]="serverAPI" class="uk-input uk-margin-small-bottom" type="text" placeholder="https://nanovault.io/api/node-api">
+                    <input [(ngModel)]="serverAPI" class="uk-input uk-margin-small-bottom" type="text" placeholder="https://vault.banano.cc/api/node-api">
                     <span class="uk-text-meta">
                       This server must be running the <a href="https://github.com/cronoh/nanovault-server" target="_blank">NanoVault Server</a> application, or an API compliant with it.<br>
                       Timestamps in the application are dependant on this server's access to them.

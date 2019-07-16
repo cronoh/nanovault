@@ -113,18 +113,8 @@ export class ConfigureAppComponent implements OnInit {
 
   serverConfigurations = [
     {
-      name: 'nanovault',
+      name: 'Bananovault',
       api: null,
-      ws: null,
-    },
-    {
-      name: 'nanocrawler',
-      api: 'https://vault.nanocrawler.cc/api/node-api',
-      ws: 'wss://ws.nanocrawler.cc',
-    },
-    {
-      name: 'mynano',
-      api: 'https://vault-api.mynano.ninja/api/node-api',
       ws: null,
     },
   ];
