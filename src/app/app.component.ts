@@ -102,7 +102,7 @@ export class AppComponent implements OnInit {
     try {
       await this.updateFiatPrices();
     } catch (err) {
-      this.notifications.sendWarning(`There was an issue retrieving latest Nano price.  Ensure your AdBlocker is disabled on this page then reload to see accurate FIAT values.`, { length: 0, identifier: `price-adblock` });
+      this.notifications.sendWarning(`There was an issue retrieving latest Banano price.  Ensure your AdBlocker is disabled on this page then reload to see accurate FIAT values.`, { length: 0, identifier: `price-adblock` });
     }
 
   }
@@ -134,7 +134,7 @@ export class AppComponent implements OnInit {
 
   retryConnection() {
     this.walletService.reloadBalances(true);
-    this.notifications.sendInfo(`Attempting to reconnect to Nano node`);
+    this.notifications.sendInfo(`Attempting to reconnect to Banano node`);
   }
 
   async updateFiatPrices() {

@@ -51,7 +51,7 @@ export class LedgerService {
     this.setLedgerStatus(LedgerStatus.NOT_CONNECTED, errorMessage);
   }
 
-  // Open a connection to the usb device and initialize up the Nano Ledger library
+  // Open a connection to the usb device and initialize up the Banano Ledger library
   async loadTransport() {
     return new Promise((resolve, reject) => {
       TransportNodeHid.create().then(trans => {

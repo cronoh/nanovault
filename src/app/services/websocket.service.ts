@@ -40,7 +40,7 @@ export class WebsocketService {
     if (this.socket.connected && this.socket.ws) return;
     delete this.socket.ws; // Maybe this will erase old connections
 
-    const wsUrl = this.appSettings.settings.serverWS || 'wss://ws.banano.co.in';
+    const wsUrl = this.appSettings.settings.serverWS || 'wss://ws.banano.cc';
     const ws = new WebSocket(wsUrl);
     this.socket.ws = ws;
 

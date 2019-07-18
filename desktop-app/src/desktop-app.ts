@@ -138,7 +138,7 @@ function getApplicationMenu() {
         {type: 'separator'},
         {
           type: 'normal',
-          label: `NanoVault Version: ${autoUpdater.currentVersion}`,
+          label: `BananoVault Version: ${autoUpdater.currentVersion}`,
         },
         {
           label: 'View Latest Updates',
@@ -157,7 +157,7 @@ function getApplicationMenu() {
 
   if (process.platform === 'darwin') {
     template.unshift({
-      label: 'NanoVault',
+      label: 'BananoVault',
       submenu: [
         {role: 'about'},
         {type: 'separator'},

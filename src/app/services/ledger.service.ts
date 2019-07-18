@@ -266,7 +266,7 @@ export class LedgerService {
           this.ledger.nano = ban;
           console.log(`this.ledger.nano: `, this.ledger.nano);
         } catch (err) {
-          console.log(`Nano error: `, err);
+          console.log(`Banano error: `, err);
           if (err.statusText == 'UNKNOWN_ERROR') {
             this.resetLedger();
           }

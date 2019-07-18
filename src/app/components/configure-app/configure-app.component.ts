@@ -99,9 +99,9 @@ export class ConfigureAppComponent implements OnInit {
   // selectedPrefix = this.prefixOptions[0].value;
 
   serverOptions = [
-    { name: 'NanoVault Default', value: 'nanovault' },
-    { name: 'NanoCrawler', value: 'nanocrawler' },
-    { name: 'My Nano Ninja', value: 'mynano' },
+    { name: 'BananoVault Default', value: 'bananovault' },
+    { name: 'BananoCrawler', value: 'nanocrawler' },
+    { name: 'My Banano Ninja', value: 'mynano' },
     { name: 'Custom', value: 'custom' },
   ];
   selectedServer = this.serverOptions[0].value;
@@ -280,7 +280,7 @@ export class ConfigureAppComponent implements OnInit {
       if (this.serverWS.startsWith('wss://') || this.serverWS.startsWith('ws://')) {
         newSettings.serverWS = this.serverWS;
       } else {
-        return this.notifications.sendWarning(`Custom Update Server has an invalid address.  Make sure to use the full address ie: wss://ws.banano.co.in/`);
+        return this.notifications.sendWarning(`Custom Update Server has an invalid address.  Make sure to use the full address ie: wss://ws.banano.cc/`);
       }
     }
 
