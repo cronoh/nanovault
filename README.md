@@ -1,7 +1,7 @@
 # BananoVault
 
 BananoVault is a fully client-side signing wallet for sending and receiving [Banano](https://github.com/bananocoin/banano)
-on your [desktop](https://github.com/bananocoin/bananovault/releases) or [in your browser](https://vault.banano.co.in)
+on your [desktop](https://github.com/bananocoin/bananovault/releases) or [in your browser](https://vault.banano.cc)
 
 ![BananoVault Screenshot](https://i.imgur.com/DWlPQdM.png)
 ___
@@ -18,7 +18,7 @@ ___
 # Install BananoVault
 BananoVault is available on your desktop (Windows/Mac/Linux) - just head over to the [releases section](https://github.com/bananocoin/bananovault/releases) and download the latest version for your OS.
 
-You can also use BananoVault from any device on the web at [vault.banano.co.in](https://vault.banano.co.in)
+You can also use BananoVault from any device on the web at [vault.banano.cc](https://vault.banano.cc)
 
 
 # Bugs/Feedback
@@ -30,7 +30,7 @@ To get an idea of some of the things that are planned for the near future, check
 ___
 
 #### Everything below is only for contributing to the development of BananoVault
-#### To download BananoVault go to the [releases section](https://github.com/bananocoin/bananovault/releases), or use the web wallet at [vault.banano.co.in](https://vault.banano.co.in)
+#### To download BananoVault go to the [releases section](https://github.com/bananocoin/bananovault/releases), or use the web wallet at [vault.banano.cc](https://vault.banano.cc)
 
 ___
 

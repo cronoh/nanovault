@@ -264,7 +264,7 @@ export class ConfigureAppComponent implements OnInit {
       if (this.serverAPI.startsWith('https://') || this.serverAPI.startsWith('http://')) {
         newSettings.serverAPI = this.serverAPI;
       } else {
-        return this.notifications.sendWarning(`Custom API Server has an invalid address.  Make sure to use the full address ie: https://nanovault.io/api/node-api`);
+        return this.notifications.sendWarning(`Custom API Server has an invalid address.  Make sure to use the full address ie: https://vault.banano.cc/api/node-api`);
       }
     }
 
@@ -272,7 +272,7 @@ export class ConfigureAppComponent implements OnInit {
       if (this.serverNode.startsWith('https://') || this.serverNode.startsWith('http://')) {
         newSettings.serverNode = this.serverNode;
       } else {
-        return this.notifications.sendWarning(`Custom Node Server has an invalid address.  Make sure to use the full address ie: http://127.0.0.1:7076`);
+        return this.notifications.sendWarning(`Custom Node Server has an invalid address.  Make sure to use the full address ie: http://127.0.0.1:7072`);
       }
     }
 
@@ -280,7 +280,7 @@ export class ConfigureAppComponent implements OnInit {
       if (this.serverWS.startsWith('wss://') || this.serverWS.startsWith('ws://')) {
         newSettings.serverWS = this.serverWS;
       } else {
-        return this.notifications.sendWarning(`Custom Update Server has an invalid address.  Make sure to use the full address ie: wss://ws.nanovault.io/`);
+        return this.notifications.sendWarning(`Custom Update Server has an invalid address.  Make sure to use the full address ie: wss://ws.banano.co.in/`);
       }
     }
 
