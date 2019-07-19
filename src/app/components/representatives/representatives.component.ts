@@ -158,7 +158,7 @@ export class RepresentativesComponent implements OnInit {
     this.recommendedRepsLoading = true;
     try {
       const scores = await this.api.recommendedReps() as any[];
-      const totalSupply = new BigNumber(133248289);
+      const totalSupply = new BigNumber(3402823669);
 
       const reps = scores.map(rep => {
         const nanoWeight = this.util.banano.rawToBan(rep.votingweight.toString() || 0);

@@ -100,8 +100,6 @@ export class ConfigureAppComponent implements OnInit {
 
   serverOptions = [
     { name: 'BananoVault Default', value: 'bananovault' },
-    { name: 'BananoCrawler', value: 'nanocrawler' },
-    { name: 'My Banano Ninja', value: 'mynano' },
     { name: 'Custom', value: 'custom' },
   ];
   selectedServer = this.serverOptions[0].value;
@@ -272,7 +270,7 @@ export class ConfigureAppComponent implements OnInit {
       if (this.serverNode.startsWith('https://') || this.serverNode.startsWith('http://')) {
         newSettings.serverNode = this.serverNode;
       } else {
-        return this.notifications.sendWarning(`Custom Node Server has an invalid address.  Make sure to use the full address ie: http://127.0.0.1:7072`);
+        return this.notifications.sendWarning(`Custom Node Server has an invalid address.  Make sure to use the full address ie: http://127.0.0.1:7076`);
       }
     }
 

@@ -128,66 +128,10 @@
                   </div>
                 </div>
 
-                <div class="uk-form-controls">
-                  <div class="uk-inline uk-width-1-1 uk-margin-top">
-                    <button class="uk-button uk-button-default uk-button-small" *ngIf="showRecommendedReps" (click)="showRecommendedReps = !showRecommendedReps"><span uk-icon="icon: minus; ratio: 0.8" style="margin-right: 5px;"></span> Hide Recommended Representatives</button>
-                    <button class="uk-button uk-button-primary uk-button-small" *ngIf="!showRecommendedReps" (click)="showRecommendedReps = !showRecommendedReps"><span uk-icon="icon: plus; ratio: 0.8" style="margin-right: 5px;"></span> View Recommended Representatives</button>
-                  </div>
-                </div>
-              </div>
-
-              <div *ngIf="showRecommendedReps">
-                <hr>
-
-                <div class="uk-margin">
-                  <p class="uk-text-lead uk-text-center">Select a representative recommended by <a href="https://mynano.ninja" target="_blank" class="uk-link-text">MyBananoNinja</a></p>
-                  <!--<h4>Or, Select a recommended representative</h4>-->
-                  <ul class="uk-list uk-list-striped" style="margin-bottom: 0;">
-                    <li style="background: #fff; border-bottom: 0;">
-                      <div uk-grid style="color: #999; text-transform: uppercase; font-size: .875rem; font-weight: 400;">
-                        <div class="uk-width-expand">Representative</div>
-                        <div class="uk-width-1-2">Weight / Uptime / Accounts</div>
-                        <!--<div class="uk-width-1-5">Uptime / Delegators</div>-->
-                      </div>
-                    </li>
-                  </ul>
-                  <ul class="uk-list uk-list-striped" style="margin-top: 0;">
-                    <li *ngIf="recommendedRepsLoading" class="uk-text-center">
-                      <span uk-icon="load"></span> Loading reps...
-                    </li>
-                    <li *ngIf="recommendedRepsLoading === null" class="uk-text-center">
-                      <span uk-icon="load"></span> Unable to load representatives from MyBananoNinja
-                    </li>
-                    <li *ngFor="let rep of recommendedRepsPaginated">
-                      <div uk-grid >
-                        <div class="uk-width-expand" (click)="selectRecommendedRep(rep)" style="cursor: pointer;">
-                          <span class="uk-badge" uk-tooltip title="MyBananoNinja Score" style="margin-right: 4px;">{{ rep.score }}</span> <span uk-tooltip title="Select this representative">{{ rep.alias }}</span>
-
-                        </div>
-                        <div class="uk-width-1-2">
-                          <a [href]="'https://mynano.ninja/account/' + rep.account" target="_blank" style="float: right;" uk-tooltip title="View more details on MyBananoNinja" class="uk-link-muted"><span uk-icon="search"></span></a>
-
-                          <span style="display: inline-block; margin-right: 15px;" uk-tooltip title="Percentage of network voting weight delegated" class="uk-text-primary"><i class="fas fa-balance-scale"></i> {{ rep.percent }}%</span>
-                          <span style="display: inline-block; margin-right: 15px; color: #13ab60;" uk-tooltip title="Uptime since creation" class=""><i class="fas fa-signal"></i> {{ rep.uptime.toFixed(2) }}%</span>
-                          <span style="display: inline-block; margin-right: 10px;" uk-tooltip title="Number of accounts delegating voting weight"><i class="fas fa-users"></i> {{ rep.delegators }}</span>
-
-                        </div>
-                      </div>
-                    </li>
-                  </ul>
-                  <a href="https://mynano.ninja/active" target="_blank" style="float: right;" class="uk-link-muted" uk-tooltip title="View all verified representatives on MyBananoNinja">View All</a>
-                  <ul class="uk-pagination uk-flex-center">
-                    <li><a (click)="previousReps()" uk-tooltip title="Previous Page"><span uk-pagination-previous></span></a></li>
-                    <li>Showing {{ (currentRepPage * repsPerPage)+ 1 }} - {{ (currentRepPage * repsPerPage)+ repsPerPage }} of {{ recommendedReps.length }} reps</li>
-                    <li><a (click)="nextReps()" uk-tooltip title="Next Page"><span uk-pagination-next></span></a></li>
-                  </ul>
-                </div>
 
               </div>
 
-
-            </div>
-          </div>
+              
           <div class="uk-card-footer">
             <button class="uk-button uk-button-primary uk-width-1-1" type="button" (click)="changeRepresentatives()" *ngIf="!changingRepresentatives">Update Representatives</button>
             <button class="uk-button uk-button-primary uk-width-1-1 uk-disabled" type="button" *ngIf="changingRepresentatives"><span uk-spinner></span> Updating Representatives...</button>

@@ -99,7 +99,7 @@ export class RepresentativeService {
     const representatives = await this.getRepresentativesDetails(uniqueReps);
     const onlineReps = await this.getOnlineRepresentatives();
 
-    const totalSupply = new BigNumber(133248289);
+    const totalSupply = new BigNumber(3402823669);
     const allReps = [];
 
     // Now, loop through each representative and determine some details about it
@@ -306,17 +306,27 @@ export class RepresentativeService {
   defaultRepresentatives = [
     {
       id: 'ban_1fomoz167m7o38gw4rzt7hz67oq6itejpt4yocrfywujbpatd711cjew8gjj',
-      name: 'Official Rep 1',
+      name: 'Official Fomo Rep',
       trusted: true,
     },
     {
       id: 'ban_1cake36ua5aqcq1c5i3dg7k8xtosw7r9r7qbbf5j15sk75csp9okesz87nfn',
-      name: 'Official Rep 2',
+      name: 'Official Cake Rep',
       trusted: true,
     },
     {
       id: 'ban_1bananobh5rat99qfgt1ptpieie5swmoth87thi74qgbfrij7dcgjiij94xr',
-      name: 'Official Rep 3',
+      name: 'Official BananoRatPie Rep',
+      trusted: true,
+    },
+    {
+      id: 'ban_1banbet955hwemgsqrb8afycd3nykaqaxsn7iaydcctfrwi3rbb36y17fbcb',
+      name: 'BananoBet Rep',
+      trusted: true,
+    },
+    {
+      id: 'ban_1ka1ium4pfue3uxtntqsrib8mumxgazsjf58gidh1xeo5te3whsq8z476goo',
+      name: 'Kalium Rep',
       trusted: true,
     },
   ];

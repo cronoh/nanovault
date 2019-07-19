@@ -106,7 +106,7 @@ Run `ng e2e` to execute the end-to-end tests via [Protractor](http://www.protrac
 
 # Acknowledgements
 Special thanks to the following!
-- [cronoh/nanovault](https://github.com/cronoh/nanovault) - Creator of nanovault
+- [cronoh/nanovault](https://github.com/cronoh) - Creator of nanovault
 - [numtel/nano-webgl-pow](https://github.com/numtel/nano-webgl-pow) - WebGL PoW Implementation
 - [jaimehgb/RaiBlocksWebAssemblyPoW](https://github.com/jaimehgb/RaiBlocksWebAssemblyPoW) - CPU PoW Implementation
 - [dcposch/blakejs](https://github.com/dcposch/blakejs) - Blake2b Implementation
