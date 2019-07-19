@@ -36,6 +36,7 @@ export class UtilService {
     getPublicAccountID: getPublicAccountID,
     generateSeedBytes: generateSeedBytes,
     getAccountPublicKey: getAccountPublicKey,
+    setPrefix: setPrefix,
   };
   banano = {
     banToRaw: banToRaw,
@@ -205,18 +206,28 @@ function generateAccountKeyPair(accountSecretKeyBytes) {
   return nacl.sign.keyPair.fromSecretKey(accountSecretKeyBytes);
 }
 
-function getPublicAccountID(accountPublicKeyBytes) {
+function getPublicAccountID(accountPublicKeyBytes, prefix = 'ban') {
   const accountHex = util.uint8.toHex(accountPublicKeyBytes);
   const keyBytes = util.uint4.toUint8(util.hex.toUint4(accountHex)); // For some reason here we go from u, to hex, to 4, to 8??
   const checksum = util.uint5.toString(util.uint4.toUint5(util.uint8.toUint4(blake.blake2b(keyBytes, null, 5).reverse())));
   const account = util.uint5.toString(util.uint4.toUint5(util.hex.toUint4(`0${accountHex}`)));
 
-  return `ban_${account}${checksum}`;
+  return `${prefix}_${account}${checksum}`;
 }
 
 function getAccountPublicKey(account) {
-  if ((!account.startsWith('ban_1') && !account.startsWith('ban_3')) || account.length !== 64) throw new Error(`Invalid BANANO Account ${account}`);
-  const account_crop = account.substring(4,64);
+  if (account.length == 64) {
+    if(!account.startsWith('ban_1') && !account.startsWith('ban_3')) {
+      throw new Error(`Invalid BANANO Account`);
+    }
+  } else if (account.length == 67) {
+    if(!account.startsWith('banano_1') && !account.startsWith('banano_3')) {
+      throw new Error(`Invalid BANANO Account`);
+    }
+  } else {
+    throw new Error(`Invalid BANANO Account`);
+  }
+  const account_crop = account.length == 64 ? account.substring(4,64) : account.substring(5,67);
   const isValid = /^[13456789abcdefghijkmnopqrstuwxyz]+$/.test(account_crop);
   if (!isValid) throw new Error(`Invalid BANANO account ${account}`);
 
@@ -228,6 +239,14 @@ function getAccountPublicKey(account) {
   if (!equal_arrays(hash_uint4, uint8ToUint4(blake_hash))) throw new Error(`Incorrect checksum`);
 
   return uint4ToHex(key_uint4);
+}
+
+function setPrefix(account, prefix = 'xrb') {
+  if (prefix === 'nano') {
+    return account.replace('xrb_', 'nano_');
+  } else {
+    return account.replace('nano_', 'xrb_');
+  }
 }
 
 /**
@@ -305,6 +324,7 @@ const util = {
     getPublicAccountID: getPublicAccountID,
     generateSeedBytes: generateSeedBytes,
     getAccountPublicKey: getAccountPublicKey,
+    setPrefix: setPrefix,
   },
   banano: {
     banToRaw: banToRaw,

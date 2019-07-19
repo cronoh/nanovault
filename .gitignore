@@ -5,6 +5,8 @@
 /dist-desktop
 /tmp
 /out-tsc
+/desktop-app/dist
+/desktop-app/build
 
 # dependencies
 /node_modules

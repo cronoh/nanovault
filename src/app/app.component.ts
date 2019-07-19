@@ -10,8 +10,8 @@ import {WorkPoolService} from "./services/work-pool.service";
 import {Router} from "@angular/router";
 import {RepresentativeService} from "./services/representative.service";
 import {NodeService} from "./services/node.service";
-import Banano from "hw-app-banano";
-import TransportU2F from "@ledgerhq/hw-transport-u2f";
+import { LedgerService } from './services';
+
 
 @Component({
   selector: 'app-root',
@@ -30,9 +30,10 @@ export class AppComponent implements OnInit {
   windowHeight = 1000;
   showSearchBar = false;
   searchData = '';
+  isConfigured = this.walletService.isConfigured;
 
   constructor(
-    private walletService: WalletService,
+    public walletService: WalletService,
     private addressBook: AddressBookService,
     public settings: AppSettingsService,
     private websocket: WebsocketService,
@@ -42,6 +43,7 @@ export class AppComponent implements OnInit {
     private representative: RepresentativeService,
     private router: Router,
     private workPool: WorkPoolService,
+    private ledger: LedgerService,
     public price: PriceService) { }
 
   async ngOnInit() {
@@ -52,27 +54,26 @@ export class AppComponent implements OnInit {
     await this.walletService.loadStoredWallet();
     this.websocket.connect();
 
-    await this.updateFiatPrices();
-
     this.representative.loadRepresentativeList();
 
     // If the wallet is locked and there is a pending balance, show a warning to unlock the wallet
-    if (this.wallet.locked && this.wallet.pending.gt(0)) {
+    if (this.wallet.locked && this.walletService.hasPendingTransactions()) {
       this.notifications.sendWarning(`New incoming transaction - unlock the wallet to receive it!`, { length: 0, identifier: 'pending-locked' });
+    }
+
+    // If they are using a Ledger device with a bad browser, warn them
+    if (this.walletService.isLedgerWallet() && this.ledger.isBrokenBrowser()) {
+      this.notifications.sendLedgerChromeWarning();
     }
 
     // When the page closes, determine if we should lock the wallet
     window.addEventListener("beforeunload",  (e) => {
       if (this.wallet.locked) return; // Already locked, nothing to worry about
-      if (this.settings.settings.lockOnClose == 1) {
-        this.walletService.lockWallet();
-      }
+      this.walletService.lockWallet();
     });
     window.addEventListener("unload",  (e) => {
       if (this.wallet.locked) return; // Already locked, nothing to worry about
-      if (this.settings.settings.lockOnClose == 1) {
-        this.walletService.lockWallet();
-      }
+      this.walletService.lockWallet();
     });
 
     // Listen for an ban: protocol link, triggered by the desktop application
@@ -97,6 +98,13 @@ export class AppComponent implements OnInit {
         this.notifications.sendSuccess(`Wallet locked after ${this.settings.settings.lockInactivityMinutes} minutes of inactivity`);
       }
     }, 1000);
+
+    try {
+      await this.updateFiatPrices();
+    } catch (err) {
+      this.notifications.sendWarning(`There was an issue retrieving latest Banano price.  Ensure your AdBlocker is disabled on this page then reload to see accurate FIAT values.`, { length: 0, identifier: `price-adblock` });
+    }
+
   }
 
   toggleSearch(mobile = false) {
@@ -124,8 +132,13 @@ export class AppComponent implements OnInit {
     this.inactiveSeconds = 0; // Action has happened, reset the inactivity timer
   }
 
+  retryConnection() {
+    this.walletService.reloadBalances(true);
+    this.notifications.sendInfo(`Attempting to reconnect to Banano node`);
+  }
+
   async updateFiatPrices() {
-    const displayCurrency = this.settings.getAppSetting(`displayCurrency`) || 'USD';
+    const displayCurrency = this.settings.getAppSetting(`displayCurrency`) || '';
     await this.price.getPrice(displayCurrency);
     this.walletService.reloadFiatBalances();
     setTimeout(() => this.updateFiatPrices(), this.fiatTimeout);

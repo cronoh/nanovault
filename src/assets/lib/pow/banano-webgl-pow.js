@@ -287,7 +287,7 @@ function calculate(hashHex, callback, progressCallback) {
 
     gl.uniform4uiv(work0Location, Array.from(work0));
     gl.uniform4uiv(work1Location, Array.from(work1));
-    
+
     // Check with progressCallback every 100 frames
     if(n%100===0 && typeof progressCallback === 'function' && progressCallback(n))
       return;
