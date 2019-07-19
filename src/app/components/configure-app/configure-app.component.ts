@@ -69,6 +69,7 @@ export class ConfigureAppComponent implements OnInit {
     { name: 'THB - Thai Baht', value: 'THB' },
     { name: 'TRY - Turkish Lira', value: 'TRY' },
     { name: 'TWD - New Taiwan Dollar', value: 'TWD' },
+    { name: 'VES - Venezuelan bolívar ', value: 'VES' },
     { name: 'ZAR - South African Rand', value: 'ZAR' },
   ];
   selectedCurrency = this.currencies[0].value;
