@@ -72,7 +72,7 @@ export class ApiService {
     return await this.request('block_count', { });
   }
   async workGenerate(hash): Promise<{ work: string }> {
-    return await this.request('work_generate', { hash });
+    return await this.request('work_generate', { hash, use_peers: true });
   }
   async process(block): Promise<{ hash: string, error?: string }> {
     return await this.request('process', { block: JSON.stringify(block) });
