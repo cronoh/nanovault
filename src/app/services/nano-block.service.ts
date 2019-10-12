@@ -317,7 +317,7 @@ export class NanoBlockService {
     const hashBytes = blake.blake2bFinal(context);
 
     const privKey = walletAccount.keyPair.secretKey;
-    const signed = nacl.sign.detached(hashBytes, privKey);
+    const signed = nacl.sign.detached(hashBytes, privKey, walletAccount.keyPair.expanded);
     const signature = this.util.hex.fromUint8(signed);
 
     return signature;
@@ -334,7 +334,7 @@ export class NanoBlockService {
     const hashBytes = blake.blake2bFinal(context);
 
     // Sign the hash bytes with the account priv key bytes
-    const signed = nacl.sign.detached(hashBytes, walletAccount.keyPair.secretKey);
+    const signed = nacl.sign.detached(hashBytes, walletAccount.keyPair.secretKey, walletAccount.keyPair.expanded);
     const signature = this.util.hex.fromUint8(signed);
 
     return signature;
@@ -351,7 +351,7 @@ export class NanoBlockService {
     const hashBytes = blake.blake2bFinal(context);
 
     const privKey = walletAccount.keyPair.secretKey;
-    const signed = nacl.sign.detached(hashBytes, privKey);
+    const signed = nacl.sign.detached(hashBytes, privKey, walletAccount.keyPair.expanded);
     const signature = this.util.hex.fromUint8(signed);
 
     return signature;
