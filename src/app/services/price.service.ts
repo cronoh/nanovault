@@ -1,10 +1,11 @@
 import { Injectable } from '@angular/core';
 import {HttpClient} from "@angular/common/http";
 import {BehaviorSubject} from "rxjs/BehaviorSubject";
+import { $ } from 'protractor';
 
 @Injectable()
 export class PriceService {
-  apiUrl = `https://api.coinmarketcap.com/v1/`;
+  apiUrl = `https://api.coinpaprika.com/v1/`;
 
   price = {
     lastPrice: 1,
@@ -16,16 +17,14 @@ export class PriceService {
 
   async getPrice(currency = 'USD') {
     if (!currency) return; // No currency defined, do not refetch
-    const convertString = currency !== 'USD' && currency !== 'BTC' ? `?convert=${currency}` : ``;
-    const response: any = await this.http.get(`${this.apiUrl}ticker/nano/${convertString}`).toPromise();
-    if (!response || !response.length) {
+    const convertString = currency !== 'USD' && currency !== 'BTC' ? `?quotes=USD,BTC,${currency}` : `?quotes=USD,BTC`;
+    const response: any = await this.http.get(`${this.apiUrl}tickers/nano-nano${convertString}`).toPromise();
+    if (response.id != "nano-nano") {
       return this.price.lastPrice;
     }
 
-    const quote = response[0];
-    const currencyPrice = quote[`price_${currency.toLowerCase()}`];
-    const btcPrice = quote.price_btc;
-    const usdPrice = quote.price_usd;
+    const currencyPrice = response.quotes[currency].price;
+    const btcPrice = response.quotes['BTC'].price;
 
     this.price.lastPrice = currencyPrice;
     this.price.lastPriceBTC = btcPrice;
@@ -34,5 +33,4 @@ export class PriceService {
 
     return this.price.lastPrice;
   }
-
 }
