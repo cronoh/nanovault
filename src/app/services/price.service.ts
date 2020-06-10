@@ -22,8 +22,8 @@ export class PriceService {
       return this.price.lastPrice;
     }
 
-    const currencyPrice = response[`quotes`][${currency}]['price'];
-    const btcPrice = response[`quotes`]['BTC']['price'];
+    const currencyPrice = response.quotes.currency.price;
+    const btcPrice = response.quotes.BTC.price;
 
     this.price.lastPrice = currencyPrice;
     this.price.lastPriceBTC = btcPrice;
