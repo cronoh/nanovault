@@ -41,7 +41,6 @@ export class AccountDetailsComponent implements OnInit, OnDestroy {
   showRepresentatives = false;
   representativeListMatch = '';
   isNaN = isNaN;
-  monKeyImageEndpoint = "https://bananomonkeys.herokuapp.com/image?address=";
 
 
   qrCodeImage = null;
@@ -82,7 +81,7 @@ export class AccountDetailsComponent implements OnInit, OnDestroy {
     this.monKeyImage = '';
     this.pendingBlocks = [];
     this.accountID = this.router.snapshot.params.account;
-    this.monKeyImage = this.monKeyImageEndpoint + this.accountID;
+    this.monKeyImage = `https://monkey.banano.cc/api/v1/monkey/${this.accountID}?svc=bananovault`;
     this.addressBookEntry = this.addressBook.getAccountName(this.accountID);
     this.addressBookModel = this.addressBookEntry || '';
     this.walletAccount = this.wallet.getWalletAccount(this.accountID);
