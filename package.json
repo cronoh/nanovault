@@ -75,7 +75,7 @@
     "@types/node": "^10.11.0",
     "@types/qrcode": "^0.8.1",
     "codelyzer": "^4.0.1",
-    "electron": "^1.8.2",
+    "electron": "^9.4.0",
     "electron-builder": "^19.52.1",
     "jasmine-core": "~2.6.2",
     "jasmine-spec-reporter": "~4.1.0",
