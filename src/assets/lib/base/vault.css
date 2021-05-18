@@ -459,7 +459,6 @@ left:calc(50% + (50px / 2));
 	border-collapse: collapse;
 	border-spacing: 0;
 	width: 100%;
-	margin-bottom: 20px
 }
 .uk-container>:last-child, .uk-grid>*>:last-child, .uk-section>:last-child, .uk-table td>:last-child {
 	margin-bottom: 0
@@ -1035,9 +1034,12 @@ padding:0
 	border-color: #b2b2b2
 }
 .uk-button-default.uk-active, .uk-button-default:active {
+	border: 1px solid transparent;
+	color: #282828;
+	border: 1px solid #fbdd11;
 	background-color: transparent;
-	color: #333;
-	border-color: #999
+	font-weight: 700;
+	border-radius: 10px;
 }
 .uk-button-danger, .uk-button-primary, .uk-button-secondary {
 	border: 1px solid transparent;
@@ -6831,7 +6833,6 @@ left:calc(50% + (50px / 2));
 	border-collapse: collapse;
 	border-spacing: 0;
 	width: 100%;
-	margin-bottom: 20px
 }
 .uk-container>:last-child, .uk-grid>*>:last-child, .uk-section>:last-child, .uk-table td>:last-child {
 	margin-bottom: 0
@@ -7126,7 +7127,8 @@ opacity:1
 .uk-input, .uk-select:not([multiple]):not([size]) {
 	height: 40px;
 	vertical-align: middle;
-	display: inline-block
+	display: inline-block;
+	border-radius: 10px;
 }
 .uk-input:not(input), .uk-select:not(select) {
 	line-height: 38px
@@ -7226,7 +7228,8 @@ select.uk-form-width-xsmall {
 .uk-select:not([multiple]):not([size]) {
 	padding-right: 20px;
 	background-image: url(data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%2224%22%20height%3D%2216%22%20viewBox%3D%220%200%2024%2016%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%0A%20%20%20%20%3Cpolygon%20fill%3D%22%23666%22%20points%3D%2212%201%209%206%2015%206%22%3E%3C%2Fpolygon%3E%0A%20%20%20%20%3Cpolygon%20fill%3D%22%23666%22%20points%3D%2212%2013%209%208%2015%208%22%3E%3C%2Fpolygon%3E%0A%3C%2Fsvg%3E%0A);
-	background-position: 100% 50%
+	background-position: 100% 50%;
+	border-radius: 10px;
 }
 .uk-select:not([multiple]):not([size])::-ms-expand {
 display:none
@@ -7363,14 +7366,16 @@ display:none
 	color: #666
 }
 .uk-form-icon:not(.uk-form-icon-flip)+.uk-input {
-	padding-left: 40px
+	padding-left: 40px;
+	border-radius: 10px;
 }
 .uk-form-icon-flip {
 	right: 0;
 	left: auto
 }
 .uk-form-icon-flip+.uk-input {
-	padding-right: 40px
+	padding-right: 40px;
+	border-radius: 10px;
 }
 .uk-button {
 	margin: 0;
@@ -7397,19 +7402,30 @@ padding:0
 	outline: 0
 }
 .uk-button-default {
-	background-color: #212124;
-	color: #cbcbcb;
-	border: 1px solid #212124
+	border: 1px solid transparent;
+	color: #fbdd11;
+	border: 1px solid #fbdd11;
+	background-color: transparent;
+	font-weight: 700;
+	border-radius: 10px;
 }
 .uk-button-default:focus, .uk-button-default:hover {
 	background-color: #000;
 	color: #cbcbcb;
-	border-color: #212124
+	border-color: #212124;
+	border: 1px solid transparent;
+	color: #fbdd11;
+	border: 1px solid #fbdd11;
+	background-color: #fbdd1124;
 }
 .uk-button-default.uk-active, .uk-button-default:active {
 	background-color: transparent;
 	color: #333;
-	border-color: #999
+	border-color: #999;
+	border: 1px solid transparent;
+	color: #fbdd11;
+	border: 1px solid #fbdd11;
+	background-color: #fbdd1124;
 }
 .uk-button-secondary {
 	border: 1px solid transparent;
@@ -7417,10 +7433,11 @@ padding:0
 }
 .uk-button-primary {
   border: 1px solid transparent;
-  color: #fbdd11;
-  border-radius: 15px;
+  color: #282828;
   border: 1px solid #fbdd11;
-  background-color: #fbdd1124;
+  background-color: #fbdd11;
+  font-weight: 700;
+  border-radius: 10px;
 }
 .uk-button-primary:focus, .uk-button-primary:hover {
 	background-color: #FBDD1F;
@@ -7429,7 +7446,6 @@ padding:0
 .uk-button-primary.uk-active, .uk-button-primary:active {
 	background-color: #fbdd11;
 	color: #212124;
-	border-radius: 5px;
 	transition: 1s all ease;
 }
 .uk-button-secondary {
@@ -7445,8 +7461,10 @@ padding:0
 }
 .uk-button-danger {
   border: 1px solid transparent;
-	color: #212124;
-	background-color: #f0506e
+  color: #212124;
+  background-color: #f0506e;
+  border-radius: 10px;
+  font-weight: 700;
 }
 .uk-button-danger:focus, .uk-button-danger:hover {
 	background-color: #ee395b;
@@ -7931,6 +7949,7 @@ padding:0
 	flex-basis:46%;
 	margin: 20px 0;
 	border-radius: 15px;
+	overflow: hidden;
 }
 .uk-card-default .uk-card-title {
 	color: #aaaaaa
@@ -8124,7 +8143,8 @@ transform:rotate(450deg)
 	margin-bottom: 20px;
 	padding: 15px 29px 15px 15px;
 	background: #f8f8f8;
-	color: #666
+	color: #666;
+	border-radius: 15px;
 }
 .uk-alert-close, .uk-nav-center.uk-nav-parent-icon>.uk-parent>a::after {
 	position: absolute
@@ -8428,6 +8448,12 @@ color:#999
 }
 ul.uk-nav-sub {
 	padding: 5px 0 5px 15px
+}
+ul.uk-nav-sub li:first-of-type{
+	border-top: 1px solid #282828
+}
+ul.uk-nav-sub li:last-of-type{
+	border: none;
 }
 .uk-nav-sub ul {
 	padding-left: 15px
@@ -9198,7 +9224,10 @@ ul.uk-nav-sub {
 	-webkit-transition: .3s linear;
 	transition: .3s linear;
 	-webkit-transition-property: opacity, transform;
-	transition-property: opacity, transform
+	transition-property: opacity, transform;
+	border-radius: 15px;
+	border: 1px solid transparent;
+	overflow: hidden;
 }
 .uk-open>.uk-modal-dialog {
 	opacity: 1;
@@ -12820,8 +12849,8 @@ h2, h3 {
 	border-radius: 10px;
 	position: relative;
 	margin-bottom: 10px;
-	-webkit-box-shadow: 0px 10px 13px -7px #000000, 5px 5px 15px 5px rgba(0,0,0,0);
-	box-shadow: 0px 10px 13px -7px #000000, 5px 5px 15px 5px rgba(0,0,0,0);
+	-webkit-box-shadow: 0px 10px 13px -7px #000000ad, 5px 5px 15px 5px rgb(0 0 0 / 0%);
+	box-shadow: 0px 10px 13px -7px #000000ad, 5px 5px 15px 5px rgb(0 0 0 / 0%);
 }
 
 #card-monkey{
@@ -12850,10 +12879,11 @@ h2, h3 {
 
 #welcome-cards .card h3{
     color: #fbdd11;
+    margin-top: 20px;
 }
 
 #welcome-cards .card img{
-   max-width: 170px;
+   max-width: 100px;
    width: 50%;
 }
 
@@ -12873,6 +12903,8 @@ h2, h3 {
 
 .left-nav[_ngcontent-c0] a[_ngcontent-c0]{
     padding-left: 20px;
+    width: 90%;
+    display: block;
 }
 
 .left-nav[_ngcontent-c0] a[_ngcontent-c0]:hover {
@@ -12884,17 +12916,24 @@ h2, h3 {
 .uk-button-secondary {
     border: 1px solid transparent;
     color: #fbdd11;
-    border-radius: 15px;
     border: 1px solid #fbdd11;
     background-color: transparent;
+    font-weight: 700;
+    border-radius: 10px;
 }
 
 .uk-button-secondary:hover, .uk-button-secondary:focus {
     border: 1px solid transparent;
     color: #fbdd11;
-    border-radius: 15px;
     border: 1px solid #fbdd11;
     background-color: #fbdd1124;
+}
+
+.uk-modal-footer .uk-button{
+	margin-right: 20px;
+}
+.uk-modal-footer .uk-button:last-of-type{
+	margin-right: 0;
 }
 
 @media (max-width:1200px){
