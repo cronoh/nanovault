@@ -12957,6 +12957,12 @@ h2, h3 {
 
 @media (max-width:639px) {
 
+	.uk-button{
+		padding-top: 10px;
+		padding-bottom: 10px;
+		line-height: 1.5;
+	}
+
 	#welcome-cards .card{
 		width: 100%;
 	}
