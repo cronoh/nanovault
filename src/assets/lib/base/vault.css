@@ -7440,7 +7440,7 @@ padding:0
   border-radius: 10px;
 }
 .uk-button-primary:focus, .uk-button-primary:hover {
-	background-color: #FBDD1F;
+	background-color: #fbdd1f8c;
 	color: #282828;
 }
 .uk-button-primary.uk-active, .uk-button-primary:active {
