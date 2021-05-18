@@ -142,5 +142,11 @@ export class AppComponent implements OnInit {
     await this.price.getPrice(displayCurrency);
     this.walletService.reloadFiatBalances();
     setTimeout(() => this.updateFiatPrices(), this.fiatTimeout);
-  }
+  } 
+
+
+
+
 }
+
+

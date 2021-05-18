@@ -9,7 +9,7 @@
 }
 
 .title-block {
-  background: #39393D;
+  background: #333333;
 }
 
 .title-block .title {
@@ -17,7 +17,7 @@
   display: block;
   padding-top: 10px;
   padding-bottom: 10px;
-  color: #3aac4a;
+  color: #fbdd11;
 }
 .title-block .title:hover {
   text-decoration: none;
@@ -38,7 +38,7 @@
 }
 
 .left-nav .active {
-  color: #3aac4a;
+  color: #fbdd11;
 }
 
 .left-nav a {
@@ -46,7 +46,7 @@
 }
 
 .left-nav a:hover {
-  color: #3aac4a;
+  color: #fbdd11;
 }
 
 .wallet-bar a {
