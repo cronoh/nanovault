@@ -1824,7 +1824,7 @@ transform:rotate(450deg)
 	display: inline-block;
 	padding: 0 10px;
 	line-height: 1.5;
-	color: #fff;
+	color: #282828;
 	border-radius: 2px
 }
 .uk-article::after, .uk-article::before, .uk-comment-body::after, .uk-comment-body::before, .uk-comment-header::after, .uk-comment-header::before {
@@ -12934,6 +12934,12 @@ h2, h3 {
 }
 .uk-modal-footer .uk-button:last-of-type{
 	margin-right: 0;
+}
+
+@media only screen and (max-width: 1500px) and (min-width: 1200px)  {
+	#card-monkey {
+		max-width: 35%;
+	}
 }
 
 @media (max-width:1200px){
