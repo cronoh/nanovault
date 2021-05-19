@@ -8226,8 +8226,8 @@ transform:rotate(450deg)
 	display: inline-block;
 	padding: 0 10px;
 	line-height: 1.5;
-	color: #fff;
-	border-radius: 2px
+	color: #282828;
+	border-radius: 2px;
 }
 .uk-article::after, .uk-article::before, .uk-comment-body::after, .uk-comment-body::before, .uk-comment-header::after, .uk-comment-header::before {
 	display: table;
