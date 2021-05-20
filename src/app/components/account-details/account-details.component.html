@@ -45,12 +45,10 @@
       </div>
       <div class="uk-card-body uk-padding-remove uk-form-horizontal">
 
-        <div class="uk-padding-small" style="" uk-grid>
-          <div class="uk-width-1-4@s">
-            <img *ngIf="monKeyImage" [src]="monKeyImage">
-          </div>
+        <div class="uk-padding-small" id="acc-details-head" style="" uk-grid>
+          
 
-          <div class="uk-width-1-2@s">
+          <div class="uk-width-1-2@s uk-margin-top">
             <div uk-grid>
               <div class="uk-width-1-1">
                 <div uk-grid>
@@ -138,7 +136,12 @@
 
             </div>
           </div>
-          <div class="uk-width-1-4@s uk-text-center">
+
+          <div class="uk-width-1-4@s">
+            <img *ngIf="monKeyImage" [src]="monKeyImage">
+          </div>
+
+          <div class="uk-width-1-4@s uk-text-center uk-margin-top">
             <img *ngIf="qrCodeImage" [src]="qrCodeImage"><br />
             <span class="uk-text-small">Scan to receive Banano</span>
           </div>

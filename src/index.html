@@ -32,8 +32,12 @@
 </head>
 <body class="body" style="font-family: 'Lato', sans-serif;">
   <app-root>
-    <div style="position: absolute; text-align: center; height: 30px; font-size: 30px; margin: auto; top: 25%; left: 0; right: 0;">
-      Loading BananoVault...
+    <div id="loader">
+      <div id="loading-cont">
+        <div class="lds-ring"><div></div><div></div><div></div><div></div></div>
+      </div>
+      
+      <img id="loader-logo" src="/assets/img/loader-logo.png">
     </div>
   </app-root>
 </body>
