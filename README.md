@@ -22,7 +22,7 @@ You can also use BananoVault from any device on the web at [vault.banano.cc](htt
 
 
 # Bugs/Feedback
-If you run into any issues, please use the [GitHub Issue Tracker](https://github.com/bananocoin/bananovault/issues) or head over to our [Discord Server](https://discord.gg/SBPaSBS)!
+If you run into any issues, please use the [GitHub Issue Tracker](https://github.com/bananocoin/bananovault/issues) or head over to our [Discord Server](https://chat.banano.cc/)!
 We are continually improving and adding new features based on the feedback you provide, so please let your opinions be known!
 
 To get an idea of some of the things that are planned for the near future, check out the [Road Map](https://github.com/bananocoin/bananovault/wiki/Road-Map).
