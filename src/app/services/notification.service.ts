@@ -38,10 +38,8 @@ export class NotificationService {
   // Custom notification functions - these are re-used in multiple paces through the app
   sendLedgerChromeWarning() {
     this.sendWarning(
-      `<b>Notice:</b> You may experience issues using a Ledger device with Google Chrome. ` +
-      `If you do please use Brave/Opera browser or ` +
-      `<a href="https://github.com/bananocoin/bananovault/releases" target="_blank">BananoVault Desktop</a>. ` +
-      `&nbsp; <a href="https://github.com/bananocoin/bananovault/issues/69" target="_blank">More Info</a>`,
+      `<b>Notice:</b> You may experience issues using a Ledger device with Certian browsers. ` +
+      `If you do please try Brave/Opera browser`,
       { length: 0, identifier: 'chrome-ledger' }
       );
   }
